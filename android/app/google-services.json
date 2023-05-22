@@ -76,42 +76,6 @@
           ]
         }
       }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:625094720482:android:57a014090bd6927afcd7bb",
-        "android_client_info": {
-          "package_name": "com.topbusiness.medosedovendor"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "625094720482-5ohjsqljkdl9gaf8c1i8q7sfl5746l5t.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBQWxp5tu1ddq-TMJwuVCe-PYRayJecbvI"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "625094720482-5ohjsqljkdl9gaf8c1i8q7sfl5746l5t.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "625094720482-o2lbnvsuqdkf5ma1kh7ntv55ju2idr0i.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.topbusiness.bed3avendor"
-              }
-            }
-          ]
-        }
-      }
     }
   ],
   "configuration_version": "1"
