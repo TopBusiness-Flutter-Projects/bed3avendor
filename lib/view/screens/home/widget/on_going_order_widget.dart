@@ -9,8 +9,8 @@ import 'package:bed3avendor/utill/styles.dart';
 import 'package:bed3avendor/view/screens/home/widget/order_type_button_head.dart';
 
 class OngoingOrderWidget extends StatelessWidget {
-  final Function callback;
-  const OngoingOrderWidget({Key key, this.callback}) : super(key: key);
+  final Function? callback;
+  const OngoingOrderWidget({Key? key, this.callback}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class OngoingOrderWidget extends StatelessWidget {
                       child: Image.asset(Images.monthly_earning)),
                   SizedBox(width: Dimensions.PADDING_SIZE_SMALL,),
 
-                  Text(getTranslated('business_analytics', context), style: robotoBold.copyWith(
+                  Text(getTranslated('business_analytics', context)!, style: robotoBold.copyWith(
                       color: ColorResources.getTextColor(context),
                       fontSize: Dimensions.FONT_SIZE_DEFAULT),),
 
@@ -55,7 +55,7 @@ class OngoingOrderWidget extends StatelessWidget {
                       items: <String>['overall', 'today', 'this_month' ].map((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
-                          child: Text(getTranslated(value, context), style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT),),
+                          child: Text(getTranslated(value, context)!, style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT),),
                         );
                       }).toList(),
                       onChanged: (value) {
@@ -74,7 +74,7 @@ class OngoingOrderWidget extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.fromLTRB( Dimensions.PADDING_SIZE_DEFAULT,
                    Dimensions.PADDING_SIZE_EXTRA_SMALL, Dimensions.PADDING_SIZE_DEFAULT,Dimensions.PADDING_SEVEN),
-              child: Text(getTranslated('on_going_orders', context),
+              child: Text(getTranslated('on_going_orders', context)!,
                 style: robotoBold.copyWith(color: Theme.of(context).primaryColor),),
             ),
 

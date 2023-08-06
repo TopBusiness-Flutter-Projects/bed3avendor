@@ -1,7 +1,7 @@
 class OrderHistoryLogModel {
-  String status;
-  String userType;
-  String createdAt;
+  String? status;
+  String? userType;
+  String? createdAt;
   OrderHistoryLogModel(
       {
         this.status,

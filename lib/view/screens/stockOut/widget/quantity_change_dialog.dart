@@ -16,12 +16,12 @@ import 'package:bed3avendor/view/base/textfeild/custom_text_feild.dart';
 
 
 class QuantityUpdateDialog extends StatefulWidget {
-  final String title;
+  final String? title;
   final Function onYesPressed;
-  final TextEditingController note;
-  final TextEditingController stockQuantityController;
-  final Product product;
-  QuantityUpdateDialog({this.title, @required this.onYesPressed, this.note, this.product, this.stockQuantityController});
+  final TextEditingController? note;
+  final TextEditingController? stockQuantityController;
+  final Product? product;
+  QuantityUpdateDialog({this.title, required this.onYesPressed, this.note, this.product, this.stockQuantityController});
 
   @override
   State<QuantityUpdateDialog> createState() => _QuantityUpdateDialogState();
@@ -34,7 +34,7 @@ class _QuantityUpdateDialogState extends State<QuantityUpdateDialog> {
 
   void _load(){
     String languageCode = Provider.of<LocalizationProvider>(context, listen: false).locale.countryCode == 'US'?
-    'en':Provider.of<LocalizationProvider>(context, listen: false).locale.countryCode.toLowerCase();
+    'en':Provider.of<LocalizationProvider>(context, listen: false).locale.countryCode!.toLowerCase();
     Provider.of<SplashProvider>(context,listen: false).getColorList();
     Provider.of<SellerProvider>(context,listen: false).getAttributeList(context, widget.product, languageCode);
   }
@@ -42,7 +42,7 @@ class _QuantityUpdateDialogState extends State<QuantityUpdateDialog> {
   @override
   void initState() {
     _load();
-    widget.stockQuantityController.text = widget.product.currentStock.toString();
+    widget.stockQuantityController!.text = widget.product!.currentStock.toString();
     super.initState();
 
   }
@@ -58,19 +58,19 @@ class _QuantityUpdateDialogState extends State<QuantityUpdateDialog> {
 
 
             if (Provider.of<SellerProvider>(context, listen: false).attributeList != null &&
-                Provider.of<SellerProvider>(context, listen: false).attributeList.length > 0) {
+                Provider.of<SellerProvider>(context, listen: false).attributeList!.length > 0) {
               if(addColor==0) {
                 addColor++;
-                if ( widget.product.colors != null && widget.product.colors.length > 0) {
+                if ( widget.product!.colors != null && widget.product!.colors!.length > 0) {
                   Future.delayed(Duration.zero, () async {
                     Provider.of<SellerProvider>(context, listen: false).setAttribute();
                   });
                 }
-                for (int index = 0; index < widget.product.colors.length; index++) {
+                for (int index = 0; index < widget.product!.colors!.length; index++) {
                   _colors.add(index);
                   Future.delayed(Duration.zero, () async {
-                    resProvider.addVariant(context,0, widget.product.colors[index].name, widget.product, false);
-                    resProvider.addColorCode(widget.product.colors[index].code);
+                    resProvider.addVariant(context,0, widget.product!.colors![index].name, widget.product, false);
+                    resProvider.addColorCode(widget.product!.colors![index].code);
                   });
                 }
               }
@@ -93,19 +93,19 @@ class _QuantityUpdateDialogState extends State<QuantityUpdateDialog> {
                              Padding(
                               padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_LARGE),
                               child: Text(
-                                widget.title, textAlign: TextAlign.center,
+                                widget.title!, textAlign: TextAlign.center,
                                 style: robotoMedium.copyWith(fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE),
                               ),
                             ),
 
                             resProvider.attributeList != null?
-                            AttributeView(product: widget.product, colorOn: resProvider.attributeList[0].active, onlyQuantity: true):CircularProgressIndicator(),
+                            AttributeView(product: widget.product, colorOn: resProvider.attributeList![0].active, onlyQuantity: true):CircularProgressIndicator(),
 
 
                             Container(margin: EdgeInsets.only(left: Dimensions.PADDING_SIZE_LARGE, right: Dimensions.PADDING_SIZE_LARGE,
                                 bottom: Dimensions.PADDING_SIZE_SMALL),
                                 child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                                  Text(getTranslated('total_quantity', context),
+                                  Text(getTranslated('total_quantity', context)!,
                                       style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT)),
                                   SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                                   CustomTextField(

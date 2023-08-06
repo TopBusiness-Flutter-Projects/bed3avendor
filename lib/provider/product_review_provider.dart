@@ -9,8 +9,8 @@ import 'package:bed3avendor/localization/language_constrants.dart';
 import 'package:bed3avendor/view/base/custom_snackbar.dart';
 
 class ProductReviewProvider extends ChangeNotifier{
-  final ProductReviewRepo productReviewRepo;
-  ProductReviewProvider({@required this.productReviewRepo});
+  final ProductReviewRepo? productReviewRepo;
+  ProductReviewProvider({required this.productReviewRepo});
 
 
   List<Reviews> _reviewList = [];
@@ -46,15 +46,15 @@ class ProductReviewProvider extends ChangeNotifier{
   Future<void> getReviewList(BuildContext context) async{
     _isLoading = true;
 
-    ApiResponse apiResponse = await productReviewRepo.productReviewList();
+    ApiResponse apiResponse = await productReviewRepo!.productReviewList();
 
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _isLoading = false;
       _reviewList = [];
 
 
-        RattingModel reviewModel = RattingModel.fromJson(apiResponse.response.data);
-        _reviewList.addAll(reviewModel.reviews);
+        RattingModel reviewModel = RattingModel.fromJson(apiResponse.response!.data);
+        _reviewList.addAll(reviewModel.reviews!);
         for(Reviews review in _reviewList){
           _isOn.add(review.status == 1? true:false);
         }
@@ -68,15 +68,15 @@ class ProductReviewProvider extends ChangeNotifier{
     }
     notifyListeners();
   }
-  Future<void> filterReviewList(BuildContext context, int productId, int customerId, ) async{
-    ApiResponse apiResponse = await productReviewRepo.filterProductReviewList(productId, customerId,
-        _reviewStatusIndex, dateFormat.format(_startDate).toString() , dateFormat.format(_endDate).toString());
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+  Future<void> filterReviewList(BuildContext context, int? productId, int? customerId, ) async{
+    ApiResponse apiResponse = await productReviewRepo!.filterProductReviewList(productId, customerId,
+        _reviewStatusIndex, dateFormat.format(_startDate!).toString() , dateFormat.format(_endDate!).toString());
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       Navigator.pop(context);
       _isLoading = false;
       _reviewList = [];
-      RattingModel reviewModel = RattingModel.fromJson(apiResponse.response.data);
-      _reviewList.addAll(reviewModel.reviews);
+      RattingModel reviewModel = RattingModel.fromJson(apiResponse.response!.data);
+      _reviewList.addAll(reviewModel.reviews!);
       for(Reviews review in _reviewList){
         _isOn.add(review.status == 1? true:false);
       }
@@ -89,12 +89,12 @@ class ProductReviewProvider extends ChangeNotifier{
     notifyListeners();
   }
   Future<void> searchReviewList(BuildContext context, String search) async{
-    ApiResponse apiResponse = await productReviewRepo.searchProductReviewList(search);
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+    ApiResponse apiResponse = await productReviewRepo!.searchProductReviewList(search);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _isLoading = false;
       _reviewList = [];
-      RattingModel reviewModel = RattingModel.fromJson(apiResponse.response.data);
-      _reviewList.addAll(reviewModel.reviews);
+      RattingModel reviewModel = RattingModel.fromJson(apiResponse.response!.data);
+      _reviewList.addAll(reviewModel.reviews!);
       for(Reviews review in _reviewList){
         _isOn.add(review.status == 1? true:false);
       }
@@ -116,10 +116,10 @@ class ProductReviewProvider extends ChangeNotifier{
   }
 
 
-  Future<void> reviewStatusOnOff(BuildContext context, int reviewId, int status, int index) async{
-    ApiResponse apiResponse = await productReviewRepo.reviewStatusOnOff(reviewId,status);
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
-      _reviewList[index].status = status;
+  Future<void> reviewStatusOnOff(BuildContext context, int? reviewId, int status, int? index) async{
+    ApiResponse apiResponse = await productReviewRepo!.reviewStatusOnOff(reviewId,status);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+      _reviewList[index!].status = status;
       showCustomSnackBar(getTranslated('review_status_updated_successfully', context), context, isError: false);
     }else{
       ApiChecker.checkApi(context, apiResponse);
@@ -128,11 +128,11 @@ class ProductReviewProvider extends ChangeNotifier{
   }
 
 
-  DateTime _startDate;
-  DateTime _endDate;
+  DateTime? _startDate;
+  DateTime? _endDate;
   DateFormat _dateFormat = DateFormat('yyyy-MM-d');
-  DateTime get startDate => _startDate;
-  DateTime get endDate => _endDate;
+  DateTime? get startDate => _startDate;
+  DateTime? get endDate => _endDate;
   DateFormat get dateFormat => _dateFormat;
 
   void selectDate(String type, BuildContext context){

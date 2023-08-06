@@ -7,8 +7,8 @@ import 'package:bed3avendor/view/base/no_data_screen.dart';
 import 'package:bed3avendor/view/screens/delivery/widget/delivery_man_review_card.dart';
 
 class DeliveryManReviewList extends StatelessWidget {
-  final DeliveryMan deliveryMan;
-  const DeliveryManReviewList({Key key, this.deliveryMan}) : super(key: key);
+  final DeliveryMan? deliveryMan;
+  const DeliveryManReviewList({Key? key, this.deliveryMan}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -1,12 +1,12 @@
 class BusinessAnalyticsFilterData {
-  int pending;
-  int confirmed;
-  int processing;
-  int outForDelivery;
-  int delivered;
-  int canceled;
-  int returned;
-  int failed;
+  int? pending;
+  int? confirmed;
+  int? processing;
+  int? outForDelivery;
+  int? delivered;
+  int? canceled;
+  int? returned;
+  int? failed;
 
   BusinessAnalyticsFilterData(
       {this.pending,

@@ -4,8 +4,8 @@ import 'package:bed3avendor/utill/styles.dart';
 
 class CustomHeader extends StatelessWidget {
   final String headerImage;
-  final String title;
-  const CustomHeader({Key key, @required this.title, @required this.headerImage}) : super(key: key);
+  final String? title;
+  const CustomHeader({Key? key, required this.title, required this.headerImage}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class CustomHeader extends StatelessWidget {
         children: [
           Image.asset(headerImage, height: 30),
           SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
-          Text(title, style: robotoMedium.copyWith(
+          Text(title!, style: robotoMedium.copyWith(
             fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE,
             color: Theme.of(context).primaryColor,
           ),),

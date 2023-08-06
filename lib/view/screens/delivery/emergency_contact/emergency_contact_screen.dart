@@ -11,7 +11,7 @@ import 'package:bed3avendor/view/screens/delivery/emergency_contact/widget/add_e
 import 'package:bed3avendor/view/screens/delivery/emergency_contact/widget/emergency_contact_list.dart';
 
 class EmergencyContactScreen extends StatefulWidget {
-  const EmergencyContactScreen({Key key}) : super(key: key);
+  const EmergencyContactScreen({Key? key}) : super(key: key);
 
   @override
   State<EmergencyContactScreen> createState() => _EmergencyContactScreenState();
@@ -31,7 +31,7 @@ class _EmergencyContactScreenState extends State<EmergencyContactScreen> {
       appBar: CustomAppBar(title: getTranslated('emergency_contact', context),isBackButtonExist: true,),
       body: RefreshIndicator(
         onRefresh: () async{
-          return true;
+       //   return true;
         },
         child: CustomScrollView(
           slivers: [

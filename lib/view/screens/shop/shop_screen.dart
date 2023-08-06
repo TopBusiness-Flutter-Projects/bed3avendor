@@ -18,7 +18,7 @@ import 'package:bed3avendor/view/screens/shop/widget/shop_information_widget.dar
 import 'package:bed3avendor/view/screens/shop/widget/vacation_dialog.dart';
 
 class ShopScreen extends StatefulWidget {
-  ShopScreen({Key key});
+  ShopScreen({Key? key});
 
   @override
   _ShopScreenState createState() => _ShopScreenState();
@@ -31,7 +31,7 @@ class _ShopScreenState extends State<ShopScreen> {
   @override
   Widget build(BuildContext context) {
     Provider.of<ShopProvider>(context, listen: false).selectedIndex;
-    sellerId = Provider.of<ProfileProvider>(context, listen: false).userInfoModel.id.toString();
+    sellerId = Provider.of<ProfileProvider>(context, listen: false).userInfoModel!.id.toString();
     Provider.of<ShopProvider>(context, listen: false).getShopInfo(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -64,16 +64,16 @@ class _ShopScreenState extends State<ShopScreen> {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: Dimensions.PADDING_SIZE_DEFAULT),
                       child: ShopSettingWidget(title: 'temporary_close', mode: shopInfo.shopModel?.temporaryClose != null ?
-                      shopInfo.shopModel.temporaryClose == 1: false,
+                      shopInfo.shopModel!.temporaryClose == 1: false,
                         onTap: (value){
                         print('--->$value');
                         showAnimatedDialog(context, ConfirmationDialog(
                             icon: Images.logo,
                             title: getTranslated('temporary_close_message', context),
-                          color: Theme.of(context).textTheme.bodyLarge.color,
+                          color: Theme.of(context).textTheme.bodyLarge!.color,
                           onYesPressed: (){
-                              shopInfo.shopTemporaryClose(context, shopInfo.shopModel.temporaryClose == 1? 0 : 1);
-                          },
+                              shopInfo.shopTemporaryClose(context, shopInfo.shopModel!.temporaryClose == 1? 0 : 1);
+                          }, description: '',
                         ),
                           isFlip: true
                         );
@@ -83,24 +83,24 @@ class _ShopScreenState extends State<ShopScreen> {
                     shopInfo.shopModel != null?
                     Padding(
                       padding: const EdgeInsets.only(bottom: Dimensions.PADDING_SIZE_DEFAULT),
-                      child: ShopSettingWidget(title: 'vacation', mode: shopInfo.shopModel.vacationStatus == 1,
+                      child: ShopSettingWidget(title: 'vacation', mode: shopInfo.shopModel!.vacationStatus == 1,
                         onTap: (value){
                           print('--->$value');
                           showAnimatedDialog(context, ConfirmationDialog(
                             icon: Images.logo,
                             title: getTranslated('vacation_message', context),
-                            color: Theme.of(context).textTheme.bodyLarge.color,
+                            color: Theme.of(context).textTheme.bodyLarge!.color,
                             onYesPressed: (){
-                              shopInfo.shopVacation(context,shopInfo.shopModel.vacationStartDate, shopInfo.shopModel.vacationEndDate, vacationNote.text, shopInfo.shopModel.vacationStatus == 1? 0 : 1);
-                            },
+                              shopInfo.shopVacation(context,shopInfo.shopModel!.vacationStartDate, shopInfo.shopModel!.vacationEndDate, vacationNote.text, shopInfo.shopModel!.vacationStatus == 1? 0 : 1);
+                            }, description: '',
                           ),
                               isFlip: true
                           );
                         },),
                     ): SizedBox(),
 
-                    shopInfo.shopModel != null && shopInfo.shopModel.vacationStatus == 1?
-                    ShopSettingWidget(title: 'vacation_date_range', mode: shopInfo.shopModel.vacationStatus == 1,
+                    shopInfo.shopModel != null && shopInfo.shopModel!.vacationStatus == 1?
+                    ShopSettingWidget(title: 'vacation_date_range', mode: shopInfo.shopModel!.vacationStatus == 1,
                       dateSelection: true,
                       onTap: (value){},
                       onPress: (){
@@ -139,13 +139,13 @@ class _ShopScreenState extends State<ShopScreen> {
 }
 
 class ShopSettingWidget extends StatelessWidget {
-  final String title;
-  final String icon;
-  final bool mode;
-  final Function(bool value) onTap;
-  final Function onPress;
+  final String? title;
+  final String? icon;
+  final bool? mode;
+  final Function(bool value)? onTap;
+  final Function? onPress;
   final bool dateSelection;
-  const ShopSettingWidget({Key key, this.title, this.icon, this.mode, this.onTap, this.dateSelection = false, this.onPress}) : super(key: key);
+  const ShopSettingWidget({Key? key, this.title, this.icon, this.mode, this.onTap, this.dateSelection = false, this.onPress}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -160,9 +160,9 @@ class ShopSettingWidget extends StatelessWidget {
           ),
           child:
           Row(children: [
-            Expanded(child: Text(getTranslated(title, context))),
+            Expanded(child: Text(getTranslated(title, context)!)),
             dateSelection?
-            InkWell(onTap: onPress,
+            InkWell(onTap: onPress as void Function()?,
               child: Container(
                 decoration: BoxDecoration(
                   border: Border.all(color: Theme.of(context).primaryColor, width: .25),
@@ -172,26 +172,26 @@ class ShopSettingWidget extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(shop.shopModel != null? shop.shopModel.vacationStartDate:'start_date'),
+                      Text(shop.shopModel != null? shop.shopModel!.vacationStartDate!:'start_date'),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                         child: Icon(Icons.arrow_forward_rounded,size: Dimensions.ICON_SIZE_DEFAULT,
 
                             color:  Theme.of(context).primaryColor),
                       ),
-                      Text(shop.shopModel != null? shop.shopModel.vacationEndDate : 'end_date'),
+                      Text(shop.shopModel != null? shop.shopModel!.vacationEndDate! : 'end_date'),
                     ],
                   ),
                 ),
               ),
             ):
             FlutterSwitch(
-              value: mode,
+              value: mode!,
               width: 50,
               height: 27,
               toggleSize: 20,
               padding: 2,
-              onToggle: onTap)
+              onToggle: onTap!)
 
           ],),
         );

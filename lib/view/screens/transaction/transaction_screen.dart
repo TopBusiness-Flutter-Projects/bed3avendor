@@ -56,11 +56,11 @@ class _TransactionScreenState extends State<TransactionScreen> {
                   ],
                 )),
 
-              Expanded(child: transactionProvider.transactionList != null ? transactionProvider.transactionList.length > 0 ?
+              Expanded(child: transactionProvider.transactionList != null ? transactionProvider.transactionList!.length > 0 ?
 
-               ListView.builder(itemCount: transactionProvider.transactionList.length,
+               ListView.builder(itemCount: transactionProvider.transactionList!.length,
                   itemBuilder: (context, index) => TransactionWidget(
-                      transactionModel: transactionProvider.transactionList[index])):
+                      transactionModel: transactionProvider.transactionList![index])):
                NoDataScreen() : Center(child: CircularProgressIndicator(
                   valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor))),
               ),
@@ -75,7 +75,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
 class TransactionTypeButton extends StatelessWidget {
   final String text;
   final int index;
-  TransactionTypeButton({@required this.text, @required this.index,});
+  TransactionTypeButton({required this.text, required this.index,});
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +96,7 @@ class TransactionTypeButton extends StatelessWidget {
                 color: transactionProvider.transactionTypeIndex == index ? Theme.of(context).primaryColor : ColorResources.getButtonHintColor(context),
                 borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_LARGE),
               ),
-              child: Text(getTranslated(text, context), style: transactionProvider.transactionTypeIndex == index
+              child: Text(getTranslated(text, context)!, style: transactionProvider.transactionTypeIndex == index
                   ? titilliumBold.copyWith(color: transactionProvider.transactionTypeIndex == index
                   ? ColorResources.getWhite(context) : ColorResources.getTextColor(context)):
               robotoRegular.copyWith(color: transactionProvider.transactionTypeIndex == index

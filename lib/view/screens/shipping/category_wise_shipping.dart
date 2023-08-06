@@ -12,7 +12,7 @@ import 'package:bed3avendor/view/screens/shipping/widget/drop_down_for_shipping_
 
 
 class CategoryWiseShippingScreen extends StatefulWidget {
-  const CategoryWiseShippingScreen({Key key}) : super(key: key);
+  const CategoryWiseShippingScreen({Key? key}) : super(key: key);
 
   @override
   State<CategoryWiseShippingScreen> createState() => _CategoryWiseShippingScreenState();
@@ -43,14 +43,14 @@ class _CategoryWiseShippingScreenState extends State<CategoryWiseShippingScreen>
                   children: [
                     Column(
                       children: [
-                        shipProv.categoryWiseShipping !=null ? shipProv.categoryWiseShipping.length > 0 ?
+                        shipProv.categoryWiseShipping !=null ? shipProv.categoryWiseShipping!.length > 0 ?
                         Expanded(
                             child: Padding(
                               padding:  EdgeInsets.only(bottom: 80, top: Dimensions.PADDING_SIZE_SMALL),
                               child: ListView.builder(
-                                itemCount: shipProv.categoryWiseShipping.length,
+                                itemCount: shipProv.categoryWiseShipping!.length,
                                 itemBuilder: (context, index){
-                                  return CategoryWiseShippingCard(shipProv: shipProv,index: index,category: shipProv.categoryWiseShipping[index].category);
+                                  return CategoryWiseShippingCard(shipProv: shipProv,index: index,category: shipProv.categoryWiseShipping![index].category);
                                 }
 
                               ),
@@ -66,7 +66,7 @@ class _CategoryWiseShippingScreenState extends State<CategoryWiseShippingScreen>
                           fontColor: Colors.white,
                           btnTxt: getTranslated('save_update', context),
                           onTap: (){
-                          List<int> _ids= [];
+                          List<int?> _ids= [];
                           List<double> _cost= [];
                           List<int> _isMulti= [];
                           shipProv.shippingCostController.forEach((cost) {
@@ -75,7 +75,7 @@ class _CategoryWiseShippingScreenState extends State<CategoryWiseShippingScreen>
                           _ids = shipProv.ids;
                           _isMulti = shipProv.isMultiplyInt;
                           shipProv.setCategoryWiseShippingCost(context, _ids, _cost, _isMulti).then((value) {
-                            if(value.response.statusCode==200){
+                            if(value.response!.statusCode==200){
                               shipProv.getCategoryWiseShippingMethod(context);
                             }
                           });

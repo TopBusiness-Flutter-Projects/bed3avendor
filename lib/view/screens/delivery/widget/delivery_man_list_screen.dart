@@ -10,7 +10,7 @@ import 'package:bed3avendor/view/base/custom_search_field.dart';
 import 'package:bed3avendor/view/screens/delivery/widget/delivery_man_list_view.dart';
 
 class DeliveryManListScreen extends StatefulWidget {
-  const DeliveryManListScreen({Key key}) : super(key: key);
+  const DeliveryManListScreen({Key? key}) : super(key: key);
 
   @override
   State<DeliveryManListScreen> createState() => _DeliveryManListScreenState();
@@ -31,7 +31,7 @@ class _DeliveryManListScreenState extends State<DeliveryManListScreen> {
       body: RefreshIndicator(
         onRefresh: () async{
           Provider.of<DeliveryManProvider>(context, listen: false).deliveryManListURI(context, 1,'');
-          return true;
+       //   return true;
         },
         child: CustomScrollView(
         slivers: [

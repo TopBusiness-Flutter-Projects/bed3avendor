@@ -12,7 +12,7 @@ import 'package:bed3avendor/view/screens/menu/menu_screen.dart';
 
 
 class NavBarScreen extends StatefulWidget {
-  NavBarScreen({Key key}) : super(key: key);
+  NavBarScreen({Key? key}) : super(key: key);
 
   @override
   State<NavBarScreen> createState() => _NavBarScreenState();
@@ -71,12 +71,12 @@ class _NavBarScreenState extends State<NavBarScreen> {
             children: [
               customBottomItem(tap: () => menuController.selectHomePage(),
                 icon: menuController.currentTab == 0 ? Images.pos : Images.pos,
-                name: getTranslated('pos', context), selectIndex: 0,),
+                name: getTranslated('pos', context)!, selectIndex: 0,),
               customBottomItem(tap: () => menuController.selectPosScreen(),
-                icon: menuController.currentTab == 1 ? Images.order : Images.order, name: getTranslated('my_order', context), selectIndex: 1),
+                icon: menuController.currentTab == 1 ? Images.order : Images.order, name: getTranslated('my_order', context)!, selectIndex: 1),
               const SizedBox(height: 20, width: 20),
               customBottomItem(tap: () => menuController.selectItemsScreen(),
-                icon: menuController.currentTab == 2 ? Images.product_icon : Images.product_icon, name: getTranslated('products', context), selectIndex: 2,
+                icon: menuController.currentTab == 2 ? Images.product_icon : Images.product_icon, name: getTranslated('products', context)!, selectIndex: 2,
               ),
               customBottomItem(tap: () {
                 showModalBottomSheet(
@@ -86,7 +86,7 @@ class _NavBarScreenState extends State<NavBarScreen> {
                     builder: (con) => MenuBottomSheet()
                 );
               },
-                icon: menuController.currentTab == 3 ? Images.menu : Images.menu, name: getTranslated('menu', context), selectIndex: 3,
+                icon: menuController.currentTab == 3 ? Images.menu : Images.menu, name: getTranslated('menu', context)!, selectIndex: 3,
               ),
             ],
           ),
@@ -98,7 +98,7 @@ class _NavBarScreenState extends State<NavBarScreen> {
   }
 
 
-  Widget customBottomItem({String icon, String name, VoidCallback tap, int selectIndex}) {
+  Widget customBottomItem({required String icon, required String name, VoidCallback? tap, int? selectIndex}) {
     return InkWell(onTap: tap,
       child: Column(
         mainAxisSize: MainAxisSize.min,

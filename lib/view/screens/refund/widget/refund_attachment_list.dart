@@ -6,8 +6,8 @@ import 'package:bed3avendor/view/base/custom_image.dart';
 import 'image_diaglog.dart';
 
 class RefundAttachmentList extends StatelessWidget {
-  final RefundModel refundModel;
-  const RefundAttachmentList({Key key, this.refundModel}) : super(key: key);
+  final RefundModel? refundModel;
+  const RefundAttachmentList({Key? key, this.refundModel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,19 +16,19 @@ class RefundAttachmentList extends StatelessWidget {
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
           shrinkWrap: true,
-          itemCount: refundModel.images.length,
+          itemCount: refundModel!.images!.length,
           itemBuilder: (BuildContext context, index){
-            return refundModel.images.length > 0?
+            return refundModel!.images!.length > 0?
             Padding(padding: const EdgeInsets.all(8.0), child: Stack(children: [
               InkWell(onTap: () => showDialog(context: context, builder: (ctx)  =>
                   ImageDialog(imageUrl:'${AppConstants.BASE_URL}/storage/app/public/refund/'
-                      '${refundModel.images[index]}'), ),
+                      '${refundModel!.images![index]}'), ),
 
                 child: Container(width: Dimensions.image_size, height: Dimensions.image_size,
                   child: ClipRRect(borderRadius: BorderRadius.all(
                       Radius.circular(Dimensions.PADDING_SIZE_EXTRA_SMALL)),
                     child: CustomImage(image: '${AppConstants.BASE_URL}/storage/app/public/refund/'
-                        '${refundModel.images[index]}',fit: BoxFit.cover,width: Dimensions.image_size,height: Dimensions.image_size),
+                        '${refundModel!.images![index]}',fit: BoxFit.cover,width: Dimensions.image_size,height: Dimensions.image_size),
                   ) , decoration: BoxDecoration(color: Colors.white,
                     borderRadius: BorderRadius.all(Radius.circular(Dimensions.PADDING_SIZE_SMALL)),),),
               ),

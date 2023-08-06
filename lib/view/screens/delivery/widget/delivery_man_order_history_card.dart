@@ -12,8 +12,8 @@ import 'package:bed3avendor/view/screens/order/order_details_screen.dart';
 
 class DeliveryManOrderWidget extends StatelessWidget {
   final Order orderModel;
-  final int index;
-  DeliveryManOrderWidget({@required this.orderModel, this.index});
+  final int? index;
+  DeliveryManOrderWidget({required this.orderModel, this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +106,7 @@ class DeliveryManOrderWidget extends StatelessWidget {
                       Row(mainAxisAlignment:MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center, children: [
                           orderModel.createdAt != null?
-                          Text(DateConverter.localDateToIsoStringAMPM(DateTime.parse(orderModel.createdAt)),
+                          Text(DateConverter.localDateToIsoStringAMPM(DateTime.parse(orderModel.createdAt!)),
                               style: titilliumRegular.copyWith(color: Theme.of(context).hintColor)):SizedBox(),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -139,7 +139,7 @@ class DeliveryManOrderWidget extends StatelessWidget {
                                 )),
 
                               Padding(padding: const EdgeInsets.all(8.0),
-                                child: Text(getTranslated(orderModel.orderStatus, context),
+                                child: Text(getTranslated(orderModel.orderStatus, context)!,
                                     style: robotoMedium.copyWith(
                                         color: orderModel.orderStatus == 'pending'?
                                         ColorResources.getPrimary(context):
@@ -160,7 +160,7 @@ class DeliveryManOrderWidget extends StatelessWidget {
 
 
                             Text( (orderModel.paymentMethod == 'pay_by_wallet' || orderModel.paymentMethod == 'cash_on_delivery')?
-                            getTranslated(orderModel.paymentMethod, context): getTranslated('digital_payment', context),
+                            getTranslated(orderModel.paymentMethod, context)!: getTranslated('digital_payment', context)!,
                                 style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT, color: Theme.of(context).hintColor)),
                             SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
 

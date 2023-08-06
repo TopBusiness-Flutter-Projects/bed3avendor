@@ -8,11 +8,11 @@ import 'package:bed3avendor/utill/dimensions.dart';
 import 'package:bed3avendor/utill/styles.dart';
 
 class InfoItem extends StatelessWidget {
-  final String icon;
-  final String title;
-  final String amount;
+  final String? icon;
+  final String? title;
+  final String? amount;
   final bool isMoney;
-  const InfoItem({Key key, this.icon, this.title, this.amount, this.isMoney = false}) : super(key: key);
+  const InfoItem({Key? key, this.icon, this.title, this.amount, this.isMoney = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,14 +34,14 @@ class InfoItem extends StatelessWidget {
                     color: Theme.of(context).primaryColor,
                     borderRadius: BorderRadius.circular(Dimensions.ICON_SIZE_EXTRA_LARGE)
                 ),
-                child: Image.asset(icon)),
+                child: Image.asset(icon!)),
 
             Padding(
               padding: const EdgeInsets.symmetric(vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-              child: !isMoney? Text(amount,
+              child: !isMoney? Text(amount!,
                 style: titilliumSemiBold.copyWith(color:  Theme.of(context).primaryColor,
                     fontSize: Dimensions.FONT_SIZE_LARGE),):
-              Text('${Provider.of<SplashProvider>(context, listen: false).myCurrency.symbol} ${NumberFormat.compact().format(double.parse(amount))}',
+              Text('${Provider.of<SplashProvider>(context, listen: false).myCurrency!.symbol} ${NumberFormat.compact().format(double.parse(amount!))}',
                 style: titilliumSemiBold.copyWith(color:  Theme.of(context).primaryColor,
                     fontSize: Dimensions.FONT_SIZE_LARGE),),
             ),
@@ -49,7 +49,7 @@ class InfoItem extends StatelessWidget {
 
 
 
-            Text(getTranslated(title, context),
+            Text(getTranslated(title, context)!,
               style: titilliumRegular.copyWith(color:  Theme.of(context).hintColor,
                   fontSize: Dimensions.FONT_SIZE_LARGE),),
           ],),

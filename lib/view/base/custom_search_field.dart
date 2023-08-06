@@ -6,19 +6,19 @@ import 'package:bed3avendor/utill/images.dart';
 import 'package:bed3avendor/utill/styles.dart';
 
 class CustomSearchField extends StatefulWidget {
-  final TextEditingController controller;
-  final String hint;
+  final TextEditingController? controller;
+  final String? hint;
   final String prefix;
   final Function iconPressed;
-  final Function onSubmit;
-  final Function onChanged;
-  final Function filterAction;
+  final Function? onSubmit;
+  final Function? onChanged;
+  final Function? filterAction;
   final bool isFilter;
   CustomSearchField({
-    @required this.controller,
-    @required this.hint,
-    @required this.prefix,
-    @required this.iconPressed,
+    required this.controller,
+    required this.hint,
+    required this.prefix,
+    required this.iconPressed,
     this.onSubmit,
     this.onChanged,
     this.filterAction,
@@ -61,8 +61,8 @@ class _CustomSearchFieldState extends State<CustomSearchField> {
             //   icon: Icon(widget.prefix, color: Theme.of(context).hintColor),
             // ),
           ),
-          onSubmitted: widget.onSubmit,
-          onChanged: widget.onChanged,
+          onSubmitted: widget.onSubmit as void Function(String)?,
+          onChanged: widget.onChanged as void Function(String)?,
         ),
       ),
 
@@ -71,7 +71,7 @@ class _CustomSearchFieldState extends State<CustomSearchField> {
         padding:  EdgeInsets.only(left :  Provider.of<LocalizationProvider>(context, listen: false).isLtr? Dimensions.PADDING_SIZE_EXTRA_SMALL : 0,
             right :  Provider.of<LocalizationProvider>(context, listen: false).isLtr? 0 : Dimensions.PADDING_SIZE_EXTRA_SMALL),
        child: GestureDetector(
-          onTap: widget.filterAction,
+          onTap: widget.filterAction as void Function()?,
           child: Container(decoration: BoxDecoration(
             color: Theme.of(context).primaryColor,
             borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_EXTRA_SMALL),

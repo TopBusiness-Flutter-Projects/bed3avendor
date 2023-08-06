@@ -18,30 +18,30 @@ import 'package:bed3avendor/view/screens/delivery/widget/overview_widget.dart';
 
 
 class DeliveryManDetailsScreen extends StatefulWidget {
-  final DeliveryMan deliveryMan;
-  const DeliveryManDetailsScreen({Key key, this.deliveryMan}) : super(key: key);
+  final DeliveryMan? deliveryMan;
+  const DeliveryManDetailsScreen({Key? key, this.deliveryMan}) : super(key: key);
   @override
   State<DeliveryManDetailsScreen> createState() => _DeliveryManDetailsScreenState();
 }
 
 class _DeliveryManDetailsScreenState extends State<DeliveryManDetailsScreen> with TickerProviderStateMixin{
-  TabController _tabController;
+  TabController? _tabController;
   int selectedIndex = 0;
 
   @override
   void initState() {
     super.initState();
-    Provider.of<DeliveryManProvider>(context, listen: false).getDeliveryManDetails(context, widget.deliveryMan.id);
-    Provider.of<DeliveryManProvider>(context, listen: false).getDeliveryManOrderListHistory(context, 1, widget.deliveryMan.id);
-    Provider.of<DeliveryManProvider>(context, listen: false).getDeliveryManEarningListHistory(context, 1, widget.deliveryMan.id);
-    Provider.of<DeliveryManProvider>(context, listen: false).getDeliveryManReviewList(context, 1, widget.deliveryMan.id);
-    Provider.of<DeliveryManProvider>(context, listen: false).getDeliveryCollectedCashList(context,  widget.deliveryMan.id, 1);
+    Provider.of<DeliveryManProvider>(context, listen: false).getDeliveryManDetails(context, widget.deliveryMan!.id);
+    Provider.of<DeliveryManProvider>(context, listen: false).getDeliveryManOrderListHistory(context, 1, widget.deliveryMan!.id);
+    Provider.of<DeliveryManProvider>(context, listen: false).getDeliveryManEarningListHistory(context, 1, widget.deliveryMan!.id);
+    Provider.of<DeliveryManProvider>(context, listen: false).getDeliveryManReviewList(context, 1, widget.deliveryMan!.id);
+    Provider.of<DeliveryManProvider>(context, listen: false).getDeliveryCollectedCashList(context,  widget.deliveryMan!.id, 1);
 
     _tabController = TabController(length: 5, initialIndex: 0, vsync: this);
 
     _tabController?.addListener((){
-      print('my index is'+ _tabController.index.toString());
-      switch (_tabController.index){
+      print('my index is'+ _tabController!.index.toString());
+      switch (_tabController!.index){
         case 0:
           Provider.of<AuthProvider>(context, listen: false).setIndexForTabBar(0, isNotify: true);
           break;
@@ -69,9 +69,9 @@ class _DeliveryManDetailsScreenState extends State<DeliveryManDetailsScreen> wit
       appBar: CustomAppBar(title: getTranslated('delivery_man_details', context), isBackButtonExist: true, isAction: true,isSwitch: true,
         switchAction: (value){
           if(value){
-            Provider.of<DeliveryManProvider>(context, listen: false).deliveryManStatusOnOff(context, widget.deliveryMan.id, 1);
+            Provider.of<DeliveryManProvider>(context, listen: false).deliveryManStatusOnOff(context, widget.deliveryMan!.id, 1);
           }else{
-            Provider.of<DeliveryManProvider>(context, listen: false).deliveryManStatusOnOff(context, widget.deliveryMan.id, 0);
+            Provider.of<DeliveryManProvider>(context, listen: false).deliveryManStatusOnOff(context, widget.deliveryMan!.id, 0);
           }
         },
       ),

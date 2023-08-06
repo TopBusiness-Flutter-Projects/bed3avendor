@@ -10,13 +10,13 @@ import 'package:http/http.dart' as http;
 
 class BankInfoRepo {
 
-  final DioClient dioClient;
-  final SharedPreferences sharedPreferences;
-  BankInfoRepo({@required this.dioClient, @required this.sharedPreferences});
+  final DioClient? dioClient;
+  final SharedPreferences? sharedPreferences;
+  BankInfoRepo({required this.dioClient, required this.sharedPreferences});
 
   Future<ApiResponse> getBankList() async {
     try {
-      final response = await dioClient.get(AppConstants.SELLER_URI);
+      final response = await dioClient!.get(AppConstants.SELLER_URI);
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
@@ -24,9 +24,9 @@ class BankInfoRepo {
   }
 
 
-  Future<ApiResponse> chartFilterData(String type) async {
+  Future<ApiResponse> chartFilterData(String? type) async {
     try {
-      final response = await dioClient.get('${AppConstants.CHART_FILTER_DATA}$type');
+      final response = await dioClient!.get('${AppConstants.CHART_FILTER_DATA}$type');
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
@@ -40,9 +40,9 @@ class BankInfoRepo {
 
     Map<String, String> _fields = Map();
     _fields.addAll(<String, String>{
-      '_method': 'put', 'bank_name': userInfoModel.bankName, 'branch': userInfoModel.branch,
-      'holder_name': userInfoModel.holderName, 'account_no': userInfoModel.accountNo,
-      'f_name': seller.fName, 'l_name': seller.lName, 'phone': userInfoModel.phone
+      '_method': 'put', 'bank_name': userInfoModel.bankName!, 'branch': userInfoModel.branch!,
+      'holder_name': userInfoModel.holderName!, 'account_no': userInfoModel.accountNo!,
+      'f_name': seller.fName!, 'l_name': seller.lName!, 'phone': userInfoModel.phone!
     });
     request.fields.addAll(_fields);
     http.StreamedResponse response = await request.send();
@@ -51,6 +51,6 @@ class BankInfoRepo {
 
 
   String getBankToken() {
-    return sharedPreferences.getString(AppConstants.TOKEN) ?? "";
+    return sharedPreferences!.getString(AppConstants.TOKEN) ?? "";
   }
 }

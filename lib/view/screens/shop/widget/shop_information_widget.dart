@@ -15,14 +15,14 @@ import 'package:bed3avendor/view/base/custom_loader.dart';
 
 
 class ShopInformationWidget extends StatelessWidget {
-  final ShopProvider resProvider;
-  const ShopInformationWidget({Key key, this.resProvider}) : super(key: key);
+  final ShopProvider? resProvider;
+  const ShopInformationWidget({Key? key, this.resProvider}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     double imageSize = 90;
     double reviewIconSize = 15;
-    return resProvider.shopModel != null?
+    return resProvider!.shopModel != null?
     Padding(padding: const EdgeInsets.all(Dimensions.PADDING_SIZE_MEDIUM),
       child: Column(
         children: [
@@ -40,7 +40,7 @@ class ShopInformationWidget extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.all(Radius.circular(Dimensions.PADDING_SIZE_SMALL)),
                     child: CustomImage(image: '${Provider.of<SplashProvider>(context,listen: false).
-                    baseUrls.shopImageUrl}/${resProvider.shopModel?.image}'),
+                    baseUrls!.shopImageUrl}/${resProvider!.shopModel?.image}'),
                   ),
                 ),
                 SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
@@ -54,7 +54,7 @@ class ShopInformationWidget extends StatelessWidget {
 
             Flexible(child: Column(crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('${resProvider.shopModel?.name ?? ''}',
+                Text('${resProvider!.shopModel?.name ?? ''}',
                   style: robotoBold.copyWith(color: ColorResources.getTextColor(context),
                       fontSize: Dimensions.FONT_SIZE_DEFAULT),),
                 SizedBox(height: Dimensions.PADDING_SIZE_MEDIUM),
@@ -65,7 +65,7 @@ class ShopInformationWidget extends StatelessWidget {
                         child:Image.asset(Images.shop_address)),
                     SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
                     Expanded(
-                      child: Text('${resProvider.shopModel?.address ?? ''}',
+                      child: Text('${resProvider!.shopModel?.address ?? ''}',
                         style: robotoRegular.copyWith(color: ColorResources.getSubTitleColor(context)), maxLines: 2,
                         overflow: TextOverflow.ellipsis,softWrap: false,),
                     ),
@@ -79,7 +79,7 @@ class ShopInformationWidget extends StatelessWidget {
                         child:Image.asset(Images.shop_phone)),
                     SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
                     Expanded(
-                      child: Text('${resProvider.shopModel?.contact ?? ''}',
+                      child: Text('${resProvider!.shopModel?.contact ?? ''}',
                         style: robotoRegular.copyWith(color: ColorResources.getSubTitleColor(context)), maxLines: 2,
                         overflow: TextOverflow.ellipsis,softWrap: false,),
                     ),
@@ -104,7 +104,7 @@ class ShopInformationWidget extends StatelessWidget {
                     SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL,),
 
 
-                    Text('${resProvider.shopModel?.ratting?.toDouble()?.toStringAsFixed(1) ?? ''}',
+                    Text('${resProvider!.shopModel?.ratting?.toDouble().toStringAsFixed(1) ?? ''}',
                       style: robotoTitleRegular.copyWith(color: ColorResources.getTextColor(context),
                           fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE),),
                     SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL,),
@@ -116,12 +116,12 @@ class ShopInformationWidget extends StatelessWidget {
                     child: SizedBox(width: reviewIconSize,child: Image.asset(Images.shop_review)),
                   ),
                   Row(children: [
-                    Text('${NumberFormat.compact().format(resProvider.shopModel?.rattingCount)}',
+                    Text('${NumberFormat.compact().format(resProvider!.shopModel?.rattingCount)}',
                       style: robotoRegular.copyWith(color: ColorResources.getSubTitleColor(context),
                           fontSize: Dimensions.FONT_SIZE_DEFAULT),),
                     SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL,),
 
-                    Text(getTranslated('reviews', context),
+                    Text(getTranslated('reviews', context)!,
                       style: robotoRegular.copyWith(color: ColorResources.getSubTitleColor(context),
                           fontSize: Dimensions.FONT_SIZE_DEFAULT),),
                   ],)
@@ -137,7 +137,7 @@ class ShopInformationWidget extends StatelessWidget {
 
                     Consumer<ProfileProvider>(
                         builder: (context, profile,_) {
-                          return Text('${NumberFormat.compact().format(profile.userInfoModel.productCount)}',
+                          return Text('${NumberFormat.compact().format(profile.userInfoModel!.productCount)}',
                             style: robotoRegular.copyWith(color: ColorResources.getSubTitleColor(context),
                                 fontSize: Dimensions.FONT_SIZE_DEFAULT),);
                         }
@@ -145,7 +145,7 @@ class ShopInformationWidget extends StatelessWidget {
                     SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL,),
 
 
-                    Text(getTranslated('products', context),
+                    Text(getTranslated('products', context)!,
                       style: robotoRegular.copyWith(color: ColorResources.getSubTitleColor(context),
                           fontSize: Dimensions.FONT_SIZE_DEFAULT),)
                   ],)

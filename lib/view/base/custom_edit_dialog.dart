@@ -71,28 +71,28 @@ class _CustomEditDialogState extends State<CustomEditDialog> {
                               borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_EXTRA_SMALL)),
                           child: DropdownButton<int>(
                             value: withdraw.methodSelectedIndex,
-                            items: withdraw.methodsIds.map((int value) {
+                            items: withdraw.methodsIds.map((int? value) {
                               return DropdownMenuItem<int>(
                                 value: withdraw.methodsIds.indexOf(value),
-                                child: Text(withdraw.methodList[(withdraw.methodsIds.indexOf(value))].methodName),);}).toList(),
-                            onChanged: (int value) {
+                                child: Text(withdraw.methodList[(withdraw.methodsIds.indexOf(value))].methodName!),);}).toList(),
+                            onChanged: (int? value) {
                               withdraw.setMethodTypeIndex(value);
                             },
                             isExpanded: true, underline: SizedBox(),),),
 
                         SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT),
 
-                        if(withdraw.methodList[withdraw.methodSelectedIndex] != null &&
-                            withdraw.methodList[withdraw.methodSelectedIndex].methodFields != null &&
+                        if(withdraw.methodList[withdraw.methodSelectedIndex!] != null &&
+                            withdraw.methodList[withdraw.methodSelectedIndex!].methodFields != null &&
                             withdraw.inputFieldControllerList.isNotEmpty &&
-                            withdraw.methodList[withdraw.methodSelectedIndex].methodFields.length>0)
+                            withdraw.methodList[withdraw.methodSelectedIndex!].methodFields!.length>0)
                         ListView.builder(
                             physics: NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
-                            itemCount: withdraw.methodList[withdraw.methodSelectedIndex].methodFields.length,
+                            itemCount: withdraw.methodList[withdraw.methodSelectedIndex!].methodFields!.length,
                             itemBuilder: (context, index){
 
-                              String type = withdraw.methodList[withdraw.methodSelectedIndex].methodFields[index].inputType;
+                              String? type = withdraw.methodList[withdraw.methodSelectedIndex!].methodFields![index].inputType;
 
                               return Padding(
                                 padding:  EdgeInsets.only(bottom: Dimensions.PADDING_SIZE_SMALL),
@@ -103,7 +103,7 @@ class _CustomEditDialogState extends State<CustomEditDialog> {
                                       TextInputType.text,
                                       border: true,
                                       controller: withdraw.inputFieldControllerList[index],
-                                      hintText: withdraw.methodList[withdraw.methodSelectedIndex].methodFields[index].placeholder,
+                                      hintText: withdraw.methodList[withdraw.methodSelectedIndex!].methodFields![index].placeholder,
 
                                     ),
                                   ],
@@ -123,11 +123,11 @@ class _CustomEditDialogState extends State<CustomEditDialog> {
 
 
               SizedBox(height: 20,),
-              Text(getTranslated('enter_Amount', context), style: TextStyle(fontWeight: FontWeight.w500,fontSize: Dimensions.FONT_SIZE_DEFAULT),),
+              Text(getTranslated('enter_Amount', context)!, style: TextStyle(fontWeight: FontWeight.w500,fontSize: Dimensions.FONT_SIZE_DEFAULT),),
 
               Row(mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(Provider.of<SplashProvider>(context, listen: false).myCurrency.symbol,
+                  Text(Provider.of<SplashProvider>(context, listen: false).myCurrency!.symbol!,
                       style: robotoMedium.copyWith(fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE_TWENTY)),
                   IntrinsicWidth(
                     child: TextField(
@@ -174,7 +174,7 @@ class _CustomEditDialogState extends State<CustomEditDialog> {
                       child: Container(
                         height: 40,
                         child: Center(
-                          child: Text(getTranslated('withdraw', context),
+                          child: Text(getTranslated('withdraw', context)!,
                               style: TextStyle(fontSize: Dimensions.FONT_SIZE_LARGE,fontWeight: FontWeight.w500,color: Colors.white)),
                         ),
                       ),
@@ -200,7 +200,7 @@ class _CustomEditDialogState extends State<CustomEditDialog> {
     if (_balance.isEmpty) {
       showCustomSnackBar(getTranslated('enter_balance', context), context, isToaster: true);
 
-    }else if(_bal > double.parse(PriceConverter.convertPriceWithoutSymbol(context, Provider.of<ProfileProvider>(context, listen: false).userInfoModel.wallet.totalEarning))) {
+    }else if(_bal > double.parse(PriceConverter.convertPriceWithoutSymbol(context, Provider.of<ProfileProvider>(context, listen: false).userInfoModel!.wallet!.totalEarning))) {
       showCustomSnackBar(getTranslated('insufficient_balance', context), context, isToaster: true);
     }else if(_bal <= 1 ) {
       showCustomSnackBar(getTranslated('minimum_amount', context), context, isToaster: true);

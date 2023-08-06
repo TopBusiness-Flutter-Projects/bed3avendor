@@ -15,7 +15,7 @@ import 'package:bed3avendor/view/screens/settings/order_wise_shipping_list_scree
 
 
 class OrderWiseShippingAddScreen extends StatefulWidget {
-  final ShippingModel shipping;
+  final ShippingModel? shipping;
   OrderWiseShippingAddScreen({this.shipping});
   @override
   _OrderWiseShippingAddScreenState createState() => _OrderWiseShippingAddScreenState();
@@ -23,15 +23,15 @@ class OrderWiseShippingAddScreen extends StatefulWidget {
 
 class _OrderWiseShippingAddScreenState extends State<OrderWiseShippingAddScreen> {
 
-  TextEditingController _titleController ;
-  TextEditingController _durationController ;
-  TextEditingController _costController ;
+  TextEditingController? _titleController ;
+  TextEditingController? _durationController ;
+  TextEditingController? _costController ;
 
   final FocusNode _resNameNode = FocusNode();
   final FocusNode _addressNode = FocusNode();
   final FocusNode _phoneNode = FocusNode();
-  GlobalKey<FormState> _formKeyLogin;
-  ShippingModel shipping;
+  GlobalKey<FormState>? _formKeyLogin;
+  ShippingModel? shipping;
 
   @override
   void initState() {
@@ -45,9 +45,9 @@ class _OrderWiseShippingAddScreenState extends State<OrderWiseShippingAddScreen>
 
   @override
   void dispose() {
-    _titleController.dispose();
-    _durationController.dispose();
-    _costController.dispose();
+    _titleController!.dispose();
+    _durationController!.dispose();
+    _costController!.dispose();
     super.dispose();
   }
   void callback(bool route, String error ){
@@ -55,12 +55,12 @@ class _OrderWiseShippingAddScreenState extends State<OrderWiseShippingAddScreen>
       if(widget.shipping==null){
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           backgroundColor:  Colors.green,
-          content: Text(getTranslated('shipping_method_added_successfully', context)),
+          content: Text(getTranslated('shipping_method_added_successfully', context)!),
         ));
       }else{
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           backgroundColor:  Colors.green,
-          content: Text(getTranslated('shipping_method_update_successfully', context)),
+          content: Text(getTranslated('shipping_method_update_successfully', context)!),
         ));
       }
 
@@ -75,9 +75,9 @@ class _OrderWiseShippingAddScreenState extends State<OrderWiseShippingAddScreen>
   @override
   Widget build(BuildContext context) {
     if(widget.shipping!=null) {
-      _titleController.text = widget.shipping.title;
-      _durationController.text = widget.shipping.duration;
-      _costController.text = PriceConverter.convertAmount(widget.shipping.cost, context).toString();
+      _titleController!.text = widget.shipping!.title!;
+      _durationController!.text = widget.shipping!.duration!;
+      _costController!.text = PriceConverter.convertAmount(widget.shipping!.cost!, context).toString();
     }
     return Dialog(
       child: Padding(
@@ -91,7 +91,7 @@ class _OrderWiseShippingAddScreenState extends State<OrderWiseShippingAddScreen>
               children: [
 
                 SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
-                Text(getTranslated('shipping_method_title', context),
+                Text(getTranslated('shipping_method_title', context)!,
                     style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT,
                       color: ColorResources.getHintColor(context),)),
 
@@ -110,7 +110,7 @@ class _OrderWiseShippingAddScreenState extends State<OrderWiseShippingAddScreen>
                 SizedBox(height: Dimensions.PADDING_SIZE_LARGE),
 
 
-                Text(getTranslated('duration', context),
+                Text(getTranslated('duration', context)!,
                     style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT,
                       color: ColorResources.getHintColor(context),)),
 
@@ -125,7 +125,7 @@ class _OrderWiseShippingAddScreenState extends State<OrderWiseShippingAddScreen>
                 ),
 
                 SizedBox(height: 22),
-                Text(getTranslated('cost', context),
+                Text(getTranslated('cost', context)!,
                     style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT,
                       color: ColorResources.getHintColor(context),)),
 
@@ -149,9 +149,9 @@ class _OrderWiseShippingAddScreenState extends State<OrderWiseShippingAddScreen>
                     btnTxt: widget.shipping == null?
                     getTranslated('save', context):getTranslated('update', context),
                     onTap: ()  {
-                      String title = _titleController.text.trim();
-                      String cost = _costController.text.trim();
-                      String duration = _durationController.text.trim();
+                      String title = _titleController!.text.trim();
+                      String cost = _costController!.text.trim();
+                      String duration = _durationController!.text.trim();
 
                       if(title.isEmpty){
                         showCustomSnackBar(getTranslated('enter_title', context),context);
@@ -160,15 +160,15 @@ class _OrderWiseShippingAddScreenState extends State<OrderWiseShippingAddScreen>
                       }else if(duration.isEmpty){
                         showCustomSnackBar(getTranslated('enter_duration', context),context);
                       } else{
-                        shipping.title = title;
-                        shipping.cost = PriceConverter.systemCurrencyToDefaultCurrency(double.parse(cost), context);
-                        shipping.duration = duration;
-                        print('-------${shipping.cost}');
+                        shipping!.title = title;
+                        shipping!.cost = PriceConverter.systemCurrencyToDefaultCurrency(double.parse(cost), context);
+                        shipping!.duration = duration;
+                        print('-------${shipping!.cost}');
                         if(widget.shipping == null){
                           Provider.of<ShippingProvider>(context,listen: false).addShippingMethod(shipping, callback);
                         }
                         else if(widget.shipping != null){
-                          Provider.of<ShippingProvider>(context,listen: false).updateShippingMethod(shipping.title,shipping.duration,shipping.cost,widget.shipping.id, callback);
+                          Provider.of<ShippingProvider>(context,listen: false).updateShippingMethod(shipping!.title,shipping!.duration,shipping!.cost,widget.shipping!.id, callback);
 
                         }
                       }

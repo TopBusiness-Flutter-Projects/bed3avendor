@@ -5,7 +5,7 @@ import 'package:bed3avendor/provider/shipping_provider.dart';
 import 'package:bed3avendor/utill/dimensions.dart';
 
 class DropDownForShippingTypeWidget extends StatelessWidget {
-  const DropDownForShippingTypeWidget({Key key}) : super(key: key);
+  const DropDownForShippingTypeWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class DropDownForShippingTypeWidget extends StatelessWidget {
               items: shippingProvider.shippingType.map((String value) {
                 return DropdownMenuItem<String>(
                     value: value,
-                    child: Text(getTranslated(value, context)));
+                    child: Text(getTranslated(value, context)!));
               }).toList(),
               onChanged: (val) {
                 shippingProvider.setShippingTypeIndex(context, val == 'category_wise'? 0: val == 'order_wise'?1:2);

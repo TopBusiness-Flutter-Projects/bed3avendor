@@ -9,12 +9,12 @@ import 'package:bed3avendor/localization/language_constrants.dart';
 import 'package:bed3avendor/view/base/custom_snackbar.dart';
 
 class CouponProvider with ChangeNotifier {
-  final CouponRepo couponRepo;
+  final CouponRepo? couponRepo;
 
-  CouponProvider({@required this.couponRepo});
+  CouponProvider({required this.couponRepo});
 
-  CouponModel _couponModel;
-  CouponModel get couponModel => _couponModel;
+  CouponModel? _couponModel;
+  CouponModel? get couponModel => _couponModel;
 
   List<Coupons> _couponList = [];
   List<Coupons> get couponList => _couponList;
@@ -26,23 +26,23 @@ class CouponProvider with ChangeNotifier {
   bool get isAdd => _isAdd;
 
 
-  String _selectedCouponType = 'discount_on_purchase';
-  String get selectedCouponType => _selectedCouponType ;
+  String? _selectedCouponType = 'discount_on_purchase';
+  String? get selectedCouponType => _selectedCouponType ;
   List<String> _couponTypeList = ['discount_on_purchase', 'free_delivery'];
   List<String>  get couponTypeList => _couponTypeList;
 
-  void setSelectedCouponType(String type){
+  void setSelectedCouponType(String? type){
     _selectedCouponType = type;
     notifyListeners();
   }
 
 
-  String _discountTypeName = 'amount';
-  String get discountTypeName => _discountTypeName;
+  String? _discountTypeName = 'amount';
+  String? get discountTypeName => _discountTypeName;
   List<String> discountTypeList = ['amount','percentage'];
 
 
-  void setSelectedDiscountNameType(String type){
+  void setSelectedDiscountNameType(String? type){
     _discountTypeName = type;
     notifyListeners();
   }
@@ -53,11 +53,11 @@ class CouponProvider with ChangeNotifier {
       _couponList = [];
     }
     _isLoading = true;
-    ApiResponse apiResponse = await couponRepo.getCouponList(offset);
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+    ApiResponse apiResponse = await couponRepo!.getCouponList(offset);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _isLoading = false;
-      _couponModel = CouponModel.fromJson(apiResponse.response.data);
-      _couponList.addAll(_couponModel.coupons);
+      _couponModel = CouponModel.fromJson(apiResponse.response!.data);
+      _couponList.addAll(_couponModel!.coupons!);
     } else {
       _isLoading = false;
       ApiChecker.checkApi(context, apiResponse);
@@ -68,8 +68,8 @@ class CouponProvider with ChangeNotifier {
 
   Future<void> addNewCoupon(BuildContext context, Coupons coupons, bool update) async {
     _isAdd = true;
-    ApiResponse apiResponse = await couponRepo.addNewCoupon(coupons, update: update);
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+    ApiResponse apiResponse = await couponRepo!.addNewCoupon(coupons, update: update);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       getCouponList(context, 1);
       _isAdd = false;
       _startDate = null;
@@ -81,7 +81,7 @@ class CouponProvider with ChangeNotifier {
     } else {
       _isAdd = false;
       Map map = Map();
-      String message  = map['message'];
+      String? message  = map['message'];
       showCustomSnackBar(message, context, isError: false);
     }
     notifyListeners();
@@ -91,9 +91,9 @@ class CouponProvider with ChangeNotifier {
 
 
 
-  Future<void> updateCouponStatus(BuildContext context, int id, int status, index) async {
-    ApiResponse response = await couponRepo.updateCouponStatus(id, status);
-    if (response.response.statusCode == 200) {
+  Future<void> updateCouponStatus(BuildContext context, int? id, int status, index) async {
+    ApiResponse response = await couponRepo!.updateCouponStatus(id, status);
+    if (response.response!.statusCode == 200) {
       _couponList[index].status = status;
       showCustomSnackBar(getTranslated('coupon_status_update_successfully', context), context, isError: false);
     } else {
@@ -104,11 +104,11 @@ class CouponProvider with ChangeNotifier {
   }
 
 
-  Future<void> deleteCoupon(BuildContext context, int id) async {
+  Future<void> deleteCoupon(BuildContext context, int? id) async {
     _isLoading = true;
     notifyListeners();
-    ApiResponse apiResponse = await couponRepo.deleteCoupon(id);
-    if (apiResponse.response.statusCode == 200) {
+    ApiResponse apiResponse = await couponRepo!.deleteCoupon(id);
+    if (apiResponse.response!.statusCode == 200) {
       getCouponList(context, 1);
       _isLoading = false;
       showCustomSnackBar(getTranslated('coupon_deleted_successfully', context), context, isError: false);
@@ -120,11 +120,11 @@ class CouponProvider with ChangeNotifier {
 
   }
 
-  DateTime _startDate;
-  DateTime _endDate;
+  DateTime? _startDate;
+  DateTime? _endDate;
   DateFormat _dateFormat = DateFormat('yyyy-MM-d');
-  DateTime get startDate => _startDate;
-  DateTime get endDate => _endDate;
+  DateTime? get startDate => _startDate;
+  DateTime? get endDate => _endDate;
   DateFormat get dateFormat => _dateFormat;
 
   void selectDate(String type, BuildContext context){
@@ -146,14 +146,14 @@ class CouponProvider with ChangeNotifier {
     });
   }
 
-  List<Customers> _couponCustomerList;
-  List<Customers> get couponCustomerList =>_couponCustomerList;
-  List<int> _couponCustomerIds = [];
-  List<int> get couponCustomerIds => _couponCustomerIds;
-  int _couponCustomerIndex = 0;
-  int get couponCustomerIndex => _couponCustomerIndex;
-  int _selectedCustomerIdForCoupon = 0;
-  int get selectedCustomerIdForCoupon => _selectedCustomerIdForCoupon;
+  List<Customers>? _couponCustomerList;
+  List<Customers>? get couponCustomerList =>_couponCustomerList;
+  List<int?> _couponCustomerIds = [];
+  List<int?> get couponCustomerIds => _couponCustomerIds;
+  int? _couponCustomerIndex = 0;
+  int? get couponCustomerIndex => _couponCustomerIndex;
+  int? _selectedCustomerIdForCoupon = 0;
+  int? get selectedCustomerIdForCoupon => _selectedCustomerIdForCoupon;
   TextEditingController _searchCustomerController = TextEditingController();
   TextEditingController get searchCustomerController => _searchCustomerController;
 
@@ -163,8 +163,8 @@ class CouponProvider with ChangeNotifier {
   String _customerSelectedMobile = '';
   String get customerSelectedMobile => _customerSelectedMobile;
 
-  int _customerId = 0;
-  int get customerId => _customerId;
+  int? _customerId = 0;
+  int? get customerId => _customerId;
 
   void setCouponCustomerIndex(int index,int customerId, bool notify) {
     _couponCustomerIndex = index;
@@ -174,7 +174,7 @@ class CouponProvider with ChangeNotifier {
     }
   }
 
-  void setCustomerInfo(int id, String name, bool notify) {
+  void setCustomerInfo(int? id, String name, bool notify) {
     _customerId = id;
     _customerSelectedName = name;
 
@@ -185,14 +185,14 @@ class CouponProvider with ChangeNotifier {
 
   Future<void> getCouponCustomerList(BuildContext context,String search ) async {
     _isLoading = true;
-    ApiResponse response = await couponRepo.getCouponCustomerList(search);
-    if(response.response.statusCode == 200) {
+    ApiResponse response = await couponRepo!.getCouponCustomerList(search);
+    if(response.response!.statusCode == 200) {
       _isLoading = false;
       _couponCustomerList = [];
-      _couponCustomerList.addAll(CustomerModel.fromJson(response.response.data).customers);
-      if(_couponCustomerList.length != 0){
-        for(int index = 0; index < _couponCustomerList.length; index++) {
-          _couponCustomerIds.add(_couponCustomerList[index].id);
+      _couponCustomerList!.addAll(CustomerModel.fromJson(response.response!.data).customers!);
+      if(_couponCustomerList!.length != 0){
+        for(int index = 0; index < _couponCustomerList!.length; index++) {
+          _couponCustomerIds.add(_couponCustomerList![index].id);
         }
         _couponCustomerIndex = _couponCustomerIds[0];
         _selectedCustomerIdForCoupon = _couponCustomerIds[0];

@@ -13,13 +13,13 @@ import 'package:bed3avendor/view/screens/shop/widget/vacation_calender.dart';
 
 class VacationDialog extends StatelessWidget {
   final String icon;
-  final String title;
+  final String? title;
   final TextEditingController vacationNote;
   final Function onYesPressed;
 
 
-  final TextEditingController note;
-  VacationDialog({@required this.icon, this.title, @required this.vacationNote, @required this.onYesPressed, this.note,});
+  final TextEditingController? note;
+  VacationDialog({required this.icon, this.title, required this.vacationNote, required this.onYesPressed, this.note,});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class VacationDialog extends StatelessWidget {
                     padding: const EdgeInsets.only(top: Dimensions.PADDING_SIZE_DEFAULT, bottom: Dimensions.PADDING_SIZE_SMALL),
                     child: Row(
                       children: [
-                        Text(getTranslated('please_select_vacation_date_range', context)),
+                        Text(getTranslated('please_select_vacation_date_range', context)!),
                       ],
                     ),
                   ),
@@ -71,7 +71,7 @@ class VacationDialog extends StatelessWidget {
 
                   Column(crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(getTranslated('vacation_note', context)),
+                      Text(getTranslated('vacation_note', context)!),
                       SizedBox(height: Dimensions.PADDING_SIZE_SMALL,),
                       CustomTextField(border: true,
                         hintText: 'note',

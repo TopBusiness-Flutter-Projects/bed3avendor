@@ -1,13 +1,13 @@
 class RefundDetailsModel {
-  double productPrice;
-  int quntity;
-  double productTotalDiscount;
-  double productTotalTax;
-  double subtotal;
-  double couponDiscount;
-  double refundAmount;
-  List<RefundRequest> refundRequest;
-  DeliverymanDetails deliverymanDetails;
+  double? productPrice;
+  int? quntity;
+  double? productTotalDiscount;
+  double? productTotalTax;
+  double? subtotal;
+  double? couponDiscount;
+  double? refundAmount;
+  List<RefundRequest>? refundRequest;
+  DeliverymanDetails? deliverymanDetails;
 
   RefundDetailsModel(
       {this.productPrice,
@@ -32,7 +32,7 @@ class RefundDetailsModel {
     if (json['refund_request'] != null) {
       refundRequest = <RefundRequest>[];
       json['refund_request'].forEach((v) {
-        refundRequest.add(new RefundRequest.fromJson(v));
+        refundRequest!.add(new RefundRequest.fromJson(v));
       });
     }
     deliverymanDetails = json['deliveryman_details'] != null
@@ -51,32 +51,32 @@ class RefundDetailsModel {
     data['refund_amount'] = this.refundAmount;
     if (this.refundRequest != null) {
       data['refund_request'] =
-          this.refundRequest.map((v) => v.toJson()).toList();
+          this.refundRequest!.map((v) => v.toJson()).toList();
     }
     if (this.deliverymanDetails != null) {
-      data['deliveryman_details'] = this.deliverymanDetails.toJson();
+      data['deliveryman_details'] = this.deliverymanDetails!.toJson();
     }
     return data;
   }
 }
 
 class RefundRequest {
-  int id;
-  int orderDetailsId;
-  int customerId;
-  String status;
-  double amount;
-  int productId;
-  int orderId;
-  String refundReason;
-  List<String> images;
-  String createdAt;
-  String updatedAt;
-  String approvedNote;
-  String rejectedNote;
-  String paymentInfo;
-  String changeBy;
-  List<RefundStatus> refundStatus;
+  int? id;
+  int? orderDetailsId;
+  int? customerId;
+  String? status;
+  double? amount;
+  int? productId;
+  int? orderId;
+  String? refundReason;
+  List<String>? images;
+  String? createdAt;
+  String? updatedAt;
+  String? approvedNote;
+  String? rejectedNote;
+  String? paymentInfo;
+  String? changeBy;
+  List<RefundStatus>? refundStatus;
 
   RefundRequest(
       {this.id,
@@ -118,7 +118,7 @@ class RefundRequest {
     if (json['refund_status'] != null) {
       refundStatus = <RefundStatus>[];
       json['refund_status'].forEach((v) {
-        refundStatus.add(new RefundStatus.fromJson(v));
+        refundStatus!.add(new RefundStatus.fromJson(v));
       });
     }
   }
@@ -142,21 +142,21 @@ class RefundRequest {
     data['change_by'] = this.changeBy;
     if (this.refundStatus != null) {
       data['refund_status'] =
-          this.refundStatus.map((v) => v.toJson()).toList();
+          this.refundStatus!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class RefundStatus {
-  int id;
-  int refundRequestId;
-  String changeBy;
-  int changeById;
-  String status;
-  String message;
-  String createdAt;
-  String updatedAt;
+  int? id;
+  int? refundRequestId;
+  String? changeBy;
+  int? changeById;
+  String? status;
+  String? message;
+  String? createdAt;
+  String? updatedAt;
 
   RefundStatus(
       {this.id,
@@ -202,20 +202,20 @@ class RefundStatus {
 }
 
 class DeliverymanDetails {
-  int id;
-  int sellerId;
-  String fName;
-  String lName;
-  String phone;
-  String email;
-  String identityNumber;
-  String identityType;
-  String identityImage;
-  String image;
-  int isActive;
-  String createdAt;
-  String updatedAt;
-  String fcmToken;
+  int? id;
+  int? sellerId;
+  String? fName;
+  String? lName;
+  String? phone;
+  String? email;
+  String? identityNumber;
+  String? identityType;
+  String? identityImage;
+  String? image;
+  int? isActive;
+  String? createdAt;
+  String? updatedAt;
+  String? fcmToken;
 
   DeliverymanDetails(
       {this.id,

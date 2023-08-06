@@ -4,7 +4,7 @@ import 'package:bed3avendor/utill/dimensions.dart';
 import 'package:bed3avendor/utill/styles.dart';
 
 class SeeMoreButton extends StatelessWidget {
-  const SeeMoreButton({Key key}) : super(key: key);
+  const SeeMoreButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class SeeMoreButton extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Row(mainAxisAlignment: MainAxisAlignment.center,children: [
               Icon(Icons.arrow_drop_down,color: Colors.white,),
-              Text(getTranslated('see_more', context), style: robotoRegular.copyWith(color: Colors.white),)
+              Text(getTranslated('see_more', context)!, style: robotoRegular.copyWith(color: Colors.white),)
             ],),
           ),),
       ),

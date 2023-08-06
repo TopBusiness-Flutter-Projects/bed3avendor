@@ -12,7 +12,7 @@ import 'package:bed3avendor/view/base/custom_button.dart';
 
 class ChooseShippingDialog extends StatefulWidget {
 
-  ChooseShippingDialog({Key key});
+  ChooseShippingDialog({Key? key});
 
   @override
   State<ChooseShippingDialog> createState() => _ChooseShippingDialogState();
@@ -41,17 +41,17 @@ class _ChooseShippingDialogState extends State<ChooseShippingDialog> {
 
             Padding(
               padding: EdgeInsets.fromLTRB(Dimensions.PADDING_SIZE_DEFAULT, Dimensions.PADDING_SIZE_EXTRA_LARGE, Dimensions.PADDING_SIZE_DEFAULT, Dimensions.PADDING_SIZE_SMALL),
-              child: Text(getTranslated('choose_shipping', context), style: robotoMedium.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE)),
+              child: Text(getTranslated('choose_shipping', context)!, style: robotoMedium.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE)),
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal : Dimensions.PADDING_SIZE_DEFAULT),
-              child: Text(getTranslated('select_shipping_method', context),textAlign: TextAlign.center,
+              child: Text(getTranslated('select_shipping_method', context)!,textAlign: TextAlign.center,
                   style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL)),
             ),
 
             Consumer<SplashProvider>(
               builder: (context, splash, child) {
-                List<String> _valueList = [];
+                List<String?> _valueList = [];
                 splash.shippingTypeList.forEach((shipping) => _valueList.add(getTranslated(shipping, context)));
 
                 return Padding(
@@ -114,7 +114,7 @@ class _ChooseShippingDialogState extends State<ChooseShippingDialog> {
                     fontColor: Colors.white,
                       btnTxt: getTranslated('update', context),
                       onTap: (){
-                      String type;
+                      String? type;
                       if(shippingProvider.shippingIndex == 0){
                         type =  'order_wise';
                       }else if(shippingProvider.shippingIndex == 1){
@@ -123,7 +123,7 @@ class _ChooseShippingDialogState extends State<ChooseShippingDialog> {
                         type =  'category_wise';
                       }
                       shippingProvider.setShippingMethodType(context,  type).then((value){
-                        if(value.response.statusCode == 200){
+                        if(value.response!.statusCode == 200){
                           Provider.of<SplashProvider>(context, listen: false).initConfig(context);
                           Navigator.pop(context);
                         }

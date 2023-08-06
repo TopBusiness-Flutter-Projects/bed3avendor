@@ -25,7 +25,7 @@ import 'package:bed3avendor/view/screens/stockOut/widget/quantity_change_dialog.
 
 class StockOutProductWidget extends StatefulWidget {
   final Product productModel;
-   StockOutProductWidget({@required this.productModel});
+   StockOutProductWidget({required this.productModel});
 
   @override
   State<StockOutProductWidget> createState() => _StockOutProductWidgetState();
@@ -37,7 +37,7 @@ class _StockOutProductWidgetState extends State<StockOutProductWidget> {
   Widget build(BuildContext context) {
 
     int variationLength = 0;
-    variationLength = widget.productModel.variation.length;
+    variationLength = widget.productModel.variation!.length;
     return Padding(
       padding: const EdgeInsets.fromLTRB(Dimensions.PADDING_SIZE_EXTRA_SMALL,
           0, Dimensions.PADDING_SIZE_EXTRA_SMALL,Dimensions.PADDING_SIZE_SMALL,),
@@ -55,7 +55,7 @@ class _StockOutProductWidgetState extends State<StockOutProductWidget> {
                   Provider.of<SellerProvider>(context, listen:false).deleteProduct(context ,widget.productModel.id).then((value) {
                     Provider.of<ProductProvider>(context,listen: false).getStockOutProductList(1, context, 'en');
                     Provider.of<ProductProvider>(context, listen: false).initSellerProductList(Provider.of<ProfileProvider>(context, listen: false).
-                    userInfoModel.id.toString(), 1, context, 'en','', reload: true);
+                    userInfoModel!.id.toString(), 1, context, 'en','', reload: true);
                   });
                 }
 
@@ -72,7 +72,7 @@ class _StockOutProductWidgetState extends State<StockOutProductWidget> {
                         Provider.of<SellerProvider>(context, listen:false).deleteProduct(context ,widget.productModel.id).then((value) {
                           Provider.of<ProductProvider>(context,listen: false).getStockOutProductList(1, context, 'en');
                           Provider.of<ProductProvider>(context, listen: false).initSellerProductList(Provider.of<ProfileProvider>(context, listen: false).
-                          userInfoModel.id.toString(), 1, context, 'en','', reload: true);
+                          userInfoModel!.id.toString(), 1, context, 'en','', reload: true);
                         });
                       }
 
@@ -108,7 +108,7 @@ class _StockOutProductWidgetState extends State<StockOutProductWidget> {
                         Provider.of<SellerProvider>(context, listen:false).deleteProduct(context ,widget.productModel.id).then((value) {
                           Provider.of<ProductProvider>(context,listen: false).getStockOutProductList(1, context, 'en');
                           Provider.of<ProductProvider>(context, listen: false).initSellerProductList(Provider.of<ProfileProvider>(context, listen: false).
-                          userInfoModel.id.toString(), 1, context, 'en','', reload: true);
+                          userInfoModel!.id.toString(), 1, context, 'en','', reload: true);
                         });
                       }
 
@@ -136,7 +136,7 @@ class _StockOutProductWidgetState extends State<StockOutProductWidget> {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_SMALL),
             color: Theme.of(context).cardColor,
-            boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 800 : 200],
+            boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 800 : 200]!,
                 spreadRadius: 0.5, blurRadius: 0.3)],
           ),
           child: Stack(
@@ -164,7 +164,7 @@ class _StockOutProductWidgetState extends State<StockOutProductWidget> {
                           child: ClipRRect(
                               borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_EXTRA_SMALL),
                               child: CustomImage(image: '${Provider.of<SplashProvider>(context, listen: false).
-                              baseUrls.productThumbnailUrl}/${widget.productModel.thumbnail}')
+                              baseUrls!.productThumbnailUrl}/${widget.productModel.thumbnail}')
 
                           ),
                         ),

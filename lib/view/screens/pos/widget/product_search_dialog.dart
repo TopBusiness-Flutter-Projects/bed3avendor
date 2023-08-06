@@ -4,7 +4,7 @@ import 'package:bed3avendor/provider/product_provider.dart';
 import 'package:bed3avendor/utill/dimensions.dart';
 import 'package:bed3avendor/view/screens/pos/widget/searched_product_item_widget.dart';
 class ProductSearchDialog extends StatelessWidget {
-  const ProductSearchDialog({Key key}) : super(key: key);
+  const ProductSearchDialog({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

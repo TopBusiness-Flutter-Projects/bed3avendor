@@ -8,14 +8,14 @@ import 'package:bed3avendor/data/model/response/coupon_model.dart';
 import 'package:bed3avendor/utill/app_constants.dart';
 
 class CouponRepo {
-  final DioClient dioClient;
-  final SharedPreferences sharedPreferences;
+  final DioClient? dioClient;
+  final SharedPreferences? sharedPreferences;
 
-  CouponRepo({@required this.dioClient, @required this.sharedPreferences});
+  CouponRepo({required this.dioClient, required this.sharedPreferences});
 
   Future<ApiResponse> getCouponList(int offset) async {
     try {
-      final response = await dioClient.get(
+      final response = await dioClient!.get(
           '${AppConstants.GET_COUPON_LIST}?limit=10&offset=$offset');
       return ApiResponse.withSuccess(response);
     } catch (e) {
@@ -27,7 +27,7 @@ class CouponRepo {
   Future<ApiResponse> addNewCoupon(Coupons coupons,
       {bool update = false}) async {
     try {
-      Response response = await dioClient.post(
+      Response response = await dioClient!.post(
           update ? '${AppConstants.UPDATE_COUPON}${coupons.id}' : AppConstants
               .ADD_NEW_COUPON,
           data: update ? {
@@ -50,9 +50,9 @@ class CouponRepo {
   }
 
 
-  Future<ApiResponse> deleteCoupon(int id) async {
+  Future<ApiResponse> deleteCoupon(int? id) async {
     try {
-      final response = await dioClient.post('${AppConstants.DELETE_COUPON}$id',
+      final response = await dioClient!.post('${AppConstants.DELETE_COUPON}$id',
           data: {
             '_method': 'delete'
           });
@@ -62,9 +62,9 @@ class CouponRepo {
     }
   }
 
-  Future<ApiResponse> updateCouponStatus(int id, int status) async {
+  Future<ApiResponse> updateCouponStatus(int? id, int status) async {
     try {
-      final response = await dioClient.post(
+      final response = await dioClient!.post(
           '${AppConstants.COUPON_STATUS_UPDATE}$id',
           data: {
             '_method': 'put',
@@ -78,7 +78,7 @@ class CouponRepo {
 
   Future<ApiResponse> getCouponCustomerList(String search) async {
     try {
-      final response = await dioClient.get(
+      final response = await dioClient!.get(
           '${AppConstants.COUPON_CUSTOMER_LIST}$search');
       return ApiResponse.withSuccess(response);
     } catch (e) {

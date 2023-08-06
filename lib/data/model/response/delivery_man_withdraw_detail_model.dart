@@ -3,7 +3,7 @@
 import 'package:bed3avendor/data/model/response/delivery_man_detail_model.dart';
 
 class DeliveryManWithdrawDetailModel {
-  Details details;
+  Details? details;
 
   DeliveryManWithdrawDetailModel({this.details});
 
@@ -15,20 +15,20 @@ class DeliveryManWithdrawDetailModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this.details != null) {
-      data['details'] = this.details.toJson();
+      data['details'] = this.details!.toJson();
     }
     return data;
   }
 }
 
 class Details {
-  int id;
-  double amount;
-  String transactionNote;
-  int approved;
-  String createdAt;
-  String updatedAt;
-  DeliveryMan deliveryMen;
+  int? id;
+  double? amount;
+  String? transactionNote;
+  int? approved;
+  String? createdAt;
+  String? updatedAt;
+  DeliveryMan? deliveryMen;
 
   Details(
       {this.id,
@@ -67,7 +67,7 @@ class Details {
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
     if (this.deliveryMen != null) {
-      data['delivery_men'] = this.deliveryMen.toJson();
+      data['delivery_men'] = this.deliveryMen!.toJson();
     }
     return data;
   }

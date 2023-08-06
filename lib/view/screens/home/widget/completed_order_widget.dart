@@ -9,8 +9,8 @@ import 'package:bed3avendor/utill/styles.dart';
 import 'package:bed3avendor/view/screens/home/widget/order_type_button.dart';
 
 class CompletedOrderWidget extends StatelessWidget {
-  final Function callback;
-  const CompletedOrderWidget({Key key, this.callback}) : super(key: key);
+  final Function? callback;
+  const CompletedOrderWidget({Key? key, this.callback}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class CompletedOrderWidget extends StatelessWidget {
           child: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
             Padding(
               padding: const EdgeInsets.fromLTRB( Dimensions.PADDING_SIZE_DEFAULT, Dimensions.PADDING_SIZE_EXTRA_SMALL,Dimensions.PADDING_SIZE_DEFAULT,0 ),
-              child: Text(getTranslated('completed_orders', context),
+              child: Text(getTranslated('completed_orders', context)!,
                 style: robotoBold.copyWith(color: Theme.of(context).primaryColor),),
             ),
             order.orderModel != null ?

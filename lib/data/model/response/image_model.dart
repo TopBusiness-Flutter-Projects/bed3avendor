@@ -1,11 +1,11 @@
 import 'package:image_picker/image_picker.dart';
 
 class ImageModel {
-  String type;
-  String color;
-  XFile image;
-  String imageString;
-  ColorImage colorImage;
+  String? type;
+  String? color;
+  XFile? image;
+  String? imageString;
+  ColorImage? colorImage;
 
   ImageModel({this.type, this.color, this.image, this.imageString,this.colorImage});
 
@@ -26,15 +26,15 @@ class ImageModel {
     data['image'] = this.image;
     data['image_string'] = this.imageString;
     if (this.colorImage != null) {
-      data['color_image'] = this.colorImage.toJson();
+      data['color_image'] = this.colorImage!.toJson();
     }
     return data;
   }
 }
 
 class ColorImage {
-  String color;
-  String imageName;
+  String? color;
+  String? imageName;
 
   ColorImage({this.color, this.imageName});
 

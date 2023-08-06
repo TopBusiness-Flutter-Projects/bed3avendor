@@ -1,9 +1,9 @@
 class DeliveryManReviewModel {
-  int totalSize;
-  String limit;
-  String offset;
-  String averageRating;
-  List<DeliveryManReview> reviews;
+  int? totalSize;
+  String? limit;
+  String? offset;
+  String? averageRating;
+  List<DeliveryManReview>? reviews;
 
   DeliveryManReviewModel(
       {this.totalSize,
@@ -20,7 +20,7 @@ class DeliveryManReviewModel {
     if (json['reviews'] != null) {
       reviews = <DeliveryManReview>[];
       json['reviews'].forEach((v) {
-        reviews.add(new DeliveryManReview.fromJson(v));
+        reviews!.add(new DeliveryManReview.fromJson(v));
       });
     }
   }
@@ -32,25 +32,25 @@ class DeliveryManReviewModel {
     data['offset'] = this.offset;
     data['average_rating'] = this.averageRating;
     if (this.reviews != null) {
-      data['reviews'] = this.reviews.map((v) => v.toJson()).toList();
+      data['reviews'] = this.reviews!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class DeliveryManReview {
-  int id;
-  int productId;
-  int customerId;
-  int deliveryManId;
-  int orderId;
-  String comment;
-  double rating;
-  int status;
-  int isSaved;
-  String createdAt;
-  String updatedAt;
-  Customer customer;
+  int? id;
+  int? productId;
+  int? customerId;
+  int? deliveryManId;
+  int? orderId;
+  String? comment;
+  double? rating;
+  int? status;
+  int? isSaved;
+  String? createdAt;
+  String? updatedAt;
+  Customer? customer;
 
   DeliveryManReview(
       {this.id,
@@ -107,7 +107,7 @@ class DeliveryManReview {
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
     if (this.customer != null) {
-      data['customer'] = this.customer.toJson();
+      data['customer'] = this.customer!.toJson();
     }
     return data;
   }
@@ -115,9 +115,9 @@ class DeliveryManReview {
 
 class Customer {
 
-  String fName;
-  String lName;
-  String image;
+  String? fName;
+  String? lName;
+  String? image;
 
 
   Customer(

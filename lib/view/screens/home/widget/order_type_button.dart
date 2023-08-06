@@ -6,21 +6,21 @@ import 'package:bed3avendor/utill/dimensions.dart';
 import 'package:bed3avendor/utill/styles.dart';
 
 class OrderTypeButton extends StatelessWidget {
-  final String text;
-  final String icon;
+  final String? text;
+  final String? icon;
   final int index;
-  final Color color;
-  final Function callback;
-  final int numberOfOrder;
+  final Color? color;
+  final Function? callback;
+  final int? numberOfOrder;
   final bool showBorder;
-  OrderTypeButton({@required this.text,this.icon ,@required this.index, @required this.callback, @required this.numberOfOrder, this.color, this.showBorder = true});
+  OrderTypeButton({required this.text,this.icon ,required this.index, required this.callback, required this.numberOfOrder, this.color, this.showBorder = true});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
         Provider.of<OrderProvider>(context, listen: false).setIndex(context,index);
-        callback();},
+        callback!();},
 
       child: Column(
         children: [
@@ -37,13 +37,13 @@ class OrderTypeButton extends StatelessWidget {
                 children: [
                   icon != null?
                   Container(width: Dimensions.ICON_SIZE_LARGE,
-                      child: Image.asset(icon)): SizedBox(),
+                      child: Image.asset(icon!)): SizedBox(),
                   SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
-                  Text(text, style: robotoRegular.copyWith(color: ColorResources.getTextColor(context))),
+                  Text(text!, style: robotoRegular.copyWith(color: ColorResources.getTextColor(context))),
 
                   Spacer(),
                   Container(decoration: BoxDecoration(
-                      color: color.withOpacity(.10),
+                      color: color!.withOpacity(.10),
                       borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_LARGE)
                     ),
 

@@ -9,9 +9,9 @@ import 'package:bed3avendor/view/base/custom_snackbar.dart';
 import 'package:bed3avendor/view/base/textfeild/custom_text_feild.dart';
 
 class AddEmergencyContact extends StatefulWidget {
-  final ContactList contactList;
-  final int index;
-  const AddEmergencyContact({Key key,  this.index, this.contactList}) : super(key: key);
+  final ContactList? contactList;
+  final int? index;
+  const AddEmergencyContact({Key? key,  this.index, this.contactList}) : super(key: key);
 
   @override
   State<AddEmergencyContact> createState() => _AddEmergencyContactState();
@@ -27,8 +27,8 @@ class _AddEmergencyContactState extends State<AddEmergencyContact> {
   @override
   void initState() {
     if(widget.contactList != null){
-      contactNameController.text = widget.contactList.name;
-      phoneController.text = widget.contactList.phone;
+      contactNameController.text = widget.contactList!.name!;
+      phoneController.text = widget.contactList!.phone!;
     }
     super.initState();
   }
@@ -76,7 +76,7 @@ class _AddEmergencyContactState extends State<AddEmergencyContact> {
                   child: emergencyContactProvider.isLoading? CircularProgressIndicator():
                   CustomButton(btnTxt: widget.contactList != null?  getTranslated('update', context) : getTranslated('add', context),
                   onTap: (){
-                    int id = widget.contactList != null?  widget.contactList.id : null;
+                    int? id = widget.contactList != null?  widget.contactList!.id : null;
                     String name = contactNameController.text.trim();
                     String phone = phoneController.text.trim();
                     if(name.isEmpty){

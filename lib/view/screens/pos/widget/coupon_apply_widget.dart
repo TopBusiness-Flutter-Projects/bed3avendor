@@ -8,7 +8,7 @@ import 'package:bed3avendor/view/base/custom_field_with_title.dart';
 import 'package:bed3avendor/view/base/textfeild/custom_text_feild.dart';
 
 class CouponDialog extends StatelessWidget {
-  const CouponDialog({Key key}) : super(key: key);
+  const CouponDialog({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

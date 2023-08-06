@@ -28,8 +28,8 @@ class MenuBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<CustomBottomSheet> _activateMenu = [
-      CustomBottomSheet(image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls.sellerImageUrl}/'
-          '${Provider.of<ProfileProvider>(context, listen: false).userInfoModel.image}',isProfile: true, title: getTranslated('profile', context),
+      CustomBottomSheet(image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls!.sellerImageUrl}/'
+          '${Provider.of<ProfileProvider>(context, listen: false).userInfoModel!.image}',isProfile: true, title: getTranslated('profile', context),
 
           onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (_) => ProfileScreenView()))),
 
@@ -48,12 +48,12 @@ class MenuBottomSheet extends StatelessWidget {
       CustomBottomSheet(image: Images.coupon_icon, title: getTranslated('coupons', context),
           onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (_)=> CouponListScreen()))),
 
-      if(Provider.of<SplashProvider>(context, listen: false).configModel.shippingMethod == 'sellerwise_shipping')
+      if(Provider.of<SplashProvider>(context, listen: false).configModel!.shippingMethod == 'sellerwise_shipping')
       CustomBottomSheet(image: Images.delivery_man_icon, title: getTranslated('deliveryman', context),
           onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (_)=> DeliveryManSetupScreen()))),
 
 
-      if(Provider.of<SplashProvider>(context, listen: false).configModel.posActive == 1)
+      if(Provider.of<SplashProvider>(context, listen: false).configModel!.posActive == 1)
       CustomBottomSheet(image: Images.pos, title: getTranslated('pos', context),
           onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (_)=> NavBarScreen()))),
 
@@ -78,41 +78,41 @@ class MenuBottomSheet extends StatelessWidget {
 
           onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (_)=> HtmlViewScreen(
               title: getTranslated('terms_and_condition', context),
-              url: Provider.of<SplashProvider>(context, listen: false).configModel.termsConditions)))),
+              url: Provider.of<SplashProvider>(context, listen: false).configModel!.termsConditions)))),
 
 
 
       CustomBottomSheet(image: Images.about_us, title: getTranslated('about_us', context),
           onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (_)=> HtmlViewScreen(
             title: getTranslated('about_us', context),
-            url: Provider.of<SplashProvider>(context, listen: false).configModel.aboutUs,)))),
+            url: Provider.of<SplashProvider>(context, listen: false).configModel!.aboutUs,)))),
 
 
       CustomBottomSheet(image: Images.privacy_policy, title: getTranslated('privacy_policy', context),
           onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (_)=> HtmlViewScreen(
               title: getTranslated('privacy_policy', context),
-              url: Provider.of<SplashProvider>(context, listen: false).configModel.privacyPolicy)))),
+              url: Provider.of<SplashProvider>(context, listen: false).configModel!.privacyPolicy)))),
 
 
-      if(Provider.of<SplashProvider>(context, listen: false).configModel.refundPolicy.status ==1)
+      if(Provider.of<SplashProvider>(context, listen: false).configModel!.refundPolicy!.status ==1)
       CustomBottomSheet(image: Images.refund_policy, title: getTranslated('refund_policy', context),
           onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (_)=> HtmlViewScreen(
               title: getTranslated('refund_policy', context),
-              url: Provider.of<SplashProvider>(context, listen: false).configModel.refundPolicy.content)))),
+              url: Provider.of<SplashProvider>(context, listen: false).configModel!.refundPolicy!.content)))),
 
 
-      if(Provider.of<SplashProvider>(context, listen: false).configModel.returnPolicy.status ==1)
+      if(Provider.of<SplashProvider>(context, listen: false).configModel!.returnPolicy!.status ==1)
       CustomBottomSheet(image: Images.return_policy, title: getTranslated('return_policy', context),
           onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (_)=> HtmlViewScreen(
             title: getTranslated('return_policy', context),
-            url: Provider.of<SplashProvider>(context, listen: false).configModel.returnPolicy.content)))),
+            url: Provider.of<SplashProvider>(context, listen: false).configModel!.returnPolicy!.content)))),
 
 
-      if(Provider.of<SplashProvider>(context, listen: false).configModel.cancellationPolicy.status ==1)
+      if(Provider.of<SplashProvider>(context, listen: false).configModel!.cancellationPolicy!.status ==1)
       CustomBottomSheet(image: Images.c_policy, title: getTranslated('cancellation_policy', context),
           onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (_)=> HtmlViewScreen(
             title: getTranslated('return_policy', context),
-            url: Provider.of<SplashProvider>(context, listen: false).configModel.returnPolicy.content)))),
+            url: Provider.of<SplashProvider>(context, listen: false).configModel!.returnPolicy!.content)))),
 
 
       CustomBottomSheet(image: Images.logOut, title: getTranslated('logout', context),

@@ -6,7 +6,7 @@ import 'package:bed3avendor/utill/dimensions.dart';
 import 'package:bed3avendor/utill/styles.dart';
 
 class ProductAndReviewSelectionWidget extends StatelessWidget {
-  const ProductAndReviewSelectionWidget({Key key}) : super(key: key);
+  const ProductAndReviewSelectionWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class ProductAndReviewSelectionWidget extends StatelessWidget {
             InkWell(
               onTap: () => shopProvider.updateSelectedIndex(0),
               child: Column(children: [
-                Text(getTranslated('all_products', context), style: shopProvider.selectedIndex == 0 ?
+                Text(getTranslated('all_products', context)!, style: shopProvider.selectedIndex == 0 ?
                 titilliumSemiBold : titilliumRegular),
                 Container(height: 1, width: MediaQuery.of(context).size.width/2-30,
                   margin: EdgeInsets.only(top: 8),
@@ -30,7 +30,7 @@ class ProductAndReviewSelectionWidget extends StatelessWidget {
 
             InkWell(onTap: () => shopProvider.updateSelectedIndex(1),
               child: Column(children: [
-                Text(getTranslated('product_review', context), style: shopProvider.selectedIndex == 1 ?
+                Text(getTranslated('product_review', context)!, style: shopProvider.selectedIndex == 1 ?
                 titilliumSemiBold : titilliumRegular),
                 Container(height: 1, width: MediaQuery.of(context).size.width/2-30, margin: EdgeInsets.only(top: 8),
                     color: shopProvider.selectedIndex == 1 ?

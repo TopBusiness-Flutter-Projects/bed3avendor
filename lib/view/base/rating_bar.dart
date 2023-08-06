@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class RatingBarIndicator extends StatefulWidget {
   RatingBarIndicator({
-    @required this.itemBuilder,
+    required this.itemBuilder,
     this.textDirection,
     this.unratedColor,
     this.direction = Axis.horizontal,
@@ -15,8 +15,8 @@ class RatingBarIndicator extends StatefulWidget {
 
 
   final IndexedWidgetBuilder itemBuilder;
-  final TextDirection textDirection;
-  final Color unratedColor;
+  final TextDirection? textDirection;
+  final Color? unratedColor;
   final Axis direction;
   final int itemCount;
   final EdgeInsets itemPadding;
@@ -135,7 +135,7 @@ class _RatingBarIndicatorState extends State<RatingBarIndicator> {
 
 class _IndicatorClipper extends CustomClipper<Rect> {
   _IndicatorClipper({
-    @required this.ratingFraction,
+    required this.ratingFraction,
     this.rtlMode = false,
   });
 
@@ -167,18 +167,18 @@ class _IndicatorClipper extends CustomClipper<Rect> {
 }
 
 class RatingBar extends StatelessWidget {
-  final double rating;
+  final double? rating;
   final double size;
-  final Color color;
+  final Color? color;
 
-  RatingBar({@required this.rating, this.size = 18, this.color});
+  RatingBar({required this.rating, this.size = 18, this.color});
 
   @override
   Widget build(BuildContext context) {
     List<Widget> _starList = [];
 
-    int realNumber = rating.floor();
-    int partNumber = ((rating - realNumber) * 10).ceil();
+    int realNumber = rating!.floor();
+    int partNumber = ((rating! - realNumber) * 10).ceil();
 
     for (int i = 1; i <= 5; i++) {
       if (i < realNumber) {
@@ -213,7 +213,7 @@ class RatingBar extends StatelessWidget {
 class _Clipper extends CustomClipper<Rect> {
   final int part;
 
-  _Clipper({@required this.part});
+  _Clipper({required this.part});
 
   @override
   Rect getClip(Size size) {

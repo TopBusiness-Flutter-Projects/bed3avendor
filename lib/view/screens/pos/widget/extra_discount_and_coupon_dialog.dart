@@ -10,7 +10,7 @@ import 'package:bed3avendor/view/base/textfeild/custom_text_feild.dart';
 
 
 class ExtraDiscountAndCouponDialog extends StatelessWidget {
-  const ExtraDiscountAndCouponDialog({Key key}) : super(key: key);
+  const ExtraDiscountAndCouponDialog({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class ExtraDiscountAndCouponDialog extends StatelessWidget {
               builder: (context,cartController,_) {
                 return Container(padding: EdgeInsets.fromLTRB(Dimensions.PADDING_SIZE_DEFAULT, 0, Dimensions.PADDING_SIZE_DEFAULT, 0),
                   child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                    Text(getTranslated('discount_type', context),
+                    Text(getTranslated('discount_type', context)!,
                       style: robotoRegular.copyWith(),),
                     SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
 
@@ -46,7 +46,7 @@ class ExtraDiscountAndCouponDialog extends StatelessWidget {
                         items: <String>['amount','percent'].map((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
-                            child: Text(getTranslated(value, context)),
+                            child: Text(getTranslated(value, context)!),
                           );
                         }).toList(),
                         onChanged: (value) {

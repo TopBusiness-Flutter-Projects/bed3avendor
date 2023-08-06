@@ -10,10 +10,10 @@ import 'package:bed3avendor/view/screens/review/widget/review_widget.dart';
 
 
 class ReviewFullViewScreen extends StatelessWidget {
-  final Reviews reviewModel;
-  final bool isDetails;
-  final int index;
-  const ReviewFullViewScreen({Key key, this.reviewModel, this.isDetails, this.index}) : super(key: key);
+  final Reviews? reviewModel;
+  final bool? isDetails;
+  final int? index;
+  const ReviewFullViewScreen({Key? key, this.reviewModel, this.isDetails, this.index}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +23,9 @@ class ReviewFullViewScreen extends StatelessWidget {
         reviewSwitch: true,
         switchAction: (value){
           if(value){
-            Provider.of<ProductReviewProvider>(context, listen: false).reviewStatusOnOff(context, reviewModel.id, 1, index);
+            Provider.of<ProductReviewProvider>(context, listen: false).reviewStatusOnOff(context, reviewModel!.id, 1, index);
           }else{
-            Provider.of<ProductReviewProvider>(context, listen: false).reviewStatusOnOff(context, reviewModel.id, 0, index);
+            Provider.of<ProductReviewProvider>(context, listen: false).reviewStatusOnOff(context, reviewModel!.id, 0, index);
           }
 
       },),

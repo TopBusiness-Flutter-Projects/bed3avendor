@@ -6,7 +6,7 @@ import 'package:bed3avendor/utill/dimensions.dart';
 import 'package:bed3avendor/view/base/custom_app_bar.dart';
 import 'package:bed3avendor/view/screens/home/widget/stock_out_product_widget.dart';
 class StockOutProductScreen extends StatelessWidget {
-  const StockOutProductScreen({Key key}) : super(key: key);
+  const StockOutProductScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

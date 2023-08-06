@@ -13,8 +13,8 @@ import 'package:bed3avendor/view/screens/order/order_details_screen.dart';
 
 class OrderWidget extends StatelessWidget {
   final Order orderModel;
-  final int index;
-  OrderWidget({@required this.orderModel, this.index});
+  final int? index;
+  OrderWidget({required this.orderModel, this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +86,7 @@ class OrderWidget extends StatelessWidget {
                     child: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
 
                       orderModel.createdAt != null?
-                      Text(DateConverter.localDateToIsoStringAMPM(DateTime.parse(orderModel.createdAt)),
+                      Text(DateConverter.localDateToIsoStringAMPM(DateTime.parse(orderModel.createdAt!)),
                           style: robotoRegular.copyWith(color: Theme.of(context).hintColor)):SizedBox(),
 
 
@@ -111,7 +111,7 @@ class OrderWidget extends StatelessWidget {
 
                                 ),),
                               Padding(padding: const EdgeInsets.all(8.0),
-                                child: Text(getTranslated(orderModel.orderStatus, context),
+                                child: Text(getTranslated(orderModel.orderStatus, context)!,
                                     style: robotoRegular.copyWith(color: ColorResources.getPrimary(context))),
                               ),
 
@@ -122,7 +122,7 @@ class OrderWidget extends StatelessWidget {
                           Row(children: [
 
 
-                            Text(orderModel?.paymentMethod != null?getTranslated(orderModel.paymentMethod??'', context):'',
+                            Text(orderModel?.paymentMethod != null?getTranslated(orderModel.paymentMethod??'', context)!:'',
                                 style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT, color: Theme.of(context).hintColor)),
                             SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
                             Container(height: Dimensions.ICON_SIZE_DEFAULT, width: Dimensions.ICON_SIZE_DEFAULT,

@@ -25,25 +25,25 @@ import 'package:bed3avendor/view/base/textfeild/custom_text_feild.dart';
 import 'package:textfield_tags/textfield_tags.dart';
 
 class AddProductSeoScreen extends StatefulWidget {
-  final ValueChanged<bool> isSelected;
-  final Product product;
-  final String unitPrice;
-  final String purchasePrice;
-  final String discount;
-  final String currentStock;
-  final String minimumOrderQuantity;
-  final String tax;
-  final String shippingCost;
-  final String categoryId;
-  final String subCategoryId;
-  final String subSubCategoryId;
-  final String brandyId;
-  final String unit;
+  final ValueChanged<bool>? isSelected;
+  final Product? product;
+  final String? unitPrice;
+  final String? purchasePrice;
+  final String? discount;
+  final String? currentStock;
+  final String? minimumOrderQuantity;
+  final String? tax;
+  final String? shippingCost;
+  final String? categoryId;
+  final String? subCategoryId;
+  final String? subSubCategoryId;
+  final String? brandyId;
+  final String? unit;
 
 
 
-  final AddProductModel addProduct;
-  AddProductSeoScreen({this.isSelected, @required this.product,@required this.addProduct,
+  final AddProductModel? addProduct;
+  AddProductSeoScreen({this.isSelected, required this.product,required this.addProduct,
     this.unitPrice, this.purchasePrice,
     this.tax, this.discount, this.currentStock,
     this.shippingCost, this.categoryId, this.subCategoryId, this.subSubCategoryId, this.brandyId, this.unit, this.minimumOrderQuantity});
@@ -60,21 +60,21 @@ class _AddProductSeoScreenState extends State<AddProductSeoScreen> {
   final TextEditingController _seoTitleController = TextEditingController();
   final TextEditingController _seoDescriptionController = TextEditingController();
   final TextEditingController _youtubeLinkController = TextEditingController();
-  AutoCompleteTextField searchTextField;
-  double _distanceToField;
-  TextfieldTagsController _controller;
+  AutoCompleteTextField? searchTextField;
+  late double _distanceToField;
+  TextfieldTagsController? _controller;
 
 
   GlobalKey<AutoCompleteTextFieldState<String>> key = new GlobalKey();
-  SimpleAutoCompleteTextField textField;
+  SimpleAutoCompleteTextField? textField;
   bool showWhichErrorText = false;
-  bool _update;
-  Product _product;
-  AddProductModel _addProduct;
-  String thumbnailImage ='', metaImage ='';
+  late bool _update;
+  Product? _product;
+  AddProductModel? _addProduct;
+  String? thumbnailImage ='', metaImage ='';
   int counter = 0, total = 0;
   int addColor = 0;
-  List<String> tagList = [];
+  List<String?> tagList = [];
 
 
 
@@ -88,7 +88,7 @@ class _AddProductSeoScreenState extends State<AddProductSeoScreen> {
   @override
   void dispose() {
     super.dispose();
-    _controller.dispose();
+    _controller!.dispose();
   }
 
   @override
@@ -99,14 +99,14 @@ class _AddProductSeoScreenState extends State<AddProductSeoScreen> {
     _update = widget.product != null;
     _addProduct = widget.addProduct;
     if(_update) {
-      for(int i = 0; i< _product.tags.length; i++){
-        tagList.add(_product.tags[i].tag);
+      for(int i = 0; i< _product!.tags!.length; i++){
+        tagList.add(_product!.tags![i].tag);
       }
-      _seoTitleController.text = _product.metaTitle;
-      _seoDescriptionController.text = _product.metaDescription;
-      thumbnailImage = _product.thumbnail;
-      metaImage = _product.metaImage;
-      Provider.of<SellerProvider>(context,listen: false).productReturnImage = _product.images;
+      _seoTitleController.text = _product!.metaTitle!;
+      _seoDescriptionController.text = _product!.metaDescription!;
+      thumbnailImage = _product!.thumbnail;
+      metaImage = _product!.metaImage;
+      Provider.of<SellerProvider>(context,listen: false).productReturnImage = _product!.images;
     }else {
       _product = Product();
       _addProduct = AddProductModel();
@@ -125,11 +125,11 @@ class _AddProductSeoScreenState extends State<AddProductSeoScreen> {
       if(_update){
         if(thumbnailImage=='' && metaImage ==''){
           total = Provider.of<SellerProvider>(context,listen: false).withColor.length+ Provider.of<SellerProvider>(context,listen: false).withoutColor.length;
-        }else if(Provider.of<SellerProvider>(context,listen: false).productReturnImage.length == 0 && metaImage ==''){
+        }else if(Provider.of<SellerProvider>(context,listen: false).productReturnImage!.length == 0 && metaImage ==''){
           total = 1;
-        }else if(thumbnailImage=='' && Provider.of<SellerProvider>(context,listen: false).productReturnImage.length == 0 && metaImage ==''){
+        }else if(thumbnailImage=='' && Provider.of<SellerProvider>(context,listen: false).productReturnImage!.length == 0 && metaImage ==''){
           total = 0;
-        }else if(thumbnailImage=='' && Provider.of<SellerProvider>(context,listen: false).productReturnImage.length == 0){
+        }else if(thumbnailImage=='' && Provider.of<SellerProvider>(context,listen: false).productReturnImage!.length == 0){
           total = 1;
         }
       }
@@ -138,8 +138,8 @@ class _AddProductSeoScreenState extends State<AddProductSeoScreen> {
       else{
         if(Provider.of<SellerProvider>(context,listen: false).withColor.isNotEmpty) {
           for(int index=0; index<Provider.of<SellerProvider>(context,listen: false).withColor.length; index++) {
-            String retColor = Provider.of<SellerProvider>(context,listen: false).withColor[index].color;
-            String bb;
+            String retColor = Provider.of<SellerProvider>(context,listen: false).withColor[index].color!;
+            String? bb;
             if(retColor.contains('#')){
               bb = retColor.replaceAll('#', '');
             }
@@ -173,9 +173,9 @@ class _AddProductSeoScreenState extends State<AddProductSeoScreen> {
       if(counter == total) {
         counter++;
         Provider.of<SellerProvider>(context,listen: false).addProduct(
-            context, _product, _addProduct, Provider.of<SellerProvider>(context,listen: false).productReturnImage, Provider.of<SellerProvider>(context,listen: false).colorImageObject, thumbnailImage, metaImage,
+            context, _product!, _addProduct!, Provider.of<SellerProvider>(context,listen: false).productReturnImage, Provider.of<SellerProvider>(context,listen: false).colorImageObject, thumbnailImage, metaImage,
             Provider.of<AuthProvider>(context,listen: false).getUserToken(),
-            !_update,Provider.of<SellerProvider>(context,listen: false).attributeList[0].active, tagList);
+            !_update,Provider.of<SellerProvider>(context,listen: false).attributeList![0].active, tagList);
       }
     } else {
       print('Image upload problem');
@@ -198,7 +198,7 @@ class _AddProductSeoScreenState extends State<AddProductSeoScreen> {
             builder: (context, resProvider, child){
               return SingleChildScrollView(
                 child: (resProvider.attributeList != null &&
-                    resProvider.attributeList.length > 0 &&
+                    resProvider.attributeList!.length > 0 &&
                     resProvider.categoryList != null &&
                     Provider.of<SplashProvider>(context,listen: false).colorList!= null) ?
                 Column(
@@ -208,26 +208,26 @@ class _AddProductSeoScreenState extends State<AddProductSeoScreen> {
 
                     SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
 
-                    Text(getTranslated('tags', context),
+                    Text(getTranslated('tags', context)!,
                         style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT)),
                     SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
 
                     TextFieldTags(
                       textfieldTagsController: _controller,
-                      initialTags: _update?  tagList : const [],
+                      initialTags: _update?  tagList as List<String>? : const [],
                       textSeparators: const [' ', ','],
                       letterCase: LetterCase.normal,
                       validator: (String tag) {
                         if (tag == 'php') {
                           return 'No, please just no';
-                        } else if (_controller.getTags.contains(tag)) {
+                        } else if (_controller!.getTags!.contains(tag)) {
                           return 'you already entered that';
                         }
                         return null;
                       },
                       inputfieldBuilder:
                           (context, tec, fn, error, onChanged, onSubmitted) {
-                        return ((context, sc, tags, onTagDelete) {
+                        return (context, sc, tags, onTagDelete) {
                           tagList = tags;
                           return TextField(
                             controller: tec,
@@ -250,7 +250,7 @@ class _AddProductSeoScreenState extends State<AddProductSeoScreen> {
                               helperStyle: TextStyle(
                                 color: Theme.of(context).primaryColor,
                               ),
-                              hintText: _controller.hasTags ? '' : "Enter tag...",
+                              hintText: _controller!.hasTags ? '' : "Enter tag...",
                               errorText: error,
                               prefixIconConstraints:
                               BoxConstraints(maxWidth: _distanceToField * 0.74),
@@ -259,7 +259,7 @@ class _AddProductSeoScreenState extends State<AddProductSeoScreen> {
                                 controller: sc,
                                 scrollDirection: Axis.horizontal,
                                 child: Row(
-                                    children: tags.map((String tag) {
+                                    children: tags.map((String? tag) {
                                       print('Here is your tag===>${tags.toList()}/${tagList.toList()}');
                                       return Container(
                                         decoration: BoxDecoration(
@@ -308,8 +308,8 @@ class _AddProductSeoScreenState extends State<AddProductSeoScreen> {
                             onChanged: onChanged,
                             onSubmitted: onSubmitted,
                           );
-                        });
-                      },
+                        } as dynamic Function(BuildContext, ScrollController, List<String>, void Function(String));
+                      } as dynamic Function(BuildContext, ScrollController, List<String>, void Function(String)) Function(BuildContext, TextEditingController, FocusNode, String?, void Function(String)?, void Function(String)?),
                     ),
 
 
@@ -319,7 +319,7 @@ class _AddProductSeoScreenState extends State<AddProductSeoScreen> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(top: Dimensions.PADDING_SIZE_DEFAULT),
-                          child: Text(getTranslated('product_seo_settings', context),
+                          child: Text(getTranslated('product_seo_settings', context)!,
                               style: robotoBold.copyWith(color: ColorResources.getHeadTextColor(context),
                               fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE)),
                         ),
@@ -327,7 +327,7 @@ class _AddProductSeoScreenState extends State<AddProductSeoScreen> {
                     ),
                     SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
 
-                    Text(getTranslated('meta_title', context),
+                    Text(getTranslated('meta_title', context)!,
                         style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT)),
                     SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
 
@@ -343,7 +343,7 @@ class _AddProductSeoScreenState extends State<AddProductSeoScreen> {
                     ),
                     SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
 
-                    Text(getTranslated('meta_description', context),
+                    Text(getTranslated('meta_description', context)!,
                         style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT)),
                     SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                     CustomTextField(
@@ -360,7 +360,7 @@ class _AddProductSeoScreenState extends State<AddProductSeoScreen> {
                     SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT),
 
 
-                    Text(getTranslated('youtube_video_link', context),
+                    Text(getTranslated('youtube_video_link', context)!,
                         style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT)),
                     SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                     CustomTextField(
@@ -375,18 +375,18 @@ class _AddProductSeoScreenState extends State<AddProductSeoScreen> {
 
 
 
-                    Text(getTranslated('meta_image', context),
+                    Text(getTranslated('meta_image', context)!,
                         style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT)),
                     SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                     Align(alignment: Alignment.center, child: Stack(children: [
                       ClipRRect(
                         borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_SMALL),
                         child: resProvider.pickedMeta != null? Image.file(
-                          File(resProvider.pickedMeta.path), width: 150, height: 120, fit: BoxFit.cover,
+                          File(resProvider.pickedMeta!.path), width: 150, height: 120, fit: BoxFit.cover,
                         ) :widget.product!=null? FadeInImage.assetNetwork(
                           placeholder: Images.placeholder_image,
-                          image: '${Provider.of<SplashProvider>(context).configModel.
-                          baseUrls.productImageUrl}/meta/${_product.metaImage != null ? _product.metaImage : ''}',
+                          image: '${Provider.of<SplashProvider>(context).configModel!.
+                          baseUrls!.productImageUrl}/meta/${_product!.metaImage != null ? _product!.metaImage : ''}',
                           height: 120, width: 150, fit: BoxFit.cover,
                           imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder_image, height: 120,
                               width: 150, fit: BoxFit.cover),
@@ -419,7 +419,7 @@ class _AddProductSeoScreenState extends State<AddProductSeoScreen> {
 
                     SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT),
 
-                    Text(getTranslated('thumbnail', context),
+                    Text(getTranslated('thumbnail', context)!,
                         style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT)),
                     SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
 
@@ -429,12 +429,12 @@ class _AddProductSeoScreenState extends State<AddProductSeoScreen> {
                     Align(alignment: Alignment.center, child: Stack(children: [
                       ClipRRect(
                         borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_SMALL),
-                        child: resProvider.pickedLogo != null ?  Image.file(File(resProvider.pickedLogo.path),
+                        child: resProvider.pickedLogo != null ?  Image.file(File(resProvider.pickedLogo!.path),
                           width: 150, height: 120, fit: BoxFit.cover,
                         ) :widget.product!=null? FadeInImage.assetNetwork(
                           placeholder: Images.placeholder_image,
-                          image: '${Provider.of<SplashProvider>(context).configModel.
-                          baseUrls.productThumbnailUrl}/${_product.thumbnail != null ? _product.thumbnail : ''}',
+                          image: '${Provider.of<SplashProvider>(context).configModel!.
+                          baseUrls!.productThumbnailUrl}/${_product!.thumbnail != null ? _product!.thumbnail : ''}',
                           height: 120, width: 150, fit: BoxFit.cover,
                           imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder_image,
                               height: 120, width: 150, fit: BoxFit.cover),
@@ -467,12 +467,12 @@ class _AddProductSeoScreenState extends State<AddProductSeoScreen> {
 
 
                     SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT),
-                    Text(getTranslated('product_image', context),
+                    Text(getTranslated('product_image', context)!,
                         style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT)),
                     SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT),
 
 
-                    if(resProvider.attributeList[0].active && resProvider.attributeList[0].variants.length > 0)
+                    if(resProvider.attributeList![0].active && resProvider.attributeList![0].variants.length > 0)
 
                     GridView.builder(
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -487,7 +487,7 @@ class _AddProductSeoScreenState extends State<AddProductSeoScreen> {
                         itemBuilder: (context, index){
                           String colorString = '0xff000000';
                         if(resProvider.withColor[index].color != null){
-                           colorString = '0xff' + resProvider.withColor[index].color.substring(1, 7);
+                           colorString = '0xff' + resProvider.withColor[index].color!.substring(1, 7);
                         }
 
 
@@ -541,7 +541,7 @@ class _AddProductSeoScreenState extends State<AddProductSeoScreen> {
                               radius: Radius.circular(15),
                               child: Container(
                                 child: ClipRRect(borderRadius: BorderRadius.all(Radius.circular(Dimensions.PADDING_SIZE_SMALL)),
-                                  child: Image.file(File(resProvider.withColor[index].image.path),
+                                  child: Image.file(File(resProvider.withColor[index].image!.path),
                                     width: MediaQuery.of(context).size.width/2.3,
                                     height: MediaQuery.of(context).size.width/2.3,
                                     fit: BoxFit.cover,),) ,
@@ -613,7 +613,7 @@ class _AddProductSeoScreenState extends State<AddProductSeoScreen> {
                           radius: Radius.circular(15),
                           child: Container(
                             child: ClipRRect(borderRadius: BorderRadius.all(Radius.circular(Dimensions.PADDING_SIZE_SMALL)),
-                              child: Image.file(File(resProvider.withoutColor[index].image.path),
+                              child: Image.file(File(resProvider.withoutColor[index].image!.path),
                                 width: MediaQuery.of(context).size.width/2.3,
                                 height: MediaQuery.of(context).size.width/2.3,
                                 fit: BoxFit.cover,),) ,
@@ -658,7 +658,7 @@ class _AddProductSeoScreenState extends State<AddProductSeoScreen> {
             padding: EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT),
             decoration: BoxDecoration(
               color: Theme.of(context).cardColor,
-              boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 800 : 200],
+              boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 800 : 200]!,
                   spreadRadius: 0.5, blurRadius: 0.3)],
             ),
             child: !resProvider.isLoading ?
@@ -668,8 +668,8 @@ class _AddProductSeoScreenState extends State<AddProductSeoScreen> {
 
               String _seoDescription = _seoDescriptionController.text.trim();
               String _seoTitle = _seoTitleController.text.trim();
-              String _unit = widget.unit;
-              String _brandId = widget.brandyId;
+              String? _unit = widget.unit;
+              String? _brandId = widget.brandyId;
               String _metaTitle =_seoTitleController.text.trim();
               String _metaDescription =_seoDescriptionController.text.trim();
               String _videoUrl = _youtubeLinkController.text.trim();
@@ -701,53 +701,53 @@ class _AddProductSeoScreenState extends State<AddProductSeoScreen> {
 
               else {
                 _addProduct = AddProductModel();
-                _addProduct.titleList = titleList;
-                _addProduct.descriptionList = descriptionList;
-                _addProduct.videoUrl = _videoUrl;
-                _product.tax = double.parse(widget.tax);
-                _product.taxModel = resProvider.taxTypeIndex == 0 ? 'include' : 'exclude';
-                _product.unitPrice = PriceConverter.systemCurrencyToDefaultCurrency(double.parse(widget.unitPrice), context);
-                _product.purchasePrice = PriceConverter.systemCurrencyToDefaultCurrency(double.parse(widget.purchasePrice), context);
-                _product.discount = resProvider.discountTypeIndex == 0 ?
-                double.parse(widget.discount) : PriceConverter.systemCurrencyToDefaultCurrency(double.parse(widget.discount), context);
-                _product.productType = resProvider.productTypeIndex == 0 ? 'physical' : 'digital';
-                _product.unit = _unit;
-                _product.code = productCode;
-                _product.shippingCost = PriceConverter.systemCurrencyToDefaultCurrency(double.parse(widget.shippingCost), context);
-                _product.multiplyWithQuantity = _multi;
-                _product.brandId = int.parse(_brandId);
-                _product.metaTitle = _metaTitle;
-                _product.metaDescription = _metaDescription;
-                _product.currentStock = int.parse(widget.currentStock);
-                _product.minimumOrderQty = int.parse(widget.minimumOrderQuantity);
-                _product.metaTitle = _seoTitle;
-                _product.metaDescription = _seoDescription;
-                _product.discountType = resProvider.discountType;
-                _product.digitalProductType = resProvider.digitalProductTypeIndex == 0 ? 'ready_after_sell' : 'ready_product';
-                _product.digitalFileReady = resProvider.digitalProductFileName;
-                _product.categoryIds = [];
-                _product.categoryIds.add(CategoryIds(id: widget.categoryId));
+                _addProduct!.titleList = titleList;
+                _addProduct!.descriptionList = descriptionList;
+                _addProduct!.videoUrl = _videoUrl;
+                _product!.tax = double.parse(widget.tax!);
+                _product!.taxModel = resProvider.taxTypeIndex == 0 ? 'include' : 'exclude';
+                _product!.unitPrice = PriceConverter.systemCurrencyToDefaultCurrency(double.parse(widget.unitPrice!), context);
+                _product!.purchasePrice = PriceConverter.systemCurrencyToDefaultCurrency(double.parse(widget.purchasePrice!), context);
+                _product!.discount = resProvider.discountTypeIndex == 0 ?
+                double.parse(widget.discount!) : PriceConverter.systemCurrencyToDefaultCurrency(double.parse(widget.discount!), context);
+                _product!.productType = resProvider.productTypeIndex == 0 ? 'physical' : 'digital';
+                _product!.unit = _unit;
+                _product!.code = productCode;
+                _product!.shippingCost = PriceConverter.systemCurrencyToDefaultCurrency(double.parse(widget.shippingCost!), context);
+                _product!.multiplyWithQuantity = _multi;
+                _product!.brandId = int.parse(_brandId!);
+                _product!.metaTitle = _metaTitle;
+                _product!.metaDescription = _metaDescription;
+                _product!.currentStock = int.parse(widget.currentStock!);
+                _product!.minimumOrderQty = int.parse(widget.minimumOrderQuantity!);
+                _product!.metaTitle = _seoTitle;
+                _product!.metaDescription = _seoDescription;
+                _product!.discountType = resProvider.discountType;
+                _product!.digitalProductType = resProvider.digitalProductTypeIndex == 0 ? 'ready_after_sell' : 'ready_product';
+                _product!.digitalFileReady = resProvider.digitalProductFileName;
+                _product!.categoryIds = [];
+                _product!.categoryIds!.add(CategoryIds(id: widget.categoryId));
 
                 if (resProvider.subCategoryIndex != 0) {
-                  _product.categoryIds.add(CategoryIds(
+                  _product!.categoryIds!.add(CategoryIds(
                       id: widget.subCategoryId));}
 
                 if (resProvider.subSubCategoryIndex != 0) {
-                  _product.categoryIds.add(CategoryIds(
+                  _product!.categoryIds!.add(CategoryIds(
                       id: widget.subSubCategoryId));}
 
-                _addProduct.colorCodeList =[];
+                _addProduct!.colorCodeList =[];
                 if(resProvider.colorCodeList != null){
-                  _addProduct.colorCodeList.addAll(resProvider.colorCodeList);
+                  _addProduct!.colorCodeList!.addAll(resProvider.colorCodeList);
                 }
 
-                _addProduct.languageList = [];
-                if(Provider.of<SplashProvider>(context, listen:false).configModel.languageList!=null &&
-                    Provider.of<SplashProvider>(context, listen:false).configModel.languageList.length>0){
+                _addProduct!.languageList = [];
+                if(Provider.of<SplashProvider>(context, listen:false).configModel!.languageList!=null &&
+                    Provider.of<SplashProvider>(context, listen:false).configModel!.languageList!.length>0){
                   for(int i=0; i<Provider.of<SplashProvider>(context, listen:false).
-                  configModel.languageList.length;i++){
-                    _addProduct.languageList.insert(i,
-                        Provider.of<SplashProvider>(context, listen:false).configModel.languageList[i].code) ;
+                  configModel!.languageList!.length;i++){
+                    _addProduct!.languageList!.insert(i,
+                        Provider.of<SplashProvider>(context, listen:false).configModel!.languageList![i].code) ;
                   }
 
                 }
@@ -757,9 +757,9 @@ class _AddProductSeoScreenState extends State<AddProductSeoScreen> {
                   if(resProvider.pickedLogo == null && resProvider.pickedMeta == null &&
                       resProvider.productImage.length == 0 || resProvider.productImage == null ){
                     Provider.of<SellerProvider>(context,listen: false).addProduct(context,
-                        _product, _addProduct, Provider.of<SellerProvider>(context,listen: false).productReturnImage,Provider.of<SellerProvider>(context,listen: false).colorImageObject, thumbnailImage, metaImage,
+                        _product!, _addProduct!, Provider.of<SellerProvider>(context,listen: false).productReturnImage,Provider.of<SellerProvider>(context,listen: false).colorImageObject, thumbnailImage, metaImage,
                         Provider.of<AuthProvider>(context,listen: false).getUserToken(),
-                        !_update,Provider.of<SellerProvider>(context,listen: false).attributeList[0].active, tagList);
+                        !_update,Provider.of<SellerProvider>(context,listen: false).attributeList![0].active, tagList);
                   } else{
 
                     if(resProvider.pickedLogo != null){

@@ -12,8 +12,8 @@ import 'package:bed3avendor/view/base/custom_divider.dart';
 
 class EarningCardWidget extends StatelessWidget {
   final Earning earning;
-  final int index;
-  EarningCardWidget({@required this.earning, this.index});
+  final int? index;
+  EarningCardWidget({required this.earning, this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,7 @@ class EarningCardWidget extends StatelessWidget {
 
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_MEDIUM),
-              child: Text(DateConverter.localDateToIsoStringAMPM(DateTime.parse(earning.updatedAt)),
+              child: Text(DateConverter.localDateToIsoStringAMPM(DateTime.parse(earning.updatedAt!)),
                   style: titilliumRegular.copyWith(color: Theme.of(context).hintColor)),
             ),
 
@@ -75,7 +75,7 @@ class EarningCardWidget extends StatelessWidget {
 
                         child: Image.asset(Images.order_pending_icon),),
                       Padding(padding: const EdgeInsets.all(8.0),
-                        child: Text(getTranslated(earning.orderStatus, context),
+                        child: Text(getTranslated(earning.orderStatus, context)!,
                             style: robotoRegular.copyWith(color: ColorResources.getPrimary(context))),
                       ),
 

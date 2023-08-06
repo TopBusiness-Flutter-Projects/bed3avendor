@@ -5,7 +5,7 @@ import 'package:bed3avendor/utill/dimensions.dart';
 
 
 class PosProductShimmer extends StatelessWidget {
-  PosProductShimmer({Key key});
+  PosProductShimmer({Key? key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +24,8 @@ class PosProductShimmer extends StatelessWidget {
             boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.3), spreadRadius: 1, blurRadius: 5)],
           ),
           child: Shimmer.fromColors(
-            baseColor: Colors.grey[300],
-            highlightColor: Colors.grey[100],
+            baseColor: Colors.grey[300]!,
+            highlightColor: Colors.grey[100]!,
             enabled: true,
             child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
               // Product Image

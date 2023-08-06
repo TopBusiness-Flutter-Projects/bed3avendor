@@ -16,7 +16,7 @@ import 'package:bed3avendor/view/base/no_data_screen.dart';
 
 class CustomerSearchScreen extends StatefulWidget {
   final bool isCoupon;
-  const CustomerSearchScreen({Key key, this.isCoupon = false}) : super(key: key);
+  const CustomerSearchScreen({Key? key, this.isCoupon = false}) : super(key: key);
 
   @override
   State<CustomerSearchScreen> createState() => _CustomerSearchScreenState();
@@ -70,14 +70,14 @@ class _CustomerSearchScreenState extends State<CustomerSearchScreen> {
             builder: (context, couponProvider, _) {
               return Consumer<CartProvider>(
                   builder: (context, customerProvider, child) {
-                    List<Customers> customerList;
+                    List<Customers>? customerList;
                     if(widget.isCoupon){
                       customerList = couponProvider.couponCustomerList;
                     }else{
                       customerList = customerProvider.searchedCustomerList;
                     }
 
-                    return customerList.isNotEmpty?
+                    return customerList!.isNotEmpty?
                     ListView.builder(
                         itemCount: customerList.length,
                         physics: BouncingScrollPhysics(),
@@ -87,14 +87,14 @@ class _CustomerSearchScreenState extends State<CustomerSearchScreen> {
                           return InkWell(
                             onTap: (){
                               if(widget.isCoupon){
-                                couponProvider.setCustomerInfo(customerList[index].id,
+                                couponProvider.setCustomerInfo(customerList![index].id,
                                     '${customerList[index].fName} ${customerList[index].lName}',
                                     true);
                                 couponProvider.searchCustomerController.text = '${customerList[index].fName??''} ${customerList[index].lName??''}';
                               }else{
-                                customerProvider.setCustomerInfo(customerList[index].id,
+                                customerProvider.setCustomerInfo(customerList![index].id,
                                     '${customerList[index].fName} ${customerList[index].lName}',
-                                    customerProvider.searchedCustomerList[index].phone, true);
+                                    customerProvider.searchedCustomerList![index].phone, true);
                                 customerProvider.searchCustomerController.text = '${customerList[index].fName} ${customerList[index].lName}';
                               }
 
@@ -106,7 +106,7 @@ class _CustomerSearchScreenState extends State<CustomerSearchScreen> {
                                   padding: EdgeInsets.symmetric(vertical: Dimensions.PADDING_SIZE_SMALL),
                                   child: Column(mainAxisAlignment: MainAxisAlignment.start,crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text('${customerList[index].fName} ${customerList[index].lName}',
+                                      Text('${customerList![index].fName} ${customerList[index].lName}',
                                           style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT)),
                                       SizedBox(height: Dimensions.PADDING_SIZE_MEDIUM,),
                                       CustomDivider(height: .5,color: Theme.of(context).hintColor),

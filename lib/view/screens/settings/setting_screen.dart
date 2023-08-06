@@ -32,7 +32,7 @@ class SettingsScreen extends StatelessWidget {
 
 
 
-          Provider.of<SplashProvider>(context, listen: false).configModel.shippingMethod == 'sellerwise_shipping'?
+          Provider.of<SplashProvider>(context, listen: false).configModel!.shippingMethod == 'sellerwise_shipping'?
           TitleButton(
             icon: Images.ship,
             title: '${getTranslated('shipping_setting', context)}',
@@ -47,21 +47,21 @@ class SettingsScreen extends StatelessWidget {
 }
 class TitleButton extends StatelessWidget {
   final String icon;
-  final String title;
+  final String? title;
   final Function onTap;
-  TitleButton({@required this.icon, @required this.title, @required this.onTap});
+  TitleButton({required this.icon, required this.title, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL),
       child: InkWell(
-        onTap: onTap,
+        onTap: onTap as void Function()?,
         child: Container(
           decoration: BoxDecoration(
             color: Theme.of(context).cardColor,
             boxShadow: [BoxShadow(color:Provider.of<ThemeProvider>(context, listen: false).darkTheme? Theme.of(context).primaryColor.withOpacity(0):
-            Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 800 : 200],
+            Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 800 : 200]!,
                 spreadRadius: 0.5, blurRadius: 0.3)],
           ),
           child: Padding(
@@ -69,7 +69,7 @@ class TitleButton extends StatelessWidget {
             child: Row(children: [
               Container(width:Dimensions.ICON_SIZE_LARGE, height:Dimensions.ICON_SIZE_LARGE, child: Image.asset(icon)),
               SizedBox(width: Dimensions.PADDING_SIZE_SMALL,),
-              Text(title, style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE)),
+              Text(title!, style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE)),
               Spacer(),
               Icon(Icons.arrow_forward_ios, color: Theme.of(context).primaryColor,size: Dimensions.ICON_SIZE_SMALL,),
             ],

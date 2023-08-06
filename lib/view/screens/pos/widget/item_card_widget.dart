@@ -12,19 +12,19 @@ import 'package:bed3avendor/view/base/custom_image.dart';
 
 
 class ItemCartWidget extends StatelessWidget {
-  final CartModel cartModel;
-  final int index;
-  const ItemCartWidget({Key key, this.cartModel, this.index}) : super(key: key);
+  final CartModel? cartModel;
+  final int? index;
+  const ItemCartWidget({Key? key, this.cartModel, this.index}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    String baseUrl = '${Provider.of<SplashProvider>(context, listen: false).configModel.baseUrls.productThumbnailUrl}';
+    String baseUrl = '${Provider.of<SplashProvider>(context, listen: false).configModel!.baseUrls!.productThumbnailUrl}';
     return Padding(
       padding: const EdgeInsets.only(top: Dimensions.PADDING_SIZE_MEDIUM),
       child: Dismissible(
         key: UniqueKey(),
         onDismissed: (DismissDirection direction) {
-          Provider.of<CartProvider>(context, listen: false).removeFromCart(index);
+          Provider.of<CartProvider>(context, listen: false).removeFromCart(index!);
 
         },
         child: Container(
@@ -46,7 +46,7 @@ class ItemCartWidget extends StatelessWidget {
                           padding: EdgeInsets.all(Dimensions.PADDING_SIZE_BORDER),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                            child: CustomImage(image: '$baseUrl/${cartModel.product.thumbnail}',
+                            child: CustomImage(image: '$baseUrl/${cartModel!.product!.thumbnail}',
                                 placeholder: Images.placeholder_image,
                                 fit: BoxFit.cover,
                                 width: Dimensions.PRODUCT_IMAGE_SIZE,
@@ -54,7 +54,7 @@ class ItemCartWidget extends StatelessWidget {
                           ),),
                       SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
 
-                      Expanded(child: Text('${cartModel.product.name}', maxLines: 2,overflow: TextOverflow.ellipsis,
+                      Expanded(child: Text('${cartModel!.product!.name}', maxLines: 2,overflow: TextOverflow.ellipsis,
                         style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL),)),
                     ],
                   ),),
@@ -73,10 +73,10 @@ class ItemCartWidget extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                             child: Icon(Icons.remove_circle, size: Dimensions.INCREMENT_BUTTON,
-                                color:cartModel.quantity>1? Theme.of(context).colorScheme.onPrimary:Theme.of(context).hintColor),
+                                color:cartModel!.quantity!>1? Theme.of(context).colorScheme.onPrimary:Theme.of(context).hintColor),
                           ),
                         ),
-                        Center(child: Text(cartModel.quantity.toString(),
+                        Center(child: Text(cartModel!.quantity.toString(),
                           style: robotoRegular.copyWith())),
                         InkWell(
                           onTap: (){
@@ -93,7 +93,7 @@ class ItemCartWidget extends StatelessWidget {
                 ),
 
                 Expanded(flex: 2,
-                    child: Container(child: Text(PriceConverter.convertPrice(context, cartModel.price),
+                    child: Container(child: Text(PriceConverter.convertPrice(context, cartModel!.price),
                         style: robotoRegular.copyWith()))),
 
 

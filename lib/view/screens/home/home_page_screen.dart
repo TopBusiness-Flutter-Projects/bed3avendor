@@ -22,8 +22,8 @@ import 'package:bed3avendor/view/screens/top_delivery_man/top_delivery_man_view.
 
 
 class HomePageScreen extends StatefulWidget {
-  final Function callback;
-  const HomePageScreen({Key key, this.callback}) : super(key: key);
+  final Function? callback;
+  const HomePageScreen({Key? key, this.callback}) : super(key: key);
 
   @override
   State<HomePageScreen> createState() => _HomePageScreenState();

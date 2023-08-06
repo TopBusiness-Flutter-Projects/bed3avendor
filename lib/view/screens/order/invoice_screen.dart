@@ -13,8 +13,8 @@ import 'package:bed3avendor/view/screens/pos_printer/invoice_print.dart';
 import 'widget/invoice_element_view.dart';
 
 class InVoiceScreen extends StatefulWidget {
-  final int orderId;
-  const InVoiceScreen({Key key, this.orderId}) : super(key: key);
+  final int? orderId;
+  const InVoiceScreen({Key? key, this.orderId}) : super(key: key);
 
   @override
   State<InVoiceScreen> createState() => _InVoiceScreenState();
@@ -44,9 +44,9 @@ class _InVoiceScreenState extends State<InVoiceScreen> {
           return SingleChildScrollView(
             child: Consumer<OrderProvider>(
               builder: (context, invoiceProvider, _) {
-                if(invoiceProvider.invoice != null &&  invoiceProvider.invoice.orderAmount != null){
-                  totalPayableAmount = invoiceProvider.invoice.orderAmount +
-                      invoiceProvider.totalTaxAmount - invoiceProvider.discountOnProduct - invoiceProvider.invoice.extraDiscount - invoiceProvider.invoice.discountAmount;
+                if(invoiceProvider.invoice != null &&  invoiceProvider.invoice!.orderAmount != null){
+                  totalPayableAmount = invoiceProvider.invoice!.orderAmount! +
+                      invoiceProvider.totalTaxAmount - invoiceProvider.discountOnProduct - invoiceProvider.invoice!.extraDiscount! - invoiceProvider.invoice!.discountAmount!;
                 }
                 return Column(children: [
 
@@ -79,7 +79,7 @@ class _InVoiceScreenState extends State<InVoiceScreen> {
                               children: [
                                 Container(child: Icon(Icons.event_note_outlined, color: Theme.of(context).cardColor, size: 15,)),
                                 SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
-                                Text(getTranslated('print', context), style: robotoRegular.copyWith(color: Theme.of(context).cardColor),),
+                                Text(getTranslated('print', context)!, style: robotoRegular.copyWith(color: Theme.of(context).cardColor),),
                               ],
                             )),
                           ),),
@@ -107,7 +107,7 @@ class _InVoiceScreenState extends State<InVoiceScreen> {
 
                   Consumer<OrderProvider>(
                     builder: (context, orderController, _) {
-                      return orderController.invoice != null && orderController.invoice.details != null &&  orderController.invoice.details.isNotEmpty ?
+                      return orderController.invoice != null && orderController.invoice!.details != null &&  orderController.invoice!.details!.isNotEmpty ?
                         Padding(
                         padding: EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT),
                         child: Column(children: [
@@ -115,19 +115,19 @@ class _InVoiceScreenState extends State<InVoiceScreen> {
                           SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT),
 
                           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                            Text('${getTranslated('invoice', context).toUpperCase()} # ${widget.orderId}',
+                            Text('${getTranslated('invoice', context)!.toUpperCase()} # ${widget.orderId}',
                                 style: robotoBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE)),
 
-                            Text(getTranslated('payment_method', context),
+                            Text(getTranslated('payment_method', context)!,
                                 style: robotoBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE)),
                           ],),
                           SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
 
                           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                            Text('${DateConverter.dateTimeStringToMonthAndTime(orderController.invoice.createdAt)}',
+                            Text('${DateConverter.dateTimeStringToMonthAndTime(orderController.invoice!.createdAt!)}',
                                 style: robotoRegular),
 
-                              Text('${getTranslated('paid_by', context)} ${getTranslated(invoiceProvider.invoice.paymentMethod??'cash', context)}',
+                              Text('${getTranslated('paid_by', context)} ${getTranslated(invoiceProvider.invoice!.paymentMethod??'cash', context)}',
                                   style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT,
                             )),
                           ],),
@@ -155,12 +155,12 @@ class _InVoiceScreenState extends State<InVoiceScreen> {
                                           Text((index+1).toString()),
                                           SizedBox(width: Dimensions.PADDING_SIZE_DEFAULT),
 
-                                          orderController.invoice.details[index].variant != null?
+                                          orderController.invoice!.details![index].variant != null?
                                           Expanded(
-                                              child: Text('${orderController.invoice.details[index].productDetails.name} (${orderController.invoice.details[index].variant??''})',
+                                              child: Text('${orderController.invoice!.details![index].productDetails!.name} (${orderController.invoice!.details![index].variant??''})',
                                                 maxLines: 2,overflow: TextOverflow.ellipsis,)):
                                           Expanded(
-                                              child: Text('${orderController.invoice.details[index].productDetails.name}',
+                                              child: Text('${orderController.invoice!.details![index].productDetails!.name}',
                                                 maxLines: 2,overflow: TextOverflow.ellipsis,))
 
                                         ],)
@@ -169,17 +169,17 @@ class _InVoiceScreenState extends State<InVoiceScreen> {
 
                                       Expanded(flex: 3,
                                         child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                                          Text(orderController.invoice.details[index].qty.toString()),
+                                          Text(orderController.invoice!.details![index].qty.toString()),
                                           SizedBox(width: Dimensions.PADDING_SIZE_DEFAULT),
 
-                                          Text('${PriceConverter.convertPrice(context, orderController.invoice.details[index].price)}'),
+                                          Text('${PriceConverter.convertPrice(context, orderController.invoice!.details![index].price)}'),
                                         ],),
                                       ),
                                     ],)
                                   ),
                                 );
                               },
-                              itemCount: orderController.invoice.details.length,
+                              itemCount: orderController.invoice!.details!.length,
                               physics: NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
                             ),
@@ -194,35 +194,35 @@ class _InVoiceScreenState extends State<InVoiceScreen> {
                           Container(child: Column(children: [
 
                             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [
-                              Text(getTranslated('subtotal', context),style: robotoRegular.copyWith(),),
-                              Text(PriceConverter.convertPrice(context, orderController.invoice.orderAmount)),
+                              Text(getTranslated('subtotal', context)!,style: robotoRegular.copyWith(),),
+                              Text(PriceConverter.convertPrice(context, orderController.invoice!.orderAmount)),
                             ],),
                             SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
 
 
                             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [
-                              Text(getTranslated('product_discount', context),style: robotoRegular.copyWith(),),
+                              Text(getTranslated('product_discount', context)!,style: robotoRegular.copyWith(),),
                               Text('- ${PriceConverter.convertPrice(context, invoiceProvider.discountOnProduct)}'),
                             ],),
                             SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
 
 
                             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [
-                              Text(getTranslated('coupon_discount', context),style: robotoRegular.copyWith(),),
-                              Text('- ${PriceConverter.convertPrice(context, orderController.invoice.discountAmount)}'),
+                              Text(getTranslated('coupon_discount', context)!,style: robotoRegular.copyWith(),),
+                              Text('- ${PriceConverter.convertPrice(context, orderController.invoice!.discountAmount)}'),
                             ],),
                             SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
 
 
                             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [
-                              Text(getTranslated('extra_discount', context),style: robotoRegular.copyWith(),),
-                              Text(' - ${PriceConverter.convertPrice(context, orderController.invoice.extraDiscount)}'),
+                              Text(getTranslated('extra_discount', context)!,style: robotoRegular.copyWith(),),
+                              Text(' - ${PriceConverter.convertPrice(context, orderController.invoice!.extraDiscount)}'),
                             ],),
                             SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
 
 
                             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [
-                              Text(getTranslated('tax', context),style: robotoRegular.copyWith(),),
+                              Text(getTranslated('tax', context)!,style: robotoRegular.copyWith(),),
                               Text(' + ${PriceConverter.convertPrice(context, invoiceProvider.totalTaxAmount)}'),
                             ],),
                             SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
@@ -234,7 +234,7 @@ class _InVoiceScreenState extends State<InVoiceScreen> {
                           ),
 
                           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [
-                            Text(getTranslated('total', context),style: robotoBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE),),
+                            Text(getTranslated('total', context)!,style: robotoBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE),),
                             Text(PriceConverter.convertPrice(context, totalPayableAmount),
                                 style: robotoBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE)),
                           ],),

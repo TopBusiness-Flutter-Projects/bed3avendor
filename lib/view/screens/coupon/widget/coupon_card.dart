@@ -17,14 +17,14 @@ import 'package:bed3avendor/view/screens/coupon/widget/add_new_coupon_screen.dar
 import 'package:bed3avendor/view/screens/coupon/widget/coupon_details_dialog.dart';
 
 class CouponCard extends StatelessWidget {
-  final Coupons coupons;
-  final int index;
-  const CouponCard({Key key, this.coupons, this.index,}) : super(key: key);
+  final Coupons? coupons;
+  final int? index;
+  const CouponCard({Key? key, this.coupons, this.index,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
      bool adminCoupon = false;
-    if(coupons.addedBy == 'admin' && coupons.couponBearer == 'seller' && coupons.sellerId ==0){
+    if(coupons!.addedBy == 'admin' && coupons!.couponBearer == 'seller' && coupons!.sellerId ==0){
     adminCoupon = true;
     }else{
     adminCoupon = false;
@@ -42,7 +42,7 @@ class CouponCard extends StatelessWidget {
 
             SlidableAction(
               onPressed: (value){
-               Provider.of<CouponProvider>(context, listen: false).deleteCoupon(context, coupons.id);
+               Provider.of<CouponProvider>(context, listen: false).deleteCoupon(context, coupons!.id);
               },
               backgroundColor: Theme.of(context).errorColor.withOpacity(.05),
               foregroundColor: Theme.of(context).errorColor,
@@ -68,7 +68,7 @@ class CouponCard extends StatelessWidget {
 
             SlidableAction(
               onPressed: (value){
-                Provider.of<CouponProvider>(context, listen: false).deleteCoupon(context, coupons.id);
+                Provider.of<CouponProvider>(context, listen: false).deleteCoupon(context, coupons!.id);
               },
               backgroundColor: Theme.of(context).errorColor.withOpacity(.05),
               foregroundColor: Theme.of(context).errorColor,
@@ -124,10 +124,10 @@ class CouponCard extends StatelessWidget {
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Text(coupons.title, style: robotoBold.copyWith(color: Theme.of(context).primaryColor,),
+                                        Text(coupons!.title!, style: robotoBold.copyWith(color: Theme.of(context).primaryColor,),
                                             overflow: TextOverflow.ellipsis, maxLines: 1),
 
-                                        Text(getTranslated(coupons.couponType, context), style: robotoRegular.copyWith(),),
+                                        Text(getTranslated(coupons!.couponType, context)!, style: robotoRegular.copyWith(),),
                                         Divider(),
                                         Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -135,9 +135,9 @@ class CouponCard extends StatelessWidget {
                                             Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
-                                                Text(coupons.code, style: robotoBold.copyWith(),),
+                                                Text(coupons!.code!, style: robotoBold.copyWith(),),
                                                 SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL,),
-                                                Text(DateConverter.isoStringToDateTimeString(coupons.createdAt),
+                                                Text(DateConverter.isoStringToDateTimeString(coupons!.createdAt!),
                                                     style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT))
                                               ],
                                             ),
@@ -163,12 +163,12 @@ class CouponCard extends StatelessWidget {
                         child: FlutterSwitch(
                           activeColor: adminCoupon? Theme.of(context).colorScheme.tertiaryContainer : Theme.of(context).primaryColor,
                             width: 40,height: 20,toggleSize: 18,padding: 1,
-                            value: coupons.status == 1,
+                            value: coupons!.status == 1,
                             onToggle: (value){
                               if(adminCoupon){
                                 showCustomSnackBar(getTranslated('coupon_tooltip', context), context);
                               }else{
-                                couponProvider.updateCouponStatus(context, coupons.id, value?1:0, index);
+                                couponProvider.updateCouponStatus(context, coupons!.id, value?1:0, index);
                               }
 
                             }),

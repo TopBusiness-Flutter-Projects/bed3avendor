@@ -1,18 +1,18 @@
 class ProductModel {
-  int totalSize;
-  int limit;
-  int offset;
-  List<Product> _products;
+  int? totalSize;
+  int? limit;
+  int? offset;
+  List<Product>? _products;
 
   ProductModel(
-      {int totalSize, int limit, int offset, List<Product> products}) {
+      {int? totalSize, int? limit, int? offset, List<Product>? products}) {
     this.totalSize = totalSize;
     this.limit = limit;
     this.offset = offset;
     this._products = products;
   }
 
-  List<Product> get products => _products;
+  List<Product>? get products => _products;
 
   ProductModel.fromJson(Map<String, dynamic> json) {
     totalSize = json['total_size'];
@@ -21,7 +21,7 @@ class ProductModel {
     if (json['products'] != null) {
       _products = [];
       json['products'].forEach((v) {
-        _products.add(new Product.fromJson(v));
+        _products!.add(new Product.fromJson(v));
       });
     }
   }
@@ -32,107 +32,107 @@ class ProductModel {
     data['limit'] = this.limit;
     data['offset'] = this.offset;
     if (this._products != null) {
-      data['products'] = this._products.map((v) => v.toJson()).toList();
+      data['products'] = this._products!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class Product {
-  int id;
-  String addedBy;
-  int userId;
-  String name;
-  String slug;
-  String productType;
-  String code;
-  int brandId;
-  List<CategoryIds> categoryIds;
-  String unit;
-  List<String> images;
-  String thumbnail;
-  List<ProductColors> colors;
-  List<int> attributes;
-  List<ChoiceOptions> choiceOptions;
-  List<Variation> variation;
-  double unitPrice;
-  double purchasePrice;
-  double tax;
-  String taxModel;
-  int minQty;
-  String taxType;
-  double discount;
-  String discountType;
-  int currentStock;
-  String details;
-  String createdAt;
-  String updatedAt;
-  int status;
-  int requestStatus;
-  List<Rating> rating;
-  String metaTitle;
-  String metaDescription;
-  String metaImage;
-  double shippingCost;
-  int multiplyWithQuantity;
-  int minimumOrderQty;
-  String digitalProductType;
-  String digitalFileReady;
-  int reviewsCount;
-  String averageReview;
-  List<Reviews> reviews;
-  String deniedNote;
-  List<Tags> tags;
+  int? id;
+  String? addedBy;
+  int? userId;
+  String? name;
+  String? slug;
+  String? productType;
+  String? code;
+  int? brandId;
+  List<CategoryIds>? categoryIds;
+  String? unit;
+  List<String?>? images;
+  String? thumbnail;
+  List<ProductColors>? colors;
+  List<int?>? attributes;
+  List<ChoiceOptions>? choiceOptions;
+  List<Variation>? variation;
+  double? unitPrice;
+  double? purchasePrice;
+  double? tax;
+  String? taxModel;
+  int? minQty;
+  String? taxType;
+  double? discount;
+  String? discountType;
+  int? currentStock;
+  String? details;
+  String? createdAt;
+  String? updatedAt;
+  int? status;
+  int? requestStatus;
+  List<Rating>? rating;
+  String? metaTitle;
+  String? metaDescription;
+  String? metaImage;
+  double? shippingCost;
+  int? multiplyWithQuantity;
+  int? minimumOrderQty;
+  String? digitalProductType;
+  String? digitalFileReady;
+  int? reviewsCount;
+  String? averageReview;
+  List<Reviews>? reviews;
+  String? deniedNote;
+  List<Tags>? tags;
 
 
   Product(
-      {int id,
-        String addedBy,
-        int userId,
-        String name,
-        String slug,
-        String productType,
-        String code,
-        int brandId,
-        List<CategoryIds> categoryIds,
-        String unit,
-        int minQty,
-        List<String> images,
-        String thumbnail,
-        List<ProductColors> colors,
-        String variantProduct,
-        List<int> attributes,
-        List<ChoiceOptions> choiceOptions,
-        List<Variation> variation,
-        double unitPrice,
-        double purchasePrice,
-        double tax,
-        String taxModel,
-        String taxType,
-        double discount,
-        String discountType,
-        int currentStock,
-        String details,
-        String attachment,
-        String createdAt,
-        String updatedAt,
-        int status,
-        int requestStatus,
-        int featuredStatus,
-        List<Rating> rating,
-        String metaTitle,
-        String metaDescription,
-        String metaImage,
-        double shippingCost,
-        int multiplyWithQuantity,
-        int minimumOrderQty,
-        String digitalProductType,
-        String digitalFileReady,
-        int reviewsCount,
-        String averageReview,
-        List<Reviews> reviews,
-        String deniedNote,
-        List<Tags> tags,
+      {int? id,
+        String? addedBy,
+        int? userId,
+        String? name,
+        String? slug,
+        String? productType,
+        String? code,
+        int? brandId,
+        List<CategoryIds>? categoryIds,
+        String? unit,
+        int? minQty,
+        List<String?>? images,
+        String? thumbnail,
+        List<ProductColors>? colors,
+        String? variantProduct,
+        List<int?>? attributes,
+        List<ChoiceOptions>? choiceOptions,
+        List<Variation>? variation,
+        double? unitPrice,
+        double? purchasePrice,
+        double? tax,
+        String? taxModel,
+        String? taxType,
+        double? discount,
+        String? discountType,
+        int? currentStock,
+        String? details,
+        String? attachment,
+        String? createdAt,
+        String? updatedAt,
+        int? status,
+        int? requestStatus,
+        int? featuredStatus,
+        List<Rating>? rating,
+        String? metaTitle,
+        String? metaDescription,
+        String? metaImage,
+        double? shippingCost,
+        int? multiplyWithQuantity,
+        int? minimumOrderQty,
+        String? digitalProductType,
+        String? digitalFileReady,
+        int? reviewsCount,
+        String? averageReview,
+        List<Reviews>? reviews,
+        String? deniedNote,
+        List<Tags>? tags,
       }) {
     this.id = id;
     this.addedBy = addedBy;
@@ -207,7 +207,7 @@ class Product {
     if (json['category_ids'] != null) {
       categoryIds = [];
       json['category_ids'].forEach((v) {
-        categoryIds.add(new CategoryIds.fromJson(v));
+        categoryIds!.add(new CategoryIds.fromJson(v));
       });
     }
     unit = json['unit'];
@@ -220,25 +220,25 @@ class Product {
     if (json['colors_formatted'] != null) {
       colors = [];
       json['colors_formatted'].forEach((v) {
-        colors.add(new ProductColors.fromJson(v));
+        colors!.add(new ProductColors.fromJson(v));
       });
     }
     if(json['attributes'] != null) {
       attributes = [];
       for(int index=0; index<json['attributes'].length; index++) {
-        attributes.add(int.parse(json['attributes'][index].toString()));
+        attributes!.add(int.parse(json['attributes'][index].toString()));
       }
     }
     if (json['choice_options'] != null) {
       choiceOptions = [];
       json['choice_options'].forEach((v) {
-        choiceOptions.add(new ChoiceOptions.fromJson(v));
+        choiceOptions!.add(new ChoiceOptions.fromJson(v));
       });
     }
     if (json['variation'] != null) {
       variation = [];
       json['variation'].forEach((v) {
-        variation.add(new Variation.fromJson(v));
+        variation!.add(new Variation.fromJson(v));
       });
     }
     unitPrice = json['unit_price'].toDouble();
@@ -267,7 +267,7 @@ class Product {
     if (json['rating'] != null) {
       rating = [];
       json['rating'].forEach((v) {
-        rating.add(new Rating.fromJson(v));
+        rating!.add(new Rating.fromJson(v));
       });
     }
     metaTitle = json['meta_title'];
@@ -298,13 +298,13 @@ class Product {
     if (json['reviews'] != null) {
       reviews = <Reviews>[];
       json['reviews'].forEach((v) {
-        reviews.add(new Reviews.fromJson(v));
+        reviews!.add(new Reviews.fromJson(v));
       });
     }
     if (json['tags'] != null) {
       tags = <Tags>[];
       json['tags'].forEach((v) {
-        tags.add(new Tags.fromJson(v));
+        tags!.add(new Tags.fromJson(v));
       });
     }
 
@@ -321,22 +321,22 @@ class Product {
     data['code'] = this.code;
     data['brand_id'] = this.brandId;
     if (this.categoryIds != null) {
-      data['category_ids'] = this.categoryIds.map((v) => v.toJson()).toList();
+      data['category_ids'] = this.categoryIds!.map((v) => v.toJson()).toList();
     }
     data['unit'] = this.unit;
     data['min_qty'] = this.minQty;
     data['images'] = this.images;
     data['thumbnail'] = this.thumbnail;
     if (this.colors != null) {
-      data['colors_formatted'] = this.colors.map((v) => v.toJson()).toList();
+      data['colors_formatted'] = this.colors!.map((v) => v.toJson()).toList();
     }
     data['attributes'] = this.attributes;
     if (this.choiceOptions != null) {
       data['choice_options'] =
-          this.choiceOptions.map((v) => v.toJson()).toList();
+          this.choiceOptions!.map((v) => v.toJson()).toList();
     }
     if (this.variation != null) {
-      data['variation'] = this.variation.map((v) => v.toJson()).toList();
+      data['variation'] = this.variation!.map((v) => v.toJson()).toList();
     }
     data['unit_price'] = this.unitPrice;
     data['purchase_price'] = this.purchasePrice;
@@ -353,7 +353,7 @@ class Product {
     data['denied_note'] = this.deniedNote;
     data['request_status'] = this.requestStatus;
     if (this.rating != null) {
-      data['rating'] = this.rating.map((v) => v.toJson()).toList();
+      data['rating'] = this.rating!.map((v) => v.toJson()).toList();
     }
     data['meta_title'] = this.metaTitle;
     data['meta_description'] = this.metaDescription;
@@ -366,20 +366,20 @@ class Product {
     data['reviews_count'] = this.reviewsCount;
     data['average_review'] = this.averageReview;
     if (this.reviews != null) {
-      data['reviews'] = this.reviews.map((v) => v.toJson()).toList();
+      data['reviews'] = this.reviews!.map((v) => v.toJson()).toList();
     }
     if (this.tags != null) {
-      data['tags'] = this.tags.map((v) => v.toJson()).toList();
+      data['tags'] = this.tags!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class CategoryIds {
-  String id;
-  int position;
+  String? id;
+  int? position;
 
-  CategoryIds({String id, int position}) {
+  CategoryIds({String? id, int? position}) {
     this.id = id;
     this.position = position;
   }
@@ -399,16 +399,16 @@ class CategoryIds {
 }
 
 class ProductColors {
-  String _name;
-  String _code;
+  String? _name;
+  String? _code;
 
-  ProductColors({String name, String code}) {
+  ProductColors({String? name, String? code}) {
     this._name = name;
     this._code = code;
   }
 
-  String get name => _name;
-  String get code => _code;
+  String? get name => _name;
+  String? get code => _code;
 
   ProductColors.fromJson(Map<String, dynamic> json) {
     _name = json['name'];
@@ -424,19 +424,19 @@ class ProductColors {
 }
 
 class ChoiceOptions {
-  String _name;
-  String _title;
-  List<String> _options;
+  String? _name;
+  String? _title;
+  List<String>? _options;
 
-  ChoiceOptions({String name, String title, List<String> options}) {
+  ChoiceOptions({String? name, String? title, List<String>? options}) {
     this._name = name;
     this._title = title;
     this._options = options;
   }
 
-  String get name => _name;
-  String get title => _title;
-  List<String> get options => _options;
+  String? get name => _name;
+  String? get title => _title;
+  List<String>? get options => _options;
 
   ChoiceOptions.fromJson(Map<String, dynamic> json) {
     _name = json['name'];
@@ -454,22 +454,22 @@ class ChoiceOptions {
 }
 
 class Variation {
-  String _type;
-  double _price;
-  String _sku;
-  int _qty;
+  String? _type;
+  double? _price;
+  String? _sku;
+  int? _qty;
 
-  Variation({String type, double price, String sku, int qty}) {
+  Variation({String? type, double? price, String? sku, int? qty}) {
     this._type = type;
     this._price = price;
     this._sku = sku;
     this._qty = qty;
   }
 
-  String get type => _type;
-  double get price => _price;
-  String get sku => _sku;
-  int get qty => _qty;
+  String? get type => _type;
+  double? get price => _price;
+  String? get sku => _sku;
+  int? get qty => _qty;
 
   Variation.fromJson(Map<String, dynamic> json) {
     _type = json['type'];
@@ -489,16 +489,16 @@ class Variation {
 }
 
 class Rating {
-  String _average;
-  int _productId;
+  String? _average;
+  int? _productId;
 
-  Rating({String average, int productId}) {
+  Rating({String? average, int? productId}) {
     this._average = average;
     this._productId = productId;
   }
 
-  String get average => _average;
-  int get productId => _productId;
+  String? get average => _average;
+  int? get productId => _productId;
 
   Rating.fromJson(Map<String, dynamic> json) {
     _average = json['average'].toString();
@@ -514,28 +514,28 @@ class Rating {
 }
 
 class Reviews {
-  int _id;
-  int _productId;
-  int _customerId;
-  String _comment;
-  String _attachment;
-  int _rating;
-  int _status;
-  String _createdAt;
-  String _updatedAt;
-  Customer _customer;
+  int? _id;
+  int? _productId;
+  int? _customerId;
+  String? _comment;
+  String? _attachment;
+  int? _rating;
+  int? _status;
+  String? _createdAt;
+  String? _updatedAt;
+  Customer? _customer;
 
   Reviews(
-      {int id,
-        int productId,
-        int customerId,
-        String comment,
-        String attachment,
-        int rating,
-        int status,
-        String createdAt,
-        String updatedAt,
-        Customer customer}) {
+      {int? id,
+        int? productId,
+        int? customerId,
+        String? comment,
+        String? attachment,
+        int? rating,
+        int? status,
+        String? createdAt,
+        String? updatedAt,
+        Customer? customer}) {
     if (id != null) {
       this._id = id;
     }
@@ -568,16 +568,16 @@ class Reviews {
     }
   }
 
-  int get id => _id;
-  int get productId => _productId;
-  int get customerId => _customerId;
-  String get comment => _comment;
-  String get attachment => _attachment;
-  int get rating => _rating;
-  int get status => _status;
-  String get createdAt => _createdAt;
-  String get updatedAt => _updatedAt;
-  Customer get customer => _customer;
+  int? get id => _id;
+  int? get productId => _productId;
+  int? get customerId => _customerId;
+  String? get comment => _comment;
+  String? get attachment => _attachment;
+  int? get rating => _rating;
+  int? get status => _status;
+  String? get createdAt => _createdAt;
+  String? get updatedAt => _updatedAt;
+  Customer? get customer => _customer;
 
 
   Reviews.fromJson(Map<String, dynamic> json) {
@@ -607,27 +607,27 @@ class Reviews {
     data['created_at'] = this._createdAt;
     data['updated_at'] = this._updatedAt;
     if (this._customer != null) {
-      data['customer'] = this._customer.toJson();
+      data['customer'] = this._customer!.toJson();
     }
     return data;
   }
 }
 
 class Customer {
-  int _id;
-  String _fName;
-  String _lName;
-  String _phone;
-  String _image;
-  String _email;
+  int? _id;
+  String? _fName;
+  String? _lName;
+  String? _phone;
+  String? _image;
+  String? _email;
 
   Customer(
-      {int id,
-        String fName,
-        String lName,
-        String phone,
-        String image,
-        String email,
+      {int? id,
+        String? fName,
+        String? lName,
+        String? phone,
+        String? image,
+        String? email,
       }) {
     if (id != null) {
       this._id = id;
@@ -650,12 +650,12 @@ class Customer {
 
   }
 
-  int get id => _id;
-  String get fName => _fName;
-  String get lName => _lName;
-  String get phone => _phone;
-  String get image => _image;
-  String get email => _email;
+  int? get id => _id;
+  String? get fName => _fName;
+  String? get lName => _lName;
+  String? get phone => _phone;
+  String? get image => _image;
+  String? get email => _email;
 
 
   Customer.fromJson(Map<String, dynamic> json) {
@@ -682,8 +682,8 @@ class Customer {
 }
 
 class Tags {
-  int id;
-  String tag;
+  int? id;
+  String? tag;
 
 
   Tags({this.id, this.tag});

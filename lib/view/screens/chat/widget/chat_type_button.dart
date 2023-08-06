@@ -7,9 +7,9 @@ import 'package:bed3avendor/utill/styles.dart';
 
 
 class ChatTypeButton extends StatelessWidget {
-  final String text;
+  final String? text;
   final int index;
-  const ChatTypeButton({Key key, @required this.text, @required this.index}) : super(key: key);
+  const ChatTypeButton({Key? key, required this.text, required this.index}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class ChatTypeButton extends StatelessWidget {
       child: Consumer<ChatProvider>(builder: (context, chat,_) {
         return Column(mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Text(text, style:
+            Text(text!, style:
             robotoRegular.copyWith(color: chat.userTypeIndex == index ?
             ColorResources.getPrimary(context) : ColorResources.getTextColor(context))),
             SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL,),

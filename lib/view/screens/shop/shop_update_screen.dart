@@ -36,7 +36,7 @@ class _ShopUpdateScreenState extends State<ShopUpdateScreen> {
 
 
 
-  File file;
+  File? file;
   final picker = ImagePicker();
   final GlobalKey<ScaffoldMessengerState> _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
 
@@ -55,9 +55,9 @@ class _ShopUpdateScreenState extends State<ShopUpdateScreen> {
     String _contactNumber = _contactNumberController.text.trim();
     String _address = _addressController.text.trim();
 
-    if(Provider.of<ShopProvider>(context, listen: false).shopModel.name == _shopNameController.text
-        && Provider.of<ShopProvider>(context, listen: false).shopModel.contact == _contactNumberController.text
-        && Provider.of<ShopProvider>(context, listen: false).shopModel.address == _addressController.text && file == null) {
+    if(Provider.of<ShopProvider>(context, listen: false).shopModel!.name == _shopNameController.text
+        && Provider.of<ShopProvider>(context, listen: false).shopModel!.contact == _contactNumberController.text
+        && Provider.of<ShopProvider>(context, listen: false).shopModel!.address == _addressController.text && file == null) {
       showCustomSnackBar(getTranslated('change_something_to_update', context), context);
     }else if (_shopName.isEmpty) {
       showCustomSnackBar(getTranslated('enter_first_name', context), context);
@@ -66,7 +66,7 @@ class _ShopUpdateScreenState extends State<ShopUpdateScreen> {
     }else if (_address.isEmpty) {
       showCustomSnackBar(getTranslated('enter_address', context), context);
     }else {
-      ShopModel updateShopModel = Provider.of<ShopProvider>(context, listen: false).shopModel;
+      ShopModel updateShopModel = Provider.of<ShopProvider>(context, listen: false).shopModel!;
       updateShopModel.name = _shopNameController.text ?? "";
       updateShopModel.contact = _contactNumberController.text ?? "";
       updateShopModel.address = _addressController.text ?? '';
@@ -100,9 +100,9 @@ class _ShopUpdateScreenState extends State<ShopUpdateScreen> {
       key: _scaffoldKey,
       body: Consumer<ShopProvider>(
         builder: (context, shop, child) {
-          _shopNameController.text = shop.shopModel.name;
-          _contactNumberController.text = shop.shopModel.contact;
-          _addressController.text = shop.shopModel.address;
+          _shopNameController.text = shop.shopModel!.name!;
+          _contactNumberController.text = shop.shopModel!.contact!;
+          _addressController.text = shop.shopModel!.address!;
 
           return Stack(
             clipBehavior: Clip.none,
@@ -135,7 +135,7 @@ class _ShopUpdateScreenState extends State<ShopUpdateScreen> {
                                   right: Dimensions.PADDING_SIZE_DEFAULT),
                               child: Column(crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(getTranslated('shop_name', context), style: titilliumRegular),
+                                  Text(getTranslated('shop_name', context)!, style: titilliumRegular),
 
                                   SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
                                   CustomTextField(
@@ -144,12 +144,12 @@ class _ShopUpdateScreenState extends State<ShopUpdateScreen> {
                                     textInputType: TextInputType.name,
                                     focusNode: _sNameFocus,
                                     nextNode: _cNumberFocus,
-                                    hintText: shop.shopModel.name ?? '',
+                                    hintText: shop.shopModel!.name ?? '',
                                     controller: _shopNameController,
                                   ),
 
                                   SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT),
-                                  Text(getTranslated('contact_number', context), style: titilliumRegular),
+                                  Text(getTranslated('contact_number', context)!, style: titilliumRegular),
 
                                   SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
                                   CustomTextField(
@@ -157,7 +157,7 @@ class _ShopUpdateScreenState extends State<ShopUpdateScreen> {
                                     textInputType: TextInputType.number,
                                     focusNode: _cNumberFocus,
                                     nextNode: _addressFocus,
-                                    hintText: shop.shopModel.contact,
+                                    hintText: shop.shopModel!.contact,
                                     controller: _contactNumberController,
                                     isPhoneNumber: true,
                                   ),
@@ -172,7 +172,7 @@ class _ShopUpdateScreenState extends State<ShopUpdateScreen> {
                                   right: Dimensions.PADDING_SIZE_DEFAULT),
                               child: Column(crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(getTranslated('address', context), style: titilliumRegular),
+                                  Text(getTranslated('address', context)!, style: titilliumRegular),
 
                                   SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
                                   CustomTextField(
@@ -180,7 +180,7 @@ class _ShopUpdateScreenState extends State<ShopUpdateScreen> {
                                     maxLine: 4,
                                     textInputType: TextInputType.text,
                                     focusNode: _addressFocus,
-                                    hintText: shop.shopModel.address ?? "",
+                                    hintText: shop.shopModel!.address ?? "",
                                     controller: _addressController,
 
                                   ),
@@ -204,7 +204,7 @@ class _ShopUpdateScreenState extends State<ShopUpdateScreen> {
                 left: MediaQuery.of(context).size.width/2-60,
                 child: Column(
                   children: [
-                    Text(getTranslated('update_logo', context)),
+                    Text(getTranslated('update_logo', context)!),
                     Padding(
                       padding: const EdgeInsets.only(top: Dimensions.PADDING_SIZE_DEFAULT, bottom: Dimensions.PADDING_SIZE_SMALL),
                       child: DottedBorder(
@@ -229,8 +229,8 @@ class _ShopUpdateScreenState extends State<ShopUpdateScreen> {
                                 borderRadius: BorderRadius.circular(100),
                                 child: file == null
                                     ? CustomImage(height: 140,width: 140,
-                                    image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls.shopImageUrl}/${shop.shopModel.image}')
-                                    : Image.file(file, width: 100, height: 100, fit: BoxFit.cover),
+                                    image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls!.shopImageUrl}/${shop.shopModel!.image}')
+                                    : Image.file(file!, width: 100, height: 100, fit: BoxFit.cover),
                               ),
                               Positioned(
                                 bottom: 0, right: 0, top: 0, left: 0,

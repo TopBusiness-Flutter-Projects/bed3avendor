@@ -1,16 +1,16 @@
 
 class DeliveryManBody {
-  int id;
-  String fName;
-  String lName;
-  String address;
-  String phone;
-  String email;
-  String countryCode;
-  String identityNumber;
-  String identityType;
-  String password;
-  String confirmPassword;
+  int? id;
+  String? fName;
+  String? lName;
+  String? address;
+  String? phone;
+  String? email;
+  String? countryCode;
+  String? identityNumber;
+  String? identityType;
+  String? password;
+  String? confirmPassword;
 
   DeliveryManBody(
       {this.id,

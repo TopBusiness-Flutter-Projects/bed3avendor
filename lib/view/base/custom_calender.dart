@@ -7,7 +7,7 @@ import 'package:bed3avendor/utill/dimensions.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class CustomCalender extends StatefulWidget {
-  const CustomCalender({Key key}) : super(key: key);
+  const CustomCalender({Key? key}) : super(key: key);
 
   @override
   State<CustomCalender> createState() => _CustomCalenderState();
@@ -39,9 +39,9 @@ class _CustomCalenderState extends State<CustomCalender> {
             padding:  EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT),
             color: Theme.of(context).canvasColor,
             child: SfDateRangePicker(
-              confirmText: getTranslated('ok', context),
+              confirmText: getTranslated('ok', context)!,
               showActionButtons: true,
-              cancelText: getTranslated('cancel', context),
+              cancelText: getTranslated('cancel', context)!,
               onCancel: ()=> Navigator.pop(context),
               onSubmit: (value){
                 transactionProvider.selectDate(context, rng[0], rng[1]);

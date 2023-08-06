@@ -13,7 +13,7 @@ import 'package:bed3avendor/utill/styles.dart';
 
 class TransactionWidget extends StatelessWidget {
   final TransactionModel transactionModel;
-  TransactionWidget({@required this.transactionModel});
+  TransactionWidget({required this.transactionModel});
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +63,7 @@ class TransactionWidget extends StatelessWidget {
                boxShadow: ThemeShadow.getShadow(context)
            ),
            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-             Text(DateConverter.localDateToIsoStringAMPM(DateTime.parse(transactionModel.createdAt)),
+             Text(DateConverter.localDateToIsoStringAMPM(DateTime.parse(transactionModel.createdAt!)),
                style: titilliumRegular.copyWith(color: ColorResources.getHint(context),
                    fontSize: Dimensions.FONT_SIZE_DEFAULT)),
              SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
@@ -74,7 +74,7 @@ class TransactionWidget extends StatelessWidget {
                  Padding(
                  padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_SMALL),
                    child: Text(getTranslated(transactionModel.approved == 2 ?
-                   'denied' : transactionModel.approved == 1 ? 'approved' : 'pending', context),
+                   'denied' : transactionModel.approved == 1 ? 'approved' : 'pending', context)!,
                      style: titilliumRegular.copyWith(color: transactionModel.approved == 1 ? Colors.green : transactionModel.approved == 2 ?
                      Colors.red : Theme.of(context).primaryColor, fontSize: Dimensions.FONT_SIZE_DEFAULT)),
                  ),

@@ -5,7 +5,7 @@ import 'package:bed3avendor/utill/images.dart';
 import 'package:bed3avendor/utill/styles.dart';
 
 class PosNoProductWidget extends StatelessWidget {
-  const PosNoProductWidget({Key key}) : super(key: key);
+  const PosNoProductWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class PosNoProductWidget extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT),
                 child: Text(
-                getTranslated('scan_item_or_add_from_item', context),
+                getTranslated('scan_item_or_add_from_item', context)!,
                   style: robotoRegular.copyWith(color: Theme.of(context).hintColor),
                   textAlign: TextAlign.center,
                 ),

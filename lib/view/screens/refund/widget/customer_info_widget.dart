@@ -10,43 +10,43 @@ import 'package:bed3avendor/utill/styles.dart';
 import 'package:bed3avendor/view/base/custom_image.dart';
 
 class CustomerInfoWidget extends StatelessWidget {
-  final RefundModel refundModel;
-  const CustomerInfoWidget({Key key, this.refundModel}) : super(key: key);
+  final RefundModel? refundModel;
+  const CustomerInfoWidget({Key? key, this.refundModel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_DEFAULT, vertical: Dimensions.PADDING_SIZE_MEDIUM),
       decoration: BoxDecoration(color: Theme.of(context).cardColor,
-        boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 800 : 200],
+        boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 800 : 200]!,
             spreadRadius: 0.5, blurRadius: 0.3)],),
 
 
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Text(getTranslated('customer_information', context),
+        Text(getTranslated('customer_information', context)!,
             style: robotoMedium.copyWith(color: ColorResources.getTextColor(context))),
         SizedBox(height: Dimensions.PADDING_SIZE_MEDIUM),
 
         Row(children: [ClipRRect(
           borderRadius: BorderRadius.circular(50),
           child: CustomImage(width: 50, height: 50,
-              image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls.customerImageUrl}/${refundModel.customer.image}')),
+              image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls!.customerImageUrl}/${refundModel!.customer!.image}')),
           SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
 
           Expanded(child: Column( crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text('${refundModel.customer.fName ?? ''} ${refundModel.customer.lName ?? ''}',
+            Text('${refundModel!.customer!.fName ?? ''} ${refundModel!.customer!.lName ?? ''}',
                 style: robotoMedium.copyWith(color: ColorResources.getTextColor(context),
                     fontSize: Dimensions.FONT_SIZE_DEFAULT)),
 
             SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL,),
 
-            Text('${refundModel.customer.phone}',
+            Text('${refundModel!.customer!.phone}',
                 style: titilliumRegular.copyWith(color: ColorResources.titleColor(context),
                     fontSize: Dimensions.FONT_SIZE_DEFAULT)),
 
             SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL,),
 
-            Text('${refundModel.customer.email ?? ''}',
+            Text('${refundModel!.customer!.email ?? ''}',
                 style: titilliumRegular.copyWith(color: ColorResources.titleColor(context),
                     fontSize: Dimensions.FONT_SIZE_DEFAULT)),
 

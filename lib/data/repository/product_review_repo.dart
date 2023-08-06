@@ -5,12 +5,12 @@ import 'package:bed3avendor/data/model/response/base/api_response.dart';
 import 'package:bed3avendor/utill/app_constants.dart';
 
 class ProductReviewRepo {
-  final DioClient dioClient;
-  ProductReviewRepo({@required this.dioClient});
+  final DioClient? dioClient;
+  ProductReviewRepo({required this.dioClient});
 
   Future<ApiResponse> productReviewList() async {
     try {
-      final response = await dioClient.get(AppConstants.PRODUCT_REVIEW_URI,
+      final response = await dioClient!.get(AppConstants.PRODUCT_REVIEW_URI,
       );
       return ApiResponse.withSuccess(response);
     } catch (e) {
@@ -18,9 +18,9 @@ class ProductReviewRepo {
     }
   }
 
-  Future<ApiResponse> filterProductReviewList(int productId, int customerId, int status, String from, String to) async {
+  Future<ApiResponse> filterProductReviewList(int? productId, int? customerId, int status, String from, String to) async {
     try {
-      final response = await dioClient.get('${AppConstants.PRODUCT_REVIEW_URI}?product_id=$productId&customer_id=$customerId&status&from=$from&to=$to',
+      final response = await dioClient!.get('${AppConstants.PRODUCT_REVIEW_URI}?product_id=$productId&customer_id=$customerId&status&from=$from&to=$to',
       );
       return ApiResponse.withSuccess(response);
     } catch (e) {
@@ -31,7 +31,7 @@ class ProductReviewRepo {
 
   Future<ApiResponse> searchProductReviewList(String search) async {
     try {
-      final response = await dioClient.get('${AppConstants.PRODUCT_REVIEW_URI}?search=$search',
+      final response = await dioClient!.get('${AppConstants.PRODUCT_REVIEW_URI}?search=$search',
       );
       return ApiResponse.withSuccess(response);
     } catch (e) {
@@ -40,9 +40,9 @@ class ProductReviewRepo {
   }
 
 
-  Future<ApiResponse> reviewStatusOnOff(int reviewId, int status) async {
+  Future<ApiResponse> reviewStatusOnOff(int? reviewId, int status) async {
     try {
-      final response = await dioClient.get('${AppConstants.PRODUCT_REVIEW_STATUS_ON_OFF}?id=$reviewId&status=$status',
+      final response = await dioClient!.get('${AppConstants.PRODUCT_REVIEW_STATUS_ON_OFF}?id=$reviewId&status=$status',
       );
       return ApiResponse.withSuccess(response);
     } catch (e) {

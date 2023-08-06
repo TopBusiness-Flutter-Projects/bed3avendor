@@ -1,18 +1,18 @@
 class ShopModel {
-  int id;
-  String name;
-  String address;
-  String contact;
-  String image;
-  String createdAt;
-  String updatedAt;
-  String banner;
-  double ratting;
-  int rattingCount;
-  int temporaryClose;
-  String vacationEndDate;
-  String vacationStartDate;
-  int vacationStatus;
+  int? id;
+  String? name;
+  String? address;
+  String? contact;
+  String? image;
+  String? createdAt;
+  String? updatedAt;
+  String? banner;
+  double? ratting;
+  int? rattingCount;
+  int? temporaryClose;
+  String? vacationEndDate;
+  String? vacationStartDate;
+  int? vacationStatus;
 
 
 

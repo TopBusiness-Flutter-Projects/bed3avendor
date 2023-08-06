@@ -10,7 +10,7 @@ import 'package:bed3avendor/view/screens/delivery/emergency_contact/widget/emerg
 
 
 class EmergencyContactListView extends StatelessWidget {
-  const EmergencyContactListView({Key key}) : super(key: key);
+  const EmergencyContactListView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -1,8 +1,8 @@
 class DeliveryManWithdrawModel {
-  int totalSize;
-  String limit;
-  String offset;
-  List<Withdraws> withdraws;
+  int? totalSize;
+  String? limit;
+  String? offset;
+  List<Withdraws>? withdraws;
 
   DeliveryManWithdrawModel(
       {this.totalSize, this.limit, this.offset, this.withdraws});
@@ -14,7 +14,7 @@ class DeliveryManWithdrawModel {
     if (json['withdraws'] != null) {
       withdraws = <Withdraws>[];
       json['withdraws'].forEach((v) {
-        withdraws.add(new Withdraws.fromJson(v));
+        withdraws!.add(new Withdraws.fromJson(v));
       });
     }
   }
@@ -25,19 +25,19 @@ class DeliveryManWithdrawModel {
     data['limit'] = this.limit;
     data['offset'] = this.offset;
     if (this.withdraws != null) {
-      data['withdraws'] = this.withdraws.map((v) => v.toJson()).toList();
+      data['withdraws'] = this.withdraws!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class Withdraws {
-  int id;
-  double amount;
-  String transactionNote;
-  int approved;
-  String createdAt;
-  String updatedAt;
+  int? id;
+  double? amount;
+  String? transactionNote;
+  int? approved;
+  String? createdAt;
+  String? updatedAt;
 
 
   Withdraws(

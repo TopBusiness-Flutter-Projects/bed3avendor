@@ -4,12 +4,12 @@ import 'package:bed3avendor/utill/styles.dart';
 
 class InvoiceElementView extends StatelessWidget {
   final bool isBold;
-  final String title;
-  final String serial;
-  final String quantity;
-  final String price;
+  final String? title;
+  final String? serial;
+  final String? quantity;
+  final String? price;
   const InvoiceElementView({
-    Key key,
+    Key? key,
     this.serial,
     this.isBold = false,
     this.title,
@@ -22,12 +22,12 @@ class InvoiceElementView extends StatelessWidget {
     return  Row(children: [
       Expanded(flex: 5,
         child: serial != null ? Row(mainAxisAlignment: MainAxisAlignment.start,children: [
-          _textView(context, serial, isBold),
+          _textView(context, serial!, isBold),
           SizedBox(width: Dimensions.PADDING_SIZE_DEFAULT),
 
-          _textView(context, title, isBold),
+          _textView(context, title!, isBold),
 
-        ],) : Text(title, style: isBold ? robotoBold.copyWith(
+        ],) : Text(title!, style: isBold ? robotoBold.copyWith(
           color: Theme.of(context).primaryColor,
           fontSize: Dimensions.FONT_SIZE_LARGE,
         ) : robotoRegular.copyWith(color: Theme.of(context).hintColor)),
@@ -35,10 +35,10 @@ class InvoiceElementView extends StatelessWidget {
 
       Expanded(flex: 3,
         child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          quantity != null ? _textView(context, quantity, isBold) : SizedBox(),
+          quantity != null ? _textView(context, quantity!, isBold) : SizedBox(),
           SizedBox(width: Dimensions.PADDING_SIZE_DEFAULT),
 
-          Text(price, style: isBold ? robotoBold.copyWith(
+          Text(price!, style: isBold ? robotoBold.copyWith(
             fontSize: Dimensions.FONT_SIZE_LARGE,
           ) : robotoRegular.copyWith(color: Theme.of(context).hintColor)),
         ],),

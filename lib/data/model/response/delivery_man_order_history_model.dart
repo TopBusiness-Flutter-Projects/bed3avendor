@@ -1,10 +1,10 @@
 import 'package:bed3avendor/data/model/response/order_model.dart';
 
 class DeliveryManOrderHistory {
-  int totalSize;
-  String limit;
-  String offset;
-  List<Order> orders;
+  int? totalSize;
+  String? limit;
+  String? offset;
+  List<Order>? orders;
 
   DeliveryManOrderHistory(
       {this.totalSize, this.limit, this.offset, this.orders});
@@ -16,7 +16,7 @@ class DeliveryManOrderHistory {
     if (json['orders'] != null) {
       orders = <Order>[];
       json['orders'].forEach((v) {
-        orders.add(new Order.fromJson(v));
+        orders!.add(new Order.fromJson(v));
       });
     }
   }
@@ -27,7 +27,7 @@ class DeliveryManOrderHistory {
     data['limit'] = this.limit;
     data['offset'] = this.offset;
     if (this.orders != null) {
-      data['orders'] = this.orders.map((v) => v.toJson()).toList();
+      data['orders'] = this.orders!.map((v) => v.toJson()).toList();
     }
     return data;
   }

@@ -1,8 +1,8 @@
 class CollectedCashModel {
-  int totalSize;
-  String limit;
-  String offset;
-  List<CollectedCash> collectedCash;
+  int? totalSize;
+  String? limit;
+  String? offset;
+  List<CollectedCash>? collectedCash;
 
   CollectedCashModel(
       {this.totalSize, this.limit, this.offset, this.collectedCash});
@@ -14,7 +14,7 @@ class CollectedCashModel {
     if (json['collected_cash'] != null) {
       collectedCash = <CollectedCash>[];
       json['collected_cash'].forEach((v) {
-        collectedCash.add(new CollectedCash.fromJson(v));
+        collectedCash!.add(new CollectedCash.fromJson(v));
       });
     }
   }
@@ -26,18 +26,18 @@ class CollectedCashModel {
     data['offset'] = this.offset;
     if (this.collectedCash != null) {
       data['collected_cash'] =
-          this.collectedCash.map((v) => v.toJson()).toList();
+          this.collectedCash!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class CollectedCash {
-  int id;
-  String credit;
-  String transactionType;
-  String createdAt;
-  String updatedAt;
+  int? id;
+  String? credit;
+  String? transactionType;
+  String? createdAt;
+  String? updatedAt;
 
   CollectedCash(
       {this.id,

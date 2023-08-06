@@ -16,15 +16,15 @@ import 'package:bed3avendor/view/screens/delivery/delivery_man_setup.dart';
 import 'package:bed3avendor/view/screens/delivery/widget/delivery_man_info.dart';
 
 class AddNewDeliveryManScreen extends StatefulWidget {
-  final DeliveryMan deliveryMan;
-  const AddNewDeliveryManScreen({Key key, this.deliveryMan}) : super(key: key);
+  final DeliveryMan? deliveryMan;
+  const AddNewDeliveryManScreen({Key? key, this.deliveryMan}) : super(key: key);
 
   @override
   State<AddNewDeliveryManScreen> createState() => _AddNewDeliveryManScreenState();
 }
 
 class _AddNewDeliveryManScreenState extends State<AddNewDeliveryManScreen> with TickerProviderStateMixin{
-  TabController _tabController;
+  TabController? _tabController;
   int selectedIndex = 0;
 
   @override
@@ -33,8 +33,8 @@ class _AddNewDeliveryManScreenState extends State<AddNewDeliveryManScreen> with 
     _tabController = TabController(length: 2, initialIndex: 0, vsync: this);
 
     _tabController?.addListener((){
-      print('my index is'+ _tabController.index.toString());
-      switch (_tabController.index){
+      print('my index is'+ _tabController!.index.toString());
+      switch (_tabController!.index){
         case 0:
           Provider.of<DeliveryManProvider>(context, listen: false).setIndexForTabBar(1, isNotify: true);
           break;
@@ -101,7 +101,7 @@ class _AddNewDeliveryManScreenState extends State<AddNewDeliveryManScreen> with 
 
       bottomNavigationBar: Consumer<DeliveryManProvider>(
           builder: (context, deliveryManProvider, _) {
-            print('tab index is ====>${_tabController.index}/$selectedIndex');
+            print('tab index is ====>${_tabController!.index}/$selectedIndex');
             return Column(mainAxisSize: MainAxisSize.min,
               children: [
                 Padding(padding: const EdgeInsets.only(top: Dimensions.PADDING_SIZE_DEFAULT),
@@ -146,8 +146,8 @@ class _AddNewDeliveryManScreenState extends State<AddNewDeliveryManScreen> with 
                       showCustomSnackBar(getTranslated('identity_image_is_required', context), context);
                     }
                     else{
-                      _tabController.animateTo((_tabController.index + 1) % 2);
-                      selectedIndex = _tabController.index + 1;
+                      _tabController!.animateTo((_tabController!.index + 1) % 2);
+                      selectedIndex = _tabController!.index + 1;
                       deliveryManProvider.setIndexForTabBar(selectedIndex);
 
                     }
@@ -161,8 +161,8 @@ class _AddNewDeliveryManScreenState extends State<AddNewDeliveryManScreen> with 
                           backgroundColor: Theme.of(context).hintColor,
                           isColor: true,
                           onTap: (){
-                            _tabController.animateTo((_tabController.index + 1) % 2);
-                            selectedIndex = _tabController.index + 1;
+                            _tabController!.animateTo((_tabController!.index + 1) % 2);
+                            selectedIndex = _tabController!.index + 1;
                             deliveryManProvider.setIndexForTabBar(selectedIndex);
                           },),
                       ),
@@ -204,7 +204,7 @@ class _AddNewDeliveryManScreenState extends State<AddNewDeliveryManScreen> with 
                           }else{
 
                             DeliveryManBody deliveryManBody =  DeliveryManBody(
-                              id: widget.deliveryMan != null ?widget.deliveryMan.id : 0,
+                              id: widget.deliveryMan != null ?widget.deliveryMan!.id : 0,
                                 fName: deliveryManProvider.firstNameController.text.trim(),
                                 lName: deliveryManProvider.lastNameController.text.trim(),
                                 address: deliveryManProvider.addressController.text.trim(),
@@ -217,9 +217,9 @@ class _AddNewDeliveryManScreenState extends State<AddNewDeliveryManScreen> with 
                                 confirmPassword: deliveryManProvider.confirmPasswordController.text.trim());
 
                             deliveryManProvider.addNewDeliveryMan(context, deliveryManBody, isUpdate: widget.deliveryMan != null).then((value){
-                              if(value.response.statusCode == 200){
-                                _tabController.animateTo((_tabController.index + 1) % 2);
-                                selectedIndex = _tabController.index + 1;
+                              if(value.response!.statusCode == 200){
+                                _tabController!.animateTo((_tabController!.index + 1) % 2);
+                                selectedIndex = _tabController!.index + 1;
                                 deliveryManProvider.setIndexForTabBar(selectedIndex);
                                 Navigator.of(context).pushReplacement(MaterialPageRoute(
                                     builder: (BuildContext context) => DeliveryManSetupScreen()));

@@ -11,11 +11,11 @@ import 'package:bed3avendor/view/screens/order/widget/show_on_map_dialog.dart';
 
 
 class OrderTopSection extends StatelessWidget {
-  final Order orderModel;
-  final OrderProvider order;
-  final String orderType;
+  final Order? orderModel;
+  final OrderProvider? order;
+  final String? orderType;
   final bool onlyDigital;
-  const OrderTopSection({Key key, this.orderModel, this.order, this.orderType, this.onlyDigital = false}) : super(key: key);
+  const OrderTopSection({Key? key, this.orderModel, this.order, this.orderType, this.onlyDigital = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,13 +32,13 @@ class OrderTopSection extends StatelessWidget {
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,crossAxisAlignment: CrossAxisAlignment.start, children: [
           Column(crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('${getTranslated('order_no', context)}#${orderModel.id}',
+              Text('${getTranslated('order_no', context)}#${orderModel!.id}',
                 style: titilliumSemiBold.copyWith(color: ColorResources.titleColor(context),
                     fontSize: Dimensions.FONT_SIZE_LARGE),),
 
               Padding(
                 padding: const EdgeInsets.only(left: 2,top: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                child: Text(DateConverter.localDateToIsoStringAMPM(DateTime.parse(orderModel.createdAt)),
+                child: Text(DateConverter.localDateToIsoStringAMPM(DateTime.parse(orderModel!.createdAt!)),
                     style: robotoRegular.copyWith(color: ColorResources.getHint(context),
                         fontSize: Dimensions.FONT_SIZE_SMALL)),
               ),
@@ -85,19 +85,19 @@ class OrderTopSection extends StatelessWidget {
                 padding: const EdgeInsets.only(right: Dimensions.PADDING_SIZE_SMALL),
                 child: Image.asset(Images.payment_icon,width: Dimensions.ICON_SIZE_SMALL, ),
               ),
-              Text(getTranslated(orderModel.paymentMethod, context),
+              Text(getTranslated(orderModel!.paymentMethod, context)!,
                   style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT)),
             ],
           ),
 
           Row(children: [
-            CircleAvatar(radius: 6, backgroundColor:order.paymentStatus =='paid'
+            CircleAvatar(radius: 6, backgroundColor:order!.paymentStatus =='paid'
                 ? Colors.green: Theme.of(context).errorColor),
 
 
             SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-            Text(getTranslated(order.paymentStatus, context),
-                style: robotoRegular.copyWith(color: order.paymentStatus =='paid'
+            Text(getTranslated(order!.paymentStatus, context)!,
+                style: robotoRegular.copyWith(color: order!.paymentStatus =='paid'
                     ? Colors.green: Theme.of(context).errorColor)),
           ],)
         ],),
@@ -110,7 +110,7 @@ class OrderTopSection extends StatelessWidget {
                 padding: const EdgeInsets.only(right: Dimensions.PADDING_SIZE_SMALL),
                 child: Image.asset(Images.order_status_icon, width: Dimensions.ICON_SIZE_SMALL ),
               ),
-              Text(getTranslated('${orderModel.orderStatus}', context),
+              Text(getTranslated('${orderModel!.orderStatus}', context)!,
                   style: titilliumRegular.copyWith(color: ColorResources.mainCardThreeColor(context))),
             ],
           ),

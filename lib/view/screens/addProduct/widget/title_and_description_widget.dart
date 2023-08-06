@@ -8,7 +8,7 @@ import 'package:bed3avendor/view/base/textfeild/custom_text_feild.dart';
 class TitleAndDescriptionWidget extends StatefulWidget {
   final SellerProvider resProvider;
   final int index;
-  const TitleAndDescriptionWidget({Key key, @required this.resProvider, @required  this.index}) : super(key: key);
+  const TitleAndDescriptionWidget({Key? key, required this.resProvider, required  this.index}) : super(key: key);
 
   @override
   State<TitleAndDescriptionWidget> createState() => _TitleAndDescriptionWidgetState();
@@ -54,7 +54,7 @@ class _TitleAndDescriptionWidgetState extends State<TitleAndDescriptionWidget> {
 
           Row(
             children: [
-              Text(getTranslated('product_description',context),
+              Text(getTranslated('product_description',context)!,
                 style: robotoRegular.copyWith(color:  ColorResources.titleColor(context),
                     fontSize: Dimensions.FONT_SIZE_DEFAULT),),
 

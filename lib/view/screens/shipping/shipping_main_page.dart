@@ -8,7 +8,7 @@ import 'package:bed3avendor/view/screens/shipping/category_wise_shipping.dart';
 import 'package:bed3avendor/view/screens/shipping/widget/product_wise_shipping.dart';
 
 class ShippingMainPage extends StatelessWidget {
-  const ShippingMainPage({Key key}) : super(key: key);
+  const ShippingMainPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

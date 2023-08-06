@@ -11,7 +11,7 @@ class LanguageWidget extends StatelessWidget {
   final LanguageModel languageModel;
   final LocalizationProvider localizationController;
   final int index;
-  LanguageWidget({@required this.languageModel, @required this.localizationController, @required this.index});
+  LanguageWidget({required this.languageModel, required this.localizationController, required this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -21,12 +21,12 @@ class LanguageWidget extends StatelessWidget {
         color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_SMALL),
         boxShadow: [BoxShadow(color: Provider.of<ThemeProvider>(context, listen: false).darkTheme? Theme.of(context).primaryColor.withOpacity(0):
-        Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 800 : 200], blurRadius: 5, spreadRadius: 1)],
+        Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 800 : 200]!, blurRadius: 5, spreadRadius: 1)],
       ),
       child: GestureDetector(
         onTap: (){
           localizationController.setLanguage(Locale(
-            AppConstants.languages[index].languageCode,
+            AppConstants.languages[index].languageCode!,
             AppConstants.languages[index].countryCode,
           ), index);
 
@@ -38,12 +38,12 @@ class LanguageWidget extends StatelessWidget {
             child: Column(mainAxisSize: MainAxisSize.min, children: [
               Container(height: 65, width: 65,
                 decoration: BoxDecoration(borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_SMALL),
-                  border: Border.all(color: Theme.of(context).textTheme.bodyText1.color, width: 1)),
+                  border: Border.all(color: Theme.of(context).textTheme.bodyText1!.color!, width: 1)),
                 alignment: Alignment.center,
-                child: Image.asset(languageModel.imageUrl, width: 36, height: 36)),
+                child: Image.asset(languageModel.imageUrl!, width: 36, height: 36)),
               SizedBox(height: Dimensions.PADDING_SIZE_LARGE),
 
-              Text(languageModel.languageName, style: robotoMedium.copyWith(color: Theme.of(context).primaryColor)),
+              Text(languageModel.languageName!, style: robotoMedium.copyWith(color: Theme.of(context).primaryColor)),
             ]),
           ),
 

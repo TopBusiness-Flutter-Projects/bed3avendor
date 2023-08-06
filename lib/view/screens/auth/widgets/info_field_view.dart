@@ -20,14 +20,14 @@ import 'package:bed3avendor/view/screens/more/html_view_screen.dart';
 class InfoFieldVIew extends StatefulWidget {
   
   final bool isShopInfo;
-  const InfoFieldVIew({Key key, this.isShopInfo = false}) : super(key: key);
+  const InfoFieldVIew({Key? key, this.isShopInfo = false}) : super(key: key);
 
   @override
   State<InfoFieldVIew> createState() => _InfoFieldVIewState();
 }
 
 class _InfoFieldVIewState extends State<InfoFieldVIew> {
-  String _countryDialCode = "+880";
+  String? _countryDialCode = "+880";
   String currency = '',  country = '', selectedTimeZone = '';
   @override
   void initState() {
@@ -57,7 +57,7 @@ class _InfoFieldVIewState extends State<InfoFieldVIew> {
                     child: Stack(children: [
                       ClipRRect(
                         borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_SMALL),
-                        child: authProvider.sellerProfileImage != null ?  Image.file(File(authProvider.sellerProfileImage.path),
+                        child: authProvider.sellerProfileImage != null ?  Image.file(File(authProvider.sellerProfileImage!.path),
                           width: 150, height: 150, fit: BoxFit.cover,
                         ) :Container(height: 150,
                           width: 150,
@@ -86,7 +86,7 @@ class _InfoFieldVIewState extends State<InfoFieldVIew> {
                   padding: const EdgeInsets.only(top: Dimensions.PADDING_SIZE_MEDIUM, bottom: Dimensions.PADDING_SIZE_EXTRA_LARGE),
                   child: Row(mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(getTranslated('profile_image', context), style: robotoRegular),
+                      Text(getTranslated('profile_image', context)!, style: robotoRegular),
                       SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                       Text('(1:1)', style: robotoRegular.copyWith(color: Theme.of(context).errorColor),),
                     ],
@@ -152,7 +152,7 @@ class _InfoFieldVIewState extends State<InfoFieldVIew> {
                       showDropDownButton: true,
                       padding: EdgeInsets.zero,
                       showFlagMain: true,
-                      textStyle: TextStyle(color: Theme.of(context).textTheme.headline1.color),
+                      textStyle: TextStyle(color: Theme.of(context).textTheme.headline1!.color),
 
                     ),
 
@@ -251,7 +251,7 @@ class _InfoFieldVIewState extends State<InfoFieldVIew> {
                   child: Stack(children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_SMALL),
-                      child: authProvider.shopLogo != null ?  Image.file(File(authProvider.shopLogo.path),
+                      child: authProvider.shopLogo != null ?  Image.file(File(authProvider.shopLogo!.path),
                         width: 150, height: 150, fit: BoxFit.cover,
                       ) :Container(height: 150, width: 150,
                           child: Image.asset(Images.camera_placeholder, scale: 3)),
@@ -277,7 +277,7 @@ class _InfoFieldVIewState extends State<InfoFieldVIew> {
                   padding: const EdgeInsets.only(top: Dimensions.PADDING_SIZE_SMALL, bottom: Dimensions.PADDING_SIZE_DEFAULT),
                   child: Row(mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(getTranslated('image_size', context), style: robotoRegular),
+                      Text(getTranslated('image_size', context)!, style: robotoRegular),
                       SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                       Text('(1:1)', style: robotoRegular.copyWith(color: Theme.of(context).errorColor),),
                     ],
@@ -304,7 +304,7 @@ class _InfoFieldVIewState extends State<InfoFieldVIew> {
                   child: Stack(children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_SMALL),
-                      child: authProvider.shopBanner != null ?  Image.file(File(authProvider.shopBanner.path),
+                      child: authProvider.shopBanner != null ?  Image.file(File(authProvider.shopBanner!.path),
                         width: MediaQuery.of(context).size.width - 40, height: 120, fit: BoxFit.cover,
                       ) :Container(height: 120,
                         width: MediaQuery.of(context).size.width - 40,
@@ -331,7 +331,7 @@ class _InfoFieldVIewState extends State<InfoFieldVIew> {
                   padding: const EdgeInsets.only(top: Dimensions.PADDING_SIZE_SMALL, bottom: Dimensions.PADDING_SIZE_DEFAULT),
                   child: Row(mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(getTranslated('image_size', context), style: robotoRegular),
+                      Text(getTranslated('image_size', context)!, style: robotoRegular),
                       SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                       Text('(4:1)', style: robotoRegular.copyWith(color: Theme.of(context).errorColor),),
                     ],
@@ -353,14 +353,14 @@ class _InfoFieldVIewState extends State<InfoFieldVIew> {
                         onTap: (){
                           Navigator.push(context, MaterialPageRoute(builder: (_) => HtmlViewScreen(
                             title: getTranslated('terms_and_condition', context),
-                            url: Provider.of<SplashProvider>(context, listen: false).configModel.termsConditions,
+                            url: Provider.of<SplashProvider>(context, listen: false).configModel!.termsConditions,
                           )));
                         },
                           child: Row(
                             children: [
-                              Text(getTranslated('i_agree_to_your', context)),
+                              Text(getTranslated('i_agree_to_your', context)!),
                               SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                              Text(getTranslated('terms_and_condition', context),style: robotoMedium),
+                              Text(getTranslated('terms_and_condition', context)!,style: robotoMedium),
                             ],
                           )),
 

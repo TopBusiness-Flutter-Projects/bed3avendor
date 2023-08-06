@@ -22,13 +22,13 @@ import 'package:url_launcher/url_launcher.dart';
 
 
 class OrderedProductListItem extends StatefulWidget {
-  final OrderDetailsModel orderDetailsModel;
-  final String paymentStatus;
-  final OrderModel orderModel;
-  final int orderId;
-  final int index;
-  final int length;
-  const OrderedProductListItem({Key key, this.orderDetailsModel, this.paymentStatus, this.orderModel, this.orderId, this.index, this.length}) : super(key: key);
+  final OrderDetailsModel? orderDetailsModel;
+  final String? paymentStatus;
+  final OrderModel? orderModel;
+  final int? orderId;
+  final int? index;
+  final int? length;
+  const OrderedProductListItem({Key? key, this.orderDetailsModel, this.paymentStatus, this.orderModel, this.orderId, this.index, this.length}) : super(key: key);
 
   @override
   State<OrderedProductListItem> createState() => _OrderedProductListItemState();
@@ -54,16 +54,16 @@ class _OrderedProductListItemState extends State<OrderedProductListItem> {
 
   @pragma('vm:entry-point')
   static void downloadCallback(String id, DownloadTaskStatus status, int progress) {
-    final SendPort send = IsolateNameServer.lookupPortByName('downloader_send_port');
+    final SendPort send = IsolateNameServer.lookupPortByName('downloader_send_port')!;
     send.send([id, status, progress]);
   }
-  PlatformFile fileNamed;
-  File file;
-  int  fileSize;
+  PlatformFile? fileNamed;
+  File? file;
+  int?  fileSize;
   @override
   Widget build(BuildContext context) {
     print('----bb---->${widget.length}/${widget.index}');
-    return  widget.orderDetailsModel.productDetails != null?
+    return  widget.orderDetailsModel!.productDetails != null?
     Column( children: [
       Row(mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -74,8 +74,8 @@ class _OrderedProductListItemState extends State<OrderedProductListItem> {
             child: FadeInImage.assetNetwork(
               imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder_image, fit: BoxFit.cover,),
               placeholder: Images.placeholder_image,
-              image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls.productThumbnailUrl}/'
-                  '${widget.orderDetailsModel.productDetails?.thumbnail}',
+              image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls!.productThumbnailUrl}/'
+                  '${widget.orderDetailsModel!.productDetails?.thumbnail}',
               height: Dimensions.image_size, width: Dimensions.image_size,
               fit: BoxFit.cover,),),),
           SizedBox(width: Dimensions.PADDING_SIZE_DEFAULT),
@@ -83,7 +83,7 @@ class _OrderedProductListItemState extends State<OrderedProductListItem> {
 
           Expanded(
             child: Column(crossAxisAlignment:CrossAxisAlignment.start, children: [
-              Text(widget.orderDetailsModel.productDetails?.name??'',
+              Text(widget.orderDetailsModel!.productDetails?.name??'',
                 style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT,
                     color: ColorResources.getTextColor(context)),
                 maxLines: 1, overflow: TextOverflow.ellipsis,),
@@ -91,44 +91,44 @@ class _OrderedProductListItemState extends State<OrderedProductListItem> {
 
 
               Row( children: [
-                (widget.orderDetailsModel.productDetails.discount > 0 &&
-                    widget.orderDetailsModel.productDetails.discount!= null)?
+                (widget.orderDetailsModel!.productDetails!.discount! > 0 &&
+                    widget.orderDetailsModel!.productDetails!.discount!= null)?
                 Text(PriceConverter.convertPrice(context,
-                    widget.orderDetailsModel.productDetails.unitPrice.toDouble()),
+                    widget.orderDetailsModel!.productDetails!.unitPrice!.toDouble()),
                   style: titilliumRegular.copyWith(color: ColorResources.mainCardFourColor(context),fontSize: Dimensions.FONT_SIZE_SMALL,
                       decoration: TextDecoration.lineThrough),):SizedBox(),
-                SizedBox(width: widget.orderDetailsModel.productDetails.discount > 0?
+                SizedBox(width: widget.orderDetailsModel!.productDetails!.discount! > 0?
                 Dimensions.PADDING_SIZE_DEFAULT : 0),
 
 
 
                 Text(PriceConverter.convertPrice(context,
-                    widget.orderDetailsModel.productDetails.unitPrice.toDouble(),
-                    discount :widget.orderDetailsModel.productDetails.discount,
-                    discountType :widget.orderDetailsModel.productDetails.discountType),
+                    widget.orderDetailsModel!.productDetails!.unitPrice!.toDouble(),
+                    discount :widget.orderDetailsModel!.productDetails!.discount,
+                    discountType :widget.orderDetailsModel!.productDetails!.discountType),
                   style: titilliumSemiBold.copyWith(color: Theme.of(context).primaryColor),),
 
 
               ],),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 5.0),
-                child: Text('[${getTranslated('tax', context)} ${widget.orderDetailsModel.productDetails.taxModel}(${widget.orderDetailsModel.tax})]',style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL),),
+                child: Text('[${getTranslated('tax', context)} ${widget.orderDetailsModel!.productDetails!.taxModel}(${widget.orderDetailsModel!.tax})]',style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL),),
               ),
 
               SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
 
-              (widget.orderDetailsModel.variant != null && widget.orderDetailsModel.variant.isNotEmpty) ?
+              (widget.orderDetailsModel!.variant != null && widget.orderDetailsModel!.variant!.isNotEmpty) ?
               Padding(padding: EdgeInsets.only(top: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                child: Text(widget.orderDetailsModel.variant,
+                child: Text(widget.orderDetailsModel!.variant!,
                     style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL,
                       color: Theme.of(context).disabledColor,)),) : SizedBox(),
               SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
 
               Row(children: [
-                Text(getTranslated('qty', context),
+                Text(getTranslated('qty', context)!,
                     style: titilliumRegular.copyWith(color: Theme.of(context).hintColor)),
 
-                Text(': ${widget.orderDetailsModel.qty}',
+                Text(': ${widget.orderDetailsModel!.qty}',
                     style: titilliumRegular.copyWith(color: ColorResources.getTextColor(context))),],),
 
 
@@ -141,9 +141,9 @@ class _OrderedProductListItemState extends State<OrderedProductListItem> {
       ),
 
 
-      SizedBox(height: widget.orderDetailsModel.productDetails.productType =='digital'?
+      SizedBox(height: widget.orderDetailsModel!.productDetails!.productType =='digital'?
       Dimensions.PADDING_SIZE_SMALL : 0),
-      widget.orderDetailsModel.productDetails.productType =='digital' ?
+      widget.orderDetailsModel!.productDetails!.productType =='digital' ?
       Consumer<OrderProvider>(
           builder: (context, orderProvider, _) {
             return Row(mainAxisAlignment: MainAxisAlignment.center,
@@ -152,14 +152,14 @@ class _OrderedProductListItemState extends State<OrderedProductListItem> {
                 Expanded(
                   child: InkWell(
                     onTap : () async {
-                      if(widget.orderDetailsModel.productDetails.digitalProductType == 'ready_after_sell' &&
-                          widget.orderDetailsModel.digitalFileAfterSell == null ){
+                      if(widget.orderDetailsModel!.productDetails!.digitalProductType == 'ready_after_sell' &&
+                          widget.orderDetailsModel!.digitalFileAfterSell == null ){
                         showCustomSnackBar(getTranslated('product_not_uploaded_yet', context), context, isToaster: true);
 
                       }else{
-                        widget.orderDetailsModel.productDetails.digitalProductType == 'ready_after_sell'?
-                        _launchUrl(Uri.parse('${Provider.of<SplashProvider>(context, listen: false).baseUrls.digitalProductUrl}/${widget.orderDetailsModel.digitalFileAfterSell}')):
-                        _launchUrl(Uri.parse('${Provider.of<SplashProvider>(context, listen: false).baseUrls.digitalProductUrl}/${widget.orderDetailsModel.productDetails.digitalFileReady}'));
+                        widget.orderDetailsModel!.productDetails!.digitalProductType == 'ready_after_sell'?
+                        _launchUrl(Uri.parse('${Provider.of<SplashProvider>(context, listen: false).baseUrls!.digitalProductUrl}/${widget.orderDetailsModel!.digitalFileAfterSell}')):
+                        _launchUrl(Uri.parse('${Provider.of<SplashProvider>(context, listen: false).baseUrls!.digitalProductUrl}/${widget.orderDetailsModel!.productDetails!.digitalFileReady}'));
                       }
 
                     },
@@ -184,18 +184,18 @@ class _OrderedProductListItemState extends State<OrderedProductListItem> {
                   ),
                 ),
                 SizedBox(width: Dimensions.PADDING_SIZE_DEFAULT),
-                widget.orderDetailsModel.productDetails.digitalProductType == 'ready_after_sell'?
+                widget.orderDetailsModel!.productDetails!.digitalProductType == 'ready_after_sell'?
                 Expanded(
                   child: Column(children: [
                     InkWell(
                       onTap: ()async{
-                        FilePickerResult result = await FilePicker.platform.pickFiles(
+                        FilePickerResult? result = await FilePicker.platform.pickFiles(
                           type: FileType.custom,
                           allowedExtensions: ['pdf', 'zip', 'jpg', 'png', "jpeg", "gif"],
                         );
                         if (result != null) {
-                          file = File(result.files.single.path);
-                          fileSize = await file.length();
+                          file = File(result.files.single.path!);
+                          fileSize = await file!.length();
                           fileNamed = result.files.first;
                           orderProvider.setSelectedFileName(file);
 
@@ -207,10 +207,10 @@ class _OrderedProductListItemState extends State<OrderedProductListItem> {
                           builder: (context) {
                             return Column(mainAxisAlignment: MainAxisAlignment.center,crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                widget.orderDetailsModel.digitalFileAfterSell != null && fileNamed == null?
-                                Text(widget.orderDetailsModel.digitalFileAfterSell, maxLines: 2,overflow: TextOverflow.ellipsis,
+                                widget.orderDetailsModel!.digitalFileAfterSell != null && fileNamed == null?
+                                Text(widget.orderDetailsModel!.digitalFileAfterSell!, maxLines: 2,overflow: TextOverflow.ellipsis,
                                     style: robotoRegular.copyWith()):
-                                Text(fileNamed != null? fileNamed.name??'':'',maxLines: 2,overflow: TextOverflow.ellipsis,
+                                Text(fileNamed != null? fileNamed!.name??'':'',maxLines: 2,overflow: TextOverflow.ellipsis,
                                     style: robotoRegular.copyWith()),
                                 fileNamed == null?
                                 Container(
@@ -245,7 +245,7 @@ class _OrderedProductListItemState extends State<OrderedProductListItem> {
                     InkWell(
                       onTap:(){
                         Provider.of<SellerProvider>(context, listen: false).uploadReadyAfterSellDigitalProduct(context, orderProvider.selectedFileForImport,
-                            Provider.of<AuthProvider>(context, listen: false).getUserToken(), widget.orderDetailsModel.id.toString());
+                            Provider.of<AuthProvider>(context, listen: false).getUserToken(), widget.orderDetailsModel!.id.toString());
                         },
                       child: Container(
                         height: 38,
@@ -276,7 +276,7 @@ class _OrderedProductListItemState extends State<OrderedProductListItem> {
           }
       ) : SizedBox(),
 
-      widget.length> widget.index?
+      widget.length!> widget.index!?
       Padding(
         padding: const EdgeInsets.only(top: Dimensions.PADDING_SIZE_SMALL),
         child: Divider(),

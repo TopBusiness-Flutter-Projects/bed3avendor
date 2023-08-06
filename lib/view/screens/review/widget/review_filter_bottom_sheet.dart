@@ -15,7 +15,7 @@ import 'package:bed3avendor/view/base/custom_drop_down_item.dart';
 
 
 class ReviewFilterBottomSheet extends StatefulWidget {
-  const ReviewFilterBottomSheet({Key key}) : super(key: key);
+  const ReviewFilterBottomSheet({Key? key}) : super(key: key);
 
   @override
   State<ReviewFilterBottomSheet> createState() => _ReviewFilterBottomSheetState();
@@ -47,7 +47,7 @@ class _ReviewFilterBottomSheetState extends State<ReviewFilterBottomSheet> {
                 Padding(
                   padding: const EdgeInsets.only(bottom: Dimensions.PADDING_SIZE_DEFAULT,
                   top: Dimensions.PADDING_SIZE_EXTRA_LARGE,),
-                  child: Text(getTranslated('filter_date', context), style: robotoBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE),),
+                  child: Text(getTranslated('filter_date', context)!, style: robotoBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE),),
                 ),
 
                 CustomDropDownItem(
@@ -55,11 +55,11 @@ class _ReviewFilterBottomSheetState extends State<ReviewFilterBottomSheet> {
                         builder: (context, product,_) {
                           return DropdownButton<int>(
                             value: product.reviewProductIndex,
-                            items: product.reviewProductIds.map((int value) {
+                            items: product.reviewProductIds.map((int? value) {
                               return DropdownMenuItem<int>(
                                   value: value,
-                                  child: Text(product.sellerProductList[(product.reviewProductIds.indexOf(value))].name));}).toList(),
-                            onChanged: (int value) {
+                                  child: Text(product.sellerProductList[(product.reviewProductIds.indexOf(value))].name!));}).toList(),
+                            onChanged: (int? value) {
                               product.setReviewProductIndex(value,product.sellerProductList[(product.reviewProductIds.indexOf(value))].id, true);
                             },
                             isExpanded: true, underline: SizedBox(),);
@@ -72,12 +72,12 @@ class _ReviewFilterBottomSheetState extends State<ReviewFilterBottomSheet> {
                     builder: (context, customer,_) {
                       return DropdownButton<int>(
                         value: customer.reviewCustomerIndex,
-                        items: customer.reviewCustomerIds.map((int value) {
+                        items: customer.reviewCustomerIds.map((int? value) {
                           return DropdownMenuItem<int>(
                               value: value,
-                              child: Text(customer.searchedCustomerList[(customer.reviewCustomerIds.indexOf(value))].fName + ' '+ customer.searchedCustomerList[(customer.reviewCustomerIds.indexOf(value))].lName));}).toList(),
-                        onChanged: (int value) {
-                          customer.setReviewCustomerIndex(value,customer.searchedCustomerList[(customer.reviewCustomerIds.indexOf(value))].id, true);
+                              child: Text(customer.searchedCustomerList![(customer.reviewCustomerIds.indexOf(value))].fName! + ' '+ customer.searchedCustomerList![(customer.reviewCustomerIds.indexOf(value))].lName!));}).toList(),
+                        onChanged: (int? value) {
+                          customer.setReviewCustomerIndex(value,customer.searchedCustomerList![(customer.reviewCustomerIds.indexOf(value))].id, true);
                         },
                         isExpanded: true, underline: SizedBox(),);
                     }
@@ -95,8 +95,8 @@ class _ReviewFilterBottomSheetState extends State<ReviewFilterBottomSheet> {
                     items: reviewProvider.reviewStatusList.map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
-                        child: Text(getTranslated(value, context),
-                            style: robotoRegular.copyWith(color: Theme.of(context).textTheme.bodyText1.color)),
+                        child: Text(getTranslated(value, context)!,
+                            style: robotoRegular.copyWith(color: Theme.of(context).textTheme.bodyText1!.color)),
                       );
                     }).toList(),
                   ),
@@ -108,14 +108,14 @@ class _ReviewFilterBottomSheetState extends State<ReviewFilterBottomSheet> {
                     title: getTranslated('from', context),
                     image: Images.calender_icon,
                     text: reviewProvider.startDate != null ?
-                    reviewProvider.dateFormat.format(reviewProvider.startDate).toString() : getTranslated('select_date', context),
+                    reviewProvider.dateFormat.format(reviewProvider.startDate!).toString() : getTranslated('select_date', context),
                     selectDate: () => reviewProvider.selectDate("start", context),
                   )),
                   Expanded(child: CustomDatePicker(
                     title: getTranslated('to', context),
                     image: Images.calender_icon,
                     text: reviewProvider.endDate != null ?
-                    reviewProvider.dateFormat.format(reviewProvider.endDate).toString() : getTranslated('select_date', context),
+                    reviewProvider.dateFormat.format(reviewProvider.endDate!).toString() : getTranslated('select_date', context),
                     selectDate: () => reviewProvider.selectDate("end", context),
                   )),
                 ],),
@@ -124,8 +124,8 @@ class _ReviewFilterBottomSheetState extends State<ReviewFilterBottomSheet> {
                   padding: const EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT),
                   child: CustomButton(btnTxt: getTranslated('search', context),
                   onTap: (){
-                    int  productId = Provider.of<ProductProvider>(context, listen: false).selectedProductId;
-                    int  customerId = Provider.of<CartProvider>(context, listen: false).selectedCustomerIdForReviewFilter;
+                    int?  productId = Provider.of<ProductProvider>(context, listen: false).selectedProductId;
+                    int?  customerId = Provider.of<CartProvider>(context, listen: false).selectedCustomerIdForReviewFilter;
                     reviewProvider.filterReviewList(context, productId, customerId);
                   },),
                 ),

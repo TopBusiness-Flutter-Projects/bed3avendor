@@ -1,5 +1,5 @@
 class CategoryWiseShippingModel {
-  List<AllCategoryShippingCost> allCategoryShippingCost;
+  List<AllCategoryShippingCost>? allCategoryShippingCost;
 
   CategoryWiseShippingModel({this.allCategoryShippingCost});
 
@@ -7,7 +7,7 @@ class CategoryWiseShippingModel {
     if (json['all_category_shipping_cost'] != null) {
       allCategoryShippingCost = <AllCategoryShippingCost>[];
       json['all_category_shipping_cost'].forEach((v) {
-        allCategoryShippingCost.add(new AllCategoryShippingCost.fromJson(v));
+        allCategoryShippingCost!.add(new AllCategoryShippingCost.fromJson(v));
       });
     }
   }
@@ -16,21 +16,21 @@ class CategoryWiseShippingModel {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this.allCategoryShippingCost != null) {
       data['all_category_shipping_cost'] =
-          this.allCategoryShippingCost.map((v) => v.toJson()).toList();
+          this.allCategoryShippingCost!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class AllCategoryShippingCost {
-  int id;
-  int sellerId;
-  int categoryId;
-  double cost;
-  int multiplyQty;
-  String createdAt;
-  String updatedAt;
-  Category category;
+  int? id;
+  int? sellerId;
+  int? categoryId;
+  double? cost;
+  int? multiplyQty;
+  String? createdAt;
+  String? updatedAt;
+  Category? category;
 
   AllCategoryShippingCost(
       {this.id,
@@ -70,23 +70,23 @@ class AllCategoryShippingCost {
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
     if (this.category != null) {
-      data['category'] = this.category.toJson();
+      data['category'] = this.category!.toJson();
     }
     return data;
   }
 }
 
 class Category {
-  int id;
-  String name;
-  String slug;
-  String icon;
-  int parentId;
-  int position;
-  String createdAt;
-  String updatedAt;
-  int homeStatus;
-  int priority;
+  int? id;
+  String? name;
+  String? slug;
+  String? icon;
+  int? parentId;
+  int? position;
+  String? createdAt;
+  String? updatedAt;
+  int? homeStatus;
+  int? priority;
 
 
   Category(

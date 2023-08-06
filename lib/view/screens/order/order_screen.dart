@@ -34,7 +34,7 @@ class _OrderScreenState extends State<OrderScreen> {
       backgroundColor: Theme.of(context).canvasColor,
       appBar: CustomAppBar(title: getTranslated('my_order', context), isBackButtonExist: widget.isBacButtonExist),
       body: Consumer<OrderProvider>(builder: (context, order, child) {
-        List<Order> orderList = [];
+        List<Order>? orderList = [];
         orderList = order.orderModel?.orders;
         return Column(
           children: [
@@ -69,7 +69,7 @@ class _OrderScreenState extends State<OrderScreen> {
                 ),
               ),
             ),
-            order.orderModel != null ? orderList.length > 0 ?
+            order.orderModel != null ? orderList!.length > 0 ?
 
             Expanded(child: RefreshIndicator(
                 onRefresh: () async {
@@ -82,9 +82,9 @@ class _OrderScreenState extends State<OrderScreen> {
                     reverse: false,
                     scrollController: scrollController,
                     totalSize: order.orderModel?.totalSize,
-                    offset: order.orderModel != null ? int.parse(order.orderModel.offset.toString()) : null,
-                    onPaginate: (int offset) async {
-                      await order.getOrderList( context,offset,order.orderType, reload: false);
+                    offset: order.orderModel != null ? int.parse(order.orderModel!.offset.toString()) : null,
+                    onPaginate: (int? offset) async {
+                      await order.getOrderList( context,offset!,order.orderType, reload: false);
                     },
 
                     itemView: ListView.builder(
@@ -93,7 +93,7 @@ class _OrderScreenState extends State<OrderScreen> {
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemBuilder: (BuildContext context, int index) {
-                        return OrderWidget(orderModel: orderList[index], index: index,);
+                        return OrderWidget(orderModel: orderList![index], index: index,);
                       },
                     ),
                   ),
@@ -120,8 +120,8 @@ class OrderShimmer extends StatelessWidget {
           padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
           color: Theme.of(context).highlightColor,
           child: Shimmer.fromColors(
-            baseColor: Colors.grey[300],
-            highlightColor: Colors.grey[100],
+            baseColor: Colors.grey[300]!,
+            highlightColor: Colors.grey[100]!,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -161,10 +161,10 @@ class OrderShimmer extends StatelessWidget {
 }
 
 class OrderTypeButton extends StatelessWidget {
-  final String text;
+  final String? text;
   final int index;
 
-  OrderTypeButton({@required this.text, @required this.index});
+  OrderTypeButton({required this.text, required this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -183,7 +183,7 @@ class OrderTypeButton extends StatelessWidget {
               color: order.orderTypeIndex == index ? Theme.of(context).primaryColor : ColorResources.getButtonHintColor(context),
               borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_LARGE),
             ),
-            child: Text(text, style: order.orderTypeIndex == index ? titilliumBold.copyWith(color: order.orderTypeIndex == index
+            child: Text(text!, style: order.orderTypeIndex == index ? titilliumBold.copyWith(color: order.orderTypeIndex == index
                     ? ColorResources.getWhite(context) : ColorResources.getTextColor(context)):
                 robotoRegular.copyWith(color: order.orderTypeIndex == index
                 ? ColorResources.getWhite(context) : ColorResources.getTextColor(context))),

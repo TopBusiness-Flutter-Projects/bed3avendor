@@ -16,7 +16,7 @@ import 'package:bed3avendor/view/screens/pos/widget/pos_product_shimmer.dart';
 import 'package:bed3avendor/view/screens/pos/widget/product_search_dialog.dart';
 
 class POSProductScreen extends StatefulWidget {
-  const POSProductScreen({Key key}) : super(key: key);
+  const POSProductScreen({Key? key}) : super(key: key);
 
   @override
   State<POSProductScreen> createState() => _POSProductScreenState();
@@ -40,7 +40,7 @@ class _POSProductScreenState extends State<POSProductScreen> {
         body: RefreshIndicator(
           onRefresh: () async{
             Provider.of<ProductProvider>(context, listen: false).getPosProductList(1, context);
-            return true;
+         //  return true;
           },
           child: CustomScrollView(
             controller: _scrollController,
@@ -86,7 +86,7 @@ class _POSProductScreenState extends State<POSProductScreen> {
               SliverToBoxAdapter(
                 child: Consumer<ProductProvider>(
                     builder: (context, prodProvider, child) {
-                      List<Product> productList =[];
+                      List<Product>? productList =[];
                       productList = prodProvider.posProductModel?.products;
                       return Stack(
                         children: [

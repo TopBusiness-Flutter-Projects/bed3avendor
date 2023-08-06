@@ -12,14 +12,14 @@ import 'package:bed3avendor/view/base/see_more_button.dart';
 import 'package:bed3avendor/view/screens/product/widget/product_review_item.dart';
 
 class ProductReviewScreen extends StatefulWidget {
-  final Product productModel;
-  const ProductReviewScreen({Key key, this.productModel}) : super(key: key);
+  final Product? productModel;
+  const ProductReviewScreen({Key? key, this.productModel}) : super(key: key);
   @override
   State<ProductReviewScreen> createState() => _ProductReviewScreenState();
 }
 
 class _ProductReviewScreenState extends State<ProductReviewScreen> {
-  ScrollController _controller;
+  late ScrollController _controller;
   String message = "";
   bool activated = false;
   bool endScroll = false;
@@ -84,29 +84,29 @@ class _ProductReviewScreenState extends State<ProductReviewScreen> {
     }
     return  RefreshIndicator(
       onRefresh: () async{
-        Provider.of<ProductProvider>(context, listen: false).getProductWiseReviewList(context, 1, widget.productModel.id);
+        Provider.of<ProductProvider>(context, listen: false).getProductWiseReviewList(context, 1, widget.productModel!.id);
       },
       child: Consumer<ProductProvider>(
         builder: (context, review,_) {
           double fiveStar = 0.0, fourStar = 0.0, threeStar = 0.0,twoStar = 0.0, oneStar = 0.0;
 
-          if(review.productReviewModel != null && review.productReviewModel.groupWiseRating.isNotEmpty){
-            List<GroupWiseRating> rating = review.productReviewModel.groupWiseRating;
+          if(review.productReviewModel != null && review.productReviewModel!.groupWiseRating!.isNotEmpty){
+            List<GroupWiseRating> rating = review.productReviewModel!.groupWiseRating!;
             for(int i =0 ; i< rating.length; i++){
               if(rating[i].rating == 1){
-                oneStar = (rating[i].rating * rating[i].total) / (rating.length * 5);
+                oneStar = (rating[i].rating! * rating[i].total!) / (rating.length * 5);
               }
               if(rating[i].rating == 2){
-                twoStar = (rating[i].rating * rating[i].total) / (rating.length * 5);
+                twoStar = (rating[i].rating! * rating[i].total!) / (rating.length * 5);
               }
               if(rating[i].rating == 3){
-                threeStar = (rating[i].rating * rating[i].total) / (rating.length * 5);
+                threeStar = (rating[i].rating! * rating[i].total!) / (rating.length * 5);
               }
               if(rating[i].rating == 4){
-                fourStar = (rating[i].rating * rating[i].total) / (rating.length * 5);
+                fourStar = (rating[i].rating! * rating[i].total!) / (rating.length * 5);
               }
               if(rating[i].rating == 5){
-                fiveStar = (rating[i].rating * rating[i].total) / (rating.length * 5);
+                fiveStar = (rating[i].rating! * rating[i].total!) / (rating.length * 5);
               }
             }
           }
@@ -138,16 +138,16 @@ class _ProductReviewScreenState extends State<ProductReviewScreen> {
                             Column(
                               children: [
                                 Align(alignment: Provider.of<LocalizationProvider>(context, listen: false).isLtr?Alignment.centerLeft: Alignment.bottomRight,
-                                    child: Text(getTranslated('product_reviews', context),
+                                    child: Text(getTranslated('product_reviews', context)!,
                                     style: robotoMedium.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT))),
 
 
-                                Text(review.productReviewModel?.averageRating ?? review.productReviewModel?.averageRating.toString(),
+                                Text((review.productReviewModel?.averageRating ?? review.productReviewModel?.averageRating.toString())!,
                                     style: robotoBold.copyWith(color:Theme.of(context).colorScheme.primary,
                                         fontSize: Dimensions.FONT_SIZE_OVER_LARGE )),
 
                                 RatingBarIndicator(
-                                  rating: review.productReviewModel?.averageRating != null? double.parse(review.productReviewModel?.averageRating.toString()) : 0,
+                                  rating: review.productReviewModel?.averageRating != null? double.parse(review.productReviewModel!.averageRating.toString()!) : 0,
                                   itemBuilder: (context, index) => Icon(
                                       Icons.star_rate_rounded,
                                       color: Theme.of(context).primaryColor.withOpacity(.75)),
@@ -224,13 +224,13 @@ class _ProductReviewScreenState extends State<ProductReviewScreen> {
     );
   }
   Widget _progressBar(
-      {@required String title, @required double percent, @required Color colr}) {
+      {required String title, required double percent, required Color colr}) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 5),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(getTranslated(title, context),
+          Text(getTranslated(title, context)!,
             style: const TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w400,

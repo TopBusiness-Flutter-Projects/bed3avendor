@@ -29,7 +29,7 @@ class _ProductReviewState extends State<ProductReview> {
   void initState() {
     Provider.of<CartProvider>(context, listen: false).getCustomerList(context);
     Provider.of<ProductProvider>(context, listen: false).initSellerProductList(Provider.of<ProfileProvider>(context, listen: false).
-    userInfoModel.id.toString(), 1, context, 'en','', reload: true);
+    userInfoModel!.id.toString(), 1, context, 'en','', reload: true);
     super.initState();
   }
   TextEditingController searchController = TextEditingController();

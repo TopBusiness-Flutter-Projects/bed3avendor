@@ -1,11 +1,11 @@
 class WithdrawModel {
-  int id;
-  String methodName;
-  List<MethodFields> methodFields;
-  int isDefault;
-  int isActive;
-  String createdAt;
-  String updatedAt;
+  int? id;
+  String? methodName;
+  List<MethodFields>? methodFields;
+  int? isDefault;
+  int? isActive;
+  String? createdAt;
+  String? updatedAt;
 
   WithdrawModel(
       {this.id,
@@ -22,7 +22,7 @@ class WithdrawModel {
     if (json['method_fields'] != null) {
       methodFields = <MethodFields>[];
       json['method_fields'].forEach((v) {
-        methodFields.add(new MethodFields.fromJson(v));
+        methodFields!.add(new MethodFields.fromJson(v));
       });
     }
     isDefault = json['is_default'];
@@ -37,7 +37,7 @@ class WithdrawModel {
     data['method_name'] = this.methodName;
     if (this.methodFields != null) {
       data['method_fields'] =
-          this.methodFields.map((v) => v.toJson()).toList();
+          this.methodFields!.map((v) => v.toJson()).toList();
     }
     data['is_default'] = this.isDefault;
     data['is_active'] = this.isActive;
@@ -48,10 +48,10 @@ class WithdrawModel {
 }
 
 class MethodFields {
-  String inputType;
-  String inputName;
-  String placeholder;
-  int isRequired;
+  String? inputType;
+  String? inputName;
+  String? placeholder;
+  int? isRequired;
 
   MethodFields(
       {this.inputType, this.inputName, this.placeholder, this.isRequired});

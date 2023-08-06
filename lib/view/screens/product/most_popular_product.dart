@@ -12,7 +12,7 @@ import 'package:bed3avendor/view/screens/product/widget/top_most_product_card.da
 
 class MostPopularProductScreen extends StatelessWidget {
   final bool isMain;
-  const MostPopularProductScreen({Key key, this.isMain = false}) : super(key: key);
+  const MostPopularProductScreen({Key? key, this.isMain = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

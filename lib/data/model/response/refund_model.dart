@@ -1,25 +1,25 @@
 import 'package:bed3avendor/data/model/response/chat_model.dart';
 
 class RefundModel {
-  int id;
-  int orderDetailsId;
-  int customerId;
-  String status;
-  double amount;
-  int productId;
-  int orderId;
-  String refundReason;
-  List<String> images;
-  String createdAt;
-  String updatedAt;
-  Product product;
-  Customer customer;
-  String approvedNote;
-  String rejectedNote;
-  String paymentInfo;
-  String changeBy;
-  OrderDetails orderDetails;
-  Order order;
+  int? id;
+  int? orderDetailsId;
+  int? customerId;
+  String? status;
+  double? amount;
+  int? productId;
+  int? orderId;
+  String? refundReason;
+  List<String>? images;
+  String? createdAt;
+  String? updatedAt;
+  Product? product;
+  Customer? customer;
+  String? approvedNote;
+  String? rejectedNote;
+  String? paymentInfo;
+  String? changeBy;
+  OrderDetails? orderDetails;
+  Order? order;
 
 
   RefundModel(
@@ -83,42 +83,42 @@ class RefundModel {
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
     if (this.product != null) {
-      data['product'] = this.product.toJson();
+      data['product'] = this.product!.toJson();
     }
     data['approved_note'] = this.approvedNote;
     data['rejected_note'] = this.rejectedNote;
     data['payment_info'] = this.paymentInfo;
     data['change_by'] = this.changeBy;
     if (this.customer != null) {
-      data['customer'] = this.customer.toJson();
+      data['customer'] = this.customer!.toJson();
     }
 
     if (this.orderDetails != null) {
-      data['order_details'] = this.orderDetails.toJson();
+      data['order_details'] = this.orderDetails!.toJson();
     }
     if (this.order != null) {
-      data['order'] = this.order.toJson();
+      data['order'] = this.order!.toJson();
     }
     return data;
   }
 }
 
 class Product {
-  int id;
-  String addedBy;
-  int userId;
-  String name;
-  String slug;
-  String unit;
-  int refundable;
-  String thumbnail;
-  int variantProduct;
-  String attributes;
-  String choiceOptions;
-  String variation;
-  double unitPrice;
-  double discount;
-  String discountType;
+  int? id;
+  String? addedBy;
+  int? userId;
+  String? name;
+  String? slug;
+  String? unit;
+  int? refundable;
+  String? thumbnail;
+  int? variantProduct;
+  String? attributes;
+  String? choiceOptions;
+  String? variation;
+  double? unitPrice;
+  double? discount;
+  String? discountType;
 
 
   Product(
@@ -187,7 +187,7 @@ class Product {
 }
 
 class OrderDetails {
-  String variant;
+  String? variant;
 
 
   OrderDetails(
@@ -213,8 +213,8 @@ class OrderDetails {
 }
 
 class Order {
-  int id;
-  String paymentMethod;
+  int? id;
+  String? paymentMethod;
 
   Order({this.id, this.paymentMethod});
 

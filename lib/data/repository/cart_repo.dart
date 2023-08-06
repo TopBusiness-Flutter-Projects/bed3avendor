@@ -9,14 +9,14 @@ import 'package:bed3avendor/utill/app_constants.dart';
 
 
 class CartRepo{
-  final DioClient dioClient;
-  final SharedPreferences sharedPreferences;
-  CartRepo({@required this.dioClient, @required this.sharedPreferences});
+  final DioClient? dioClient;
+  final SharedPreferences? sharedPreferences;
+  CartRepo({required this.dioClient, required this.sharedPreferences});
 
 
-  Future<ApiResponse> getCouponDiscount(String couponCode, int userId, double orderAmount) async {
+  Future<ApiResponse> getCouponDiscount(String couponCode, int? userId, double orderAmount) async {
     try {
-      final response = await dioClient.post('${AppConstants.GET_COUPON_DISCOUNT}',
+      final response = await dioClient!.post('${AppConstants.GET_COUPON_DISCOUNT}',
       data: {
         'code' : couponCode,
         'user_id' : userId,
@@ -31,7 +31,7 @@ class CartRepo{
   Future<ApiResponse> placeOrder(PlaceOrderBody placeOrderBody) async {
     print('order place===>${placeOrderBody.toJson()}');
     try {
-      final response = await dioClient.post('${AppConstants.PLACE_ORDER_URI}', data: placeOrderBody.toJson());
+      final response = await dioClient!.post('${AppConstants.PLACE_ORDER_URI}', data: placeOrderBody.toJson());
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
@@ -39,9 +39,9 @@ class CartRepo{
   }
 
 
-  Future<ApiResponse> getProductFromScan(String productCode) async {
+  Future<ApiResponse> getProductFromScan(String? productCode) async {
     try {
-      final response = await dioClient.get('${AppConstants.GET_PRODUCT_FROM_PRODUCT_CODE}?code=$productCode');
+      final response = await dioClient!.get('${AppConstants.GET_PRODUCT_FROM_PRODUCT_CODE}?code=$productCode');
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
@@ -51,7 +51,7 @@ class CartRepo{
 
   Future<ApiResponse> getCustomerList() async {
     try {
-      final response = await dioClient.get('${AppConstants.CUSTOMER_SEARCH_URI}');
+      final response = await dioClient!.get('${AppConstants.CUSTOMER_SEARCH_URI}');
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
@@ -60,7 +60,7 @@ class CartRepo{
 
   Future<ApiResponse> customerSearch(String name) async {
     try {
-      final response = await dioClient.get('${AppConstants.CUSTOMER_SEARCH_URI}?name=$name');
+      final response = await dioClient!.get('${AppConstants.CUSTOMER_SEARCH_URI}?name=$name');
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
@@ -69,7 +69,7 @@ class CartRepo{
 
   Future<ApiResponse> addNewCustomer(CustomerBody customerBody) async {
     try {
-      final response = await dioClient.post('${AppConstants.ADD_NEW_CUSTOMER}',
+      final response = await dioClient!.post('${AppConstants.ADD_NEW_CUSTOMER}',
           data: {
             'f_name' : customerBody.fName,
             'l_name' : customerBody.lName,

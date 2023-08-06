@@ -3,7 +3,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:bed3avendor/utill/dimensions.dart';
 
 class ShowOnMapDialog extends StatelessWidget {
-  const ShowOnMapDialog({Key key}) : super(key: key);
+  const ShowOnMapDialog({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

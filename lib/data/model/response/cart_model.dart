@@ -2,24 +2,24 @@
 import 'package:bed3avendor/data/model/response/product_model.dart';
 
 class CartModel {
-  double _price;
-  double _discountAmount;
-  int _quantity;
-  double _taxAmount;
-  String _variant;
-  Variation _variation;
-  Product _product;
-  String _taxModel;
+  double? _price;
+  double? _discountAmount;
+  int? _quantity;
+  double? _taxAmount;
+  String? _variant;
+  Variation? _variation;
+  Product? _product;
+  String? _taxModel;
 
   CartModel(
-      double price,
-      double discountAmount,
+      double? price,
+      double? discountAmount,
       int quantity,
-      double taxAmount,
-      String variant,
-      Variation variation,
-      Product product,
-      String taxModel
+      double? taxAmount,
+      String? variant,
+      Variation? variation,
+      Product? product,
+      String? taxModel
       ) {
     this._price = price;
     this._discountAmount = discountAmount;
@@ -31,17 +31,17 @@ class CartModel {
     this._taxModel = taxModel;
   }
 
-  double get price => _price;
-  double get discountAmount => _discountAmount;
+  double? get price => _price;
+  double? get discountAmount => _discountAmount;
   // ignore: unnecessary_getters_setters
-  int get quantity => _quantity;
+  int? get quantity => _quantity;
   // ignore: unnecessary_getters_setters
-  set quantity(int qty) => _quantity = qty;
-  double get taxAmount => _taxAmount;
-  Product get product => _product;
-  Variation get variation => _variation;
-  String get variant => _variant;
-  String get taxModel=> _taxModel;
+  set quantity(int? qty) => _quantity = qty;
+  double? get taxAmount => _taxAmount;
+  Product? get product => _product;
+  Variation? get variation => _variation;
+  String? get variant => _variant;
+  String? get taxModel=> _taxModel;
 
   CartModel.fromJson(Map<String, dynamic> json) {
     _price = json['price'].toDouble();
@@ -64,7 +64,7 @@ class CartModel {
     data['tax_amount'] = this._taxAmount;
     data['variation'] = this._variation;
     data['variant'] = this._variant;
-    data['product'] = this._product.toJson();
+    data['product'] = this._product!.toJson();
     data['tax_model'] = this._taxModel;
     return data;
   }

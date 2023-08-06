@@ -21,7 +21,7 @@ import 'package:bed3avendor/view/screens/product/product_details.dart';
 
 class ProductWidget extends StatefulWidget {
   final Product productModel;
-  ProductWidget({@required this.productModel});
+  ProductWidget({required this.productModel});
 
   @override
   State<ProductWidget> createState() => _ProductWidgetState();
@@ -45,11 +45,11 @@ class _ProductWidgetState extends State<ProductWidget> {
     double imageSize = MediaQuery.of(context).size.width/2.5;
     double totalRatting = 0;
     double averageRatting = 0;
-    if(widget.productModel.reviews.isNotEmpty){
-      for(int i =0; i< widget.productModel.reviews.length; i++ ){
-        totalRatting += widget.productModel.reviews[i].rating;
+    if(widget.productModel.reviews!.isNotEmpty){
+      for(int i =0; i< widget.productModel.reviews!.length; i++ ){
+        totalRatting += widget.productModel.reviews![i].rating!;
       }
-      averageRatting = totalRatting/widget.productModel.reviews.length;
+      averageRatting = totalRatting/widget.productModel.reviews!.length;
 
     }
     return GestureDetector(
@@ -79,7 +79,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                       topRight: Radius.circular(Dimensions.PADDING_SIZE_SMALL)),
                     child: CustomImage(height: imageSize,width: imageSize,
                     image: '${Provider.of<SplashProvider>(context, listen: false).
-                    baseUrls.productThumbnailUrl}/${widget.productModel.thumbnail}'),
+                    baseUrls!.productThumbnailUrl}/${widget.productModel.thumbnail}'),
                   ),
                 ),
                 SizedBox(height: Dimensions.PADDING_SIZE_SMALL,),
@@ -187,7 +187,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                                   Provider.of<SellerProvider>(context, listen:false).deleteProduct(context ,widget.productModel.id).then((value) {
                                     Provider.of<ProductProvider>(context,listen: false).getStockOutProductList(1, context, 'en');
                                     Provider.of<ProductProvider>(context, listen: false).initSellerProductList(Provider.of<ProfileProvider>(context, listen: false).
-                                    userInfoModel.id.toString(), 1, context, 'en','', reload: true);
+                                    userInfoModel!.id.toString(), 1, context, 'en','', reload: true);
                                   });
                                 }
 

@@ -57,15 +57,15 @@ class _WalletScreenState extends State<WalletScreen> {
                             padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                             child: Row(children: [
                               Expanded(child: WalletCard(
-                                amount: '${PriceConverter.convertPrice(context, seller.userInfoModel.wallet != null ?
-                                seller.userInfoModel.wallet.withdrawn : 0)}',
+                                amount: '${PriceConverter.convertPrice(context, seller.userInfoModel!.wallet != null ?
+                                seller.userInfoModel!.wallet!.withdrawn : 0)}',
 
                                 title: '${getTranslated('withdrawn', context)}',
                                 color: ColorResources.withdrawCardColor(context),)),
 
                               Expanded(child: WalletCard(
-                                amount: '${PriceConverter.convertPrice(context, seller.userInfoModel.wallet != null ?
-                                seller.userInfoModel.wallet.pendingWithdraw : 0)}',
+                                amount: '${PriceConverter.convertPrice(context, seller.userInfoModel!.wallet != null ?
+                                seller.userInfoModel!.wallet!.pendingWithdraw : 0)}',
 
                                 title: '${getTranslated('pending_withdrawn', context)}',
                                 color: ColorResources.pendingCardColor(context),)),
@@ -79,15 +79,15 @@ class _WalletScreenState extends State<WalletScreen> {
                             padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                             child: Row(children: [
                               Expanded(child: WalletCard(
-                                amount: '${PriceConverter.convertPrice(context, seller.userInfoModel.wallet != null ?
-                                seller.userInfoModel.wallet.commissionGiven : 0)}',
+                                amount: '${PriceConverter.convertPrice(context, seller.userInfoModel!.wallet != null ?
+                                seller.userInfoModel!.wallet!.commissionGiven : 0)}',
 
                                 title: '${getTranslated('commission_given', context)}',
                                 color: ColorResources.commissionCardColor(context),)),
 
                               Expanded(child: WalletCard(
-                                amount: '${PriceConverter.convertPrice(context, seller.userInfoModel.wallet != null ?
-                                seller.userInfoModel.wallet.deliveryChargeEarned : 0)}',
+                                amount: '${PriceConverter.convertPrice(context, seller.userInfoModel!.wallet != null ?
+                                seller.userInfoModel!.wallet!.deliveryChargeEarned : 0)}',
 
                                 title: '${getTranslated('delivery_charge_earned', context)}',
                                 color: ColorResources.deliveryChargeCardColor(context),)),
@@ -100,15 +100,15 @@ class _WalletScreenState extends State<WalletScreen> {
                             padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                             child: Row(children: [
                               Expanded(child: WalletCard(
-                                amount: '${PriceConverter.convertPrice(context, seller.userInfoModel.wallet != null ?
-                                seller.userInfoModel.wallet.collectedCash : 0)}',
+                                amount: '${PriceConverter.convertPrice(context, seller.userInfoModel!.wallet != null ?
+                                seller.userInfoModel!.wallet!.collectedCash : 0)}',
 
                                 title: '${getTranslated('collected_cash', context)}',
                                 color: ColorResources.collectedCashCardColor(context),)),
 
                               Expanded(child: WalletCard(
-                                amount: '${PriceConverter.convertPrice(context, seller.userInfoModel.wallet != null ?
-                                seller.userInfoModel.wallet.totalTaxCollected : 0)}',
+                                amount: '${PriceConverter.convertPrice(context, seller.userInfoModel!.wallet != null ?
+                                seller.userInfoModel!.wallet!.totalTaxCollected : 0)}',
 
                                 title: '${getTranslated('total_collected_tax', context)}',
                                 color: ColorResources.collectedTaxCardColor(context),)),
@@ -127,7 +127,7 @@ class _WalletScreenState extends State<WalletScreen> {
                   Consumer<TransactionProvider>(
                       builder: (context, transactionProvider, child) {
                         return  Container(
-                          child: transactionProvider.transactionList !=null ? transactionProvider.transactionList.length > 0 ?
+                          child: transactionProvider.transactionList !=null ? transactionProvider.transactionList!.length > 0 ?
                           WalletTransactionListView(transactionProvider: transactionProvider) : NoDataScreen()
                               : Center(child: CircularProgressIndicator(
                               valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor))),

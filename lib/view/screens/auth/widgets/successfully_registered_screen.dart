@@ -8,7 +8,7 @@ import 'package:bed3avendor/view/base/custom_button.dart';
 import 'package:bed3avendor/view/screens/auth/auth_screen.dart';
 
 class SuccessfullyRegisteredScreen extends StatelessWidget {
-  const SuccessfullyRegisteredScreen({Key key}) : super(key: key);
+  const SuccessfullyRegisteredScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,24 +22,24 @@ class SuccessfullyRegisteredScreen extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Container(width: 50,child: Image.asset(Images.success_icon)),
         ),
-        Text(getTranslated('shop_register_message1', context),style: robotoMedium,),
+        Text(getTranslated('shop_register_message1', context)!,style: robotoMedium,),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(getTranslated('send', context),style: robotoMedium),
+              Text(getTranslated('send', context)!,style: robotoMedium),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                child: Text(getTranslated('successfully', context),style: robotoMedium.copyWith(color: Colors.green)),
+                child: Text(getTranslated('successfully', context)!,style: robotoMedium.copyWith(color: Colors.green)),
               ),
-              Text(getTranslated('to_admin', context),style: robotoMedium),
+              Text(getTranslated('to_admin', context)!,style: robotoMedium),
             ],
           ),
         ),
         Padding(
           padding: const EdgeInsets.only(top: Dimensions.PADDING_SIZE_EXTRA_LARGE),
-          child: Text(getTranslated('shop_register_message2', context)),
+          child: Text(getTranslated('shop_register_message2', context)!),
         ),
       ])),
 

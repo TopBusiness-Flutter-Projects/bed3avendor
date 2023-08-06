@@ -21,7 +21,7 @@ class RefundScreen extends StatelessWidget {
 
     return Scaffold(
       body: Consumer<RefundProvider>(builder: (context, refund, child) {
-        List<RefundModel> refundList = [];
+        List<RefundModel>? refundList = [];
         if (refund.refundTypeIndex == 0) {
           refundList = refund.pendingList;
         }else if (refund.refundTypeIndex == 1) {
@@ -58,7 +58,7 @@ class RefundScreen extends StatelessWidget {
               ),
             ) : SizedBox(),
 
-            refund.pendingList != null ? refundList.length > 0?
+            refund.pendingList != null ? refundList!.length > 0?
             Expanded(
               child: RefreshIndicator(
                 onRefresh: () async {
@@ -66,7 +66,7 @@ class RefundScreen extends StatelessWidget {
                 }, child: ListView.builder(
                   itemCount: refundList.length,
                   padding: EdgeInsets.all(0),
-                  itemBuilder: (context, index) => RefundWidget(refundModel : refundList[index]),
+                  itemBuilder: (context, index) => RefundWidget(refundModel : refundList![index]),
                 ),
               ),
             ) :Expanded(child: NoDataScreen(title: 'no_refund_request_found')) : Expanded(child: OrderShimmer()),
@@ -90,8 +90,8 @@ class OrderShimmer extends StatelessWidget {
           padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
           color: Theme.of(context).highlightColor,
           child: Shimmer.fromColors(
-            baseColor: Colors.grey[300],
-            highlightColor: Colors.grey[100],
+            baseColor: Colors.grey[300]!,
+            highlightColor: Colors.grey[100]!,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -131,10 +131,10 @@ class OrderShimmer extends StatelessWidget {
 }
 
 class RefundTypeButton extends StatelessWidget {
-  final String text;
+  final String? text;
   final int index;
-  final List<RefundModel> refundList;
-  RefundTypeButton({@required this.text, @required this.index, @required this.refundList});
+  final List<RefundModel>? refundList;
+  RefundTypeButton({required this.text, required this.index, required this.refundList});
 
   @override
   Widget build(BuildContext context) {
@@ -149,7 +149,7 @@ class RefundTypeButton extends StatelessWidget {
             color: refund.refundTypeIndex == index ? Theme.of(context).primaryColor : ColorResources.getButtonHintColor(context),
             borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_LARGE),
           ),
-          child: Text(text, style: refund.refundTypeIndex == index ? titilliumBold.copyWith(color: refund.refundTypeIndex == index
+          child: Text(text!, style: refund.refundTypeIndex == index ? titilliumBold.copyWith(color: refund.refundTypeIndex == index
               ? ColorResources.getWhite(context) : ColorResources.getTextColor(context)):
           robotoRegular.copyWith(color: refund.refundTypeIndex == index
               ? ColorResources.getWhite(context) : ColorResources.getTextColor(context))),

@@ -12,13 +12,13 @@ import 'package:bed3avendor/view/base/custom_button.dart';
 import 'package:bed3avendor/view/base/custom_snackbar.dart';
 
 class CategoryFilterBottomSheet extends StatelessWidget {
-  const CategoryFilterBottomSheet({Key key}) : super(key: key);
+  const CategoryFilterBottomSheet({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Consumer<SellerProvider>(
       builder: (context, categoryProvider, _) {
-        List<CategoryModel> _categoryList =[];
+        List<CategoryModel>? _categoryList =[];
         _categoryList = categoryProvider.categoryList;
         return Stack(
           children: [
@@ -33,17 +33,17 @@ class CategoryFilterBottomSheet extends StatelessWidget {
               ),
               child: Column(mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(getTranslated('category_wise_filter', context), style: robotoMedium.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE),),
+                  Text(getTranslated('category_wise_filter', context)!, style: robotoMedium.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE),),
                   ListView.builder(
                       shrinkWrap: true,
-                      itemCount: _categoryList.length,
+                      itemCount: _categoryList!.length,
                       itemBuilder: (context, index){
                         return Container(child: Row(children: [
                           Checkbox(value: categoryProvider.selectedCategory[index],
                               onChanged: (onChanged){
                                 categoryProvider.setSelectedCategoryForFilter(index, onChanged);
                               }),
-                          Text(_categoryList[index].name),
+                          Text(_categoryList![index].name!),
                         ],),);
                       }),
                 ],
@@ -58,8 +58,8 @@ class CategoryFilterBottomSheet extends StatelessWidget {
 
                         if(categoryProvider.selectedCategory.isNotEmpty){
                           for(int i=0; i< categoryProvider.selectedCategory.length; i++){
-                            if(categoryProvider.selectedCategory[i]){
-                              _ids.add(_categoryList[i].id.toString());
+                            if(categoryProvider.selectedCategory[i]!){
+                              _ids.add(_categoryList![i].id.toString());
                             }
                           }
                           Navigator.pop(context);

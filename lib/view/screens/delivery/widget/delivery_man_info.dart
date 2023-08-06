@@ -20,15 +20,15 @@ import 'package:bed3avendor/data/model/response/top_delivery_man.dart';
 
 class DeliveryManInfo extends StatefulWidget {
   final bool isPassword;
-  final DeliveryMan deliveryMan;
-  const DeliveryManInfo({Key key, this.isPassword = false, this.deliveryMan}) : super(key: key);
+  final DeliveryMan? deliveryMan;
+  const DeliveryManInfo({Key? key, this.isPassword = false, this.deliveryMan}) : super(key: key);
 
   @override
   State<DeliveryManInfo> createState() => _DeliveryManInfoState();
 }
 
 class _DeliveryManInfoState extends State<DeliveryManInfo> {
-  String _countryDialCode = "+880";
+  String? _countryDialCode = "+880";
 
   @override
   void initState() {
@@ -36,19 +36,19 @@ class _DeliveryManInfoState extends State<DeliveryManInfo> {
 
 
     if(widget.deliveryMan != null){
-      Provider.of<DeliveryManProvider>(context, listen: false).firstNameController.text = widget.deliveryMan.fName;
-      Provider.of<DeliveryManProvider>(context, listen: false).lastNameController.text = widget.deliveryMan.lName;
-      Provider.of<DeliveryManProvider>(context, listen: false).emailController.text = widget.deliveryMan.email;
-      Provider.of<DeliveryManProvider>(context, listen: false).phoneController.text = widget.deliveryMan.phone;
-      Provider.of<DeliveryManProvider>(context, listen: false).addressController.text = widget.deliveryMan.address;
-      Provider.of<DeliveryManProvider>(context, listen: false).identityNumber.text = widget.deliveryMan.identityNumber;
-      Provider.of<DeliveryManProvider>(context, listen: false).setIdentityType(widget.deliveryMan.identityType );
+      Provider.of<DeliveryManProvider>(context, listen: false).firstNameController.text = widget.deliveryMan!.fName!;
+      Provider.of<DeliveryManProvider>(context, listen: false).lastNameController.text = widget.deliveryMan!.lName!;
+      Provider.of<DeliveryManProvider>(context, listen: false).emailController.text = widget.deliveryMan!.email!;
+      Provider.of<DeliveryManProvider>(context, listen: false).phoneController.text = widget.deliveryMan!.phone!;
+      Provider.of<DeliveryManProvider>(context, listen: false).addressController.text = widget.deliveryMan!.address!;
+      Provider.of<DeliveryManProvider>(context, listen: false).identityNumber.text = widget.deliveryMan!.identityNumber!;
+      Provider.of<DeliveryManProvider>(context, listen: false).setIdentityType(widget.deliveryMan!.identityType );
     }
 
   }
   @override
   Widget build(BuildContext context) {
-    String baseUrl = '${Provider.of<SplashProvider>(context, listen: false).baseUrls.deliveryManImageUrl}';
+    String baseUrl = '${Provider.of<SplashProvider>(context, listen: false).baseUrls!.deliveryManImageUrl}';
     return Consumer<DeliveryManProvider>(
         builder: (authContext, deliveryManProvider, _) {
           return SingleChildScrollView(
@@ -66,12 +66,12 @@ class _DeliveryManInfoState extends State<DeliveryManInfo> {
                       child: Stack(children: [
                         ClipRRect(
                           borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_SMALL),
-                          child: deliveryManProvider.profileImage != null ?  Image.file(File(deliveryManProvider.profileImage.path),
+                          child: deliveryManProvider.profileImage != null ?  Image.file(File(deliveryManProvider.profileImage!.path),
                             width: 150, height: 150, fit: BoxFit.cover,
                           ) :widget.deliveryMan!=null? FadeInImage.assetNetwork(
                             placeholder: Images.placeholder_image,
-                            image: '${Provider.of<SplashProvider>(context).configModel.
-                            baseUrls.deliveryManImageUrl}/${widget.deliveryMan.image != null ? widget.deliveryMan.image : ''}',
+                            image: '${Provider.of<SplashProvider>(context).configModel!.
+                            baseUrls!.deliveryManImageUrl}/${widget.deliveryMan!.image != null ? widget.deliveryMan!.image : ''}',
                             height: 150, width: 150, fit: BoxFit.cover,
                             imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder_image,
                                 height: 150, width: 150, fit: BoxFit.cover),
@@ -100,7 +100,7 @@ class _DeliveryManInfoState extends State<DeliveryManInfo> {
                     padding: const EdgeInsets.only(bottom: Dimensions.PADDING_SIZE_DEFAULT),
                     child: Row(mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(getTranslated('profile_image', context), style: robotoRegular),
+                        Text(getTranslated('profile_image', context)!, style: robotoRegular),
                         SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                         Text('(1:1)', style: robotoRegular.copyWith(color: Theme.of(context).errorColor),),
                       ],
@@ -163,7 +163,7 @@ class _DeliveryManInfoState extends State<DeliveryManInfo> {
                         showDropDownButton: true,
                         padding: EdgeInsets.zero,
                         showFlagMain: true,
-                        textStyle: TextStyle(color: Theme.of(context).textTheme.headline1.color),
+                        textStyle: TextStyle(color: Theme.of(context).textTheme.headline1!.color),
 
                       ),
 
@@ -207,8 +207,8 @@ class _DeliveryManInfoState extends State<DeliveryManInfo> {
                         border: Border.all(width: .5, color: Theme.of(context).hintColor.withOpacity(.7)),
                       ),
                       child: DropdownButton<String>(
-                        hint: deliveryManProvider.identityType == null ? Text(getTranslated('select_identity_type', context)) :
-                        Text(deliveryManProvider.identityType, style: TextStyle(color: ColorResources.getTextColor(context)),),
+                        hint: deliveryManProvider.identityType == null ? Text(getTranslated('select_identity_type', context)!) :
+                        Text(deliveryManProvider.identityType!, style: TextStyle(color: ColorResources.getTextColor(context)),),
                         items: deliveryManProvider.identityTypeList.map((String value) {
                           return DropdownMenuItem<String>(
                               value: value,
@@ -238,29 +238,29 @@ class _DeliveryManInfoState extends State<DeliveryManInfo> {
                     padding: const EdgeInsets.fromLTRB(Dimensions.PADDING_SIZE_DEFAULT, 0,Dimensions.PADDING_SIZE_DEFAULT, Dimensions.PADDING_SIZE_SMALL),
                     child: Row(
                       children: [
-                        Text(getTranslated('identity_image', context),
+                        Text(getTranslated('identity_image', context)!,
                             style: robotoMedium.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT)),
                       ],
                     ),
                   ),
 
 
-                  widget.deliveryMan != null && widget.deliveryMan.identityImage.isNotEmpty?
+                  widget.deliveryMan != null && widget.deliveryMan!.identityImage!.isNotEmpty?
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_LARGE,vertical: Dimensions.FONT_SIZE_EXTRA_SMALL),
                     child: ListView.builder(
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
-                        itemCount : widget.deliveryMan.identityImage.length,
+                        itemCount : widget.deliveryMan!.identityImage!.length,
 
                         itemBuilder: (BuildContext context, index){
-                          print('==>image path==$baseUrl/${widget.deliveryMan.identityImage[index]}');
+                          print('==>image path==$baseUrl/${widget.deliveryMan!.identityImage![index]}');
                           return Stack(children: [
                             Container(child: ClipRRect(borderRadius: BorderRadius.all(Radius.circular(Dimensions.PADDING_SIZE_EXTRA_SMALL)),
                               child: CustomImage(
                               height: MediaQuery.of(context).size.width/4.3,
                               width: MediaQuery.of(context).size.width,
-                              image: '$baseUrl/${widget.deliveryMan.identityImage[index]}',
+                              image: '$baseUrl/${widget.deliveryMan!.identityImage![index]}',
                             ),) ,
                               decoration: BoxDecoration(color: Colors.white,
                                 borderRadius: BorderRadius.all(Radius.circular(20)),),),
@@ -314,7 +314,7 @@ class _DeliveryManInfoState extends State<DeliveryManInfo> {
                           Padding(
                             padding: const EdgeInsets.only(bottom: Dimensions.PADDING_SIZE_SMALL),
                             child: Container(child: ClipRRect(borderRadius: BorderRadius.all(Radius.circular(Dimensions.PADDING_SIZE_EXTRA_SMALL)),
-                              child:  Image.file(File(deliveryManProvider.identityImages[index].path),
+                              child:  Image.file(File(deliveryManProvider.identityImages[index]!.path),
                                 width: MediaQuery.of(context).size.width,
                                 height: MediaQuery.of(context).size.width/4.3,
                                 fit: BoxFit.cover,),) ,

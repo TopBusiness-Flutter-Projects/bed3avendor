@@ -12,11 +12,11 @@ import 'package:bed3avendor/utill/styles.dart';
 import 'package:bed3avendor/view/base/textfeild/custom_text_feild.dart';
 
 class CategoryWiseShippingCard extends StatelessWidget {
-  final ShippingProvider shipProv;
-  final Category category;
-  final int index;
+  final ShippingProvider? shipProv;
+  final Category? category;
+  final int? index;
 
-  const CategoryWiseShippingCard({Key key, this.shipProv, this.category, this.index}) : super(key: key);
+  const CategoryWiseShippingCard({Key? key, this.shipProv, this.category, this.index}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class CategoryWiseShippingCard extends StatelessWidget {
           ),
           child: Row(
             children: [
-              Text('${index + 1}.  ${category!=null? category.name:''??''}', maxLines: 3,overflow: TextOverflow.ellipsis,
+              Text('${index! + 1}.  ${category!=null? category!.name:''??''}', maxLines: 3,overflow: TextOverflow.ellipsis,
                 style: robotoMedium.copyWith(color: Theme.of(context).primaryColor)),
             ],
           ),
@@ -58,15 +58,15 @@ class CategoryWiseShippingCard extends StatelessWidget {
 
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: Dimensions.ICON_SIZE_MEDIUM),
-                      child: Text('${getTranslated('cost_per_product', context)} (${Provider.of<SplashProvider>(context, listen: false).myCurrency.symbol})',
+                      child: Text('${getTranslated('cost_per_product', context)} (${Provider.of<SplashProvider>(context, listen: false).myCurrency!.symbol})',
                           style: robotoRegular.copyWith()),
                     ),
 
 
                     CustomTextField(
                       border: true,
-                      controller: shipProv.shippingCostController[index],
-                      focusNode: shipProv.shippingCostNode[index],
+                      controller: shipProv!.shippingCostController[index!],
+                      focusNode: shipProv!.shippingCostNode[index!],
                       textInputAction: TextInputAction.next,
                       textInputType: TextInputType.number,
                       isAmount: true,
@@ -96,9 +96,9 @@ class CategoryWiseShippingCard extends StatelessWidget {
                       style: robotoRegular.copyWith()),
                 ),
                     FlutterSwitch(width: 40,height: 20,toggleSize: 16,padding: 2,
-                      value:shipProv.isMultiply[index],
+                      value:shipProv!.isMultiply[index!],
                   onToggle: (value){
-                    shipProv.toggleMultiply(context,value,index);
+                    shipProv!.toggleMultiply(context,value,index!);
                   },
                 ),
                     SizedBox(height: 42)

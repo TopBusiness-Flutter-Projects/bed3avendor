@@ -10,13 +10,13 @@ import 'package:bed3avendor/view/screens/pos/widget/pos_product_shimmer.dart';
 
 
 class DeliveryManListView extends StatelessWidget {
-  const DeliveryManListView({Key key}) : super(key: key);
+  const DeliveryManListView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Consumer<DeliveryManProvider>(
       builder: (context, prodProvider, child) {
-        List<DeliveryMan> listOfDeliveryMan = [];
+        List<DeliveryMan>? listOfDeliveryMan = [];
         listOfDeliveryMan = prodProvider.listOfDeliveryMan;
 
 
@@ -30,7 +30,7 @@ class DeliveryManListView extends StatelessWidget {
               physics: NeverScrollableScrollPhysics(),
               itemCount: listOfDeliveryMan.length,
               itemBuilder: (context, index) {
-                return DeliveryManCardWidget(deliveryMan: listOfDeliveryMan[index]);
+                return DeliveryManCardWidget(deliveryMan: listOfDeliveryMan![index]);
               },
             ),
           ): Padding(

@@ -13,7 +13,7 @@ import 'package:bed3avendor/view/base/textfeild/custom_text_feild.dart';
 import 'package:bed3avendor/view/screens/forgetPassword/widget/code_picker_widget.dart';
 
 class AddNewCustomerScreen extends StatefulWidget {
-  const AddNewCustomerScreen({Key key}) : super(key: key);
+  const AddNewCustomerScreen({Key? key}) : super(key: key);
 
   @override
   State<AddNewCustomerScreen> createState() => _AddNewCustomerScreenState();
@@ -39,7 +39,7 @@ class _AddNewCustomerScreenState extends State<AddNewCustomerScreen> {
   FocusNode _cityNode = FocusNode();
   FocusNode _zipCodeNode = FocusNode();
   FocusNode _addressNode = FocusNode();
-  String _countryDialCode = "+880";
+  String? _countryDialCode = "+880";
   @override
   void initState() {
     // TODO: implement initState
@@ -112,7 +112,7 @@ class _AddNewCustomerScreenState extends State<AddNewCustomerScreen> {
                     showDropDownButton: true,
                     padding: EdgeInsets.zero,
                     showFlagMain: true,
-                    textStyle: TextStyle(color: Theme.of(context).textTheme.headline1.color),
+                    textStyle: TextStyle(color: Theme.of(context).textTheme.headline1!.color),
 
                   ),
 

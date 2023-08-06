@@ -10,14 +10,14 @@ import 'package:bed3avendor/utill/styles.dart';
 import 'custom_button.dart';
 class ConfirmationDialog extends StatelessWidget {
   final String icon;
-  final String title;
-  final String description;
+  final String? title;
+  final String? description;
   final Function onYesPressed;
   final bool isLogOut;
   final bool refund;
-  final Color color;
-  final TextEditingController note;
-  ConfirmationDialog({@required this.icon, this.title, @required this.description, @required this.onYesPressed, this.isLogOut = false, this.refund = false, this.note, this.color});
+  final Color? color;
+  final TextEditingController? note;
+  ConfirmationDialog({required this.icon, this.title, required this.description, required this.onYesPressed, this.isLogOut = false, this.refund = false, this.note, this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class ConfirmationDialog extends StatelessWidget {
           title != null ? Padding(
             padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_LARGE),
             child: Text(
-              title, textAlign: TextAlign.center,
+              title!, textAlign: TextAlign.center,
               style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE, color: color != null? color : Colors.red),
             ),
           ) : SizedBox(),

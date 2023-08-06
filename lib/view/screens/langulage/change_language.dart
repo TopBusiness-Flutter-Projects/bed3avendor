@@ -33,7 +33,7 @@ class ChooseLanguageScreen extends StatelessWidget {
 
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                    child: Text(getTranslated('select_language', context), style: robotoMedium.copyWith(
+                    child: Text(getTranslated('select_language', context)!, style: robotoMedium.copyWith(
                       color: Theme.of(context).primaryColor,
                       fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE,
                     )),

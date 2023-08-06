@@ -23,12 +23,12 @@ class CancelDialog extends StatelessWidget {
 
         Padding(
           padding: EdgeInsets.all(Dimensions.PADDING_SIZE_LARGE),
-          child: Text(getTranslated('are_you_sure', context), style: titilliumBold.copyWith(color: Theme.of(context).primaryColor, fontSize: 18), textAlign: TextAlign.center),
+          child: Text(getTranslated('are_you_sure', context)!, style: titilliumBold.copyWith(color: Theme.of(context).primaryColor, fontSize: 18), textAlign: TextAlign.center),
         ),
 
         Padding(
           padding: EdgeInsets.all(Dimensions.PADDING_SIZE_LARGE),
-          child: Text(getTranslated('you_want_to_cancel', context), style: titilliumSemiBold.copyWith(color: ColorResources.getGreyBunkerColor(context)), textAlign: TextAlign.center),
+          child: Text(getTranslated('you_want_to_cancel', context)!, style: titilliumSemiBold.copyWith(color: ColorResources.getGreyBunkerColor(context)), textAlign: TextAlign.center),
         ),
         SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT),
 
@@ -40,7 +40,7 @@ class CancelDialog extends StatelessWidget {
               padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
               alignment: Alignment.center,
               decoration: BoxDecoration(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10))),
-              child: Text(getTranslated('no', context), style: titilliumBold.copyWith(color: Theme.of(context).primaryColor)),
+              child: Text(getTranslated('no', context)!, style: titilliumBold.copyWith(color: Theme.of(context).primaryColor)),
             ),
           )),
 
@@ -53,7 +53,7 @@ class CancelDialog extends StatelessWidget {
               padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
               alignment: Alignment.center,
               decoration: BoxDecoration(color: ColorResources.getPrimary(context), borderRadius: BorderRadius.only(bottomRight: Radius.circular(10))),
-              child: Text(getTranslated('yes', context), style: titilliumBold.copyWith(color: ColorResources.getBottomSheetColor(context))),
+              child: Text(getTranslated('yes', context)!, style: titilliumBold.copyWith(color: ColorResources.getBottomSheetColor(context))),
             ),
           )),
 

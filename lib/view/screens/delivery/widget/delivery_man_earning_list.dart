@@ -13,8 +13,8 @@ import 'package:bed3avendor/view/screens/delivery/widget/delivery_man_earning_li
 
 
 class DeliveryManEarningList extends StatefulWidget {
-  final DeliveryMan deliveryMan;
-  const DeliveryManEarningList({Key key, this.deliveryMan}) : super(key: key);
+  final DeliveryMan? deliveryMan;
+  const DeliveryManEarningList({Key? key, this.deliveryMan}) : super(key: key);
 
   @override
   State<DeliveryManEarningList> createState() => _DeliveryManEarningListState();
@@ -55,10 +55,10 @@ class _DeliveryManEarningListState extends State<DeliveryManEarningList> {
 
 
 class EarningItemCard extends StatelessWidget {
-  final double amount;
-  final String title;
-  final String icon;
-  const EarningItemCard({Key key, this.amount, this.title, this.icon}) : super(key: key);
+  final double? amount;
+  final String? title;
+  final String? icon;
+  const EarningItemCard({Key? key, this.amount, this.title, this.icon}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -76,10 +76,10 @@ class EarningItemCard extends StatelessWidget {
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(PriceConverter.convertPrice(context, amount), style: robotoMedium.copyWith(fontSize: Dimensions.FONT_SIZE_MAX_LARGE),),
               SizedBox(height: Dimensions.PADDING_SIZE_MEDIUM,),
-              Text(getTranslated(title, context),
+              Text(getTranslated(title, context)!,
                   style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE, color: Theme.of(context).hintColor))
             ],),
-            Container(width: Dimensions.ICON_SIZE_EXTRA_LARGE,child: Image.asset(icon),),
+            Container(width: Dimensions.ICON_SIZE_EXTRA_LARGE,child: Image.asset(icon!),),
           ],),),
     );
   }

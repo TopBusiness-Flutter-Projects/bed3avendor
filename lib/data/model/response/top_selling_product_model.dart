@@ -1,10 +1,10 @@
 import 'package:bed3avendor/data/model/response/product_model.dart';
 
 class TopSellingProductModel {
-  int totalSize;
-  String limit;
-  String offset;
-  List<Products> products;
+  int? totalSize;
+  String? limit;
+  String? offset;
+  List<Products>? products;
 
   TopSellingProductModel(
       {this.totalSize, this.limit, this.offset, this.products});
@@ -16,7 +16,7 @@ class TopSellingProductModel {
     if (json['products'] != null) {
       products = <Products>[];
       json['products'].forEach((v) {
-        products.add(new Products.fromJson(v));
+        products!.add(new Products.fromJson(v));
       });
     }
   }
@@ -27,16 +27,16 @@ class TopSellingProductModel {
     data['limit'] = this.limit;
     data['offset'] = this.offset;
     if (this.products != null) {
-      data['products'] = this.products.map((v) => v.toJson()).toList();
+      data['products'] = this.products!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class Products {
-  int productId;
-  String count;
-  Product product;
+  int? productId;
+  String? count;
+  Product? product;
 
   Products({this.productId, this.count, this.product});
 
@@ -52,7 +52,7 @@ class Products {
     data['product_id'] = this.productId;
     data['count'] = this.count;
     if (this.product != null) {
-      data['product'] = this.product.toJson();
+      data['product'] = this.product!.toJson();
     }
     return data;
   }

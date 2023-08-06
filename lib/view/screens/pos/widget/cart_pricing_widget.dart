@@ -5,12 +5,12 @@ import 'package:bed3avendor/utill/styles.dart';
 
 
 class PricingWidget extends StatelessWidget {
-  final String title;
-  final String amount;
+  final String? title;
+  final String? amount;
   final bool isTotal;
   final bool isCoupon;
-  final Function onTap;
-  const PricingWidget({Key key, this.title, this.amount, this.isTotal = false, this.isCoupon = false, this.onTap}) : super(key: key);
+  final Function? onTap;
+  const PricingWidget({Key? key, this.title, this.amount, this.isTotal = false, this.isCoupon = false, this.onTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,16 +19,16 @@ class PricingWidget extends StatelessWidget {
           Dimensions.PADDING_SIZE_EXTRA_SMALL, Dimensions.PADDING_SIZE_DEFAULT, Dimensions.PADDING_SIZE_EXTRA_SMALL),
       child: Row(children: [
 
-        Text(title, style: robotoRegular.copyWith(color: isTotal? ColorResources.getTextColor(context):
+        Text(title!, style: robotoRegular.copyWith(color: isTotal? ColorResources.getTextColor(context):
         Theme.of(context).hintColor,fontWeight: isTotal? FontWeight.w700: FontWeight.w500,
             fontSize: isTotal? Dimensions.FONT_SIZE_LARGE: Dimensions.FONT_SIZE_DEFAULT),),
         Spacer(),
         isCoupon?
         InkWell(
-          onTap: onTap,
+          onTap: onTap as void Function()?,
             child: Icon(Icons.edit, size: Dimensions.ICON_SIZE_DEFAULT,)):SizedBox(),
 
-        Text(amount, style: robotoRegular.copyWith(color: isTotal? ColorResources.getTextColor(context):
+        Text(amount!, style: robotoRegular.copyWith(color: isTotal? ColorResources.getTextColor(context):
         Theme.of(context).hintColor,fontWeight: isTotal? FontWeight.w700: FontWeight.w500,
             fontSize: isTotal? Dimensions.FONT_SIZE_LARGE: Dimensions.FONT_SIZE_DEFAULT),),
 

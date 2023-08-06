@@ -1,6 +1,6 @@
 class DeliveryManDetails {
-  DeliveryMan deliveryMan;
-  double withdrawbaleBalance;
+  DeliveryMan? deliveryMan;
+  double? withdrawbaleBalance;
 
   DeliveryManDetails({this.deliveryMan, this.withdrawbaleBalance});
 
@@ -19,7 +19,7 @@ class DeliveryManDetails {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this.deliveryMan != null) {
-      data['delivery_man'] = this.deliveryMan.toJson();
+      data['delivery_man'] = this.deliveryMan!.toJson();
     }
     data['withdrawbale_balance'] = this.withdrawbaleBalance;
     return data;
@@ -27,21 +27,21 @@ class DeliveryManDetails {
 }
 
 class DeliveryMan {
-  int id;
-  String fName;
-  String lName;
-  String address;
-  String countryCode;
-  String phone;
-  String email;
-  String image;
-  String bankName;
-  String branch;
-  String accountNo;
-  String holderName;
-  int isActive;
-  int isOnline;
-  Wallet wallet;
+  int? id;
+  String? fName;
+  String? lName;
+  String? address;
+  String? countryCode;
+  String? phone;
+  String? email;
+  String? image;
+  String? bankName;
+  String? branch;
+  String? accountNo;
+  String? holderName;
+  int? isActive;
+  int? isOnline;
+  Wallet? wallet;
 
 
 
@@ -101,21 +101,21 @@ class DeliveryMan {
     data['is_active'] = this.isActive;
     data['is_online'] = this.isOnline;
     if (this.wallet != null) {
-      data['wallet'] = this.wallet.toJson();
+      data['wallet'] = this.wallet!.toJson();
     }
     return data;
   }
 }
 
 class Wallet {
-  int id;
-  int deliveryManId;
-  String currentBalance;
-  String cashInHand;
-  String pendingWithdraw;
-  String totalWithdraw;
-  String createdAt;
-  String updatedAt;
+  int? id;
+  int? deliveryManId;
+  String? currentBalance;
+  String? cashInHand;
+  String? pendingWithdraw;
+  String? totalWithdraw;
+  String? createdAt;
+  String? updatedAt;
 
   Wallet(
       {this.id,
@@ -153,8 +153,8 @@ class Wallet {
 }
 
 class Rating {
-  String average;
-  int deliveryManId;
+  String? average;
+  int? deliveryManId;
 
   Rating({this.average, this.deliveryManId});
 

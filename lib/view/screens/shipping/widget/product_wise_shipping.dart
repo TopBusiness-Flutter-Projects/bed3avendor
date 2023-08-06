@@ -9,7 +9,7 @@ import 'package:bed3avendor/view/base/custom_app_bar.dart';
 import 'package:bed3avendor/view/screens/shipping/widget/drop_down_for_shipping_type.dart';
 
 class ProductWiseShipping extends StatefulWidget {
-  const ProductWiseShipping({Key key}) : super(key: key);
+  const ProductWiseShipping({Key? key}) : super(key: key);
 
   @override
   State<ProductWiseShipping> createState() => _ProductWiseShippingState();
@@ -41,7 +41,7 @@ class _ProductWiseShippingState extends State<ProductWiseShipping> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(Dimensions.PADDING_SIZE_BUTTON),
-                  child: Text(getTranslated('product_wise_delivery_note', context),style: robotoRegular.copyWith(),textAlign: TextAlign.center,),
+                  child: Text(getTranslated('product_wise_delivery_note', context)!,style: robotoRegular.copyWith(),textAlign: TextAlign.center,),
                 )
               ],
             ),

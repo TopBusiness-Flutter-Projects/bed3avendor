@@ -15,9 +15,9 @@ import 'package:bed3avendor/view/base/custom_snackbar.dart';
 
 
 class CollectedCashFromDeliveryManDialog extends StatefulWidget {
-  final double totalCashInHand;
-  final int deliveryManId;
-  const CollectedCashFromDeliveryManDialog({Key key, this.totalCashInHand, this.deliveryManId}) : super(key: key);
+  final double? totalCashInHand;
+  final int? deliveryManId;
+  const CollectedCashFromDeliveryManDialog({Key? key, this.totalCashInHand, this.deliveryManId}) : super(key: key);
   _CollectedCashFromDeliveryManDialogState createState() => _CollectedCashFromDeliveryManDialogState();
 }
 
@@ -87,7 +87,7 @@ class _CollectedCashFromDeliveryManDialogState extends State<CollectedCashFromDe
                               ),
                             ),
 
-                            Text(Provider.of<SplashProvider>(context, listen: false).myCurrency.symbol, 
+                            Text(Provider.of<SplashProvider>(context, listen: false).myCurrency!.symbol!, 
                               style: robotoBold.copyWith(
                                   fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE_TWENTY,
                                   color:isTextFieldEmpty? Theme.of(context).hintColor :

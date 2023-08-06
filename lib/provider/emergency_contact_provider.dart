@@ -7,27 +7,27 @@ import 'package:bed3avendor/localization/language_constrants.dart';
 import 'package:bed3avendor/view/base/custom_snackbar.dart';
 
 class EmergencyContactProvider extends ChangeNotifier {
-  final EmergencyContactRepo emergencyContactRepo;
-  EmergencyContactProvider({@required this.emergencyContactRepo});
+  final EmergencyContactRepo? emergencyContactRepo;
+  EmergencyContactProvider({required this.emergencyContactRepo});
 
 
   bool _isLoading = false;
   bool get isLoading => _isLoading;
   List<ContactList> _contactList =[];
   List<ContactList> get contactList => _contactList;
-  EmergencyContactModel _emergencyContactModel;
+  late EmergencyContactModel _emergencyContactModel;
 
 
 
   Future<void> getEmergencyContactListList(BuildContext context) async {
 
     _isLoading = true;
-    ApiResponse apiResponse = await emergencyContactRepo.getEmergencyContactListList();
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+    ApiResponse apiResponse = await emergencyContactRepo!.getEmergencyContactListList();
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _contactList = [];
       _isLoading = false;
-      _emergencyContactModel = EmergencyContactModel.fromJson(apiResponse.response.data);
-      _contactList.addAll(_emergencyContactModel.contactList);
+      _emergencyContactModel = EmergencyContactModel.fromJson(apiResponse.response!.data);
+      _contactList.addAll(_emergencyContactModel.contactList!);
     } else {
       _isLoading = false;
       ApiChecker.checkApi(context, apiResponse);
@@ -39,17 +39,17 @@ class EmergencyContactProvider extends ChangeNotifier {
 
 
 
-  Future<void> statusOnOffEmergencyContact(BuildContext context, int id, int status, int index) async {
+  Future<void> statusOnOffEmergencyContact(BuildContext context, int? id, int status, int? index) async {
 
     ApiResponse apiResponse;
-    apiResponse = await emergencyContactRepo.statusOnOffEmergencyContact(id, status);
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
-      _contactList[index].status = status;
+    apiResponse = await emergencyContactRepo!.statusOnOffEmergencyContact(id, status);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+      _contactList[index!].status = status;
 
-      Map map = apiResponse.response.data;
+      Map map = apiResponse.response!.data;
       showCustomSnackBar(map['message'], context, isToaster: true, isError: false);
     }else{
-      Map map = apiResponse.response.data;
+      Map map = apiResponse.response!.data;
       showCustomSnackBar(map['message'], context, isToaster: true);
     }
     _isLoading = false;
@@ -58,15 +58,15 @@ class EmergencyContactProvider extends ChangeNotifier {
   }
 
 
-  Future<void> deleteEmergencyContact(BuildContext context, int id) async {
+  Future<void> deleteEmergencyContact(BuildContext context, int? id) async {
     ApiResponse apiResponse;
-    apiResponse = await emergencyContactRepo.deleteEmergencyContact(id);
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+    apiResponse = await emergencyContactRepo!.deleteEmergencyContact(id);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       getEmergencyContactListList(context);
-      String message = apiResponse.response.data['message'];
+      String? message = apiResponse.response!.data['message'];
       showCustomSnackBar(message, context, isError: false);
     }else{
-      String message = apiResponse.response.data['message'];
+      String? message = apiResponse.response!.data['message'];
       showCustomSnackBar(message, context);
     }
     notifyListeners();
@@ -78,11 +78,11 @@ class EmergencyContactProvider extends ChangeNotifier {
 
 
 
-  Future<ApiResponse> addNewEmergencyContact(BuildContext context, String name, String phone,int id, {bool isUpdate = false}) async {
+  Future<ApiResponse> addNewEmergencyContact(BuildContext context, String name, String phone,int? id, {bool isUpdate = false}) async {
     _isLoading = true;
     notifyListeners();
-    ApiResponse  response = await emergencyContactRepo.addNewEmergencyContact(name, phone,id, isUpdate: isUpdate);
-    if(response.response.statusCode == 200) {
+    ApiResponse  response = await emergencyContactRepo!.addNewEmergencyContact(name, phone,id, isUpdate: isUpdate);
+    if(response.response!.statusCode == 200) {
       getEmergencyContactListList(context);
       Navigator.pop(context);
       isUpdate?

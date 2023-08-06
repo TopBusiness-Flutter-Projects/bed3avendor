@@ -8,13 +8,13 @@ import 'package:bed3avendor/helper/api_checker.dart';
 import 'package:bed3avendor/helper/date_converter.dart';
 
 class TransactionProvider extends ChangeNotifier {
-  final TransactionRepo transactionRepo;
+  final TransactionRepo? transactionRepo;
 
-  TransactionProvider({@required this.transactionRepo});
+  TransactionProvider({required this.transactionRepo});
 
-  List<TransactionModel> _transactionList;
-  List<TransactionModel> _allTransactionList;
-  List<TransactionModel> get transactionList => _transactionList;
+  List<TransactionModel>? _transactionList;
+  late List<TransactionModel> _allTransactionList;
+  List<TransactionModel>? get transactionList => _transactionList;
 
 
 
@@ -26,10 +26,10 @@ class TransactionProvider extends ChangeNotifier {
   int _monthIndex = 0;
   int get yearIndex => _yearIndex;
   int get monthIndex => _monthIndex;
-  List<int> _yearIds = [];
-  List<int> _monthIds = [];
-  List<int> get yearIds  => _yearIds;
-  List<int> get monthIds  => _monthIds;
+  List<int?> _yearIds = [];
+  List<int?> _monthIds = [];
+  List<int?> get yearIds  => _yearIds;
+  List<int?> get monthIds  => _monthIds;
 
 
   int _transactionTypeIndex = 0;
@@ -65,12 +65,12 @@ class TransactionProvider extends ChangeNotifier {
 
 
   Future<void> getTransactionList(BuildContext context, status, from, to) async {
-    ApiResponse apiResponse = await transactionRepo.getTransactionList(status, from, to);
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+    ApiResponse apiResponse = await transactionRepo!.getTransactionList(status, from, to);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _transactionList = [];
       _allTransactionList = [];
-      apiResponse.response.data.forEach((transaction) {
-        _transactionList.add(TransactionModel.fromJson(transaction));
+      apiResponse.response!.data.forEach((transaction) {
+        _transactionList!.add(TransactionModel.fromJson(transaction));
         _allTransactionList.add(TransactionModel.fromJson(transaction));
       });
     } else {
@@ -82,12 +82,12 @@ class TransactionProvider extends ChangeNotifier {
   void  filterTransaction(int month, int year, BuildContext context) async {
     if (month == 1) {
       _transactionList = [];
-      _transactionList.addAll(_allTransactionList);
+      _transactionList!.addAll(_allTransactionList);
     } else {
       _transactionList = [];
       _allTransactionList.forEach((transaction) {
-        if(DateConverter.getMonthIndex(transaction.createdAt) == month && DateConverter.getYear(transaction.createdAt) == year) {
-          _transactionList.add(transaction);
+        if(DateConverter.getMonthIndex(transaction.createdAt!) == month && DateConverter.getYear(transaction.createdAt!) == year) {
+          _transactionList!.add(transaction);
 
         }
       });
@@ -100,11 +100,11 @@ class TransactionProvider extends ChangeNotifier {
   void initMonthTypeList() async {
     _monthIds = [];
     _monthIds.add(0);
-    ApiResponse apiResponse = await transactionRepo.getMonthTypeList();
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+    ApiResponse apiResponse = await transactionRepo!.getMonthTypeList();
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
 
       _monthItemList = [];
-      _monthItemList.addAll(apiResponse.response.data);
+      _monthItemList.addAll(apiResponse.response!.data);
       _monthIndex = 0;
       for(int index = 0; index < _monthItemList.length; index++) {
         _monthIds.add(_monthItemList[index].id);
@@ -117,10 +117,10 @@ class TransactionProvider extends ChangeNotifier {
   void initYearList() async {
     _yearIds = [];
     _yearIds.add(0);
-    ApiResponse apiResponse = await transactionRepo.getYearList();
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+    ApiResponse apiResponse = await transactionRepo!.getYearList();
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _yearList = [];
-      _yearList.addAll(apiResponse.response.data);
+      _yearList.addAll(apiResponse.response!.data);
 
       _yearIndex = 0;
       for(int index = 0; index < _yearList.length; index++) {

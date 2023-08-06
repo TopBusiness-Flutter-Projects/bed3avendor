@@ -13,8 +13,8 @@ import 'package:bed3avendor/view/screens/product/widget/top_most_product_card.da
 
 class TopSellingProductScreen extends StatelessWidget {
   final bool isMain;
-  final ScrollController scrollController;
-  const TopSellingProductScreen({Key key, this.isMain = false, this.scrollController}) : super(key: key);
+  final ScrollController? scrollController;
+  const TopSellingProductScreen({Key? key, this.isMain = false, this.scrollController}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class TopSellingProductScreen extends StatelessWidget {
       child: Consumer<ProductProvider>(
         builder: (context, prodProvider, child) {
           print(MediaQuery.of(context).size.width);
-          List<Products> productList;
+          List<Products>? productList;
           productList = prodProvider.topSellingProductModel?.products;
 
 
@@ -54,10 +54,10 @@ class TopSellingProductScreen extends StatelessWidget {
               child: PaginatedListView(
                 reverse: false,
                 scrollController: scrollController,
-                totalSize: prodProvider.topSellingProductModel.totalSize,
-                offset: prodProvider.topSellingProductModel != null ? int.parse(prodProvider.topSellingProductModel.offset) : null,
-                onPaginate: (int offset) async {
-                  await prodProvider.getTopSellingProductList(offset, context,'en', reload: false);
+                totalSize: prodProvider.topSellingProductModel!.totalSize,
+                offset: prodProvider.topSellingProductModel != null ? int.parse(prodProvider.topSellingProductModel!.offset!) : null,
+                onPaginate: (int? offset) async {
+                  await prodProvider.getTopSellingProductList(offset!, context,'en', reload: false);
                 },
 
                 itemView: GridView.builder(
@@ -73,7 +73,7 @@ class TopSellingProductScreen extends StatelessWidget {
                   itemCount: isMain && productList.length >4? 4 : productList.length,
                   itemBuilder: (context, index) {
 
-                    return TopMostProductWidget(productModel: productList[index].product, totalSold: productList[index].count);
+                    return TopMostProductWidget(productModel: productList![index].product, totalSold: productList[index].count);
                   },
                 ),
               ),

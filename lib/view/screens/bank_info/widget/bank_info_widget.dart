@@ -7,11 +7,11 @@ import 'package:bed3avendor/utill/images.dart';
 import 'package:bed3avendor/utill/styles.dart';
 
 class BankInfoWidget extends StatelessWidget {
-  final String name;
-  final String bank;
-  final String branch;
-  final String accountNo;
-  const BankInfoWidget({Key key, this.name, this.bank, this.branch, this.accountNo}) : super(key: key);
+  final String? name;
+  final String? bank;
+  final String? branch;
+  final String? accountNo;
+  const BankInfoWidget({Key? key, this.name, this.bank, this.branch, this.accountNo}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -74,9 +74,9 @@ class BankInfoWidget extends StatelessWidget {
 }
 
 class CardItem extends StatelessWidget {
-  final String title;
-  final String value;
-  const CardItem({Key key, this.title, this.value}) : super(key: key);
+  final String? title;
+  final String? value;
+  const CardItem({Key? key, this.title, this.value}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +88,7 @@ class CardItem extends StatelessWidget {
           Text('${getTranslated(title, context)} : ',
               style: robotoRegular.copyWith(color: Provider.of<ThemeProvider>(context, listen: false).darkTheme?
               Theme.of(context).hintColor: Theme.of(context).cardColor)),
-          Text(value, style: robotoMedium.copyWith(color : Provider.of<ThemeProvider>(context, listen: false).darkTheme?
+          Text(value!, style: robotoMedium.copyWith(color : Provider.of<ThemeProvider>(context, listen: false).darkTheme?
           Theme.of(context).hintColor: Theme.of(context).cardColor)),
 
         ],

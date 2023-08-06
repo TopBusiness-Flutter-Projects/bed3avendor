@@ -9,7 +9,7 @@ import 'package:bed3avendor/view/screens/delivery/withdraw/withdraw_card.dart';
 
 
 class WithdrawListView extends StatelessWidget {
-  const WithdrawListView({Key key}) : super(key: key);
+  const WithdrawListView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

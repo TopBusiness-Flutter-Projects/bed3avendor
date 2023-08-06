@@ -9,8 +9,8 @@ import 'package:bed3avendor/utill/styles.dart';
 
 class DeliveryManCollectedCashCard extends StatelessWidget {
   final CollectedCash collectedCash;
-  final int index;
-  DeliveryManCollectedCashCard({@required this.collectedCash, this.index});
+  final int? index;
+  DeliveryManCollectedCashCard({required this.collectedCash, this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +51,7 @@ class DeliveryManCollectedCashCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Theme.of(context).primaryColor.withOpacity(.07),
                   borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_EXTRA_SMALL),),
-                child: Text(PriceConverter.convertPrice(context, double.parse(collectedCash.credit)),
+                child: Text(PriceConverter.convertPrice(context, double.parse(collectedCash.credit!)),
                   style: robotoMedium.copyWith(color: Theme.of(context).primaryColor),),)
             ],),
           ),
@@ -59,7 +59,7 @@ class DeliveryManCollectedCashCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(right: Dimensions.PADDING_SIZE_SMALL,left: Dimensions.PADDING_SIZE_SMALL,
                 top: Dimensions.PADDING_SIZE_EXTRA_SMALL, bottom: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-            child: Text(DateConverter.localDateToIsoStringAMPM(DateTime.parse(collectedCash.createdAt)),
+            child: Text(DateConverter.localDateToIsoStringAMPM(DateTime.parse(collectedCash.createdAt!)),
                 style: robotoRegular.copyWith(color: Theme.of(context).hintColor)),
           ),
           SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL,),

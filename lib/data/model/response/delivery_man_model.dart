@@ -1,18 +1,18 @@
 class DeliveryManModel {
-  int id;
-  int sellerId;
-  String fName;
-  String lName;
-  String phone;
-  String email;
-  String identityNumber;
-  String identityType;
-  String identityImage;
-  String image;
-  int isActive;
-  String createdAt;
-  String updatedAt;
-  String fcmToken;
+  int? id;
+  int? sellerId;
+  String? fName;
+  String? lName;
+  String? phone;
+  String? email;
+  String? identityNumber;
+  String? identityType;
+  String? identityImage;
+  String? image;
+  int? isActive;
+  String? createdAt;
+  String? updatedAt;
+  String? fcmToken;
 
   DeliveryManModel(
       {this.id,

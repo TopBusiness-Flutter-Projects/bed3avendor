@@ -14,8 +14,8 @@ import 'package:bed3avendor/view/screens/delivery/withdraw/delivery_man_collect_
 
 
 class DeliveryManWithdrawBalanceWidget extends StatelessWidget {
-  final DeliveryManProvider deliveryManProvider;
-  const DeliveryManWithdrawBalanceWidget({Key key, this.deliveryManProvider}) : super(key: key);
+  final DeliveryManProvider? deliveryManProvider;
+  const DeliveryManWithdrawBalanceWidget({Key? key, this.deliveryManProvider}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     bool darkMode = Provider.of<ThemeProvider>(context, listen: false).darkTheme;
@@ -33,7 +33,7 @@ class DeliveryManWithdrawBalanceWidget extends StatelessWidget {
             decoration: BoxDecoration(
               color: Theme.of(context).primaryColor,
               borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_SMALL),
-              boxShadow: [BoxShadow(color: Colors.grey[darkMode ? 900 : 200],
+              boxShadow: [BoxShadow(color: Colors.grey[darkMode ? 900 : 200]!,
                   spreadRadius: 0.5, blurRadius: 0.3)],
             ),
 
@@ -64,15 +64,15 @@ class DeliveryManWithdrawBalanceWidget extends StatelessWidget {
                                   child: Image.asset(Images.card_white)),
                               SizedBox(width: Dimensions.PADDING_SIZE_DEFAULT),
 
-                              Text(PriceConverter.convertPrice(context, deliveryManProvider.deliveryManDetails?.deliveryMan?.wallet != null ?
-                              double.parse(deliveryManProvider.deliveryManDetails.deliveryMan.wallet.cashInHand) ?? 0 : 0),
+                              Text(PriceConverter.convertPrice(context, deliveryManProvider!.deliveryManDetails?.deliveryMan?.wallet != null ?
+                              double.parse(deliveryManProvider!.deliveryManDetails!.deliveryMan!.wallet!.cashInHand!) ?? 0 : 0),
                                   style: robotoBold.copyWith(color: Colors.white,
                                       fontSize: Dimensions.FONT_SIZE_WITHDRAWABLE_AMOUNT)),
                             ],
                           ),
 
                           SizedBox(height: Dimensions.PADDING_SIZE_SMALL,),
-                          Text(getTranslated('cash_in_hand', context),
+                          Text(getTranslated('cash_in_hand', context)!,
                               style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT,
                                   color: Colors.white)),
 
@@ -91,11 +91,11 @@ class DeliveryManWithdrawBalanceWidget extends StatelessWidget {
                                 isScrollControlled: true,
                                 context: context, builder: (_) =>
                                 CollectedCashFromDeliveryManDialog(
-                                  deliveryManId: deliveryManProvider.deliveryManDetails?.deliveryMan?.id,
-                                  totalCashInHand: deliveryManProvider.deliveryManDetails?.deliveryMan?.wallet != null ?
-                                double.parse(deliveryManProvider.deliveryManDetails.deliveryMan.wallet.cashInHand) ?? 0 : 0,)),
+                                  deliveryManId: deliveryManProvider!.deliveryManDetails?.deliveryMan?.id,
+                                  totalCashInHand: deliveryManProvider!.deliveryManDetails?.deliveryMan?.wallet != null ?
+                                double.parse(deliveryManProvider!.deliveryManDetails!.deliveryMan!.wallet!.cashInHand!) ?? 0 : 0,)),
 
-                              child: Text(getTranslated('collect_cash', context),
+                              child: Text(getTranslated('collect_cash', context)!,
                                   style:robotoMedium.copyWith(color: Theme.of(context).primaryColor,
                                       fontSize: Dimensions.FONT_SIZE_LARGE)),
                             ),

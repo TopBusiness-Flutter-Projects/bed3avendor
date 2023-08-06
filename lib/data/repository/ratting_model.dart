@@ -1,10 +1,10 @@
 import 'package:bed3avendor/data/model/response/product_model.dart';
 
 class RattingModel {
-  int totalSize;
-  String limit;
-  String offset;
-  List<Reviews> reviews;
+  int? totalSize;
+  String? limit;
+  String? offset;
+  List<Reviews>? reviews;
 
   RattingModel({this.totalSize, this.limit, this.offset, this.reviews});
 
@@ -15,7 +15,7 @@ class RattingModel {
     if (json['reviews'] != null) {
       reviews = <Reviews>[];
       json['reviews'].forEach((v) {
-        reviews.add(new Reviews.fromJson(v));
+        reviews!.add(new Reviews.fromJson(v));
       });
     }
   }
@@ -26,25 +26,25 @@ class RattingModel {
     data['limit'] = this.limit;
     data['offset'] = this.offset;
     if (this.reviews != null) {
-      data['reviews'] = this.reviews.map((v) => v.toJson()).toList();
+      data['reviews'] = this.reviews!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class Reviews {
-  int id;
-  int productId;
-  int customerId;
-  String comment;
-  List<String> attachment;
-  double rating;
-  int status;
-  int isSaved;
-  String createdAt;
-  String updatedAt;
-  Product product;
-  Customer customer;
+  int? id;
+  int? productId;
+  int? customerId;
+  String? comment;
+  List<String>? attachment;
+  double? rating;
+  int? status;
+  int? isSaved;
+  String? createdAt;
+  String? updatedAt;
+  Product? product;
+  Customer? customer;
 
   Reviews(
       {this.id,
@@ -91,10 +91,10 @@ class Reviews {
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
     if (this.product != null) {
-      data['product'] = this.product.toJson();
+      data['product'] = this.product!.toJson();
     }
     if (this.customer != null) {
-      data['customer'] = this.customer.toJson();
+      data['customer'] = this.customer!.toJson();
     }
     return data;
   }

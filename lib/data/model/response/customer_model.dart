@@ -1,5 +1,5 @@
 class CustomerModel {
-  List<Customers> customers;
+  List<Customers>? customers;
 
   CustomerModel({this.customers});
 
@@ -7,7 +7,7 @@ class CustomerModel {
     if (json['customers'] != null) {
       customers = <Customers>[];
       json['customers'].forEach((v) {
-        customers.add(new Customers.fromJson(v));
+        customers!.add(new Customers.fromJson(v));
       });
     }
   }
@@ -15,19 +15,19 @@ class CustomerModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this.customers != null) {
-      data['customers'] = this.customers.map((v) => v.toJson()).toList();
+      data['customers'] = this.customers!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class Customers {
-  int id;
-  String fName;
-  String lName;
-  String phone;
-  String image;
-  String email;
+  int? id;
+  String? fName;
+  String? lName;
+  String? phone;
+  String? image;
+  String? email;
 
   Customers(
       {this.id,

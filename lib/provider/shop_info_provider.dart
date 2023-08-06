@@ -13,9 +13,9 @@ import 'package:bed3avendor/localization/language_constrants.dart';
 import 'package:bed3avendor/view/base/custom_snackbar.dart';
 
 class ShopProvider extends ChangeNotifier {
-  final ShopRepo shopRepo;
+  final ShopRepo? shopRepo;
 
-  ShopProvider({@required this.shopRepo});
+  ShopProvider({required this.shopRepo});
 
 
   int _selectedIndex = 0;
@@ -28,16 +28,16 @@ class ShopProvider extends ChangeNotifier {
 
 
 
-  ShopModel _shopModel;
-  ShopModel get shopModel => _shopModel;
+  ShopModel? _shopModel;
+  ShopModel? get shopModel => _shopModel;
 
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
 
-  File _file;
+  File? _file;
 
-  File get file => _file;
+  File? get file => _file;
   final picker = ImagePicker();
 
   void choosePhoto() async {
@@ -67,14 +67,14 @@ class ShopProvider extends ChangeNotifier {
 
   Future<ResponseModel> getShopInfo(BuildContext context) async {
     ResponseModel _responseModel;
-    ApiResponse apiResponse = await shopRepo.getShop();
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
-      _shopModel = ShopModel.fromJson(apiResponse.response.data);
+    ApiResponse apiResponse = await shopRepo!.getShop();
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+      _shopModel = ShopModel.fromJson(apiResponse.response!.data);
       _responseModel = ResponseModel(true, 'successful');
-      checkVacation(shopModel.vacationEndDate);
+      checkVacation(shopModel!.vacationEndDate!);
 
     } else {
-      String _errorMessage;
+      String? _errorMessage;
       if (apiResponse.error is String) {
         _errorMessage = apiResponse.error.toString();
       } else {
@@ -89,12 +89,12 @@ class ShopProvider extends ChangeNotifier {
   }
 
 
-  Future<ResponseModel> updateShopInfo(ShopModel updateShopModel, File file, String token) async {
+  Future<ResponseModel> updateShopInfo(ShopModel updateShopModel, File? file, String token) async {
     _isLoading = true;
     notifyListeners();
 
     ResponseModel responseModel;
-    http.StreamedResponse response = await shopRepo.updateShop(shopModel, file, token);
+    http.StreamedResponse response = await shopRepo!.updateShop(shopModel!, file, token);
     _isLoading = false;
     if (response.statusCode == 200) {
       String message = 'Success';
@@ -113,9 +113,9 @@ class ShopProvider extends ChangeNotifier {
     Navigator.of(context).pop();
     _isLoading = true;
     notifyListeners();
-    ApiResponse apiResponse = await shopRepo.temporaryClose(status);
+    ApiResponse apiResponse = await shopRepo!.temporaryClose(status);
 
-    if (apiResponse.response.statusCode == 200) {
+    if (apiResponse.response!.statusCode == 200) {
       _isLoading = false;
 
       showCustomSnackBar(getTranslated('status_updated_successfully', context), context, isToaster: true, isError: false);
@@ -127,13 +127,13 @@ class ShopProvider extends ChangeNotifier {
     notifyListeners();
 
   }
-  Future<void> shopVacation(BuildContext context, String startDate, String endDate, vacationNote, int status) async {
+  Future<void> shopVacation(BuildContext context, String? startDate, String? endDate, vacationNote, int status) async {
     Navigator.of(context).pop();
     _isLoading = true;
     notifyListeners();
-    ApiResponse apiResponse = await shopRepo.vacation(startDate, endDate, vacationNote, status);
+    ApiResponse apiResponse = await shopRepo!.vacation(startDate, endDate, vacationNote, status);
 
-    if (apiResponse.response.statusCode == 200) {
+    if (apiResponse.response!.statusCode == 200) {
       _isLoading = false;
       showCustomSnackBar(getTranslated('status_updated_successfully', context), context, isToaster: true, isError: false);
       getShopInfo(context);
@@ -152,7 +152,7 @@ class ShopProvider extends ChangeNotifier {
     notifyListeners();
 
     ResponseModel responseModel;
-    http.StreamedResponse response = await shopRepo.updateShop(updateUserModel, file, token);
+    http.StreamedResponse response = await shopRepo!.updateShop(updateUserModel, file, token);
     _isLoading = false;
     if (response.statusCode == 200) {
       String message = 'Success';
@@ -169,7 +169,7 @@ class ShopProvider extends ChangeNotifier {
 
 
   String getShopToken() {
-    return shopRepo.getShopToken();
+    return shopRepo!.getShopToken();
   }
 
 

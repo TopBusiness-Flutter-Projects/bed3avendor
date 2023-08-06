@@ -5,27 +5,27 @@ import 'package:bed3avendor/utill/dimensions.dart';
 import 'package:bed3avendor/utill/styles.dart';
 
 class TitleRow extends StatelessWidget {
-  final String title;
-  final Function onTap;
-  final Duration eventDuration;
-  final bool isDetailsPage;
+  final String? title;
+  final Function? onTap;
+  final Duration? eventDuration;
+  final bool? isDetailsPage;
   final bool isPrimary;
   final bool isPopular;
-  final Color color;
-  TitleRow({@required this.title, this.onTap, this.eventDuration, this.isDetailsPage, this.isPrimary=false, this.isPopular=false, this.color});
+  final Color? color;
+  TitleRow({required this.title, this.onTap, this.eventDuration, this.isDetailsPage, this.isPrimary=false, this.isPopular=false, this.color});
 
   @override
   Widget build(BuildContext context) {
-    int days, hours, minutes, seconds;
+    int? days, hours, minutes, seconds;
     if (eventDuration != null) {
-      days = eventDuration.inDays;
-      hours = eventDuration.inHours - days * 24;
-      minutes = eventDuration.inMinutes - (24 * days * 60) - (hours * 60);
-      seconds = eventDuration.inSeconds - (24 * days * 60 * 60) - (hours * 60 * 60) - (minutes * 60);
+      days = eventDuration!.inDays;
+      hours = eventDuration!.inHours - days * 24;
+      minutes = eventDuration!.inMinutes - (24 * days * 60) - (hours * 60);
+      seconds = eventDuration!.inSeconds - (24 * days * 60 * 60) - (hours * 60 * 60) - (minutes * 60);
     }
 
     return Row(children: [
-      Text(title, style: robotoBold.copyWith(color: color != null? color: isPopular? Theme.of(context).cardColor : isPrimary? Theme.of(context).primaryColor : ColorResources.titleColor(context))),
+      Text(title!, style: robotoBold.copyWith(color: color != null? color: isPopular? Theme.of(context).cardColor : isPrimary? Theme.of(context).primaryColor : ColorResources.titleColor(context))),
       eventDuration == null
           ? Expanded(child: SizedBox.shrink())
           : Expanded(
@@ -41,9 +41,9 @@ class TitleRow extends StatelessWidget {
             ])),
       onTap != null
           ? InkWell(
-              onTap: onTap,
+              onTap: onTap as void Function()?,
               child: Row(children: [
-                isDetailsPage == null ? Text(getTranslated('VIEW_ALL', context),
+                isDetailsPage == null ? Text(getTranslated('VIEW_ALL', context)!,
                         style: titilliumRegular.copyWith(
                           color: color != null? color: isPopular? Theme.of(context).cardColor : Theme.of(context).primaryColor,
                           fontSize: Dimensions.FONT_SIZE_DEFAULT,
@@ -59,10 +59,10 @@ class TitleRow extends StatelessWidget {
 }
 
 class TimerBox extends StatelessWidget {
-  final int time;
+  final int? time;
   final bool isBorder;
 
-  TimerBox({@required this.time, this.isBorder = false});
+  TimerBox({required this.time, this.isBorder = false});
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +75,7 @@ class TimerBox extends StatelessWidget {
         borderRadius: BorderRadius.circular(3),
       ),
       child: Center(
-        child: Text(time < 10 ? '0$time' : time.toString(),
+        child: Text(time! < 10 ? '0$time' : time.toString(),
           style: robotoBold.copyWith(
             color: isBorder ? ColorResources.getPrimary(context) : Theme.of(context).highlightColor,
             fontSize: Dimensions.FONT_SIZE_SMALL,

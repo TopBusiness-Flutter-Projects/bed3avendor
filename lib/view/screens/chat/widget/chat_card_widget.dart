@@ -12,25 +12,25 @@ import 'package:bed3avendor/utill/styles.dart';
 import 'package:bed3avendor/view/screens/chat/chat_screen.dart';
 
 class ChatCardWidget extends StatelessWidget {
-  final Chat chat;
-  const ChatCardWidget({Key key, this.chat}) : super(key: key);
+  final Chat? chat;
+  const ChatCardWidget({Key? key, this.chat}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    String baseUrl = Provider.of<ChatProvider>(context, listen: false).userTypeIndex == 0 ?
-    Provider.of<SplashProvider>(context, listen: false).baseUrls.customerImageUrl:
-    Provider.of<SplashProvider>(context, listen: false).baseUrls.deliveryManImageUrl;
+    String? baseUrl = Provider.of<ChatProvider>(context, listen: false).userTypeIndex == 0 ?
+    Provider.of<SplashProvider>(context, listen: false).baseUrls!.customerImageUrl:
+    Provider.of<SplashProvider>(context, listen: false).baseUrls!.deliveryManImageUrl;
 
-    int id = Provider.of<ChatProvider>(context, listen: false).userTypeIndex == 0 ?
-    chat.customer.id : chat.deliveryManId;
+    int? id = Provider.of<ChatProvider>(context, listen: false).userTypeIndex == 0 ?
+    chat!.customer!.id : chat!.deliveryManId;
 
-    String image = Provider.of<ChatProvider>(context, listen: false).userTypeIndex == 0 ?
-    chat.customer != null? chat.customer?.image :'' : chat.deliveryMan?.image;
+    String? image = Provider.of<ChatProvider>(context, listen: false).userTypeIndex == 0 ?
+    chat!.customer != null? chat!.customer?.image :'' : chat!.deliveryMan?.image;
 
     String name = Provider.of<ChatProvider>(context, listen: false).userTypeIndex == 0 ?
-    chat.customer != null?
-    '${chat.customer?.fName}'+' '+ '${chat.customer?.lName}' :'' :
-    '${chat.deliveryMan?.fName??'Deliveryman'} ${chat.deliveryMan?.lName??'Deleted'}';
+    chat!.customer != null?
+    '${chat!.customer?.fName}'+' '+ '${chat!.customer?.lName}' :'' :
+    '${chat!.deliveryMan?.fName??'Deliveryman'} ${chat!.deliveryMan?.lName??'Deleted'}';
 
 
     return Padding(
@@ -62,14 +62,14 @@ class ChatCardWidget extends StatelessWidget {
                 Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(name, style: titilliumSemiBold.copyWith(color: ColorResources.titleColor(context))),
-                    Text(DateConverter.customTime(DateTime.parse(chat.createdAt)),
+                    Text(DateConverter.customTime(DateTime.parse(chat!.createdAt!)),
                         style: robotoRegular.copyWith()),
                   ],
                 ),
                 SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL,),
 
 
-                Text(chat.message,
+                Text(chat!.message!,
                   maxLines: 2,overflow: TextOverflow.ellipsis,
                   style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT,
                       color: ColorResources.getTextColor(context).withOpacity(.8)),

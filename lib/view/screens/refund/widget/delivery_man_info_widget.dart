@@ -10,8 +10,8 @@ import 'package:bed3avendor/utill/images.dart';
 import 'package:bed3avendor/utill/styles.dart';
 
 class DeliveryManInfoWidget extends StatelessWidget {
-  final RefundProvider refundReq;
-  const DeliveryManInfoWidget({Key key, this.refundReq}) : super(key: key);
+  final RefundProvider? refundReq;
+  const DeliveryManInfoWidget({Key? key, this.refundReq}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class DeliveryManInfoWidget extends StatelessWidget {
         boxShadow: ThemeShadow.getShadow(context),
        ),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Text(getTranslated('deliveryman_contact_details', context),
+        Text(getTranslated('deliveryman_contact_details', context)!,
             style: titilliumBold.copyWith(color: ColorResources.getTextColor(context))),
         SizedBox(height: Dimensions.PADDING_SIZE_MEDIUM),
 
@@ -32,7 +32,7 @@ class DeliveryManInfoWidget extends StatelessWidget {
               errorWidget: (ctx, url, err) => Image.asset(Images.placeholder_image, height: 50,width: 50, fit: BoxFit.cover),
               placeholder: (ctx, url) => Image.asset(Images.placeholder_image,height: 50,width: 50, fit: BoxFit.cover),
               imageUrl: '${Provider.of<SplashProvider>(context, listen: false).
-              baseUrls.deliveryManImageUrl}/${refundReq.refundDetailsModel.deliverymanDetails.image}',
+              baseUrls!.deliveryManImageUrl}/${refundReq!.refundDetailsModel!.deliverymanDetails!.image}',
               height: 50,width: 50, fit: BoxFit.cover),),
           SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
 
@@ -40,19 +40,19 @@ class DeliveryManInfoWidget extends StatelessWidget {
 
           Expanded(child: Column( crossAxisAlignment: CrossAxisAlignment.start, children: [
 
-            Text('${refundReq.refundDetailsModel.deliverymanDetails.fName ?? ''} '
-                '${refundReq.refundDetailsModel.deliverymanDetails.lName ?? ''}',
+            Text('${refundReq!.refundDetailsModel!.deliverymanDetails!.fName ?? ''} '
+                '${refundReq!.refundDetailsModel!.deliverymanDetails!.lName ?? ''}',
                 style: robotoMedium.copyWith(color: ColorResources.getTextColor(context),
                     fontSize: Dimensions.FONT_SIZE_DEFAULT)),
             SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL,),
 
-            Text('${refundReq.refundDetailsModel.deliverymanDetails.phone}',
+            Text('${refundReq!.refundDetailsModel!.deliverymanDetails!.phone}',
                 style: robotoRegular.copyWith(color: ColorResources.getHintColor(context),
                     fontSize: Dimensions.FONT_SIZE_DEFAULT)),
 
             SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
 
-            Text('${refundReq.refundDetailsModel.deliverymanDetails.email ?? ''}',
+            Text('${refundReq!.refundDetailsModel!.deliverymanDetails!.email ?? ''}',
                 style: robotoRegular.copyWith(color: ColorResources.getHintColor(context),
                     fontSize: Dimensions.FONT_SIZE_DEFAULT)),
 

@@ -1,68 +1,68 @@
 class ConfigModel {
-  int _systemDefaultCurrency;
-  BaseUrls _baseUrls;
-  StaticUrls _staticUrls;
-  List<CurrencyList> _currencyList;
-  List<Language> _languageList;
-  List<ColorList> _colors;
-  List<String> _unit;
-  String _aboutUs;
-  String _privacyPolicy;
-  List<Faq> _faq;
-  String _termsConditions;
-  RefundPolicy _refundPolicy;
-  RefundPolicy _returnPolicy;
-  RefundPolicy _cancellationPolicy;
-  String _currencyModel;
-  String _shippingMethod;
-  String _version;
-  String _forgetPasswordVerification;
-  String _countryCode;
-  int _decimalPointSettings;
-  String _brandSetting;
-  String _digitalProductSetting;
-  bool _digitalPayment;
-  bool _cashOnDelivery;
-  String _sellerRegistration;
-  String _companyPhone;
-  String _companyEmail;
-  int _decimalPointSetting;
-  String _companyLogo;
-  int _posActive;
+  int? _systemDefaultCurrency;
+  BaseUrls? _baseUrls;
+  StaticUrls? _staticUrls;
+  List<CurrencyList>? _currencyList;
+  List<Language>? _languageList;
+  List<ColorList>? _colors;
+  List<String>? _unit;
+  String? _aboutUs;
+  String? _privacyPolicy;
+  List<Faq>? _faq;
+  String? _termsConditions;
+  RefundPolicy? _refundPolicy;
+  RefundPolicy? _returnPolicy;
+  RefundPolicy? _cancellationPolicy;
+  String? _currencyModel;
+  String? _shippingMethod;
+  String? _version;
+  String? _forgetPasswordVerification;
+  String? _countryCode;
+  int? _decimalPointSettings;
+  String? _brandSetting;
+  String? _digitalProductSetting;
+  bool? _digitalPayment;
+  bool? _cashOnDelivery;
+  String? _sellerRegistration;
+  String? _companyPhone;
+  String? _companyEmail;
+  int? _decimalPointSetting;
+  String? _companyLogo;
+  int? _posActive;
 
 
 
   ConfigModel({
-    int systemDefaultCurrency,
-    BaseUrls baseUrls,
-    StaticUrls staticUrls,
-    List<CurrencyList> currencyList,
-    List<Language> languageList,
-    List<ColorList> colors,
-    List<String> unit,
-    String aboutUs,
-    String privacyPolicy,
-    List<Faq> faq,
-    String termsConditions,
-    RefundPolicy refundPolicy,
-    RefundPolicy returnPolicy,
-    RefundPolicy cancellationPolicy,
-    String currencyModel,
-    String shippingMethod,
-    String version,
-    String forgetPasswordVerification,
-    String countryCode,
-    int decimalPointSettings,
-    String brandSetting,
-    String digitalProductSetting,
-    bool digitalPayment,
-    bool cashOnDelivery,
-    String sellerRegistration,
-    String companyPhone,
-    String companyEmail,
-    int decimalPointSetting,
-    String companyLogo,
-    int posActive,
+    int? systemDefaultCurrency,
+    BaseUrls? baseUrls,
+    StaticUrls? staticUrls,
+    List<CurrencyList>? currencyList,
+    List<Language>? languageList,
+    List<ColorList>? colors,
+    List<String>? unit,
+    String? aboutUs,
+    String? privacyPolicy,
+    List<Faq>? faq,
+    String? termsConditions,
+    RefundPolicy? refundPolicy,
+    RefundPolicy? returnPolicy,
+    RefundPolicy? cancellationPolicy,
+    String? currencyModel,
+    String? shippingMethod,
+    String? version,
+    String? forgetPasswordVerification,
+    String? countryCode,
+    int? decimalPointSettings,
+    String? brandSetting,
+    String? digitalProductSetting,
+    bool? digitalPayment,
+    bool? cashOnDelivery,
+    String? sellerRegistration,
+    String? companyPhone,
+    String? companyEmail,
+    int? decimalPointSetting,
+    String? companyLogo,
+    int? posActive,
 
   }) {
     this._systemDefaultCurrency = systemDefaultCurrency;
@@ -118,36 +118,36 @@ class ConfigModel {
     _posActive = posActive;
   }
 
-  int get systemDefaultCurrency => _systemDefaultCurrency;
-  BaseUrls get baseUrls => _baseUrls;
-  StaticUrls get staticUrls => _staticUrls;
-  List<CurrencyList> get currencyList => _currencyList;
-  List<Language> get languageList => _languageList;
-  List<ColorList> get colors => _colors;
-  List<String> get unit => _unit;
-  String get aboutUs => _aboutUs;
-  String get privacyPolicy => _privacyPolicy;
-  List<Faq> get faq => _faq;
-  String get termsConditions => _termsConditions;
-  RefundPolicy get refundPolicy => _refundPolicy;
-  RefundPolicy get returnPolicy => _returnPolicy;
-  RefundPolicy get cancellationPolicy => _cancellationPolicy;
-  String get currencyModel => _currencyModel;
-  String get shippingMethod => _shippingMethod;
-  String get version => _version;
-  String get forgetPasswordVerification => _forgetPasswordVerification;
-  String get countryCode =>_countryCode;
-  int get decimalPointSettings => _decimalPointSettings;
-  String get brandSetting => _brandSetting;
-  String get digitalProductSetting => _digitalProductSetting;
-  bool get digitalPayment => _digitalPayment;
-  bool get cashOnDelivery => _cashOnDelivery;
-  String get sellerRegistration => _sellerRegistration;
-  String get companyPhone => _companyPhone;
-  String get companyEmail => _companyEmail;
-  int get decimalPointSetting => _decimalPointSetting;
-  String get companyLogo => _companyLogo;
-  int get posActive => _posActive;
+  int? get systemDefaultCurrency => _systemDefaultCurrency;
+  BaseUrls? get baseUrls => _baseUrls;
+  StaticUrls? get staticUrls => _staticUrls;
+  List<CurrencyList>? get currencyList => _currencyList;
+  List<Language>? get languageList => _languageList;
+  List<ColorList>? get colors => _colors;
+  List<String>? get unit => _unit;
+  String? get aboutUs => _aboutUs;
+  String? get privacyPolicy => _privacyPolicy;
+  List<Faq>? get faq => _faq;
+  String? get termsConditions => _termsConditions;
+  RefundPolicy? get refundPolicy => _refundPolicy;
+  RefundPolicy? get returnPolicy => _returnPolicy;
+  RefundPolicy? get cancellationPolicy => _cancellationPolicy;
+  String? get currencyModel => _currencyModel;
+  String? get shippingMethod => _shippingMethod;
+  String? get version => _version;
+  String? get forgetPasswordVerification => _forgetPasswordVerification;
+  String? get countryCode =>_countryCode;
+  int? get decimalPointSettings => _decimalPointSettings;
+  String? get brandSetting => _brandSetting;
+  String? get digitalProductSetting => _digitalProductSetting;
+  bool? get digitalPayment => _digitalPayment;
+  bool? get cashOnDelivery => _cashOnDelivery;
+  String? get sellerRegistration => _sellerRegistration;
+  String? get companyPhone => _companyPhone;
+  String? get companyEmail => _companyEmail;
+  int? get decimalPointSetting => _decimalPointSetting;
+  String? get companyLogo => _companyLogo;
+  int? get posActive => _posActive;
 
 
 
@@ -158,12 +158,12 @@ class ConfigModel {
     _staticUrls = json['static_urls'] != null ? new StaticUrls.fromJson(json['static_urls']) : null;
     if (json['currency_list'] != null) {
       _currencyList = [];
-      json['currency_list'].forEach((v) { _currencyList.add(new CurrencyList.fromJson(v)); });
+      json['currency_list'].forEach((v) { _currencyList!.add(new CurrencyList.fromJson(v)); });
     }
     if (json['language'] != null) {
       _languageList = [];
       json['language'].forEach((v) {
-        _languageList.add(new Language.fromJson(v));
+        _languageList!.add(new Language.fromJson(v));
       });
     }
 
@@ -173,7 +173,7 @@ class ConfigModel {
     _privacyPolicy = json['privacy_policy'];
     if (json['faq'] != null) {
       _faq = [];
-      json['faq'].forEach((v) {_faq.add(new Faq.fromJson(v));
+      json['faq'].forEach((v) {_faq!.add(new Faq.fromJson(v));
       });
     }
     _termsConditions = json['terms_&_conditions'];
@@ -217,32 +217,32 @@ class ConfigModel {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['system_default_currency'] = this._systemDefaultCurrency;
     if (this._baseUrls != null) {
-      data['base_urls'] = this._baseUrls.toJson();
+      data['base_urls'] = this._baseUrls!.toJson();
     }
     if (this._staticUrls != null) {
-      data['static_urls'] = this._staticUrls.toJson();
+      data['static_urls'] = this._staticUrls!.toJson();
     }
     if (this._currencyList != null) {
-      data['currency_list'] = this._currencyList.map((v) => v.toJson()).toList();
+      data['currency_list'] = this._currencyList!.map((v) => v.toJson()).toList();
     }
     if (this._languageList != null) {
-      data['language'] = this._languageList.map((v) => v.toJson()).toList();
+      data['language'] = this._languageList!.map((v) => v.toJson()).toList();
     }
 
     data['about_us'] = this._aboutUs;
     data['privacy_policy'] = this._privacyPolicy;
     if (this._faq != null) {
-      data['faq'] = this._faq.map((v) => v.toJson()).toList();
+      data['faq'] = this._faq!.map((v) => v.toJson()).toList();
     }
     data['terms_&_conditions'] = this._termsConditions;
     if (this._refundPolicy != null) {
-      data['refund_policy'] = this._refundPolicy.toJson();
+      data['refund_policy'] = this._refundPolicy!.toJson();
     }
     if (this._returnPolicy != null) {
-      data['return_policy'] = this._returnPolicy.toJson();
+      data['return_policy'] = this._returnPolicy!.toJson();
     }
     if (this._cancellationPolicy != null) {
-      data['cancellation_policy'] = this._cancellationPolicy.toJson();
+      data['cancellation_policy'] = this._cancellationPolicy!.toJson();
     }
     data['currency_model'] = this._currencyModel;
     data['shipping_method'] = this._shippingMethod;
@@ -267,31 +267,31 @@ class ConfigModel {
 }
 
 class BaseUrls {
-  String _productImageUrl;
-  String _productThumbnailUrl;
-  String _brandImageUrl;
-  String _customerImageUrl;
-  String _bannerImageUrl;
-  String _categoryImageUrl;
-  String _reviewImageUrl;
-  String _sellerImageUrl;
-  String _shopImageUrl;
-  String _notificationImageUrl;
-  String _digitalProductUrl;
-  String _deliveryManImageUrl;
+  String? _productImageUrl;
+  String? _productThumbnailUrl;
+  String? _brandImageUrl;
+  String? _customerImageUrl;
+  String? _bannerImageUrl;
+  String? _categoryImageUrl;
+  String? _reviewImageUrl;
+  String? _sellerImageUrl;
+  String? _shopImageUrl;
+  String? _notificationImageUrl;
+  String? _digitalProductUrl;
+  String? _deliveryManImageUrl;
 
-  BaseUrls({String productImageUrl,
-    String productThumbnailUrl,
-    String brandImageUrl,
-    String customerImageUrl,
-    String bannerImageUrl,
-    String categoryImageUrl,
-    String reviewImageUrl,
-    String sellerImageUrl,
-    String shopImageUrl,
-    String notificationImageUrl,
-    String digitalProductUrl,
-    String deliveryManImageUrl,
+  BaseUrls({String? productImageUrl,
+    String? productThumbnailUrl,
+    String? brandImageUrl,
+    String? customerImageUrl,
+    String? bannerImageUrl,
+    String? categoryImageUrl,
+    String? reviewImageUrl,
+    String? sellerImageUrl,
+    String? shopImageUrl,
+    String? notificationImageUrl,
+    String? digitalProductUrl,
+    String? deliveryManImageUrl,
   }) {
     this._productImageUrl = productImageUrl;
     this._productThumbnailUrl = productThumbnailUrl;
@@ -309,18 +309,18 @@ class BaseUrls {
     this._deliveryManImageUrl = deliveryManImageUrl;
   }
 
-  String get productImageUrl => _productImageUrl;
-  String get productThumbnailUrl => _productThumbnailUrl;
-  String get brandImageUrl => _brandImageUrl;
-  String get customerImageUrl => _customerImageUrl;
-  String get bannerImageUrl => _bannerImageUrl;
-  String get categoryImageUrl => _categoryImageUrl;
-  String get reviewImageUrl => _reviewImageUrl;
-  String get sellerImageUrl => _sellerImageUrl;
-  String get shopImageUrl => _shopImageUrl;
-  String get notificationImageUrl => _notificationImageUrl;
-  String get digitalProductUrl => _digitalProductUrl;
-  String get deliveryManImageUrl => _deliveryManImageUrl;
+  String? get productImageUrl => _productImageUrl;
+  String? get productThumbnailUrl => _productThumbnailUrl;
+  String? get brandImageUrl => _brandImageUrl;
+  String? get customerImageUrl => _customerImageUrl;
+  String? get bannerImageUrl => _bannerImageUrl;
+  String? get categoryImageUrl => _categoryImageUrl;
+  String? get reviewImageUrl => _reviewImageUrl;
+  String? get sellerImageUrl => _sellerImageUrl;
+  String? get shopImageUrl => _shopImageUrl;
+  String? get notificationImageUrl => _notificationImageUrl;
+  String? get digitalProductUrl => _digitalProductUrl;
+  String? get deliveryManImageUrl => _deliveryManImageUrl;
 
   BaseUrls.fromJson(Map<String, dynamic> json) {
     _productImageUrl = json['product_image_url'];
@@ -356,15 +356,15 @@ class BaseUrls {
 }
 
 class StaticUrls {
-  String _aboutUs;
-  String _faq;
-  String _termsConditions;
-  String _contactUs;
-  String _brands;
-  String _categories;
-  String _customerAccount;
+  String? _aboutUs;
+  String? _faq;
+  String? _termsConditions;
+  String? _contactUs;
+  String? _brands;
+  String? _categories;
+  String? _customerAccount;
 
-  StaticUrls({String aboutUs, String faq, String termsConditions, String contactUs, String brands, String categories, String customerAccount}) {
+  StaticUrls({String? aboutUs, String? faq, String? termsConditions, String? contactUs, String? brands, String? categories, String? customerAccount}) {
     this._aboutUs = aboutUs;
     this._faq = faq;
     this._termsConditions = termsConditions;
@@ -374,13 +374,13 @@ class StaticUrls {
     this._customerAccount = customerAccount;
   }
 
-  String get aboutUs => _aboutUs;
-  String get faq => _faq;
-  String get termsConditions => _termsConditions;
-  String get contactUs => _contactUs;
-  String get brands => _brands;
-  String get categories => _categories;
-  String get customerAccount => _customerAccount;
+  String? get aboutUs => _aboutUs;
+  String? get faq => _faq;
+  String? get termsConditions => _termsConditions;
+  String? get contactUs => _contactUs;
+  String? get brands => _brands;
+  String? get categories => _categories;
+  String? get customerAccount => _customerAccount;
 
   StaticUrls.fromJson(Map<String, dynamic> json) {
     _aboutUs = json['about_us'];
@@ -405,22 +405,22 @@ class StaticUrls {
   }
 }
 class Faq {
-  int _id;
-  String _question;
-  String _answer;
-  int _ranking;
-  int _status;
-  String _createdAt;
-  String _updatedAt;
+  int? _id;
+  String? _question;
+  String? _answer;
+  int? _ranking;
+  int? _status;
+  String? _createdAt;
+  String? _updatedAt;
 
   Faq(
-      {int id,
-        String question,
-        String answer,
-        int ranking,
-        int status,
-        String createdAt,
-        String updatedAt}) {
+      {int? id,
+        String? question,
+        String? answer,
+        int? ranking,
+        int? status,
+        String? createdAt,
+        String? updatedAt}) {
     this._id = id;
     this._question = question;
     this._answer = answer;
@@ -430,13 +430,13 @@ class Faq {
     this._updatedAt = updatedAt;
   }
 
-  int get id => _id;
-  String get question => _question;
-  String get answer => _answer;
-  int get ranking => _ranking;
-  int get status => _status;
-  String get createdAt => _createdAt;
-  String get updatedAt => _updatedAt;
+  int? get id => _id;
+  String? get question => _question;
+  String? get answer => _answer;
+  int? get ranking => _ranking;
+  int? get status => _status;
+  String? get createdAt => _createdAt;
+  String? get updatedAt => _updatedAt;
 
 
   Faq.fromJson(Map<String, dynamic> json) {
@@ -465,11 +465,11 @@ class Faq {
 
 
 class ColorList {
-  int _id;
-  String _name;
-  String _code;
+  int? _id;
+  String? _name;
+  String? _code;
 
-  ColorList({int id, String name, String code}){
+  ColorList({int? id, String? name, String? code}){
 
     this._id = id;
     this._name = name;
@@ -477,9 +477,9 @@ class ColorList {
 
   }
 
-  int get id => _id;
-  String get name => _name;
-  String get code => _code;
+  int? get id => _id;
+  String? get name => _name;
+  String? get code => _code;
 
 
   ColorList.fromJson(Map<String, dynamic> json) {
@@ -505,16 +505,16 @@ class ColorList {
 
 
 class CurrencyList {
-  int _id;
-  String _name;
-  String _symbol;
-  String _code;
-  double _exchangeRate;
-  int _status;
-  String _createdAt;
-  String _updatedAt;
+  int? _id;
+  String? _name;
+  String? _symbol;
+  String? _code;
+  double? _exchangeRate;
+  int? _status;
+  String? _createdAt;
+  String? _updatedAt;
 
-  CurrencyList({int id, String name, String symbol, String code, double exchangeRate, int status, String createdAt, String updatedAt}) {
+  CurrencyList({int? id, String? name, String? symbol, String? code, double? exchangeRate, int? status, String? createdAt, String? updatedAt}) {
     this._id = id;
     this._name = name;
     this._symbol = symbol;
@@ -525,14 +525,14 @@ class CurrencyList {
     this._updatedAt = updatedAt;
   }
 
-  int get id => _id;
-  String get name => _name;
-  String get symbol => _symbol;
-  String get code => _code;
-  double get exchangeRate => _exchangeRate;
-  int get status => _status;
-  String get createdAt => _createdAt;
-  String get updatedAt => _updatedAt;
+  int? get id => _id;
+  String? get name => _name;
+  String? get symbol => _symbol;
+  String? get code => _code;
+  double? get exchangeRate => _exchangeRate;
+  int? get status => _status;
+  String? get createdAt => _createdAt;
+  String? get updatedAt => _updatedAt;
 
   CurrencyList.fromJson(Map<String, dynamic> json) {
     _id = json['id'];
@@ -560,8 +560,8 @@ class CurrencyList {
 }
 
 class Language {
-  String code;
-  String name;
+  String? code;
+  String? name;
 
   Language({this.code, this.name});
 
@@ -580,16 +580,16 @@ class Language {
 
 
 class LanguageList {
-  String _bn;
-  String _en;
+  String? _bn;
+  String? _en;
 
-  LanguageList({String bn, String en}) {
+  LanguageList({String? bn, String? en}) {
     this._bn = bn;
     this._en = en;
   }
 
-  String get bn => _bn;
-  String get en => _en;
+  String? get bn => _bn;
+  String? get en => _en;
 
   LanguageList.fromJson(Map<String, dynamic> json) {
     _bn = json['bn'];
@@ -605,16 +605,16 @@ class LanguageList {
 }
 
 class Data {
-  Bn _bn;
-  En _en;
+  Bn? _bn;
+  En? _en;
 
-  Data({Bn bn, En en}) {
+  Data({Bn? bn, En? en}) {
     this._bn = bn;
     this._en = en;
   }
 
-  Bn get bn => _bn;
-  En get en => _en;
+  Bn? get bn => _bn;
+  En? get en => _en;
 
   Data.fromJson(Map<String, dynamic> json) {
     _bn = json['bn'] != null ? new Bn.fromJson(json['bn']) : null;
@@ -624,23 +624,23 @@ class Data {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this._bn != null) {
-      data['bn'] = this._bn.toJson();
+      data['bn'] = this._bn!.toJson();
     }
     if (this._en != null) {
-      data['en'] = this._en.toJson();
+      data['en'] = this._en!.toJson();
     }
     return data;
   }
 }
 
 class Bn {
-  String _home;
+  String? _home;
 
-  Bn({String home}) {
+  Bn({String? home}) {
     this._home = home;
   }
 
-  String get home => _home;
+  String? get home => _home;
 
   Bn.fromJson(Map<String, dynamic> json) {
     _home = json['Home'];
@@ -654,55 +654,55 @@ class Bn {
 }
 
 class En {
-  String _home;
-  String _signIn;
-  String _myCart;
-  String _shippingMethod;
-  String _banner;
-  String _addMainBanner;
-  String _addFooterBanner;
-  String _mainBannerForm;
-  String _bannerUrl;
-  String _bannerType;
-  String _published;
-  String _mainBannerImage;
-  String _footerBannerForm;
-  String _footerBannerImage;
-  String _bannerTable;
-  String _bannerPhoto;
-  String _categories;
-  String _allCategories;
-  String _latestProducts;
-  String _moreProducts;
-  String _brands;
-  String _brandUpdate;
-  String _viewAll;
-  String _brand;
-  String _brandForm;
-  String _name;
-  String _brandLogo;
-  String _brandTable;
-  String _sl;
-  String _image;
-  String _action;
-  String _save;
-  String _update;
-  String _category;
-  String _icon;
-  String _categoryForm;
-  String _categoryTable;
-  String _slug;
-  String _subCategory;
-  String _subCategoryForm;
-  String _subCategoryTable;
-  String _selectCategoryName;
-  String _cashOnDelivery;
-  String _sslCommerzPayment;
-  String _paypal;
-  String _stripe;
-  String _paytm;
+  String? _home;
+  String? _signIn;
+  String? _myCart;
+  String? _shippingMethod;
+  String? _banner;
+  String? _addMainBanner;
+  String? _addFooterBanner;
+  String? _mainBannerForm;
+  String? _bannerUrl;
+  String? _bannerType;
+  String? _published;
+  String? _mainBannerImage;
+  String? _footerBannerForm;
+  String? _footerBannerImage;
+  String? _bannerTable;
+  String? _bannerPhoto;
+  String? _categories;
+  String? _allCategories;
+  String? _latestProducts;
+  String? _moreProducts;
+  String? _brands;
+  String? _brandUpdate;
+  String? _viewAll;
+  String? _brand;
+  String? _brandForm;
+  String? _name;
+  String? _brandLogo;
+  String? _brandTable;
+  String? _sl;
+  String? _image;
+  String? _action;
+  String? _save;
+  String? _update;
+  String? _category;
+  String? _icon;
+  String? _categoryForm;
+  String? _categoryTable;
+  String? _slug;
+  String? _subCategory;
+  String? _subCategoryForm;
+  String? _subCategoryTable;
+  String? _selectCategoryName;
+  String? _cashOnDelivery;
+  String? _sslCommerzPayment;
+  String? _paypal;
+  String? _stripe;
+  String? _paytm;
 
-  En({String home, String signIn, String myCart, String shippingMethod, String banner, String addMainBanner, String addFooterBanner, String mainBannerForm, String bannerUrl, String bannerType, String published, String mainBannerImage, String footerBannerForm, String footerBannerImage, String bannerTable, String bannerPhoto, String categories, String allCategories, String latestProducts, String moreProducts, String brands, String brandUpdate, String viewAll, String brand, String brandForm, String name, String brandLogo, String brandTable, String sl, String image, String action, String save, String update, String category, String icon, String categoryForm, String categoryTable, String slug, String subCategory, String subCategoryForm, String subCategoryTable, String selectCategoryName, String cashOnDelivery, String sslCommerzPayment, String paypal, String stripe, String paytm}) {
+  En({String? home, String? signIn, String? myCart, String? shippingMethod, String? banner, String? addMainBanner, String? addFooterBanner, String? mainBannerForm, String? bannerUrl, String? bannerType, String? published, String? mainBannerImage, String? footerBannerForm, String? footerBannerImage, String? bannerTable, String? bannerPhoto, String? categories, String? allCategories, String? latestProducts, String? moreProducts, String? brands, String? brandUpdate, String? viewAll, String? brand, String? brandForm, String? name, String? brandLogo, String? brandTable, String? sl, String? image, String? action, String? save, String? update, String? category, String? icon, String? categoryForm, String? categoryTable, String? slug, String? subCategory, String? subCategoryForm, String? subCategoryTable, String? selectCategoryName, String? cashOnDelivery, String? sslCommerzPayment, String? paypal, String? stripe, String? paytm}) {
     this._home = home;
     this._signIn = signIn;
     this._myCart = myCart;
@@ -752,53 +752,53 @@ class En {
     this._paytm = paytm;
   }
 
-  String get home => _home;
-  String get signIn => _signIn;
-  String get myCart => _myCart;
-  String get shippingMethod => _shippingMethod;
-  String get banner => _banner;
-  String get addMainBanner => _addMainBanner;
-  String get addFooterBanner => _addFooterBanner;
-  String get mainBannerForm => _mainBannerForm;
-  String get bannerUrl => _bannerUrl;
-  String get bannerType => _bannerType;
-  String get published => _published;
-  String get mainBannerImage => _mainBannerImage;
-  String get footerBannerForm => _footerBannerForm;
-  String get footerBannerImage => _footerBannerImage;
-  String get bannerTable => _bannerTable;
-  String get bannerPhoto => _bannerPhoto;
-  String get categories => _categories;
-  String get allCategories => _allCategories;
-  String get latestProducts => _latestProducts;
-  String get moreProducts => _moreProducts;
-  String get brands => _brands;
-  String get brandUpdate => _brandUpdate;
-  String get viewAll => _viewAll;
-  String get brand => _brand;
-  String get brandForm => _brandForm;
-  String get name => _name;
-  String get brandLogo => _brandLogo;
-  String get brandTable => _brandTable;
-  String get sl => _sl;
-  String get image => _image;
-  String get action => _action;
-  String get save => _save;
-  String get update => _update;
-  String get category => _category;
-  String get icon => _icon;
-  String get categoryForm => _categoryForm;
-  String get categoryTable => _categoryTable;
-  String get slug => _slug;
-  String get subCategory => _subCategory;
-  String get subCategoryForm => _subCategoryForm;
-  String get subCategoryTable => _subCategoryTable;
-  String get selectCategoryName => _selectCategoryName;
-  String get cashOnDelivery => _cashOnDelivery;
-  String get sslCommerzPayment => _sslCommerzPayment;
-  String get paypal => _paypal;
-  String get stripe => _stripe;
-  String get paytm => _paytm;
+  String? get home => _home;
+  String? get signIn => _signIn;
+  String? get myCart => _myCart;
+  String? get shippingMethod => _shippingMethod;
+  String? get banner => _banner;
+  String? get addMainBanner => _addMainBanner;
+  String? get addFooterBanner => _addFooterBanner;
+  String? get mainBannerForm => _mainBannerForm;
+  String? get bannerUrl => _bannerUrl;
+  String? get bannerType => _bannerType;
+  String? get published => _published;
+  String? get mainBannerImage => _mainBannerImage;
+  String? get footerBannerForm => _footerBannerForm;
+  String? get footerBannerImage => _footerBannerImage;
+  String? get bannerTable => _bannerTable;
+  String? get bannerPhoto => _bannerPhoto;
+  String? get categories => _categories;
+  String? get allCategories => _allCategories;
+  String? get latestProducts => _latestProducts;
+  String? get moreProducts => _moreProducts;
+  String? get brands => _brands;
+  String? get brandUpdate => _brandUpdate;
+  String? get viewAll => _viewAll;
+  String? get brand => _brand;
+  String? get brandForm => _brandForm;
+  String? get name => _name;
+  String? get brandLogo => _brandLogo;
+  String? get brandTable => _brandTable;
+  String? get sl => _sl;
+  String? get image => _image;
+  String? get action => _action;
+  String? get save => _save;
+  String? get update => _update;
+  String? get category => _category;
+  String? get icon => _icon;
+  String? get categoryForm => _categoryForm;
+  String? get categoryTable => _categoryTable;
+  String? get slug => _slug;
+  String? get subCategory => _subCategory;
+  String? get subCategoryForm => _subCategoryForm;
+  String? get subCategoryTable => _subCategoryTable;
+  String? get selectCategoryName => _selectCategoryName;
+  String? get cashOnDelivery => _cashOnDelivery;
+  String? get sslCommerzPayment => _sslCommerzPayment;
+  String? get paypal => _paypal;
+  String? get stripe => _stripe;
+  String? get paytm => _paytm;
 
   En.fromJson(Map<String, dynamic> json) {
     _home = json['Home'];
@@ -904,10 +904,10 @@ class En {
 }
 
 class RefundPolicy {
-  int _status;
-  String _content;
+  int? _status;
+  String? _content;
 
-  RefundPolicy({int status, String content}) {
+  RefundPolicy({int? status, String? content}) {
     if (status != null) {
       this._status = status;
     }
@@ -916,8 +916,8 @@ class RefundPolicy {
     }
   }
 
-  int get status => _status;
-  String get content => _content;
+  int? get status => _status;
+  String? get content => _content;
 
 
   RefundPolicy.fromJson(Map<String, dynamic> json) {

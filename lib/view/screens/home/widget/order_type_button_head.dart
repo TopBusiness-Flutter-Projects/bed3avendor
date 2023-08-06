@@ -7,20 +7,20 @@ import 'package:bed3avendor/utill/dimensions.dart';
 import 'package:bed3avendor/utill/styles.dart';
 
 class OrderTypeButtonHead extends StatelessWidget {
-  final String text;
-  final String subText;
-  final Color color;
+  final String? text;
+  final String? subText;
+  final Color? color;
   final int index;
-  final Function callback;
-  final int numberOfOrder;
-  OrderTypeButtonHead({@required this.text,this.subText,this.color ,@required this.index, @required this.callback, @required this.numberOfOrder});
+  final Function? callback;
+  final int? numberOfOrder;
+  OrderTypeButtonHead({required this.text,this.subText,this.color ,required this.index, required this.callback, required this.numberOfOrder});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
         Provider.of<OrderProvider>(context, listen: false).setIndex(context, index);
-        callback();
+        callback!();
       },
       child: Card(
         shape: RoundedRectangleBorder(
@@ -40,11 +40,11 @@ class OrderTypeButtonHead extends StatelessWidget {
                               fontSize: Dimensions.FONT_SIZE_HEADER_LARGE)),
 
                       Row(children: [
-                          Text(text, style: robotoRegular.copyWith(color: ColorResources.getWhite(context),
+                          Text(text!, style: robotoRegular.copyWith(color: ColorResources.getWhite(context),
                               fontSize: Dimensions.FONT_SIZE_DEFAULT)),
                           SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL),
 
-                          Text(subText, style: robotoRegular.copyWith(color: ColorResources.getWhite(context))),
+                          Text(subText!, style: robotoRegular.copyWith(color: ColorResources.getWhite(context))),
                         ],
                       ),
 

@@ -8,22 +8,22 @@ import 'package:bed3avendor/helper/api_checker.dart';
 
 
 class ChatProvider extends ChangeNotifier {
-  final ChatRepo chatRepo;
-  ChatProvider({@required this.chatRepo});
+  final ChatRepo? chatRepo;
+  ChatProvider({required this.chatRepo});
 
 
-  List<Chat> _chatList;
-  List<Chat> get chatList => _chatList;
-  List<Message> _messageList;
-  List<Message> get messageList => _messageList;
+  List<Chat>? _chatList;
+  List<Chat>? get chatList => _chatList;
+  List<Message>? _messageList;
+  List<Message>? get messageList => _messageList;
   bool _isSendButtonActive = false;
   bool get isSendButtonActive => _isSendButtonActive;
   int _userTypeIndex = 0;
   int get userTypeIndex =>  _userTypeIndex;
   bool _isLoading = false;
   bool get isLoading => _isLoading;
-  ChatModel _chatModel;
-  ChatModel get chatModel => _chatModel;
+  ChatModel? _chatModel;
+  ChatModel? get chatModel => _chatModel;
 
 
   Future<void> getChatList(BuildContext context, int offset, {bool reload = false}) async {
@@ -31,14 +31,14 @@ class ChatProvider extends ChangeNotifier {
       _chatModel = null;
     }
     _isLoading = true;
-    ApiResponse apiResponse = await chatRepo.getChatList(_userTypeIndex == 0 ? 'customer' : 'delivery-man', offset);
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+    ApiResponse apiResponse = await chatRepo!.getChatList(_userTypeIndex == 0 ? 'customer' : 'delivery-man', offset);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       if(offset == 1) {
-        _chatModel = ChatModel.fromJson(apiResponse.response.data);
+        _chatModel = ChatModel.fromJson(apiResponse.response!.data);
       }else {
-        _chatModel.totalSize = ChatModel.fromJson(apiResponse.response.data).totalSize;
-        _chatModel.offset = ChatModel.fromJson(apiResponse.response.data).offset;
-        _chatModel.chat.addAll(ChatModel.fromJson(apiResponse.response.data).chat);
+        _chatModel!.totalSize = ChatModel.fromJson(apiResponse.response!.data).totalSize;
+        _chatModel!.offset = ChatModel.fromJson(apiResponse.response!.data).offset;
+        _chatModel!.chat!.addAll(ChatModel.fromJson(apiResponse.response!.data).chat!);
       }
     } else {
       ApiChecker.checkApi(context, apiResponse);
@@ -48,10 +48,10 @@ class ChatProvider extends ChangeNotifier {
   }
 
   Future<void> searchedChatList(BuildContext context, String search) async {
-    ApiResponse apiResponse = await chatRepo.searchChat(_userTypeIndex == 0 ? 'customer' : 'delivery-man', search);
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+    ApiResponse apiResponse = await chatRepo!.searchChat(_userTypeIndex == 0 ? 'customer' : 'delivery-man', search);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _chatModel = ChatModel(totalSize: 10, limit: '10', offset: '1', chat: []);
-      apiResponse.response.data.forEach((chat) {_chatModel.chat.add(Chat.fromJson(chat));});
+      apiResponse.response!.data.forEach((chat) {_chatModel!.chat!.add(Chat.fromJson(chat));});
     } else {
       ApiChecker.checkApi(context, apiResponse);
     }
@@ -59,13 +59,13 @@ class ChatProvider extends ChangeNotifier {
   }
 
 
-  Future<void> getMessageList(BuildContext context,  int id, int offset) async {
+  Future<void> getMessageList(BuildContext context,  int? id, int offset) async {
     _messageList = [];
-    ApiResponse apiResponse = await chatRepo.getMessageList(_userTypeIndex == 0? 'customer' : 'delivery-man', offset, id);
+    ApiResponse apiResponse = await chatRepo!.getMessageList(_userTypeIndex == 0? 'customer' : 'delivery-man', offset, id);
 
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
 
-      _messageList.addAll(MessageModel.fromJson(apiResponse.response.data).message);
+      _messageList!.addAll(MessageModel.fromJson(apiResponse.response!.data).message!);
     } else {
       ApiChecker.checkApi(context, apiResponse);
     }
@@ -75,8 +75,8 @@ class ChatProvider extends ChangeNotifier {
 
   void sendMessage(MessageBody messageBody,  BuildContext context) async {
     print('==message====>${messageBody.message}/ ${messageBody.userId}');
-    ApiResponse apiResponse = await chatRepo.sendMessage(_userTypeIndex == 0? 'customer' : 'delivery-man', messageBody);
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+    ApiResponse apiResponse = await chatRepo!.sendMessage(_userTypeIndex == 0? 'customer' : 'delivery-man', messageBody);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
 
      getMessageList(context,  messageBody.userId, 1);
     } else {

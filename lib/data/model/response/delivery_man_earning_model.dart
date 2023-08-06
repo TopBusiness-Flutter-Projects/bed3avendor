@@ -1,13 +1,13 @@
 import 'package:bed3avendor/data/model/response/delivery_man_detail_model.dart';
 
 class DeliveryManEarning {
-  int totalSize;
-  String limit;
-  String offset;
-  double totalEarn;
-  double withdrawableBalance;
-  DeliveryMan deliveryMan;
-  List<Earning> orders;
+  int? totalSize;
+  String? limit;
+  String? offset;
+  double? totalEarn;
+  double? withdrawableBalance;
+  DeliveryMan? deliveryMan;
+  List<Earning>? orders;
 
   DeliveryManEarning(
       {this.totalSize,
@@ -43,7 +43,7 @@ class DeliveryManEarning {
     if (json['orders'] != null) {
       orders = <Earning>[];
       json['orders'].forEach((v) {
-        orders.add(new Earning.fromJson(v));
+        orders!.add(new Earning.fromJson(v));
       });
     }
   }
@@ -56,10 +56,10 @@ class DeliveryManEarning {
     data['total_earn'] = this.totalEarn;
     data['withdrawable_balance'] = this.withdrawableBalance;
     if (this.deliveryMan != null) {
-      data['delivery_man'] = this.deliveryMan.toJson();
+      data['delivery_man'] = this.deliveryMan!.toJson();
     }
     if (this.orders != null) {
-      data['orders'] = this.orders.map((v) => v.toJson()).toList();
+      data['orders'] = this.orders!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -68,11 +68,11 @@ class DeliveryManEarning {
 
 
 class Earning {
-  int id;
-  double deliverymanCharge;
-  String orderStatus;
-  int deliveryManId;
-  String updatedAt;
+  int? id;
+  double? deliverymanCharge;
+  String? orderStatus;
+  int? deliveryManId;
+  String? updatedAt;
 
   Earning(
       {this.id,

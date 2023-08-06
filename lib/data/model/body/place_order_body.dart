@@ -2,29 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:bed3avendor/data/model/response/product_model.dart';
 
 class PlaceOrderBody {
-  List<Cart> _cart;
-  double _couponDiscountAmount;
-  double _orderAmount;
-  String _couponCode;
-  double _couponAmount;
-  int _userId;
-  double _extraDiscount;
-  String _extraDiscountType;
-  String _paymentMethod;
+  List<Cart>? _cart;
+  double? _couponDiscountAmount;
+  double? _orderAmount;
+  String? _couponCode;
+  double? _couponAmount;
+  int? _userId;
+  double? _extraDiscount;
+  String? _extraDiscountType;
+  String? _paymentMethod;
 
 
 
 
   PlaceOrderBody(
-      {@required List<Cart> cart,
-        double couponDiscountAmount,
-        String couponCode,
-        double couponAmount,
-        double orderAmount,
-        int userId,
-        double extraDiscount,
-        String extraDiscountType,
-        String paymentMethod,
+      {required List<Cart> cart,
+        double? couponDiscountAmount,
+        String? couponCode,
+        double? couponAmount,
+        double? orderAmount,
+        int? userId,
+        double? extraDiscount,
+        String? extraDiscountType,
+        String? paymentMethod,
 
 
        }) {
@@ -40,22 +40,22 @@ class PlaceOrderBody {
 
   }
 
-  List<Cart> get cart => _cart;
-  double get couponDiscountAmount => _couponDiscountAmount;
-  String get couponCode => _couponCode;
-  double get couponAmount => _couponAmount;
-  double get orderAmount => _orderAmount;
-  int get userId => _userId;
-  double get extraDiscount => _extraDiscount;
-  String get extraDiscountType => _extraDiscountType;
-  String get paymentMethod => _paymentMethod;
+  List<Cart>? get cart => _cart;
+  double? get couponDiscountAmount => _couponDiscountAmount;
+  String? get couponCode => _couponCode;
+  double? get couponAmount => _couponAmount;
+  double? get orderAmount => _orderAmount;
+  int? get userId => _userId;
+  double? get extraDiscount => _extraDiscount;
+  String? get extraDiscountType => _extraDiscountType;
+  String? get paymentMethod => _paymentMethod;
 
 
   PlaceOrderBody.fromJson(Map<String, dynamic> json) {
     if (json['cart'] != null) {
       _cart = [];
       json['cart'].forEach((v) {
-        _cart.add(new Cart.fromJson(v));
+        _cart!.add(new Cart.fromJson(v));
       });
     }
     _couponDiscountAmount = json['coupon_discount'];
@@ -73,7 +73,7 @@ class PlaceOrderBody {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this._cart != null) {
-      data['cart'] = this._cart.map((v) => v.toJson()).toList();
+      data['cart'] = this._cart!.map((v) => v.toJson()).toList();
     }
     data['coupon_discount'] = this._couponDiscountAmount;
     data['order_amount'] = this._orderAmount;
@@ -89,12 +89,12 @@ class PlaceOrderBody {
 }
 
 class Cart {
-  String _productId;
-  String _price;
-  double _discountAmount;
-  int _quantity;
-  String _variant;
-  List<Variation> _variation;
+  String? _productId;
+  String? _price;
+  double? _discountAmount;
+  int? _quantity;
+  String? _variant;
+  List<Variation?>? _variation;
 
 
 
@@ -103,9 +103,9 @@ class Cart {
       String productId,
       String price,
       double discountAmount,
-      int quantity,
-      String variant,
-      List<Variation> variation
+      int? quantity,
+      String? variant,
+      List<Variation?> variation
 
 
       ) {
@@ -122,12 +122,12 @@ class Cart {
 
   }
 
-  String get productId => _productId;
-  String get price => _price;
-  double get discountAmount => _discountAmount;
-  int get quantity => _quantity;
-  String get variant => _variant;
-  List<Variation> get variation => _variation;
+  String? get productId => _productId;
+  String? get price => _price;
+  double? get discountAmount => _discountAmount;
+  int? get quantity => _quantity;
+  String? get variant => _variant;
+  List<Variation?>? get variation => _variation;
 
 
 
@@ -140,7 +140,7 @@ class Cart {
     if (json['variation'] != null) {
       _variation = <Variation>[];
       json['variation'].forEach((v) {
-        _variation.add(new Variation.fromJson(v));
+        _variation!.add(new Variation.fromJson(v));
       });
     }
 
@@ -154,7 +154,7 @@ class Cart {
     data['quantity'] = this._quantity;
     data['variant'] = this._variant;
     if (this._variation != null) {
-      data['variation'] = this._variation.map((v) => v.toJson()).toList();
+      data['variation'] = this._variation!.map((v) => v!.toJson()).toList();
     }
     return data;
   }

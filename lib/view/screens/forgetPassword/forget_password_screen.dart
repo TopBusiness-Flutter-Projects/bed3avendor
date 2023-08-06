@@ -25,12 +25,12 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
   final TextEditingController _controller = TextEditingController();
   final TextEditingController _numberController = TextEditingController();
   final FocusNode _numberFocus = FocusNode();
-  String _countryDialCode = '880';
+  String? _countryDialCode = '880';
 
   @override
   void initState() {
     _countryDialCode = CountryCode.fromCountryCode(
-        Provider.of<SplashProvider>(context, listen: false).configModel.countryCode).dialCode;
+        Provider.of<SplashProvider>(context, listen: false).configModel!.countryCode!).dialCode;
     super.initState();
   }
 
@@ -60,17 +60,17 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
               ),
 
 
-              Provider.of<SplashProvider>(context,listen: false).configModel.forgetPasswordVerification == "phone"?
-              Text(getTranslated('enter_phone_number_for_password_reset', context),
+              Provider.of<SplashProvider>(context,listen: false).configModel!.forgetPasswordVerification == "phone"?
+              Text(getTranslated('enter_phone_number_for_password_reset', context)!,
                   style: titilliumRegular.copyWith(color: Theme.of(context).hintColor,
                       fontSize: Dimensions.FONT_SIZE_EXTRA_SMALL)):
-              Text(getTranslated('enter_email_for_password_reset', context),
+              Text(getTranslated('enter_email_for_password_reset', context)!,
                   style: titilliumRegular.copyWith(color: Theme.of(context).hintColor,
                       fontSize: Dimensions.FONT_SIZE_DEFAULT)),
               SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_LARGE),
 
 
-              Provider.of<SplashProvider>(context,listen: false).configModel.forgetPasswordVerification == "phone"?
+              Provider.of<SplashProvider>(context,listen: false).configModel!.forgetPasswordVerification == "phone"?
               Row(children: [
                 CodePickerWidget(
                   onChanged: (CountryCode countryCode) {
@@ -81,7 +81,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                   showDropDownButton: true,
                   padding: EdgeInsets.zero,
                   showFlagMain: true,
-                  textStyle: TextStyle(color: Theme.of(context).textTheme.headline1.color),
+                  textStyle: TextStyle(color: Theme.of(context).textTheme.headline1!.color),
                 ),
 
 
@@ -111,17 +111,17 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                   return !authProvider.isLoading ?
                   CustomButton(
                     borderRadius: 10,
-                    btnTxt: Provider.of<SplashProvider>(context,listen: false).configModel.forgetPasswordVerification == "phone"?
+                    btnTxt: Provider.of<SplashProvider>(context,listen: false).configModel!.forgetPasswordVerification == "phone"?
                     getTranslated('send_otp', context):getTranslated('send_email', context),
                     onTap: () {
-                      String code;
-                      if(Provider.of<SplashProvider>(context,listen: false).configModel.forgetPasswordVerification == "phone"){
+                      late String code;
+                      if(Provider.of<SplashProvider>(context,listen: false).configModel!.forgetPasswordVerification == "phone"){
                         if(_numberController.text.isEmpty) {
                           showCustomSnackBar(getTranslated('PHONE_MUST_BE_REQUIRED', context), context);
 
                         }else{
-                          if(_countryDialCode.contains('+')){
-                            code = _countryDialCode.replaceAll('+', '');
+                          if(_countryDialCode!.contains('+')){
+                            code = _countryDialCode!.replaceAll('+', '');
                           }
 
                           Provider.of<AuthProvider>(context, listen: false).

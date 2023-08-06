@@ -3,11 +3,11 @@ import 'package:bed3avendor/utill/images.dart';
 
 class CustomImage extends StatelessWidget {
   final String image;
-  final double height;
-  final double width;
+  final double? height;
+  final double? width;
   final BoxFit fit;
   final String placeholder;
-  CustomImage({@required this.image, this.height, this.width, this.fit = BoxFit.cover, this.placeholder = Images.placeholder_image});
+  CustomImage({required this.image, this.height, this.width, this.fit = BoxFit.cover, this.placeholder = Images.placeholder_image});
 
   @override
   Widget build(BuildContext context) {

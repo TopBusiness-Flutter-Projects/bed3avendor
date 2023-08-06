@@ -17,8 +17,8 @@ import 'package:bed3avendor/view/screens/shop/widget/shop_product_card.dart';
 import 'package:bed3avendor/view/screens/stockOut/stock_out_product_screen.dart';
 
 class ProductView extends StatefulWidget {
-  final int sellerId;
-  ProductView({@required this.sellerId});
+  final int? sellerId;
+  ProductView({required this.sellerId});
 
   @override
   State<ProductView> createState() => _ProductViewState();
@@ -59,7 +59,7 @@ class _ProductViewState extends State<ProductView> {
     Provider.of<ProductProvider>(context, listen: false).initSellerProductList(
         Provider.of<ProfileProvider>(context, listen: false).userId.toString(), 1,context,
         Provider.of<LocalizationProvider>(context, listen: false).locale.languageCode == 'US'?'en':
-        Provider.of<LocalizationProvider>(context, listen: false).locale.countryCode.toLowerCase(),'');
+        Provider.of<LocalizationProvider>(context, listen: false).locale.countryCode!.toLowerCase(),'');
     super.initState();
   }
 
@@ -73,11 +73,11 @@ class _ProductViewState extends State<ProductView> {
         Provider.of<ProductProvider>(context, listen: false).initSellerProductList(
             Provider.of<ProfileProvider>(context, listen: false).userId.toString(), 1,context,
             Provider.of<LocalizationProvider>(context, listen: false).locale.languageCode == 'US'?'en':
-            Provider.of<LocalizationProvider>(context, listen: false).locale.countryCode.toLowerCase(),'');
+            Provider.of<LocalizationProvider>(context, listen: false).locale.countryCode!.toLowerCase(),'');
       },
       child: Consumer<ProductProvider>(
         builder: (context, prodProvider, child) {
-          List<Product> productList;
+          List<Product>? productList;
           productList = prodProvider.sellerProductModel?.products;
 
           return Container(height: MediaQuery.of(context).size.height,
@@ -95,10 +95,10 @@ class _ProductViewState extends State<ProductView> {
                       reverse: false,
                       scrollController: scrollController,
                       totalSize: prodProvider.sellerProductModel?.totalSize,
-                      offset: prodProvider.sellerProductModel != null ? int.parse(prodProvider.sellerProductModel.offset.toString()) : null,
-                      onPaginate: (int offset) async {
+                      offset: prodProvider.sellerProductModel != null ? int.parse(prodProvider.sellerProductModel!.offset.toString()) : null,
+                      onPaginate: (int? offset) async {
                         print('==========offset========>$offset');
-                        await prodProvider.initSellerProductList(userId,offset, context,'en','', reload: false);
+                        await prodProvider.initSellerProductList(userId,offset!, context,'en','', reload: false);
                       },
 
                       itemView: ListView.builder(
@@ -107,7 +107,7 @@ class _ProductViewState extends State<ProductView> {
                         physics: NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemBuilder: (BuildContext context, int index) {
-                          return ShopProductWidget(productModel: productList[index],);
+                          return ShopProductWidget(productModel: productList![index],);
                         },
                       ),
                     ),
@@ -126,7 +126,7 @@ class _ProductViewState extends State<ProductView> {
                       width: 150,
                       color: Theme.of(context).cardColor,
                       icon: SizedBox(width: Dimensions.ICON_SIZE_EXTRA_LARGE,child: Image.asset(Images.add_icon)),
-                      text: Text(getTranslated('add_new', context), style: robotoRegular.copyWith(),),
+                      text: Text(getTranslated('add_new', context)!, style: robotoRegular.copyWith(),),
                       onPress: (){
                         Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => AddProductScreen()));
                       },
@@ -146,7 +146,7 @@ class _ProductViewState extends State<ProductView> {
                     width: 200,
                     color: Theme.of(context).cardColor,
                     icon: SizedBox(width: Dimensions.ICON_SIZE_EXTRA_LARGE,child: Image.asset(Images.limited_stock_icon)),
-                    text: Text(getTranslated('limited_stocks', context), style: robotoRegular.copyWith(),),
+                    text: Text(getTranslated('limited_stocks', context)!, style: robotoRegular.copyWith(),),
                     onPress: (){
                       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => StockOutProductScreen( )));
                     },

@@ -13,15 +13,15 @@ import 'package:bed3avendor/localization/language_constrants.dart';
 import 'package:bed3avendor/view/base/custom_snackbar.dart';
 
 class OrderProvider extends ChangeNotifier {
-  final OrderRepo orderRepo;
-  OrderProvider({@required this.orderRepo});
+  final OrderRepo? orderRepo;
+  OrderProvider({required this.orderRepo});
 
-  String _paymentStatus;
-  String get paymentStatus =>_paymentStatus;
-  String _orderStatus;
-  String get orderStatus =>_orderStatus;
-  OrderModel _orderModel;
-  OrderModel get orderModel => _orderModel;
+  String? _paymentStatus;
+  String? get paymentStatus =>_paymentStatus;
+  String? _orderStatus;
+  String? get orderStatus =>_orderStatus;
+  OrderModel? _orderModel;
+  OrderModel? get orderModel => _orderModel;
 
 
   double _discountOnProduct = 0;
@@ -33,8 +33,8 @@ class OrderProvider extends ChangeNotifier {
   int get offset => _offset;
 
 
-  List<OrderDetailsModel> _orderDetails;
-  List<OrderDetailsModel> get orderDetails => _orderDetails;
+  List<OrderDetailsModel>? _orderDetails;
+  List<OrderDetailsModel>? get orderDetails => _orderDetails;
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
@@ -42,38 +42,38 @@ class OrderProvider extends ChangeNotifier {
   int get orderTypeIndex => _orderTypeIndex;
 
   List<String> _orderStatusList = [];
-  String _orderStatusType = '';
+  String? _orderStatusType = '';
   List<String> get orderStatusList => _orderStatusList;
-  String get orderStatusType => _orderStatusType;
+  String? get orderStatusType => _orderStatusType;
 
 
 
-  String _addOrderStatusErrorText;
-  String get addOrderStatusErrorText => _addOrderStatusErrorText;
+  String? _addOrderStatusErrorText;
+  String? get addOrderStatusErrorText => _addOrderStatusErrorText;
 
-  List<String> _paymentImageList;
-  List<String> get paymentImageList => _paymentImageList;
+  List<String>? _paymentImageList;
+  List<String>? get paymentImageList => _paymentImageList;
 
   int _paymentMethodIndex = 0;
   int get paymentMethodIndex => _paymentMethodIndex;
-  File _selectedFileForImport ;
-  File get selectedFileForImport =>_selectedFileForImport;
+  File? _selectedFileForImport ;
+  File? get selectedFileForImport =>_selectedFileForImport;
 
   void setOrderStatusErrorText(String errorText) {
     _addOrderStatusErrorText = errorText;
     notifyListeners();
   }
 
-  Future<ApiResponse> updateOrderStatus(int id, String status, BuildContext context) async {
+  Future<ApiResponse> updateOrderStatus(int? id, String? status, BuildContext context) async {
     _isLoading = true;
     notifyListeners();
     ApiResponse apiResponse;
-    apiResponse = await orderRepo.orderStatus(id, status);
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+    apiResponse = await orderRepo!.orderStatus(id, status);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       getOrderList(context, 1, 'all');
       _isLoading = false;
-      Map map = apiResponse.response.data;
-      String message = map['message'];
+      Map map = apiResponse.response!.data;
+      String? message = map['message'];
 
      showCustomSnackBar(message, context, isToaster: true,isError: false);
 
@@ -86,22 +86,22 @@ class OrderProvider extends ChangeNotifier {
   }
 
 
-  Future<void> getOrderList(BuildContext context, int offset, String status, {bool reload = true}) async {
+  Future<void> getOrderList(BuildContext? context, int offset, String status, {bool reload = true}) async {
     if(reload){
       _orderModel = null;
     }
     _isLoading = true;
-    ApiResponse apiResponse = await orderRepo.getOrderList(offset, status);
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+    ApiResponse apiResponse = await orderRepo!.getOrderList(offset, status);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       if(offset == 1 ){
-        _orderModel = OrderModel.fromJson(apiResponse.response.data);
+        _orderModel = OrderModel.fromJson(apiResponse.response!.data);
       }else{
-        _orderModel.totalSize =  OrderModel.fromJson(apiResponse.response.data).totalSize;
-        _orderModel.offset =  OrderModel.fromJson(apiResponse.response.data).offset;
-        _orderModel.orders.addAll(OrderModel.fromJson(apiResponse.response.data).orders)  ;
+        _orderModel!.totalSize =  OrderModel.fromJson(apiResponse.response!.data).totalSize;
+        _orderModel!.offset =  OrderModel.fromJson(apiResponse.response!.data).offset;
+        _orderModel!.orders!.addAll(OrderModel.fromJson(apiResponse.response!.data).orders!)  ;
       }
 
-      for(Order order in _orderModel.orders){
+      for(Order order in _orderModel!.orders!){
         _paymentStatus = order.paymentStatus;
       }
 
@@ -111,7 +111,7 @@ class OrderProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setPaymentStatus(String status) {
+  void setPaymentStatus(String? status) {
     _paymentStatus = status;
 
   }
@@ -158,10 +158,10 @@ class OrderProvider extends ChangeNotifier {
 
   Future<void> getOrderDetails( String orderID , BuildContext context) async {
     _orderDetails = null;
-    ApiResponse apiResponse = await orderRepo.getOrderDetails(orderID);
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+    ApiResponse apiResponse = await orderRepo!.getOrderDetails(orderID);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _orderDetails = [];
-      apiResponse.response.data.forEach((order) => _orderDetails.add(OrderDetailsModel.fromJson(order)));
+      apiResponse.response!.data.forEach((order) => _orderDetails!.add(OrderDetailsModel.fromJson(order)));
     } else {
       ApiChecker.checkApi(context, apiResponse);
     }
@@ -170,18 +170,18 @@ class OrderProvider extends ChangeNotifier {
 
 
   void initOrderStatusList(BuildContext context, String type) async {
-    ApiResponse apiResponse = await orderRepo.getOrderStatusList(type);
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+    ApiResponse apiResponse = await orderRepo!.getOrderStatusList(type);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _orderStatusList =[];
-      _orderStatusList.addAll(apiResponse.response.data);
-      _orderStatusType = apiResponse.response.data[0];
+      _orderStatusList.addAll(apiResponse.response!.data);
+      _orderStatusType = apiResponse.response!.data[0];
     } else {
       ApiChecker.checkApi(context, apiResponse);
     }
     notifyListeners();
   }
 
-  void updateStatus(String value, {bool notify = true}) {
+  void updateStatus(String? value, {bool notify = true}) {
     _orderStatusType = value;
     print('======bd======>$_orderStatusType');
     if(notify){
@@ -202,16 +202,16 @@ class OrderProvider extends ChangeNotifier {
 
 
 
-  Future updatePaymentStatus({int orderId, String status, BuildContext context}) async {
-    ApiResponse apiResponse = await orderRepo.updatePaymentStatus(orderId: orderId, status: status);
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+  Future updatePaymentStatus({int? orderId, String? status, BuildContext? context}) async {
+    ApiResponse apiResponse = await orderRepo!.updatePaymentStatus(orderId: orderId, status: status);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       getOrderList(context, 1,'all');
-      String message = getTranslated('payment_status_updated_successfully', context);
+      String? message = getTranslated('payment_status_updated_successfully', context!);
      showCustomSnackBar(message, context, isToaster: true, isError: false);
 
-    }else if(apiResponse.response.statusCode == 202){
-      Map map = apiResponse.response.data;
-      String message = map['message'];
+    }else if(apiResponse.response!.statusCode == 202){
+      Map map = apiResponse.response!.data;
+      String? message = map['message'];
      showCustomSnackBar(message, context, isError: true);
 
     } else {
@@ -229,18 +229,18 @@ class OrderProvider extends ChangeNotifier {
       openFileFromNotification: true,
     );
   }
-  void setSelectedFileName(File fileName){
+  void setSelectedFileName(File? fileName){
     _selectedFileForImport = fileName;
     notifyListeners();
   }
 
 
-  Future setDeliveryCharge({int orderId, String deliveryCharge, String deliveryDate, BuildContext context}) async {
-    ApiResponse apiResponse = await orderRepo.setDeliveryCharge(orderId,deliveryCharge, deliveryDate);
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+  Future setDeliveryCharge({int? orderId, String? deliveryCharge, String? deliveryDate, BuildContext? context}) async {
+    ApiResponse apiResponse = await orderRepo!.setDeliveryCharge(orderId,deliveryCharge, deliveryDate);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
 
-      Map map = apiResponse.response.data;
-      String message = map['message'];
+      Map map = apiResponse.response!.data;
+      String? message = map['message'];
       showCustomSnackBar(message, context, isError: false);
     }else {
       ApiChecker.checkApi(context, apiResponse);
@@ -249,9 +249,9 @@ class OrderProvider extends ChangeNotifier {
   }
 
 
-  DateTime _startDate;
+  DateTime? _startDate;
   DateFormat _dateFormat = DateFormat('yyyy-MM-d');
-  DateTime get startDate => _startDate;
+  DateTime? get startDate => _startDate;
   DateFormat get dateFormat => _dateFormat;
 
   Future <void> selectDate(BuildContext context)async {
@@ -267,20 +267,20 @@ class OrderProvider extends ChangeNotifier {
     });
   }
 
-  InvoiceModel _invoice;
-  InvoiceModel get invoice => _invoice;
-  Future<void> getInvoiceData(BuildContext context, int orderId) async {
+  InvoiceModel? _invoice;
+  InvoiceModel? get invoice => _invoice;
+  Future<void> getInvoiceData(BuildContext context, int? orderId) async {
     _isLoading = true;
-    ApiResponse response = await orderRepo.getInvoiceData(orderId);
-    if(response.response != null && response.response.statusCode == 200) {
+    ApiResponse response = await orderRepo!.getInvoiceData(orderId);
+    if(response.response != null && response.response!.statusCode == 200) {
       _discountOnProduct = 0;
       _totalTaxAmount = 0;
-     _invoice = InvoiceModel.fromJson(response.response.data);
-      for(int i=0; i< _invoice.details.length; i++ ){
-       _discountOnProduct += invoice.details[i].discount;
+     _invoice = InvoiceModel.fromJson(response.response!.data);
+      for(int i=0; i< _invoice!.details!.length; i++ ){
+       _discountOnProduct += invoice!.details![i].discount!;
        //print('==pd=>$_discountOnProduct/${invoice.details[i].productDetails.}');
-        if(invoice.details[i].productDetails.taxModel == "exclude"){
-          _totalTaxAmount += invoice.details[i].tax;
+        if(invoice!.details![i].productDetails!.taxModel == "exclude"){
+          _totalTaxAmount += invoice!.details![i].tax!;
         }
 
       }
@@ -293,13 +293,13 @@ class OrderProvider extends ChangeNotifier {
   }
 
 
-  String _analyticsName = '';
-  String get analyticsName => _analyticsName;
+  String? _analyticsName = '';
+  String? get analyticsName => _analyticsName;
   int _analyticsIndex = 0;
   int get analyticsIndex => _analyticsIndex;
 
 
-  void setAnalyticsFilterName(BuildContext context, String filterName, bool notify) {
+  void setAnalyticsFilterName(BuildContext context, String? filterName, bool notify) {
     _analyticsName = filterName;
     getAnalyticsFilterData(context, _analyticsName);
     if(notify) {
@@ -316,15 +316,15 @@ class OrderProvider extends ChangeNotifier {
     }
   }
 
-  BusinessAnalyticsFilterData _businessAnalyticsFilterData;
-  BusinessAnalyticsFilterData get businessAnalyticsFilterData => _businessAnalyticsFilterData;
+  BusinessAnalyticsFilterData? _businessAnalyticsFilterData;
+  BusinessAnalyticsFilterData? get businessAnalyticsFilterData => _businessAnalyticsFilterData;
 
 
-  Future<void> getAnalyticsFilterData(BuildContext context, String type) async {
+  Future<void> getAnalyticsFilterData(BuildContext context, String? type) async {
     _isLoading = true;
-    ApiResponse response = await orderRepo.getOrderFilterData(type);
-    if(response.response != null && response.response.statusCode == 200) {
-      _businessAnalyticsFilterData = BusinessAnalyticsFilterData.fromJson(response.response.data);
+    ApiResponse response = await orderRepo!.getOrderFilterData(type);
+    if(response.response != null && response.response!.statusCode == 200) {
+      _businessAnalyticsFilterData = BusinessAnalyticsFilterData.fromJson(response.response!.data);
       _isLoading = false;
     }else {
       _isLoading = false;
@@ -333,11 +333,11 @@ class OrderProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<ApiResponse> assignThirdPartyDeliveryMan(BuildContext context, String name,String trackingId, int orderId) async {
+  Future<ApiResponse> assignThirdPartyDeliveryMan(BuildContext context, String name,String trackingId, int? orderId) async {
     _isLoading = true;
     notifyListeners();
-    ApiResponse apiResponse = await orderRepo.assignThirdPartyDeliveryMan(name, trackingId, orderId);
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+    ApiResponse apiResponse = await orderRepo!.assignThirdPartyDeliveryMan(name, trackingId, orderId);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       showCustomSnackBar(getTranslated('third_party_delivery_type_successfully', context), context, isToaster: true, isError: false);
       _isLoading = false;
       getOrderList(context, 1,'all');

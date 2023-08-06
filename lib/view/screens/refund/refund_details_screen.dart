@@ -10,17 +10,17 @@ import 'package:bed3avendor/view/screens/refund/widget/refund_details.dart';
 import 'package:bed3avendor/data/model/response/refund_model.dart';
 
 class RefundDetailsScreen extends StatefulWidget {
-  final RefundModel refundModel;
-  final int orderDetailsId;
-  final String variation;
-  const RefundDetailsScreen({Key key, this.refundModel, this.orderDetailsId, this.variation}) : super(key: key);
+  final RefundModel? refundModel;
+  final int? orderDetailsId;
+  final String? variation;
+  const RefundDetailsScreen({Key? key, this.refundModel, this.orderDetailsId, this.variation}) : super(key: key);
 
   @override
   State<RefundDetailsScreen> createState() => _RefundDetailsScreenState();
 }
 
 class _RefundDetailsScreenState extends State<RefundDetailsScreen> with TickerProviderStateMixin{
-  TabController _tabController;
+  TabController? _tabController;
   int selectedIndex = 0;
 
   @override
@@ -29,7 +29,7 @@ class _RefundDetailsScreenState extends State<RefundDetailsScreen> with TickerPr
     _tabController = TabController(length: 2, initialIndex: 0, vsync: this);
 
     _tabController?.addListener((){
-      print('my index is'+ _tabController.index.toString());
+      print('my index is'+ _tabController!.index.toString());
       // switch (_tabController.index){
       //   case 0:
       //     Provider.of<AuthProvider>(context, listen: false).setIndexForTabBar(1, isNotify: true);

@@ -8,12 +8,12 @@ import 'package:bed3avendor/view/base/custom_button.dart';
 import 'package:bed3avendor/view/base/textfeild/custom_text_feild.dart';
 
 class ApproveAndDenyWidget extends StatelessWidget {
-  final String icon;
-  final String title;
-  final Function onYesPressed;
-  final TextEditingController note;
+  final String? icon;
+  final String? title;
+  final Function? onYesPressed;
+  final TextEditingController? note;
   final bool isApprove;
-  const ApproveAndDenyWidget({Key key, this.icon, this.title, this.onYesPressed, this.note, this.isApprove = false}) : super(key: key);
+  const ApproveAndDenyWidget({Key? key, this.icon, this.title, this.onYesPressed, this.note, this.isApprove = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,14 +30,14 @@ class ApproveAndDenyWidget extends StatelessWidget {
                 bottom: Dimensions.PADDING_SIZE_LARGE),
                 child: Padding(
                   padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
-                  child: Image.asset(icon,width: Dimensions.LOGO_HEIGHT,),
+                  child: Image.asset(icon!,width: Dimensions.LOGO_HEIGHT,),
                 ),
               ),
 
               title != null ? Padding(
                 padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_LARGE),
                 child: Text(
-                  title, textAlign: TextAlign.center,
+                  title!, textAlign: TextAlign.center,
                   style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE),
                 ),
               ) : SizedBox(),
@@ -58,7 +58,7 @@ class ApproveAndDenyWidget extends StatelessWidget {
 
               CustomButton(
                 btnTxt: getTranslated('submit',context),
-                onTap: () =>  onYesPressed(),
+                onTap: () =>  onYesPressed!(),
               )
             ])),
         ));

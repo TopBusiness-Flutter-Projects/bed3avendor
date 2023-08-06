@@ -14,20 +14,20 @@ import 'package:bed3avendor/view/screens/product/widget/product_details_widget.d
 
 
 class ProductDetailsScreen extends StatefulWidget {
-  final Product productModel;
-  const ProductDetailsScreen({Key key, this.productModel}) : super(key: key);
+  final Product? productModel;
+  const ProductDetailsScreen({Key? key, this.productModel}) : super(key: key);
 
   @override
   State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
 }
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> with TickerProviderStateMixin {
-  TabController _tabController;
+  TabController? _tabController;
   int selectedIndex = 0;
 
   void load(BuildContext context){
-    Provider.of<ProductProvider>(context, listen: false).getProductWiseReviewList(context, 1, widget.productModel.id);
-    Provider.of<ProductProvider>(context, listen: false).getProductDetails(context, widget.productModel.id);
+    Provider.of<ProductProvider>(context, listen: false).getProductWiseReviewList(context, 1, widget.productModel!.id);
+    Provider.of<ProductProvider>(context, listen: false).getProductDetails(context, widget.productModel!.id);
     Provider.of<SellerProvider>(context,listen: false).getCategoryList(context,null, 'en');
   }
   @override
@@ -37,7 +37,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> with Ticker
     _tabController = TabController(length: 2, initialIndex: 0, vsync: this);
 
     _tabController?.addListener((){
-      print('my index is'+ _tabController.index.toString());
+      print('my index is'+ _tabController!.index.toString());
       // switch (_tabController.index){
       //   case 0:
       //     Provider.of<AuthProvider>(context, listen: false).setIndexForTabBar(1, isNotify: true);
@@ -54,14 +54,14 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> with Ticker
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: CustomAppBar(title: getTranslated('product_details', context),isBackButtonExist: true,
-          isSwitch: widget.productModel.requestStatus == 1? true: false,
+          isSwitch: widget.productModel!.requestStatus == 1? true: false,
           isAction: true,
         productSwitch: true,
         switchAction: (value){
          if(value){
-           Provider.of<ProductProvider>(context, listen: false).productStatusOnOff(context, widget.productModel.id, 1);
+           Provider.of<ProductProvider>(context, listen: false).productStatusOnOff(context, widget.productModel!.id, 1);
          }else{
-           Provider.of<ProductProvider>(context, listen: false).productStatusOnOff(context, widget.productModel.id, 0);
+           Provider.of<ProductProvider>(context, listen: false).productStatusOnOff(context, widget.productModel!.id, 0);
          }
 
         },),

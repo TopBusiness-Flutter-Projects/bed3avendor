@@ -13,9 +13,9 @@ import 'package:bed3avendor/view/screens/delivery/withdraw/withdraw_approve_deny
 import 'package:bed3avendor/view/screens/delivery/withdraw/withdraw_card.dart';
 
 class WithdrawDetailsScreen extends StatefulWidget {
-  final Withdraws withdraw;
-  final int index;
-  const WithdrawDetailsScreen({Key key, this.withdraw, this.index}) : super(key: key);
+  final Withdraws? withdraw;
+  final int? index;
+  const WithdrawDetailsScreen({Key? key, this.withdraw, this.index}) : super(key: key);
 
   @override
   State<WithdrawDetailsScreen> createState() => _WithdrawDetailsScreenState();
@@ -24,7 +24,7 @@ class WithdrawDetailsScreen extends StatefulWidget {
 class _WithdrawDetailsScreenState extends State<WithdrawDetailsScreen> {
   @override
   void initState() {
-    Provider.of<DeliveryManProvider>(context, listen: false).getDeliveryManWithdrawDetails(context, widget.withdraw.id);
+    Provider.of<DeliveryManProvider>(context, listen: false).getDeliveryManWithdrawDetails(context, widget.withdraw!.id);
     super.initState();
   }
   final TextEditingController noteController = TextEditingController();
@@ -35,7 +35,7 @@ class _WithdrawDetailsScreenState extends State<WithdrawDetailsScreen> {
       appBar: CustomAppBar(title: getTranslated('withdraw_details', context),isBackButtonExist: true),
         body: Consumer<DeliveryManProvider>(
           builder: (context, deliveryManProvider, _) {
-            return deliveryManProvider.details != null && deliveryManProvider.details.deliveryMen != null?
+            return deliveryManProvider.details != null && deliveryManProvider.details!.deliveryMen != null?
             Column(
               children: [
                 Padding(
@@ -75,9 +75,9 @@ class _WithdrawDetailsScreenState extends State<WithdrawDetailsScreen> {
                         ],),
                       ),
                       SizedBox(height: Dimensions.PADDING_SIZE_SMALL,),
-                      InfoItem(icon: Images.person_icon, title: deliveryManProvider.details.deliveryMen.fName + ' ' +deliveryManProvider.details.deliveryMen.fName),
-                      InfoItem(icon: Images.call_icon, title: deliveryManProvider.details.deliveryMen.phone),
-                      InfoItem(icon: Images.email_icon, title: deliveryManProvider.details.deliveryMen.email),
+                      InfoItem(icon: Images.person_icon, title: deliveryManProvider.details!.deliveryMen!.fName! + ' ' +deliveryManProvider.details!.deliveryMen!.fName!),
+                      InfoItem(icon: Images.call_icon, title: deliveryManProvider.details!.deliveryMen!.phone),
+                      InfoItem(icon: Images.email_icon, title: deliveryManProvider.details!.deliveryMen!.email),
                       SizedBox(height: Dimensions.PADDING_SIZE_SMALL,),
 
                     ],),
@@ -118,10 +118,10 @@ class _WithdrawDetailsScreenState extends State<WithdrawDetailsScreen> {
                         ],),
                       ),
                       SizedBox(height: Dimensions.PADDING_SIZE_SMALL,),
-                      InfoItem(icon: Images.person_icon, title: '${getTranslated('account_holder', context)} : ${deliveryManProvider.details.deliveryMen.holderName??getTranslated('no_data_found', context)}'),
-                      InfoItem(icon: Images.credit_card, title: '${getTranslated('account_number', context)} ${deliveryManProvider.details.deliveryMen.accountNo??getTranslated('no_data_found', context)}',),
-                      InfoItem(icon: Images.bank, title: '${getTranslated('bank_name', context)} : ${deliveryManProvider.details.deliveryMen.bankName??getTranslated('no_data_found', context)}' ),
-                      InfoItem(icon: Images.branch_icon, title: '${getTranslated('branch_name', context)} : ${deliveryManProvider.details.deliveryMen.branch??getTranslated('no_data_found', context)}'),
+                      InfoItem(icon: Images.person_icon, title: '${getTranslated('account_holder', context)} : ${deliveryManProvider.details!.deliveryMen!.holderName??getTranslated('no_data_found', context)}'),
+                      InfoItem(icon: Images.credit_card, title: '${getTranslated('account_number', context)} ${deliveryManProvider.details!.deliveryMen!.accountNo??getTranslated('no_data_found', context)}',),
+                      InfoItem(icon: Images.bank, title: '${getTranslated('bank_name', context)} : ${deliveryManProvider.details!.deliveryMen!.bankName??getTranslated('no_data_found', context)}' ),
+                      InfoItem(icon: Images.branch_icon, title: '${getTranslated('branch_name', context)} : ${deliveryManProvider.details!.deliveryMen!.branch??getTranslated('no_data_found', context)}'),
 
                       SizedBox(height: Dimensions.PADDING_SIZE_SMALL,),
 
@@ -145,7 +145,7 @@ class _WithdrawDetailsScreenState extends State<WithdrawDetailsScreen> {
                                 note: noteController,
                                 title : getTranslated('deny_this_withdraw_request', context),
                                 onYesPressed: () {
-                              deliveryManProvider.deliveryManWithdrawApprovedDenied(context, widget.withdraw.id, noteController.text.trim(), 2, widget.index);
+                              deliveryManProvider.deliveryManWithdrawApprovedDenied(context, widget.withdraw!.id, noteController.text.trim(), 2, widget.index);
                             }
 
                             );
@@ -166,7 +166,7 @@ class _WithdrawDetailsScreenState extends State<WithdrawDetailsScreen> {
                                 isApprove: true,
                                 title : getTranslated('approve_this_withdraw_request', context),
                                 onYesPressed: () {
-                                  deliveryManProvider.deliveryManWithdrawApprovedDenied(context, widget.withdraw.id, noteController.text.trim(), 1, widget.index);
+                                  deliveryManProvider.deliveryManWithdrawApprovedDenied(context, widget.withdraw!.id, noteController.text.trim(), 1, widget.index);
                                 }
 
                             );
@@ -188,16 +188,16 @@ class _WithdrawDetailsScreenState extends State<WithdrawDetailsScreen> {
 }
 
 class InfoItem extends StatelessWidget {
-  final String icon;
-  final String title;
-  const InfoItem({Key key, this.icon, this.title}) : super(key: key);
+  final String? icon;
+  final String? title;
+  const InfoItem({Key? key, this.icon, this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_DEFAULT, vertical: Dimensions.PADDING_EYE),
       child: Container(child: Row(children: [
-        SizedBox(width: Dimensions.ICON_SIZE_SMALL, child: Image.asset(icon, color: Theme.of(context).primaryColor,)),
+        SizedBox(width: Dimensions.ICON_SIZE_SMALL, child: Image.asset(icon!, color: Theme.of(context).primaryColor,)),
         SizedBox(width: Dimensions.PADDING_SIZE_DEFAULT,),
 
         Expanded(

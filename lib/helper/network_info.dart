@@ -24,7 +24,7 @@ class NetworkInfo {
           backgroundColor: isNotConnected ? Colors.red : Colors.green,
           duration: Duration(seconds: isNotConnected ? 6000 : 3),
           content: Text(
-            isNotConnected ? getTranslated('no_connection', context) : getTranslated('connected', context),
+            isNotConnected ? getTranslated('no_connection', context)! : getTranslated('connected', context)!,
             textAlign: TextAlign.center,
           ),
         ));

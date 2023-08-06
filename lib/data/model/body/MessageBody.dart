@@ -1,14 +1,14 @@
 class MessageBody {
-  int _userId;
-  String _message;
+  int? _userId;
+  String? _message;
 
-  MessageBody({int sellerId, String message}) {
+  MessageBody({int? sellerId, String? message}) {
     this._userId = sellerId;
     this._message = message;
   }
 
-  int get userId => _userId;
-  String get message => _message;
+  int? get userId => _userId;
+  String? get message => _message;
 
   MessageBody.fromJson(Map<String, dynamic> json) {
     _userId = json['id'];

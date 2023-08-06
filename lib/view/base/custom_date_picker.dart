@@ -5,11 +5,11 @@ import 'package:bed3avendor/utill/styles.dart';
 
 
 class CustomDatePicker extends StatefulWidget {
-  final String title;
-  final String text;
-  final String image;
+  final String? title;
+  final String? text;
+  final String? image;
   final bool requiredField;
-  final Function selectDate;
+  final Function? selectDate;
   CustomDatePicker({this.title,this.text,this.image, this.requiredField = false,this.selectDate});
 
   @override
@@ -43,12 +43,12 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
           ),
           child:
           InkWell(
-            onTap: widget.selectDate,
+            onTap: widget.selectDate as void Function()?,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,children: [
-              SizedBox(width: 20,height: 20,child: Image.asset(widget.image)),
+              SizedBox(width: 20,height: 20,child: Image.asset(widget.image!)),
               SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
-              Text(widget.text, style: robotoRegular.copyWith(),),
+              Text(widget.text!, style: robotoRegular.copyWith(),),
 
             ],
             ),

@@ -12,8 +12,8 @@ import 'package:bed3avendor/view/base/custom_button.dart';
 import 'package:bed3avendor/view/base/custom_snackbar.dart';
 
 class ApprovedAndRejectWidget extends StatefulWidget {
-  final RefundModel refundModel;
-  const ApprovedAndRejectWidget({Key key, this.refundModel}) : super(key: key);
+  final RefundModel? refundModel;
+  const ApprovedAndRejectWidget({Key? key, this.refundModel}) : super(key: key);
 
   @override
   State<ApprovedAndRejectWidget> createState() => _ApprovedAndRejectWidgetState();
@@ -28,10 +28,10 @@ class _ApprovedAndRejectWidgetState extends State<ApprovedAndRejectWidget> {
     return Consumer<RefundProvider>(
         builder: (context,refundReq,_) {
           if(refundReq.refundDetailsModel != null){
-            List<RefundStatus> _status =[];
-            _status = refundReq.refundDetailsModel?.refundRequest[0]?.refundStatus;
+            List<RefundStatus>? _status =[];
+            _status = refundReq.refundDetailsModel?.refundRequest![0]?.refundStatus;
 
-            if(_status.isNotEmpty){
+            if(_status!.isNotEmpty){
               if(_status[_status.length-1].status == 'approved'){
                 approved = true;
                 reject = false;
@@ -57,7 +57,7 @@ class _ApprovedAndRejectWidgetState extends State<ApprovedAndRejectWidget> {
                   child: CustomButton(btnTxt: getTranslated('reject', context),
                     backgroundColor: Colors.red,
                     onTap: (){
-                      if(widget.refundModel.customer == null){
+                      if(widget.refundModel!.customer == null){
                         showCustomSnackBar(getTranslated('customer_account_was_deleted_you_cant_update_status', context), context);
                       }else{
                         Navigator.pop(context);
@@ -72,8 +72,8 @@ class _ApprovedAndRejectWidgetState extends State<ApprovedAndRejectWidget> {
                                 showCustomSnackBar(getTranslated('note_required', context), context);
                               }else{
                                 refundReq.isLoading?
-                                Center(child: CircularProgressIndicator()):refundReq.updateRefundStatus(context, widget.refundModel.id, 'rejected', noteController.text.trim()).then((value) {
-                                  if(value.response.statusCode ==200){
+                                Center(child: CircularProgressIndicator()):refundReq.updateRefundStatus(context, widget.refundModel!.id, 'rejected', noteController.text.trim()).then((value) {
+                                  if(value.response!.statusCode ==200){
                                     Provider.of<RefundProvider>(context, listen: false).getRefundList(context);
                                     Navigator.pop(context);
                                   }
@@ -93,7 +93,7 @@ class _ApprovedAndRejectWidgetState extends State<ApprovedAndRejectWidget> {
                   child: CustomButton(btnTxt: getTranslated('approve', context),
                     backgroundColor: Theme.of(context).primaryColor,
                     onTap: (){
-                      if(widget.refundModel.customer == null){
+                      if(widget.refundModel!.customer == null){
                         showCustomSnackBar(getTranslated('customer_account_was_deleted_you_cant_update_status', context), context);
                       }else{
                         Navigator.pop(context);
@@ -108,8 +108,8 @@ class _ApprovedAndRejectWidgetState extends State<ApprovedAndRejectWidget> {
                                   showCustomSnackBar(getTranslated('note_required', context), context);
                                 }else{
                                   refundReq.isLoading?
-                                  Center(child: CircularProgressIndicator()):refundReq.updateRefundStatus(context, widget.refundModel.id, 'approved',noteController.text.trim()).then((value) {
-                                    if(value.response.statusCode ==200){
+                                  Center(child: CircularProgressIndicator()):refundReq.updateRefundStatus(context, widget.refundModel!.id, 'approved',noteController.text.trim()).then((value) {
+                                    if(value.response!.statusCode ==200){
                                       Provider.of<RefundProvider>(context, listen: false).getRefundList(context);
                                       Navigator.pop(context);
                                       noteController.clear();

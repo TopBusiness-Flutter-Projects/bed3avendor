@@ -8,7 +8,7 @@ import 'package:bed3avendor/utill/dimensions.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class VacationCalender extends StatefulWidget {
-  const VacationCalender({Key key}) : super(key: key);
+  const VacationCalender({Key? key}) : super(key: key);
 
   @override
   State<VacationCalender> createState() => _VacationCalenderState();
@@ -40,9 +40,9 @@ class _VacationCalenderState extends State<VacationCalender> {
               padding:  EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT),
               color: Theme.of(context).canvasColor,
               child: SfDateRangePicker(
-                confirmText: getTranslated('ok', context),
+                confirmText: getTranslated('ok', context)!,
                 showActionButtons: true,
-                cancelText: getTranslated('cancel', context),
+                cancelText: getTranslated('cancel', context)!,
                 onCancel: ()=> Navigator.pop(context),
                 onSubmit: (value){
                   shop.selectDate(context, rng[0], rng[1]);

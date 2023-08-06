@@ -25,8 +25,8 @@ import 'package:url_launcher/url_launcher.dart';
 
 
 class BarCodeGenerateScreen extends StatefulWidget {
-  final Product product;
-  const BarCodeGenerateScreen({Key key, this.product}) : super(key: key);
+  final Product? product;
+  const BarCodeGenerateScreen({Key? key, this.product}) : super(key: key);
 
   @override
   State<BarCodeGenerateScreen> createState() => _BarCodeGenerateScreenState();
@@ -65,7 +65,7 @@ class _BarCodeGenerateScreenState extends State<BarCodeGenerateScreen> {
 
   @pragma('vm:entry-point')
   static void downloadCallback(String id, DownloadTaskStatus status, int progress) {
-    final SendPort send = IsolateNameServer.lookupPortByName('downloader_send_port');
+    final SendPort send = IsolateNameServer.lookupPortByName('downloader_send_port')!;
     send.send([id, status, progress]);
   }
 
@@ -87,14 +87,14 @@ class _BarCodeGenerateScreenState extends State<BarCodeGenerateScreen> {
 
                 Row(children: [
                   Text('${getTranslated('code', context)} : '),
-                  Text('${widget.product.code}', style: robotoRegular.copyWith(color: Theme.of(context).hintColor))],),
+                  Text('${widget.product!.code}', style: robotoRegular.copyWith(color: Theme.of(context).hintColor))],),
 
 
 
                 Row(children: [
                   Text('${getTranslated('product_name', context)} : '),
                   Expanded(
-                    child: Text('${widget.product.name}', maxLines: 2,overflow: TextOverflow.ellipsis,
+                    child: Text('${widget.product!.name}', maxLines: 2,overflow: TextOverflow.ellipsis,
                         style: robotoRegular.copyWith(color: Theme.of(context).hintColor)),
                   )],),
               ],),),
@@ -142,11 +142,11 @@ class _BarCodeGenerateScreenState extends State<BarCodeGenerateScreen> {
                       if(status.isGranted){
                         Directory directory = Directory('/storage/emulated/0/Download');
                         if (!await directory.exists()) directory = Platform.isAndroid
-                            ? await getExternalStorageDirectory()
+                            ? (await getExternalStorageDirectory())!
                             : await getApplicationSupportDirectory();
-                        barCodeController.barCodeDownload(context, widget.product.id,int.parse( quantityController.text)).then((value) async {
+                        barCodeController.barCodeDownload(context, widget.product!.id,int.parse( quantityController.text)).then((value) async {
                           // barCodeController.downloadFile(barCodeController.printBarCode,directory.path);
-                          _launchUrl(Uri.parse(barCodeController.printBarCode));
+                          _launchUrl(Uri.parse(barCodeController.printBarCode!));
                         });
 
                       }else{
@@ -194,11 +194,11 @@ class _BarCodeGenerateScreenState extends State<BarCodeGenerateScreen> {
                       children: [
                         Text('${AppConstants.COMPANY_NAME}',
                           style: robotoBold.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT),),
-                        Text('${widget.product.name}', maxLines: 1,overflow: TextOverflow.ellipsis,
+                        Text('${widget.product!.name}', maxLines: 1,overflow: TextOverflow.ellipsis,
                           style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL),),
-                        Text('${PriceConverter.convertPrice(context, widget.product.purchasePrice)}'),
+                        Text('${PriceConverter.convertPrice(context, widget.product!.purchasePrice)}'),
                         BarcodeWidget(
-                          data: 'code : ${widget.product.code}',style: robotoRegular.copyWith(),
+                          data: 'code : ${widget.product!.code}',style: robotoRegular.copyWith(),
                           barcode: Barcode.code128(),
                         )],);
                 }),

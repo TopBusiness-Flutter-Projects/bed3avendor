@@ -9,15 +9,15 @@ import 'package:bed3avendor/utill/images.dart';
 import 'package:bed3avendor/utill/styles.dart';
 
 class ShippingAndBillingWidget extends StatelessWidget {
-  final Order orderModel;
-  final bool onlyDigital;
-  const ShippingAndBillingWidget({Key key, this.orderModel, this.onlyDigital}) : super(key: key);
+  final Order? orderModel;
+  final bool? onlyDigital;
+  const ShippingAndBillingWidget({Key? key, this.orderModel, this.onlyDigital}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
 
-      if(!onlyDigital)Container(
+      if(!onlyDigital!)Container(
         padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_DEFAULT, vertical: Dimensions.PADDING_SIZE_MEDIUM),
         decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
@@ -33,7 +33,7 @@ class ShippingAndBillingWidget extends StatelessWidget {
                 padding: const EdgeInsets.only(right: Dimensions.PADDING_SIZE_SMALL),
                 child: Image.asset(Images.show_on_map,color: ColorResources.getTextColor(context), width: Dimensions.ICON_SIZE_SMALL ),
               ),
-              Text(getTranslated('shipping_address', context),
+              Text(getTranslated('shipping_address', context)!,
                   style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE,
                     color: ColorResources.titleColor(context),)),
             ],
@@ -41,9 +41,9 @@ class ShippingAndBillingWidget extends StatelessWidget {
 
           SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
 
-          Text('${orderModel.shippingAddressData != null ?
-          jsonDecode(orderModel.shippingAddressData)['address']  :
-          orderModel.shippingAddress ?? ''}',
+          Text('${orderModel!.shippingAddressData != null ?
+          jsonDecode(orderModel!.shippingAddressData!)['address']  :
+          orderModel!.shippingAddress ?? ''}',
               style: titilliumRegular.copyWith(color: ColorResources.getTextColor(context))),
 
         ],
@@ -65,15 +65,15 @@ class ShippingAndBillingWidget extends StatelessWidget {
                 padding: const EdgeInsets.only(right: Dimensions.PADDING_SIZE_SMALL),
                 child: Image.asset(Images.show_on_map,color: ColorResources.getTextColor(context), width: Dimensions.ICON_SIZE_SMALL ),
               ),
-              Text(getTranslated('billing_address', context), style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE,
+              Text(getTranslated('billing_address', context)!, style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE,
                 color: ColorResources.titleColor(context),)),
             ],
           ),
           SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
 
-          Text('${orderModel.billingAddressData != null ?
-          orderModel.billingAddressData.address.trim() :
-          orderModel.billingAddress ?? ''}', style: titilliumRegular.copyWith(color: ColorResources.getTextColor(context))),
+          Text('${orderModel!.billingAddressData != null ?
+          orderModel!.billingAddressData!.address!.trim() :
+          orderModel!.billingAddress ?? ''}', style: titilliumRegular.copyWith(color: ColorResources.getTextColor(context))),
 
         ],),
       ),

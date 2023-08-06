@@ -13,10 +13,10 @@ import 'package:bed3avendor/view/screens/order/widget/delivery_man_assign_widget
 
 
 class OrderSetup extends StatefulWidget {
-  final String orderType;
-  final Order orderModel;
+  final String? orderType;
+  final Order? orderModel;
   final bool onlyDigital;
-  const OrderSetup({Key key, this.orderType, this.orderModel, this.onlyDigital = false}) : super(key: key);
+  const OrderSetup({Key? key, this.orderType, this.orderModel, this.onlyDigital = false}) : super(key: key);
 
   @override
   State<OrderSetup> createState() => _OrderSetupState();
@@ -25,10 +25,10 @@ class OrderSetup extends StatefulWidget {
 class _OrderSetupState extends State<OrderSetup> {
   @override
   Widget build(BuildContext context) {
-    print('==order status=>${widget.orderModel.orderStatus}');
+    print('==order status=>${widget.orderModel!.orderStatus}');
     bool inHouseShipping = false;
-    String shipping = Provider.of<SplashProvider>(context, listen: false).configModel.shippingMethod;
-    if(shipping == 'inhouse_shipping' && (widget.orderModel.orderStatus == 'out_for_delivery' || widget.orderModel.orderStatus == 'delivered' || widget.orderModel.orderStatus == 'returned' || widget.orderModel.orderStatus == 'failed' || widget.orderModel.orderStatus == 'cancelled')){
+    String? shipping = Provider.of<SplashProvider>(context, listen: false).configModel!.shippingMethod;
+    if(shipping == 'inhouse_shipping' && (widget.orderModel!.orderStatus == 'out_for_delivery' || widget.orderModel!.orderStatus == 'delivered' || widget.orderModel!.orderStatus == 'returned' || widget.orderModel!.orderStatus == 'failed' || widget.orderModel!.orderStatus == 'cancelled')){
       inHouseShipping = true;
     }else{
       inHouseShipping = false;
@@ -55,25 +55,25 @@ class _OrderSetupState extends State<OrderSetup> {
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(Dimensions.PADDING_SIZE),
-                          child: Text(getTranslated(widget.orderModel.orderStatus, context)),
+                          child: Text(getTranslated(widget.orderModel!.orderStatus, context)!),
                         )),
                   ):
                   CustomDropDownItem(
                     title: 'order_status',
                     widget: DropdownButtonFormField<String>(
-                      value: widget.orderModel.orderStatus,
+                      value: widget.orderModel!.orderStatus,
                       isExpanded: true,
                       decoration: InputDecoration(border: InputBorder.none),
                       iconSize: 24, elevation: 16, style: robotoRegular,
                       onChanged: (value){
                         print('======Selected type==$value======');
-                         order.updateOrderStatus(widget.orderModel.id, value, context);
+                         order.updateOrderStatus(widget.orderModel!.id, value, context);
                       },
                       items: order.orderStatusList.map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
-                          child: Text(getTranslated(value, context),
-                              style: robotoRegular.copyWith(color: Theme.of(context).textTheme.bodyText1.color)),
+                          child: Text(getTranslated(value, context)!,
+                              style: robotoRegular.copyWith(color: Theme.of(context).textTheme.bodyText1!.color)),
                         );
                       }).toList(),
                     ),
@@ -82,19 +82,19 @@ class _OrderSetupState extends State<OrderSetup> {
                   CustomDropDownItem(
                     title: 'payment_status',
                     widget: DropdownButtonFormField<String>(
-                      value: widget.orderModel.paymentStatus,
+                      value: widget.orderModel!.paymentStatus,
                       isExpanded: true,
                       decoration: InputDecoration(border: InputBorder.none),
                       iconSize: 24, elevation: 16, style: robotoRegular,
                       onChanged: (value) {
                         order.setPaymentMethodIndex(value == 'paid' ? 0 : 1);
-                        order.updatePaymentStatus(orderId: widget.orderModel.id, status: value ,context: context);
+                        order.updatePaymentStatus(orderId: widget.orderModel!.id, status: value ,context: context);
                       },
                       items: <String>['paid', 'unpaid'].map((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
-                          child: Text(getTranslated(value, context),
-                              style: robotoRegular.copyWith(color: Theme.of(context).textTheme.bodyText1.color)),
+                          child: Text(getTranslated(value, context)!,
+                              style: robotoRegular.copyWith(color: Theme.of(context).textTheme.bodyText1!.color)),
                         );
                       }).toList(),
                     ),
@@ -104,7 +104,7 @@ class _OrderSetupState extends State<OrderSetup> {
                    Padding(
                      padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_DEFAULT),
                      child: DeliveryManAssignWidget(orderType: widget.orderType,orderModel: widget.orderModel,
-                         orderId: widget.orderModel.id),
+                         orderId: widget.orderModel!.id),
                    ):SizedBox(),
 
                 ],

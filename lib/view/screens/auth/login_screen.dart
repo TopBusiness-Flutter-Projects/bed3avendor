@@ -24,9 +24,9 @@ class SignInWidget extends StatefulWidget {
 class _SignInWidgetState extends State<SignInWidget> {
   FocusNode _emailFocus = FocusNode();
   FocusNode _passwordFocus = FocusNode();
-  TextEditingController _emailController;
-  TextEditingController _passwordController;
-  GlobalKey<FormState> _formKeyLogin;
+  TextEditingController? _emailController;
+  TextEditingController? _passwordController;
+  GlobalKey<FormState>? _formKeyLogin;
 
   @override
   void initState() {
@@ -35,14 +35,14 @@ class _SignInWidgetState extends State<SignInWidget> {
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
 
-    _emailController.text = Provider.of<AuthProvider>(context, listen: false).getUserEmail() ?? null;
-    _passwordController.text = Provider.of<AuthProvider>(context, listen: false).getUserPassword() ?? null;
+    _emailController!.text = (Provider.of<AuthProvider>(context, listen: false).getUserEmail() ?? null)!;
+    _passwordController!.text = (Provider.of<AuthProvider>(context, listen: false).getUserPassword() ?? null)!;
   }
 
   @override
   void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
+    _emailController!.dispose();
+    _passwordController!.dispose();
     super.dispose();
   }
 
@@ -110,8 +110,8 @@ class _SignInWidgetState extends State<SignInWidget> {
                           SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
                           
 
-                          Text(getTranslated('remember_me', context),
-                            style: Theme.of(context).textTheme.headline2.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT,
+                          Text(getTranslated('remember_me', context)!,
+                            style: Theme.of(context).textTheme.headline2!.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT,
                                 color: ColorResources.getHintColor(context)),
                           ),
                           Spacer(),
@@ -119,7 +119,7 @@ class _SignInWidgetState extends State<SignInWidget> {
 
                           InkWell(
                             onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => ForgetPasswordScreen())),
-                            child: Text(getTranslated('forget_password', context),
+                            child: Text(getTranslated('forget_password', context)!,
                                 style: robotoRegular.copyWith(
                                     color: Theme.of(context).primaryColor, decoration: TextDecoration.underline)),
                           ),
@@ -142,8 +142,8 @@ class _SignInWidgetState extends State<SignInWidget> {
                     backgroundColor: Theme.of(context).primaryColor,
                     btnTxt: getTranslated('login', context),
                     onTap: () async {
-                      String _email = _emailController.text.trim();
-                      String _password = _passwordController.text.trim();
+                      String _email = _emailController!.text.trim();
+                      String _password = _passwordController!.text.trim();
                       if (_email.isEmpty) {
                         showCustomSnackBar(getTranslated('enter_email_address', context), context);
                       }else if (EmailChecker.isNotValid(_email)) {
@@ -153,7 +153,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                       }else if (_password.length < 6) {
                         showCustomSnackBar(getTranslated('password_should_be', context), context);
                       }else {authProvider.login(context, emailAddress: _email, password: _password).then((status) async {
-                          if (status.response.statusCode == 200) {
+                          if (status.response!.statusCode == 200) {
                             if (authProvider.isActiveRememberMe) {
                               authProvider.saveUserNumberAndPassword(_email, _password);
                             } else {
@@ -170,7 +170,7 @@ class _SignInWidgetState extends State<SignInWidget> {
 
                 )),
 
-                Provider.of<SplashProvider>(context, listen: false).configModel.sellerRegistration == "1"?
+                Provider.of<SplashProvider>(context, listen: false).configModel!.sellerRegistration == "1"?
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: Dimensions.PADDING_SIZE_DEFAULT),
                   child: InkWell(
@@ -179,9 +179,9 @@ class _SignInWidgetState extends State<SignInWidget> {
                     },
                     child: Row(mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(getTranslated('dont_have_an_account', context),style: robotoRegular,),
+                        Text(getTranslated('dont_have_an_account', context)!,style: robotoRegular,),
                         SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
-                        Text(getTranslated('registration_here', context),
+                        Text(getTranslated('registration_here', context)!,
                             style: robotoTitleRegular.copyWith(color: Theme.of(context).primaryColor, decoration: TextDecoration.underline)),
                       ],
                     ),
@@ -195,12 +195,12 @@ class _SignInWidgetState extends State<SignInWidget> {
                       onTap: (){
                         Navigator.push(context, MaterialPageRoute(builder: (_) => HtmlViewScreen(
                           title: getTranslated('terms_and_condition', context),
-                          url: Provider.of<SplashProvider>(context, listen: false).configModel.termsConditions,
+                          url: Provider.of<SplashProvider>(context, listen: false).configModel!.termsConditions,
                         )));
                       },
                       child: Row(mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(getTranslated('terms_and_condition', context),
+                          Text(getTranslated('terms_and_condition', context)!,
                               style: robotoMedium.copyWith(color: Theme.of(context).primaryColor, decoration: TextDecoration.underline)),
                         ],
                       )),

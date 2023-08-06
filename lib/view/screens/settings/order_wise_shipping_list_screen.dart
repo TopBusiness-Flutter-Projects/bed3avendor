@@ -54,7 +54,7 @@ class _OrderWiseShippingScreenState extends State<OrderWiseShippingScreen> {
                   ),
                   child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                     Text('#    ${getTranslated('details', context)}', style: robotoMedium,),
-                    Text(getTranslated('action', context), style: robotoMedium,)
+                    Text(getTranslated('action', context)!, style: robotoMedium,)
                   ],),
                 ),
               ),
@@ -64,15 +64,15 @@ class _OrderWiseShippingScreenState extends State<OrderWiseShippingScreen> {
                   controller: scrollController,
                   child: Consumer<ShippingProvider>(
                       builder: (context, shipProv, child) {
-                        return  shipProv.shippingList !=null ? shipProv.shippingList.length > 0 ?
+                        return  shipProv.shippingList !=null ? shipProv.shippingList!.length > 0 ?
                         Padding(
                           padding: const EdgeInsets.only(top: Dimensions.PADDING_SIZE_SMALL),
                           child: ListView.builder(
                             shrinkWrap: true,
                             controller: scrollController,
-                              itemCount: shipProv.shippingList.length,
+                              itemCount: shipProv.shippingList!.length,
                               itemBuilder: (context, index){
-                                return OrderWiseShippingCard(shipProv: shipProv,shippingModel: shipProv.shippingList[index], index: index,);
+                                return OrderWiseShippingCard(shipProv: shipProv,shippingModel: shipProv.shippingList![index], index: index,);
                               }
                           ),
                         ) : NoDataScreen()
@@ -94,7 +94,7 @@ class _OrderWiseShippingScreenState extends State<OrderWiseShippingScreen> {
                   width: 150,
                   color: Theme.of(context).cardColor,
                   icon: SizedBox(width: Dimensions.ICON_SIZE_EXTRA_LARGE,child: Image.asset(Images.add_icon)),
-                  text: Text(getTranslated('add_new', context), style: robotoRegular.copyWith(),),
+                  text: Text(getTranslated('add_new', context)!, style: robotoRegular.copyWith(),),
                   onPress: () => showAnimatedDialog(context, OrderWiseShippingAddScreen()),
                   animateIcon: true,
                   inverted: false,

@@ -8,8 +8,8 @@ import 'package:bed3avendor/utill/dimensions.dart';
 import 'package:bed3avendor/utill/styles.dart';
 
 class ChangeLogWidget extends StatelessWidget {
-  final RefundProvider refundReq;
-  const ChangeLogWidget({Key key, this.refundReq}) : super(key: key);
+  final RefundProvider? refundReq;
+  const ChangeLogWidget({Key? key, this.refundReq}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,13 +17,13 @@ class ChangeLogWidget extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(vertical: Dimensions.PADDING_SIZE_SMALL),
       decoration: BoxDecoration(color: Theme.of(context).cardColor,
-        boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 800 : 200],
+        boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 800 : 200]!,
             spreadRadius: 0.5, blurRadius: 0.3)],),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_DEFAULT,
             vertical: Dimensions.PADDING_SIZE_SMALL),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text(getTranslated('refund_status_change_log', context),
+          Text(getTranslated('refund_status_change_log', context)!,
               style: titilliumBold.copyWith(color: ColorResources.getTextColor(context))),
           SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT),
 
@@ -31,7 +31,7 @@ class ChangeLogWidget extends StatelessWidget {
             child: ListView.builder(
               shrinkWrap: true,
                 physics: BouncingScrollPhysics(),
-                itemCount: refundReq.refundDetailsModel.refundRequest[0].refundStatus.length,
+                itemCount: refundReq!.refundDetailsModel!.refundRequest![0].refundStatus!.length,
                 itemBuilder: (context,index) {
                   return Row(mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,7 +47,7 @@ class ChangeLogWidget extends StatelessWidget {
                             child: Icon(Icons.info_outline,color: Theme.of(context).cardColor,),
                           ),
 
-                          index == refundReq.refundDetailsModel.refundRequest[0].refundStatus.length-1? SizedBox():
+                          index == refundReq!.refundDetailsModel!.refundRequest![0].refundStatus!.length-1? SizedBox():
                           Container(height : 60,width: 2, color: Theme.of(context).primaryColor,),
 
                         ],)),
@@ -60,19 +60,19 @@ class ChangeLogWidget extends StatelessWidget {
                           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
 
                             Text('${getTranslated('status', context)} : '
-                                '${refundReq.refundDetailsModel.refundRequest[0].refundStatus[index].status ?? ''}',
+                                '${refundReq!.refundDetailsModel!.refundRequest![0].refundStatus![index].status ?? ''}',
                                 style: titilliumRegular.copyWith(color: ColorResources.getTextColor(context),
                                     fontSize: Dimensions.FONT_SIZE_DEFAULT)),
 
 
 
                             Text('${getTranslated('updated_by', context)} : '
-                                '${refundReq.refundDetailsModel.refundRequest[0].refundStatus[index].changeBy ?? ''}',
+                                '${refundReq!.refundDetailsModel!.refundRequest![0].refundStatus![index].changeBy ?? ''}',
                                 style: titilliumRegular.copyWith(color: ColorResources.getTextColor(context),
                                     fontSize: Dimensions.FONT_SIZE_DEFAULT)),
 
                             Text('${getTranslated('reason', context)} : '
-                                '${refundReq.refundDetailsModel.refundRequest[0].refundStatus[index].message ?? ''}',
+                                '${refundReq!.refundDetailsModel!.refundRequest![0].refundStatus![index].message ?? ''}',
                                 maxLines : 4,
                                 style: titilliumRegular.copyWith(color: ColorResources.getTextColor(context),
                                     fontSize: Dimensions.FONT_SIZE_DEFAULT)),

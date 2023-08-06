@@ -7,12 +7,12 @@ import 'package:flutter/foundation.dart';
 
 
 class EmergencyContactRepo {
-  final DioClient dioClient;
-  EmergencyContactRepo({@required this.dioClient});
+  final DioClient? dioClient;
+  EmergencyContactRepo({required this.dioClient});
 
   Future<ApiResponse> getEmergencyContactListList() async {
     try {
-      final response = await dioClient.get(AppConstants.GET_EMERGENCY_CONTACT_LIST);
+      final response = await dioClient!.get(AppConstants.GET_EMERGENCY_CONTACT_LIST);
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
@@ -21,10 +21,10 @@ class EmergencyContactRepo {
 
 
 
-  Future<ApiResponse> addNewEmergencyContact(String name, String phone,int id, {bool isUpdate = false}) async {
+  Future<ApiResponse> addNewEmergencyContact(String name, String phone,int? id, {bool isUpdate = false}) async {
     try {
       print('==id=$id, name=$name, phone = $phone, isUpdate=$isUpdate');
-      final response = await dioClient.post(isUpdate? AppConstants.EMERGENCY_CONTACT_UPDATE : AppConstants.EMERGENCY_CONTACT_ADD,
+      final response = await dioClient!.post(isUpdate? AppConstants.EMERGENCY_CONTACT_UPDATE : AppConstants.EMERGENCY_CONTACT_ADD,
           data: {
             'id': id,
             'name' : name,
@@ -39,9 +39,9 @@ class EmergencyContactRepo {
     }
   }
 
-  Future<ApiResponse> statusOnOffEmergencyContact(int id, int status) async {
+  Future<ApiResponse> statusOnOffEmergencyContact(int? id, int status) async {
     try {
-      final response = await dioClient.post(AppConstants.EMERGENCY_CONTACT_STATUS_ON_OFF,
+      final response = await dioClient!.post(AppConstants.EMERGENCY_CONTACT_STATUS_ON_OFF,
           data: {'_method': 'put',
             'id' : id,
             'status' : status
@@ -53,9 +53,9 @@ class EmergencyContactRepo {
   }
 
 
-  Future<ApiResponse> deleteEmergencyContact(int id) async {
+  Future<ApiResponse> deleteEmergencyContact(int? id) async {
     try {
-      final response = await dioClient.post('${AppConstants.EMERGENCY_CONTACT_DELETE}', data: {
+      final response = await dioClient!.post('${AppConstants.EMERGENCY_CONTACT_DELETE}', data: {
         '_method': 'delete',
         'id' : id
       });

@@ -68,7 +68,7 @@ class _ProfileScreenViewState extends State<ProfileScreenView> {
                                 child: ClipRRect(borderRadius: BorderRadius.all(Radius.circular(50)),
                                   child: CustomImage(width: 60, height: 60,
                                     image: '${Provider.of<SplashProvider>(context, listen: false).
-                                  baseUrls.sellerImageUrl}/${profile.userInfoModel.image}',fit: BoxFit.cover,),
+                                  baseUrls!.sellerImageUrl}/${profile.userInfoModel!.image}',fit: BoxFit.cover,),
 
                                 ),
                               ),
@@ -79,13 +79,13 @@ class _ProfileScreenViewState extends State<ProfileScreenView> {
                               padding: const EdgeInsets.fromLTRB( Dimensions.PADDING_SIZE_SMALL, 0, Dimensions.PADDING_SIZE_SMALL, Dimensions.PADDING_SIZE_SMALL),
                               child: Column(mainAxisAlignment: MainAxisAlignment.center,crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text('${profile.userInfoModel.fName} ${profile.userInfoModel.lName ?? ''}',
+                                  Text('${profile.userInfoModel!.fName} ${profile.userInfoModel!.lName ?? ''}',
                                     maxLines: 2,textAlign: TextAlign.center,
                                     style: robotoBold.copyWith(color:  ColorResources.getProfileTextColor(context),
                                         fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE),),
                                   SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
 
-                                  Text('${profile.userInfoModel.phone}',
+                                  Text('${profile.userInfoModel!.phone}',
                                     maxLines: 2,textAlign: TextAlign.center,
                                     style: titilliumRegular.copyWith(color:  ColorResources.getProfileTextColor(context),
                                         fontSize: Dimensions.FONT_SIZE_SMALL),),
@@ -123,11 +123,11 @@ class _ProfileScreenViewState extends State<ProfileScreenView> {
                        Dimensions.PADDING_SEVEN, Dimensions.PADDING_SIZE_MEDIUM, Dimensions.PADDING_SIZE_MEDIUM),
                   child: Row(mainAxisAlignment:MainAxisAlignment.spaceBetween,children: [
 
-                    Expanded(child: InfoItem(icon: Images.product_icon, title: 'products',amount: profile.userInfoModel.productCount.toString())),
+                    Expanded(child: InfoItem(icon: Images.product_icon, title: 'products',amount: profile.userInfoModel!.productCount.toString())),
                     SizedBox(width: Dimensions.PADDING_SIZE_SMALL,),
-                    Expanded(child: InfoItem(icon: Images.order, title: 'orders',amount: profile.userInfoModel.ordersCount.toString())),
+                    Expanded(child: InfoItem(icon: Images.order, title: 'orders',amount: profile.userInfoModel!.ordersCount.toString())),
                     SizedBox(width: Dimensions.PADDING_SIZE_SMALL,),
-                    Expanded(child: InfoItem(icon: Images.total_earn_icon, title: 'withdrawable_balance',amount: profile.userInfoModel.wallet.totalEarning.toString(), isMoney: true)),
+                    Expanded(child: InfoItem(icon: Images.total_earn_icon, title: 'withdrawable_balance',amount: profile.userInfoModel!.wallet!.totalEarning.toString(), isMoney: true)),
 
 
                   ],),
@@ -142,7 +142,7 @@ class _ProfileScreenViewState extends State<ProfileScreenView> {
                   padding: const EdgeInsets.only(top: Dimensions.PADDING_SIZE_DEFAULT,bottom: Dimensions.PADDING_SIZE_EXTRA_LARGE),
                   child: Row(mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(getTranslated('app_version', context)),
+                      Text(getTranslated('app_version', context)!),
                       Padding(
                         padding: const EdgeInsets.only(left: Dimensions.FONT_SIZE_EXTRA_SMALL),
                         child: Text(AppConstants.APP_VERSION),
@@ -162,11 +162,11 @@ class _ProfileScreenViewState extends State<ProfileScreenView> {
 }
 
 class InfoItem extends StatelessWidget {
-  final String icon;
-  final String title;
-  final String amount;
+  final String? icon;
+  final String? title;
+  final String? amount;
   final bool isMoney;
-  const InfoItem({Key key, this.icon, this.title, this.amount, this.isMoney = false}) : super(key: key);
+  const InfoItem({Key? key, this.icon, this.title, this.amount, this.isMoney = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -186,14 +186,14 @@ class InfoItem extends StatelessWidget {
                 color: Theme.of(context).primaryColor,
                 borderRadius: BorderRadius.circular(Dimensions.ICON_SIZE_EXTRA_LARGE)
               ),
-              child: Image.asset(icon, color: Colors.white)),
+              child: Image.asset(icon!, color: Colors.white)),
 
           Padding(
             padding: const EdgeInsets.symmetric(vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-            child: !isMoney? Text(amount,
+            child: !isMoney? Text(amount!,
               style: robotoBold.copyWith(color:  Theme.of(context).primaryColor,
                   fontSize: Dimensions.FONT_SIZE_LARGE),):
-            Text('${Provider.of<SplashProvider>(context, listen: false).myCurrency.symbol} ${NumberFormat.compact().format(double.parse(amount))}',
+            Text('${Provider.of<SplashProvider>(context, listen: false).myCurrency!.symbol} ${NumberFormat.compact().format(double.parse(amount!))}',
               style: titilliumSemiBold.copyWith(color:  Theme.of(context).primaryColor,
                   fontSize: Dimensions.FONT_SIZE_LARGE),),
           ),
@@ -201,7 +201,7 @@ class InfoItem extends StatelessWidget {
 
 
 
-          Text(getTranslated(title, context),
+          Text(getTranslated(title, context)!,
             textAlign: TextAlign.center,
             style: titilliumRegular.copyWith(color:  Theme.of(context).hintColor,
                 fontSize: Dimensions.FONT_SIZE_DEFAULT),),

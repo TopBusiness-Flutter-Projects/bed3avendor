@@ -19,8 +19,8 @@ import 'package:bed3avendor/view/base/textfeild/custom_text_feild.dart';
 import 'package:bed3avendor/view/screens/pos/customer_search_screen.dart';
 
 class AddNewCouponScreen extends StatefulWidget {
-  final Coupons coupons;
-  const AddNewCouponScreen({Key key, this.coupons}) : super(key: key);
+  final Coupons? coupons;
+  const AddNewCouponScreen({Key? key, this.coupons}) : super(key: key);
 
   @override
   State<AddNewCouponScreen> createState() => _AddNewCouponScreenState();
@@ -40,11 +40,11 @@ class _AddNewCouponScreenState extends State<AddNewCouponScreen> {
   void initState() {
     update = widget.coupons != null? true: false;
     if(update){
-      couponTitleController.text = widget.coupons.title;
-      couponCodeController.text = widget.coupons.code;
-      discountAmountController.text = widget.coupons.discount.toString();
-      minimumPurchaseController.text = widget.coupons.minPurchase.toString();
-      limitController.text = widget.coupons.limit.toString();
+      couponTitleController.text = widget.coupons!.title!;
+      couponCodeController.text = widget.coupons!.code!;
+      discountAmountController.text = widget.coupons!.discount.toString();
+      minimumPurchaseController.text = widget.coupons!.minPurchase.toString();
+      limitController.text = widget.coupons!.limit.toString();
     }
     Provider.of<CouponProvider>(context, listen: false).getCouponCustomerList(context,'');
     if(Provider.of<CouponProvider>(context, listen: false).customerSelectedName == ''){
@@ -77,8 +77,8 @@ class _AddNewCouponScreenState extends State<AddNewCouponScreen> {
                   items: coupon.couponTypeList.map((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
-                      child: Text(getTranslated(value, context),
-                          style: robotoRegular.copyWith(color: Theme.of(context).textTheme.bodyText1.color)),
+                      child: Text(getTranslated(value, context)!,
+                          style: robotoRegular.copyWith(color: Theme.of(context).textTheme.bodyText1!.color)),
                     );
                   }).toList(),
                 ),
@@ -87,7 +87,7 @@ class _AddNewCouponScreenState extends State<AddNewCouponScreen> {
 
               Padding(
                 padding: const EdgeInsets.fromLTRB(Dimensions.PADDING_SIZE_DEFAULT, Dimensions.PADDING_SIZE_SMALL, Dimensions.PADDING_SIZE_DEFAULT, Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                child: Text(getTranslated('select_customer', context)),
+                child: Text(getTranslated('select_customer', context)!),
               ),
               GestureDetector(
                   onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (_)=> CustomerSearchScreen(isCoupon: true,))),
@@ -128,7 +128,7 @@ class _AddNewCouponScreenState extends State<AddNewCouponScreen> {
                   child: Column(children: [
                     Row(
                       children: [
-                        Text(getTranslated('coupon_code', context), style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT)),
+                        Text(getTranslated('coupon_code', context)!, style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT)),
 
                         Spacer(),
                         InkWell(
@@ -141,7 +141,7 @@ class _AddNewCouponScreenState extends State<AddNewCouponScreen> {
                               var code = getRandomString(10);
                               couponCodeController.text = code.toString();
                             },
-                            child: Text(getTranslated('generate_code', context), style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT, color: Theme.of(context).primaryColor))),
+                            child: Text(getTranslated('generate_code', context)!, style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT, color: Theme.of(context).primaryColor))),
                       ],
                     ),
                     SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
@@ -186,8 +186,8 @@ class _AddNewCouponScreenState extends State<AddNewCouponScreen> {
                   items: coupon.discountTypeList.map((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
-                      child: Text(getTranslated(value, context),
-                          style: robotoRegular.copyWith(color: Theme.of(context).textTheme.bodyText1.color)),
+                      child: Text(getTranslated(value, context)!,
+                          style: robotoRegular.copyWith(color: Theme.of(context).textTheme.bodyText1!.color)),
                     );
                   }).toList(),
                 ),
@@ -231,14 +231,14 @@ class _AddNewCouponScreenState extends State<AddNewCouponScreen> {
                   title: getTranslated('start_date', context),
                   image: Images.calender_icon,
                   text: coupon.startDate != null ?
-                  coupon.dateFormat.format(coupon.startDate).toString() : getTranslated('select_date', context),
+                  coupon.dateFormat.format(coupon.startDate!).toString() : getTranslated('select_date', context),
                   selectDate: () => coupon.selectDate("start", context),
                 )),
                 Expanded(child: CustomDatePicker(
                   title: getTranslated('expire_date', context),
                   image: Images.calender_icon,
                   text: coupon.endDate != null ?
-                  coupon.dateFormat.format(coupon.endDate).toString() : getTranslated('select_date', context),
+                  coupon.dateFormat.format(coupon.endDate!).toString() : getTranslated('select_date', context),
                   selectDate: () => coupon.selectDate("end", context),
                 )),
               ],),
@@ -266,16 +266,16 @@ class _AddNewCouponScreenState extends State<AddNewCouponScreen> {
                         child: CircularProgressIndicator()):
                     CustomButton(btnTxt: getTranslated('submit', context),
                     onTap: (){
-                      String couponType = coupon.selectedCouponType;
-                      int customerId = coupon.selectedCustomerIdForCoupon;
+                      String? couponType = coupon.selectedCouponType;
+                      int? customerId = coupon.selectedCustomerIdForCoupon;
                       String couponTitle = couponTitleController.text.trim();
                       String couponCode = couponCodeController.text.trim();
                       String limit = limitController.text.trim();
-                      String discountType = coupon.discountTypeName;
+                      String? discountType = coupon.discountTypeName;
                       String discountAmount = discountAmountController.text.trim();
                       String minimumPurchase = minimumPurchaseController.text.trim();
-                      String startDate = update? widget.coupons.startDate :coupon.dateFormat.format(coupon.startDate).toString();
-                      String endDate = update? widget.coupons.expireDate : coupon.dateFormat.format(coupon.endDate).toString();
+                      String? startDate = update? widget.coupons!.startDate :coupon.dateFormat.format(coupon.startDate!).toString();
+                      String? endDate = update? widget.coupons!.expireDate : coupon.dateFormat.format(coupon.endDate!).toString();
                       if(couponTitle.isEmpty){
                         showCustomSnackBar(getTranslated('coupon_title_is_required', context), context);
                       }else if(couponCode.isEmpty){
@@ -286,13 +286,13 @@ class _AddNewCouponScreenState extends State<AddNewCouponScreen> {
                         showCustomSnackBar(getTranslated('amount_is_required', context), context);
                       }else if(minimumPurchase.isEmpty){
                         showCustomSnackBar(getTranslated('minimum_purchase_is_required', context), context);
-                      }else if(startDate.isEmpty){
+                      }else if(startDate!.isEmpty){
                         showCustomSnackBar(getTranslated('start_date_is_required', context), context);
-                      }else if(endDate.isEmpty){
+                      }else if(endDate!.isEmpty){
                         showCustomSnackBar(getTranslated('end_date_is_required', context), context);
                       }else{
                         Coupons coupons = Coupons(
-                          id: update? widget.coupons.id: null,
+                          id: update? widget.coupons!.id: null,
                           title: couponTitle,
                           couponType: couponType,
                           customerId: customerId,

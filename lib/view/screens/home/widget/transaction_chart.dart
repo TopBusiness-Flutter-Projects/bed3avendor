@@ -11,7 +11,7 @@ import 'package:bed3avendor/utill/styles.dart';
 
 class TransactionChart extends StatefulWidget {
 
-  TransactionChart({Key key});
+  TransactionChart({Key? key});
 
   @override
   State<StatefulWidget> createState() => TransactionChartState();
@@ -41,11 +41,11 @@ class TransactionChartState extends State<TransactionChart> {
         List<double> _earnings = [];
         List<double> _commissions = [];
         if(bankInfoProvider.userCommissions!=null && bankInfoProvider.userEarnings != null){
-          for(double earn in bankInfoProvider.userCommissions) {
-            _earnings.add(PriceConverter.convertAmount(earn, context));
+          for(double? earn in bankInfoProvider.userCommissions!) {
+            _earnings.add(PriceConverter.convertAmount(earn!, context));
           }
-          for(double commission in bankInfoProvider.userEarnings) {
-            _commissions.add(PriceConverter.convertAmount(commission, context));
+          for(double? commission in bankInfoProvider.userEarnings!) {
+            _commissions.add(PriceConverter.convertAmount(commission!, context));
           }
         }
         _expanseChartList = _commissions.asMap().entries.map((e) {
@@ -76,7 +76,7 @@ class TransactionChartState extends State<TransactionChart> {
                           child: Image.asset(Images.monthly_earning)),
                       SizedBox(width: Dimensions.PADDING_SIZE_SMALL,),
 
-                      Text(getTranslated('earning_statistic', context), style: robotoBold.copyWith(
+                      Text(getTranslated('earning_statistic', context)!, style: robotoBold.copyWith(
                           color: ColorResources.getTextColor(context),
                           fontSize: Dimensions.FONT_SIZE_DEFAULT),),
 
@@ -95,7 +95,7 @@ class TransactionChartState extends State<TransactionChart> {
                             items: <String>['this_year', 'this_month', 'this_week' ].map((String value) {
                               return DropdownMenuItem<String>(
                                 value: value,
-                                child: Text(getTranslated(value, context), style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT),),
+                                child: Text(getTranslated(value, context)!, style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT),),
                               );
                             }).toList(),
                             onChanged: (value) {
@@ -116,7 +116,7 @@ class TransactionChartState extends State<TransactionChart> {
                         Icon(Icons.circle,size: Dimensions.ICON_SIZE_SMALL,
                             color: Color(0xFF4E9BF0)),
                         SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL,),
-                        Text(getTranslated('your_earnings', context),
+                        Text(getTranslated('your_earnings', context)!,
                           style: robotoSmallTitleRegular.copyWith(color: ColorResources.getTextColor(context),
                         fontSize: Dimensions.FONT_SIZE_DEFAULT),),],),
 
@@ -126,7 +126,7 @@ class TransactionChartState extends State<TransactionChart> {
                           Icon(Icons.circle,size: Dimensions.ICON_SIZE_SMALL,
                               color: Color(0xFFF4BE37).withOpacity(.5)),
                           SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL,),
-                          Text(getTranslated('commission_given', context),
+                          Text(getTranslated('commission_given', context)!,
                                style: robotoSmallTitleRegular.copyWith(color: ColorResources.getTextColor(context),
                                    fontSize: Dimensions.FONT_SIZE_SMALL),
                         ),

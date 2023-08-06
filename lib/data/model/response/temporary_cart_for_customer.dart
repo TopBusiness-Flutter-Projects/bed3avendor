@@ -1,26 +1,26 @@
 import 'package:bed3avendor/data/model/response/cart_model.dart';
 
 class TemporaryCartListModel {
-  List<CartModel> _cart;
-  int _userId;
-  String _customerName;
-  int _userIndex;
-  double _customerBalance;
-  double _couponAmount;
-  String couponCode;
-  double _extraDiscount;
+  List<CartModel>? _cart;
+  int? _userId;
+  String? _customerName;
+  int? _userIndex;
+  double? _customerBalance;
+  double? _couponAmount;
+  String? couponCode;
+  double? _extraDiscount;
 
 
 
   TemporaryCartListModel(
-      {List<CartModel> cart,
-        int userId,
-        String customerName,
-        int userIndex,
-        double customerBalance,
-        double couponAmount,
-        String couponCode,
-        double extraDiscount,
+      {List<CartModel>? cart,
+        int? userId,
+        String? customerName,
+        int? userIndex,
+        double? customerBalance,
+        double? couponAmount,
+        String? couponCode,
+        double? extraDiscount,
       }) {
     this._cart = cart;
     this._userId = userId;
@@ -32,23 +32,23 @@ class TemporaryCartListModel {
 
   }
 
-  List<CartModel> get cart => _cart;
-  int get userId => _userId;
-  String get customerName => _customerName;
-  int get userIndex => _userIndex;
-  double get customerBalance => _customerBalance;
+  List<CartModel>? get cart => _cart;
+  int? get userId => _userId;
+  String? get customerName => _customerName;
+  int? get userIndex => _userIndex;
+  double? get customerBalance => _customerBalance;
   // ignore: unnecessary_getters_setters
-  double get couponAmount => _couponAmount;
+  double? get couponAmount => _couponAmount;
   // ignore: unnecessary_getters_setters
-  double get extraDiscount => _extraDiscount;
+  double? get extraDiscount => _extraDiscount;
 
 
-  set couponAmount(double value) {
+  set couponAmount(double? value) {
     _couponAmount = value;
   }
 
 
-  set extraDiscount(double value) {
+  set extraDiscount(double? value) {
     _extraDiscount = value;
   }
 
@@ -56,7 +56,7 @@ class TemporaryCartListModel {
     if (json['cart'] != null) {
       _cart = [];
       json['cart'].forEach((v) {
-        _cart.add(new CartModel.fromJson(v));
+        _cart!.add(new CartModel.fromJson(v));
       });
     }
     _userId = json['user_id'];
@@ -72,7 +72,7 @@ class TemporaryCartListModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this._cart != null) {
-      data['cart'] = this._cart.map((v) => v.toJson()).toList();
+      data['cart'] = this._cart!.map((v) => v.toJson()).toList();
     }
     data['user_id'] = this._userId;
     data['user_index'] = this._userIndex;
@@ -89,11 +89,11 @@ class TemporaryCartListModel {
 }
 
 class Cart {
-  String _productId;
-  String _price;
-  double _discountAmount;
-  int _quantity;
-  double _taxAmount;
+  String? _productId;
+  String? _price;
+  double? _discountAmount;
+  int? _quantity;
+  double? _taxAmount;
 
 
   Cart(
@@ -111,11 +111,11 @@ class Cart {
 
   }
 
-  String get productId => _productId;
-  String get price => _price;
-  double get discountAmount => _discountAmount;
-  int get quantity => _quantity;
-  double get taxAmount => _taxAmount;
+  String? get productId => _productId;
+  String? get price => _price;
+  double? get discountAmount => _discountAmount;
+  int? get quantity => _quantity;
+  double? get taxAmount => _taxAmount;
 
 
   Cart.fromJson(Map<String, dynamic> json) {

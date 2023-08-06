@@ -5,17 +5,17 @@ import 'package:bed3avendor/utill/styles.dart';
 
 class CustomFieldWithTitle extends StatelessWidget {
   final Widget customTextField;
-  final String title;
+  final String? title;
   final bool requiredField;
   final bool isPadding;
   final bool isSKU;
   final bool limitSet;
-  final String setLimitTitle;
-  final Function onTap;
+  final String? setLimitTitle;
+  final Function? onTap;
   final bool isCoupon;
   const CustomFieldWithTitle({
-    Key key,
-    @required this.customTextField,
+    Key? key,
+    required this.customTextField,
     this.title,
     this.setLimitTitle,
     this.requiredField = false,

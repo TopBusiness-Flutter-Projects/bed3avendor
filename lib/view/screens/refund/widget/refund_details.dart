@@ -17,10 +17,10 @@ import 'package:bed3avendor/view/screens/refund/widget/refund_widget.dart';
 
 
 class RefundDetailScreen extends StatefulWidget {
-  final RefundModel refundModel;
-  final int orderDetailsId;
-  final String variation;
-  RefundDetailScreen({@required this.refundModel, @required this.orderDetailsId, this.variation});
+  final RefundModel? refundModel;
+  final int? orderDetailsId;
+  final String? variation;
+  RefundDetailScreen({required this.refundModel, required this.orderDetailsId, this.variation});
   @override
   _RefundDetailScreenState createState() => _RefundDetailScreenState();
 }
@@ -42,10 +42,10 @@ class _RefundDetailScreenState extends State<RefundDetailScreen> {
               builder: (context,refundReq,_) {
 
                 if(refundReq.refundDetailsModel != null){
-                  List<RefundStatus> _status =[];
-                  _status = refundReq.refundDetailsModel?.refundRequest[0]?.refundStatus;
+                  List<RefundStatus>? _status =[];
+                  _status = refundReq.refundDetailsModel?.refundRequest![0]?.refundStatus;
 
-                  for(RefundStatus action in _status){
+                  for(RefundStatus action in _status!){
                     print('=====>${action.changeBy}');
                     if(action.changeBy == 'admin'){
                       adminAction = true;
@@ -74,12 +74,12 @@ class _RefundDetailScreenState extends State<RefundDetailScreen> {
                         SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
 
 
-                        widget.refundModel.customer != null?
+                        widget.refundModel!.customer != null?
                         CustomerInfoWidget(refundModel: widget.refundModel):SizedBox(),
 
                         SizedBox(height: Dimensions.PADDING_SIZE_SMALL,),
 
-                        (refundReq.refundDetailsModel !=null && refundReq.refundDetailsModel.deliverymanDetails != null)?
+                        (refundReq.refundDetailsModel !=null && refundReq.refundDetailsModel!.deliverymanDetails != null)?
                         DeliveryManInfoWidget(refundReq: refundReq):SizedBox(),
 
                         SizedBox(height: Dimensions.PADDING_SIZE_BOTTOM_SPACE),
@@ -102,12 +102,12 @@ class _RefundDetailScreenState extends State<RefundDetailScreen> {
 
 
 class ProductCalculationItem extends StatelessWidget {
-  final String title;
-  final double price;
+  final String? title;
+  final double? price;
   final bool isQ;
   final bool isNegative;
   final bool isPositive;
-  const ProductCalculationItem({Key key, this.title, this.price, this.isQ = false, this.isNegative = false, this.isPositive = false}) : super(key: key);
+  const ProductCalculationItem({Key? key, this.title, this.price, this.isQ = false, this.isNegative = false, this.isPositive = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

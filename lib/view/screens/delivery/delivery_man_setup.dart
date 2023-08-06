@@ -9,7 +9,7 @@ import 'package:bed3avendor/view/screens/delivery/widget/delivery_man_list_scree
 import 'package:bed3avendor/view/screens/delivery/withdraw/withdraw_screen.dart';
 
 class DeliveryManSetupScreen extends StatelessWidget {
-  const DeliveryManSetupScreen({Key key}) : super(key: key);
+  const DeliveryManSetupScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,17 +29,17 @@ class DeliveryManSetupScreen extends StatelessWidget {
 }
 
 class DeliveryManSetupCard extends StatelessWidget {
-  final String icon;
-  final String title;
-  final Widget widget;
-  const DeliveryManSetupCard({Key key, this.icon, this.title, this.widget}) : super(key: key);
+  final String? icon;
+  final String? title;
+  final Widget? widget;
+  const DeliveryManSetupCard({Key? key, this.icon, this.title, this.widget}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(Dimensions.ICON_SIZE_DEFAULT, 0, Dimensions.ICON_SIZE_DEFAULT, Dimensions.PADDING_SIZE_MEDIUM),
       child: GestureDetector(
-        onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (_)=>widget)),
+        onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (_)=>widget!)),
         child: Container(
           padding: EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT),
           decoration: BoxDecoration(
@@ -49,9 +49,9 @@ class DeliveryManSetupCard extends StatelessWidget {
           ),
           child: Column(children: [
             SizedBox(width: Dimensions.DELIVERYMAN_ICON_SIZE,
-                child: Image.asset(icon)),
+                child: Image.asset(icon!)),
             SizedBox(height: Dimensions.PADDING_SIZE_SMALL,),
-            Text(getTranslated(title, context))
+            Text(getTranslated(title, context)!)
           ],),
         ),
       ),

@@ -48,11 +48,11 @@ Future<void> main() async {
       ignoreSsl: true
   );
   await di.init();
-  final NotificationAppLaunchDetails notificationAppLaunchDetails = await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
-  int _orderID;
+  final NotificationAppLaunchDetails? notificationAppLaunchDetails = await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
+  int? _orderID;
   if (notificationAppLaunchDetails?.didNotificationLaunchApp ?? false) {
-    _orderID = (notificationAppLaunchDetails.payload != null && notificationAppLaunchDetails.payload.isNotEmpty)
-        ? int.parse(notificationAppLaunchDetails.payload) : null;
+    _orderID = (notificationAppLaunchDetails!.payload != null && notificationAppLaunchDetails.payload!.isNotEmpty)
+        ? int.parse(notificationAppLaunchDetails.payload!) : null;
   }
   await MyNotification.initialize(flutterLocalNotificationsPlugin);
   FirebaseMessaging.onBackgroundMessage(myBackgroundMessageHandler);
@@ -87,16 +87,16 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  final int orderId;
+  final int? orderId;
   static final navigatorKey = new GlobalKey<NavigatorState>();
 
-  const MyApp({Key key, this.orderId}) : super(key: key);
+  const MyApp({Key? key, this.orderId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     List<Locale> _locals = [];
     AppConstants.languages.forEach((language) {
-      _locals.add(Locale(language.languageCode, language.countryCode));
+      _locals.add(Locale(language.languageCode!, language.countryCode));
     });
     return MaterialApp(
       title: AppConstants.APP_NAME,
@@ -117,7 +117,7 @@ class MyApp extends StatelessWidget {
 }
 class MyHttpOverrides extends HttpOverrides {
   @override
-  HttpClient createHttpClient(SecurityContext context) {
+  HttpClient createHttpClient(SecurityContext? context) {
     return super.createHttpClient(context)..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
   }
 }

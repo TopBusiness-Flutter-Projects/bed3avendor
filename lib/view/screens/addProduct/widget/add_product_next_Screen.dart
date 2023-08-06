@@ -24,16 +24,16 @@ import 'package:bed3avendor/view/base/textfeild/custom_text_feild.dart';
 import 'package:bed3avendor/view/screens/addProduct/widget/add_product_seo_screen.dart';
 
 class AddProductNextScreen extends StatefulWidget {
-  final ValueChanged<bool> isSelected;
-  final Product product;
-  final String categoryId;
-  final String subCategoryId;
-  final String subSubCategoryId;
-  final String brandId;
-  final AddProductModel addProduct;
-  final String unit;
+  final ValueChanged<bool>? isSelected;
+  final Product? product;
+  final String? categoryId;
+  final String? subCategoryId;
+  final String? subSubCategoryId;
+  final String? brandId;
+  final AddProductModel? addProduct;
+  final String? unit;
 
-  AddProductNextScreen({this.isSelected, @required this.product,@required this.addProduct, this.categoryId, this.subCategoryId, this.subSubCategoryId, this.brandId, this.unit});
+  AddProductNextScreen({this.isSelected, required this.product,required this.addProduct, this.categoryId, this.subCategoryId, this.subSubCategoryId, this.brandId, this.unit});
 
   @override
   _AddProductNextScreenState createState() => _AddProductNextScreenState();
@@ -59,16 +59,16 @@ class _AddProductNextScreenState extends State<AddProductNextScreen> {
   final TextEditingController _minimumOrderQuantityController = TextEditingController();
 
 
-  AutoCompleteTextField searchTextField;
+  AutoCompleteTextField? searchTextField;
 
 
   GlobalKey<AutoCompleteTextFieldState<String>> key = new GlobalKey();
-  SimpleAutoCompleteTextField textField;
+  SimpleAutoCompleteTextField? textField;
   bool showWhichErrorText = false;
-  bool _update;
-  Product _product;
-  String thumbnailImage ='', metaImage ='';
-  List<String> productImage =[];
+  late bool _update;
+  Product? _product;
+  String? thumbnailImage ='', metaImage ='';
+  List<String?>? productImage =[];
   int counter = 0, total = 0;
   int addColor = 0;
   int cat=0, subCat=0, subSubCat=0, unit=0, brand=0;
@@ -76,7 +76,7 @@ class _AddProductNextScreenState extends State<AddProductNextScreen> {
 
   void _load(){
     String languageCode = Provider.of<LocalizationProvider>(context, listen: false).locale.countryCode == 'US'?
-    'en':Provider.of<LocalizationProvider>(context, listen: false).locale.countryCode.toLowerCase();
+    'en':Provider.of<LocalizationProvider>(context, listen: false).locale.countryCode!.toLowerCase();
     Provider.of<SplashProvider>(context,listen: false).getColorList();
     Provider.of<SellerProvider>(context,listen: false).getAttributeList(context, widget.product, languageCode);
   }
@@ -99,19 +99,19 @@ class _AddProductNextScreenState extends State<AddProductNextScreen> {
     _load();
     if(_update) {
 
-      _unitPriceController.text = PriceConverter.convertPriceWithoutSymbol(context, _product.unitPrice);
-      _taxController.text = _product.tax.toString();
-      _totalQuantityController.text = _product.currentStock.toString();
-      _shippingCostController.text = _product.shippingCost.toString();
-      _minimumOrderQuantityController.text = _product.minimumOrderQty.toString();
-      Provider.of<SellerProvider>(context, listen: false).setDiscountTypeIndex(_product.discountType == 'percent' ? 0 : 1, false);
-      _discountController.text = _product.discountType == 'percent' ?
-      _product.discount.toString() : PriceConverter.convertPriceWithoutSymbol(context, _product.discount);
-      _purchasePriceController.text = PriceConverter.convertPriceWithoutSymbol(context, _product.purchasePrice);
-      thumbnailImage = _product.thumbnail;
-      metaImage = _product.metaImage;
-      productImage = _product.images;
-      Provider.of<SellerProvider>(context, listen: false).setTaxTypeIndex(_product.taxModel == 'include' ? 0 : 1, false);
+      _unitPriceController.text = PriceConverter.convertPriceWithoutSymbol(context, _product!.unitPrice);
+      _taxController.text = _product!.tax.toString();
+      _totalQuantityController.text = _product!.currentStock.toString();
+      _shippingCostController.text = _product!.shippingCost.toString();
+      _minimumOrderQuantityController.text = _product!.minimumOrderQty.toString();
+      Provider.of<SellerProvider>(context, listen: false).setDiscountTypeIndex(_product!.discountType == 'percent' ? 0 : 1, false);
+      _discountController.text = _product!.discountType == 'percent' ?
+      _product!.discount.toString() : PriceConverter.convertPriceWithoutSymbol(context, _product!.discount);
+      _purchasePriceController.text = PriceConverter.convertPriceWithoutSymbol(context, _product!.purchasePrice);
+      thumbnailImage = _product!.thumbnail;
+      metaImage = _product!.metaImage;
+      productImage = _product!.images;
+      Provider.of<SellerProvider>(context, listen: false).setTaxTypeIndex(_product!.taxModel == 'include' ? 0 : 1, false);
 
     }else {
       _product = Product();
@@ -141,19 +141,19 @@ class _AddProductNextScreenState extends State<AddProductNextScreen> {
 
 
                 if (_update && Provider.of<SellerProvider>(context, listen: false).attributeList != null &&
-                    Provider.of<SellerProvider>(context, listen: false).attributeList.length > 0) {
+                    Provider.of<SellerProvider>(context, listen: false).attributeList!.length > 0) {
                   if(addColor==0) {
                     addColor++;
-                    if ( widget.product.colors != null && widget.product.colors.length > 0) {
+                    if ( widget.product!.colors != null && widget.product!.colors!.length > 0) {
                       Future.delayed(Duration.zero, () async {
                         Provider.of<SellerProvider>(context, listen: false).setAttribute();
                       });
                     }
-                    for (int index = 0; index < widget.product.colors.length; index++) {
+                    for (int index = 0; index < widget.product!.colors!.length; index++) {
                       _colors.add(index);
                       Future.delayed(Duration.zero, () async {
-                        resProvider.addVariant(context,0, widget.product.colors[index].name, widget.product, false);
-                        resProvider.addColorCode(widget.product.colors[index].code);
+                        resProvider.addVariant(context,0, widget.product!.colors![index].name, widget.product, false);
+                        resProvider.addColorCode(widget.product!.colors![index].code);
                       });
                     }
                   }
@@ -164,7 +164,7 @@ class _AddProductNextScreenState extends State<AddProductNextScreen> {
 
               return SingleChildScrollView(
                 child: (resProvider.attributeList != null &&
-                    resProvider.attributeList.length > 0 &&
+                    resProvider.attributeList!.length > 0 &&
                     resProvider.categoryList != null &&
                     Provider.of<SplashProvider>(context,listen: false).colorList!= null) ?
                 Column(
@@ -178,7 +178,7 @@ class _AddProductNextScreenState extends State<AddProductNextScreen> {
                        padding: const EdgeInsets.only(top: Dimensions.PADDING_SIZE_DEFAULT),
                        child: Row(mainAxisAlignment: MainAxisAlignment.center,
                          children: [
-                           Text(getTranslated('variations', context),
+                           Text(getTranslated('variations', context)!,
                                style: robotoBold.copyWith(color: ColorResources.getHeadTextColor(context),
                                    fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE)),
                          ],
@@ -188,12 +188,12 @@ class _AddProductNextScreenState extends State<AddProductNextScreen> {
 
 
                      Row(children: [
-                       Text(getTranslated('add_color_variation', context),
+                       Text(getTranslated('add_color_variation', context)!,
                            style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT)),
                        Spacer(),
 
                        FlutterSwitch(width: 60.0, height: 30.0, toggleSize: 28.0,
-                         value: resProvider.attributeList[0].active,
+                         value: resProvider.attributeList![0].active,
                          borderRadius: 20.0,
                          activeColor: Theme.of(context).primaryColor,
                          padding: 1.0,
@@ -202,10 +202,10 @@ class _AddProductNextScreenState extends State<AddProductNextScreen> {
                      ],),
                      SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
 
-                     resProvider.attributeList[0].active?
+                     resProvider.attributeList![0].active?
                      Consumer<SplashProvider>(builder: (ctx, colorProvider, child){
                        if (colorProvider.colorList != null) {
-                         for (int index = 0; index < colorProvider.colorList.length; index++) {
+                         for (int index = 0; index < colorProvider.colorList!.length; index++) {
                            _colors.add(index);
                          }
                        }
@@ -214,8 +214,8 @@ class _AddProductNextScreenState extends State<AddProductNextScreen> {
                            if (value.text.isEmpty) {
                              return Iterable<int>.empty();
                            } else {
-                             return _colors.where((color) => colorProvider.colorList[color].
-                             name.toLowerCase().contains(value.text.toLowerCase()));
+                             return _colors.where((color) => colorProvider.colorList![color].
+                             name!.toLowerCase().contains(value.text.toLowerCase()));
                            }
                          },
                          fieldViewBuilder:
@@ -239,10 +239,10 @@ class _AddProductNextScreenState extends State<AddProductNextScreen> {
                              ),
                            );
                          },
-                         displayStringForOption: (value) => colorProvider.colorList[value].name,
+                         displayStringForOption: (value) => colorProvider.colorList![value].name!,
                          onSelected: (int value) {
-                           resProvider.addVariant(context, 0,colorProvider.colorList[value].name, widget.product, true);
-                           resProvider.addColorCode(colorProvider.colorList[value].code);
+                           resProvider.addVariant(context, 0,colorProvider.colorList![value].name, widget.product, true);
+                           resProvider.addColorCode(colorProvider.colorList![value].code);
                          },
                        );
                      }):SizedBox(),
@@ -250,13 +250,13 @@ class _AddProductNextScreenState extends State<AddProductNextScreen> {
 
                      SizedBox(height: resProvider.selectedColor.length != null ? Dimensions.PADDING_SIZE_SMALL : 0),
 
-                     SizedBox(height: (resProvider.attributeList[0].variants.length != null &&
-                         resProvider.attributeList[0].variants.length > 0) ? 40 : 0,
-                       child: (resProvider.attributeList[0].variants.length != null &&
-                           resProvider.attributeList[0].variants.length > 0) ?
+                     SizedBox(height: (resProvider.attributeList![0].variants.length != null &&
+                         resProvider.attributeList![0].variants.length > 0) ? 40 : 0,
+                       child: (resProvider.attributeList![0].variants.length != null &&
+                           resProvider.attributeList![0].variants.length > 0) ?
 
                        ListView.builder(
-                         itemCount: resProvider.attributeList[0].variants.length,
+                         itemCount: resProvider.attributeList![0].variants.length,
                          scrollDirection: Axis.horizontal,
                          itemBuilder: (context, index) {
                            return Padding(
@@ -269,7 +269,7 @@ class _AddProductNextScreenState extends State<AddProductNextScreen> {
                                ),
                                child: Row(children: [
                                  Consumer<SplashProvider>(builder: (ctx, colorP,child){
-                                   return Text(resProvider.attributeList[0].variants[index],
+                                   return Text(resProvider.attributeList![0].variants[index]!,
                                      style: robotoRegular.copyWith(color: ColorResources.titleColor(context)),);
                                  }),
                                  SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
@@ -291,7 +291,7 @@ class _AddProductNextScreenState extends State<AddProductNextScreen> {
 
                      SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
 
-                     AttributeView(product: widget.product, colorOn: resProvider.attributeList[0].active),
+                     AttributeView(product: widget.product, colorOn: resProvider.attributeList![0].active),
                    ],)):SizedBox(),
 
 
@@ -299,13 +299,13 @@ class _AddProductNextScreenState extends State<AddProductNextScreen> {
                     SizedBox(height: resProvider.productTypeIndex == 0? 0 : Dimensions.PADDING_SIZE_DEFAULT),
                     Row(mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(getTranslated('product_price_and_stock',context),
+                        Text(getTranslated('product_price_and_stock',context)!,
                             style: robotoBold.copyWith(color: ColorResources.getHeadTextColor(context),
                             fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE)),
                       ],
                     ),
                     SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
-                    Text(getTranslated('unit_price', context),
+                    Text(getTranslated('unit_price', context)!,
                         style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT)),
                     SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
                     CustomTextField(
@@ -323,7 +323,7 @@ class _AddProductNextScreenState extends State<AddProductNextScreen> {
 
 
 
-                    Text(getTranslated('purchase_price', context),
+                    Text(getTranslated('purchase_price', context)!,
                         style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT)),
                     SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
                     CustomTextField(
@@ -342,7 +342,7 @@ class _AddProductNextScreenState extends State<AddProductNextScreen> {
 
                     Row(children: [
                       Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                        Text(getTranslated('tax_model', context),
+                        Text(getTranslated('tax_model', context)!,
                           style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT),),
                         SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
 
@@ -376,7 +376,7 @@ class _AddProductNextScreenState extends State<AddProductNextScreen> {
 
                       Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(getTranslated('tax_p',context),
+                          Text(getTranslated('tax_p',context)!,
                               style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT)),
                           SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
                           CustomTextField(
@@ -403,7 +403,7 @@ class _AddProductNextScreenState extends State<AddProductNextScreen> {
 
                     Row(children: [
                       Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                        Text(getTranslated('discount_type', context),
+                        Text(getTranslated('discount_type', context)!,
                           style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT),),
                         SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
 
@@ -437,7 +437,7 @@ class _AddProductNextScreenState extends State<AddProductNextScreen> {
 
                       Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(getTranslated('discount_amount', context),
+                          Text(getTranslated('discount_amount', context)!,
                             style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT),),
                           SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
                           CustomTextField(
@@ -461,7 +461,7 @@ class _AddProductNextScreenState extends State<AddProductNextScreen> {
                     Row(children: [
                       resProvider.productTypeIndex == 0?
                       Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                        Text(getTranslated('total_quantity', context),
+                        Text(getTranslated('total_quantity', context)!,
                             style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT)),
                         SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                         CustomTextField(
@@ -478,7 +478,7 @@ class _AddProductNextScreenState extends State<AddProductNextScreen> {
                       SizedBox(width: resProvider.productTypeIndex == 0? Dimensions.PADDING_SIZE_DEFAULT:0),
 
                       Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                        Text(getTranslated('minimum_order_quantity', context),
+                        Text(getTranslated('minimum_order_quantity', context)!,
                             style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT)),
                         SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                         CustomTextField(
@@ -503,7 +503,7 @@ class _AddProductNextScreenState extends State<AddProductNextScreen> {
                     resProvider.productTypeIndex == 0?
                     Container(child: Column(children: [
                       Row(mainAxisAlignment:MainAxisAlignment.center,children: [
-                        Text(getTranslated('shipping',context),
+                        Text(getTranslated('shipping',context)!,
                             style: robotoBold.copyWith(color: ColorResources.getHeadTextColor(context),
                                 fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE)),
                       ],),
@@ -512,7 +512,7 @@ class _AddProductNextScreenState extends State<AddProductNextScreen> {
 
                       Column(crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(getTranslated('shipping_cost', context),
+                          Text(getTranslated('shipping_cost', context)!,
                             style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT),
                           ),
                           SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
@@ -535,12 +535,12 @@ class _AddProductNextScreenState extends State<AddProductNextScreen> {
                           child: Column(crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Text(getTranslated('shipping_cost_multiply', context),
+                              Text(getTranslated('shipping_cost_multiply', context)!,
                                 style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT),
                               ),
                               SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
 
-                              Text(getTranslated('shipping_cost_multiply_by_item', context),
+                              Text(getTranslated('shipping_cost_multiply_by_item', context)!,
                                 style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL,
                                     color: Theme.of(context).hintColor),
                               ),
@@ -577,7 +577,7 @@ class _AddProductNextScreenState extends State<AddProductNextScreen> {
         padding: EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT),
         decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
-          boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 800 : 200],
+          boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 800 : 200]!,
               spreadRadius: 0.5, blurRadius: 0.3)],
         ),
         height: 80,child: Row(children: [
@@ -606,7 +606,7 @@ class _AddProductNextScreenState extends State<AddProductNextScreen> {
                 bool _haveBlankVariant = false;
                 bool _blankVariantPrice = false;
                 bool _blankVariantQuantity = false;
-                for (AttributeModel attr in resProvider.attributeList) {
+                for (AttributeModel attr in resProvider.attributeList!) {
                   if (attr.active && attr.variants.length == 0) {
                     _haveBlankVariant = true;
                     break;

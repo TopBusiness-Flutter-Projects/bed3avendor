@@ -11,8 +11,8 @@ import 'package:bed3avendor/view/screens/chat/widget/send_message_widget.dart';
 
 class ChatScreen extends StatefulWidget {
   final String name;
-  final int userId;
-  ChatScreen({@required this.userId, this.name = ''});
+  final int? userId;
+  ChatScreen({required this.userId, this.name = ''});
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -41,15 +41,15 @@ class _ChatScreenState extends State<ChatScreen> {
           CustomAppBar(title: widget.name),
 
           // Chats
-          Expanded(child: chat.messageList != null ? chat.messageList.length != 0 ?
+          Expanded(child: chat.messageList != null ? chat.messageList!.length != 0 ?
           ListView.builder(
             physics: BouncingScrollPhysics(),
             padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
-            itemCount: chat.messageList.length,
+            itemCount: chat.messageList!.length,
             reverse: true,
             itemBuilder: (context, index) {
 
-              return MessageBubble(message: chat.messageList[index]);
+              return MessageBubble(message: chat.messageList![index]);
             },
           ) : SizedBox.shrink() : ChatShimmer()),
 

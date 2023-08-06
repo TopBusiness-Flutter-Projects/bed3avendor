@@ -1,12 +1,12 @@
 import 'package:bed3avendor/data/model/response/review_model.dart';
 
 class ProductReviewModel {
-  int totalSize;
-  String limit;
-  String offset;
-  List<GroupWiseRating> groupWiseRating;
-  String averageRating;
-  List<ReviewModel> reviews;
+  int? totalSize;
+  String? limit;
+  String? offset;
+  List<GroupWiseRating>? groupWiseRating;
+  String? averageRating;
+  List<ReviewModel>? reviews;
 
   ProductReviewModel(
       {this.totalSize,
@@ -23,7 +23,7 @@ class ProductReviewModel {
     if (json['group-wise-rating'] != null) {
       groupWiseRating = <GroupWiseRating>[];
       json['group-wise-rating'].forEach((v) {
-        groupWiseRating.add(new GroupWiseRating.fromJson(v));
+        groupWiseRating!.add(new GroupWiseRating.fromJson(v));
       });
     }
     if(json['average_rating'] != null){
@@ -35,7 +35,7 @@ class ProductReviewModel {
     if (json['reviews'] != null) {
       reviews = <ReviewModel>[];
       json['reviews'].forEach((v) {
-        reviews.add(new ReviewModel.fromJson(v));
+        reviews!.add(new ReviewModel.fromJson(v));
       });
     }
   }
@@ -47,19 +47,19 @@ class ProductReviewModel {
     data['offset'] = this.offset;
     if (this.groupWiseRating != null) {
       data['group-wise-rating'] =
-          this.groupWiseRating.map((v) => v.toJson()).toList();
+          this.groupWiseRating!.map((v) => v.toJson()).toList();
     }
     data['average_rating'] = this.averageRating;
     if (this.reviews != null) {
-      data['reviews'] = this.reviews.map((v) => v.toJson()).toList();
+      data['reviews'] = this.reviews!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class GroupWiseRating {
-  int rating;
-  int total;
+  int? rating;
+  int? total;
 
   GroupWiseRating({this.rating, this.total});
 

@@ -8,8 +8,8 @@ import 'package:bed3avendor/view/screens/delivery/widget/delivery_man_earning_li
 
 
 class DeliveryManEarningViewAllScreen extends StatefulWidget {
-  final DeliveryMan deliveryMan;
-  const DeliveryManEarningViewAllScreen({Key key, this.deliveryMan}) : super(key: key);
+  final DeliveryMan? deliveryMan;
+  const DeliveryManEarningViewAllScreen({Key? key, this.deliveryMan}) : super(key: key);
 
   @override
   State<DeliveryManEarningViewAllScreen> createState() => _DeliveryManEarningViewAllScreenState();

@@ -13,7 +13,7 @@ import 'package:bed3avendor/view/base/custom_edit_dialog.dart';
 
 
 class WithdrawBalanceWidget extends StatefulWidget {
-  const WithdrawBalanceWidget({Key key}) : super(key: key);
+  const WithdrawBalanceWidget({Key? key}) : super(key: key);
 
   @override
   State<WithdrawBalanceWidget> createState() => _WithdrawBalanceWidgetState();
@@ -47,7 +47,7 @@ class _WithdrawBalanceWidgetState extends State<WithdrawBalanceWidget> {
                 decoration: BoxDecoration(
                   color: Theme.of(context).primaryColor,
                   borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_SMALL),
-                  boxShadow: [BoxShadow(color: Colors.grey[darkMode ? 900 : 200],
+                  boxShadow: [BoxShadow(color: Colors.grey[darkMode ? 900 : 200]!,
                       spreadRadius: 0.5, blurRadius: 0.3)],
                 ),
 
@@ -79,12 +79,12 @@ class _WithdrawBalanceWidgetState extends State<WithdrawBalanceWidget> {
                                   child: Image.asset(Images.card_white)),
                               Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Text(getTranslated('balance_withdraw', context),
+                                  Text(getTranslated('balance_withdraw', context)!,
                                       style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT,
                                           color: Colors.white)),
                                   SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL,),
-                                  Text(PriceConverter.convertPrice(context, seller.userInfoModel.wallet != null ?
-                                  seller.userInfoModel.wallet.totalEarning ?? 0 : 0),
+                                  Text(PriceConverter.convertPrice(context, seller.userInfoModel!.wallet != null ?
+                                  seller.userInfoModel!.wallet!.totalEarning ?? 0 : 0),
                                       style: TextStyle(fontWeight: FontWeight.w700, color: Colors.white,
                                           fontSize: Dimensions.FONT_SIZE_WITHDRAWABLE_AMOUNT)),
                                 ],
@@ -106,7 +106,7 @@ class _WithdrawBalanceWidgetState extends State<WithdrawBalanceWidget> {
                                     backgroundColor: Colors.transparent,
                                     isScrollControlled: true,
                                     context: context, builder: (_) => CustomEditDialog()),
-                                  child: Text(getTranslated('send_withdraw_request', context),
+                                  child: Text(getTranslated('send_withdraw_request', context)!,
                                       style:titilliumRegular.copyWith(color: Theme.of(context).primaryColor,
                                           fontSize: Dimensions.FONT_SIZE_LARGE)),
                                 ),

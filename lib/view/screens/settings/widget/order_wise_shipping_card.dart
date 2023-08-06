@@ -14,10 +14,10 @@ import 'package:bed3avendor/view/screens/settings/order_wise_shipping_add_screen
 
 
 class OrderWiseShippingCard extends StatelessWidget {
-  final ShippingProvider shipProv;
-  final ShippingModel shippingModel;
-  final int index;
-  const OrderWiseShippingCard({Key key, this.shipProv, this.shippingModel, this.index}) : super(key: key);
+  final ShippingProvider? shipProv;
+  final ShippingModel? shippingModel;
+  final int? index;
+  const OrderWiseShippingCard({Key? key, this.shipProv, this.shippingModel, this.index}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,15 +30,15 @@ class OrderWiseShippingCard extends StatelessWidget {
         child: Stack(
           children: [
             Column(children: [
-              Row(children: [Expanded(child: Text('${index+1}.  ${shippingModel.title}',
+              Row(children: [Expanded(child: Text('${index!+1}.  ${shippingModel!.title}',
                   maxLines: 1,overflow: TextOverflow.ellipsis,
                   style: robotoMedium.copyWith())),
 
-                FlutterSwitch(value: shippingModel.status == 1?true:false,
+                FlutterSwitch(value: shippingModel!.status == 1?true:false,
                   activeColor: Theme.of(context).primaryColor,
                   width: 48,height: 25,toggleSize: 20,padding: 2,
                   onToggle: (value){
-                    shipProv.shippingOnOff(context, shippingModel.id, value?1:0, index);
+                    shipProv!.shippingOnOff(context, shippingModel!.id, value?1:0, index);
                   },
                 ),
                 ],),
@@ -50,7 +50,7 @@ class OrderWiseShippingCard extends StatelessWidget {
                  Row(
                  children: [
                    Text('${getTranslated('duration', context)}  :   ', style: robotoRegular,),
-                   Text('${shippingModel.duration}days', style: robotoRegular.copyWith()),
+                   Text('${shippingModel!.duration}days', style: robotoRegular.copyWith()),
 
                  ],
                ),
@@ -58,7 +58,7 @@ class OrderWiseShippingCard extends StatelessWidget {
                  Row(
                  children: [
                    Text('${getTranslated('cost', context)}           :   ', style: robotoRegular,),
-                   Text('${PriceConverter.convertPrice(context, shippingModel.cost)}',
+                   Text('${PriceConverter.convertPrice(context, shippingModel!.cost)}',
                        style: robotoRegular.copyWith()),
                  ],
                ),
@@ -74,7 +74,7 @@ class OrderWiseShippingCard extends StatelessWidget {
                       showDialog(context: context, builder: (BuildContext context){
                         return ConfirmationDialog(icon: Images.delete,
                             description: getTranslated('are_you_sure_want_to_delete_this_shipping_method', context),
-                            onYesPressed: () {Provider.of<ShippingProvider>(context, listen:false).deleteShipping(context ,shippingModel.id);
+                            onYesPressed: () {Provider.of<ShippingProvider>(context, listen:false).deleteShipping(context ,shippingModel!.id);
                             }
 
                         );});

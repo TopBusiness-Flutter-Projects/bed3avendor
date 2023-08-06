@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 class UnicornOutlineButton extends StatelessWidget {
   final _GradientPainter _painter;
   final Widget _child;
-  final VoidCallback _callback;
+  final VoidCallback? _callback;
   final double _radius;
-  UnicornOutlineButton({@required double strokeWidth, @required double radius, @required Gradient gradient, @required Widget child, VoidCallback onPressed,
+  UnicornOutlineButton({required double strokeWidth, required double radius, required Gradient gradient, required Widget child, VoidCallback? onPressed,
   })  : _painter = _GradientPainter(strokeWidth: strokeWidth, radius: radius, gradient: gradient), _child = child, _callback = onPressed, _radius = radius;
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class _GradientPainter extends CustomPainter {
   final double radius;
   final double strokeWidth;
   final Gradient gradient;
-  _GradientPainter({@required double strokeWidth, @required double radius, @required Gradient gradient}): strokeWidth = strokeWidth, radius = radius, gradient = gradient;
+  _GradientPainter({required double strokeWidth, required double radius, required Gradient gradient}): strokeWidth = strokeWidth, radius = radius, gradient = gradient;
 
 
   @override

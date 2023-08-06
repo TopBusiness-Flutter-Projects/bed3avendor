@@ -11,7 +11,7 @@ import 'package:bed3avendor/view/screens/delivery/withdraw/withdraw_list.dart';
 
 
 class DeliveryManWithdrawScreen extends StatefulWidget {
-  const DeliveryManWithdrawScreen({Key key}) : super(key: key);
+  const DeliveryManWithdrawScreen({Key? key}) : super(key: key);
 
   @override
   State<DeliveryManWithdrawScreen> createState() => _DeliveryManWithdrawScreenState();
@@ -31,7 +31,7 @@ class _DeliveryManWithdrawScreenState extends State<DeliveryManWithdrawScreen> {
       appBar: CustomAppBar(title: getTranslated('withdraw_list', context),isBackButtonExist: true,),
       body: RefreshIndicator(
         onRefresh: () async{
-          return true;
+        //  return true;
         },
         child: CustomScrollView(
           slivers: [
@@ -76,9 +76,9 @@ class _DeliveryManWithdrawScreenState extends State<DeliveryManWithdrawScreen> {
 
 
 class WithdrawTypeButton extends StatelessWidget {
-  final String text;
+  final String? text;
   final int index;
-  WithdrawTypeButton({@required this.text, @required this.index});
+  WithdrawTypeButton({required this.text, required this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +97,7 @@ class WithdrawTypeButton extends StatelessWidget {
               color: order.withdrawTypeIndex == index ? Theme.of(context).primaryColor : ColorResources.getButtonHintColor(context),
               borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_LARGE),
             ),
-            child: Text(text, style: order.withdrawTypeIndex == index ? titilliumBold.copyWith(color: order.withdrawTypeIndex == index
+            child: Text(text!, style: order.withdrawTypeIndex == index ? titilliumBold.copyWith(color: order.withdrawTypeIndex == index
                 ? ColorResources.getWhite(context) : ColorResources.getTextColor(context)):
             robotoRegular.copyWith(color: order.withdrawTypeIndex == index
                 ? ColorResources.getWhite(context) : ColorResources.getTextColor(context))),

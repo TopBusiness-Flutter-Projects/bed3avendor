@@ -1,5 +1,5 @@
 class ErrorModel {
-  List<Errors> errors;
+  List<Errors>? errors;
 
   ErrorModel({this.errors});
 
@@ -7,7 +7,7 @@ class ErrorModel {
     if (json['errors'] != null) {
       errors = <Errors>[];
       json['errors'].forEach((v) {
-        errors.add(new Errors.fromJson(v));
+        errors!.add(new Errors.fromJson(v));
       });
     }
   }
@@ -15,15 +15,15 @@ class ErrorModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this.errors != null) {
-      data['errors'] = this.errors.map((v) => v.toJson()).toList();
+      data['errors'] = this.errors!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class Errors {
-  String code;
-  String message;
+  String? code;
+  String? message;
 
   Errors({this.code, this.message});
 

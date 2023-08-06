@@ -8,21 +8,21 @@ import 'package:bed3avendor/view/base/custom_image.dart';
 
 class CustomBottomSheet extends StatelessWidget {
   final String image;
-  final String title;
+  final String? title;
   final bool isProfile;
-  final Function onTap;
-  CustomBottomSheet({ @required this.image, @required this.title, this.isProfile = false, this.onTap,});
+  final Function? onTap;
+  CustomBottomSheet({ required this.image, required this.title, this.isProfile = false, this.onTap,});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onTap,
+      onTap: onTap as void Function()?,
       child: Container(
         padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: ColorResources.getBottomSheetColor(context),
           borderRadius: BorderRadius.circular(12),
-          boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 800 : 200],
+          boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 800 : 200]!,
               spreadRadius: 0.5, blurRadius: 0.3)],
         ),
         child: Column(
@@ -36,7 +36,7 @@ class CustomBottomSheet extends StatelessWidget {
               Image.asset(image),),
               SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
 
-              Center(child: Text(title,
+              Center(child: Text(title!,
                 textAlign: TextAlign.center,
                 maxLines: 2,
                   overflow: TextOverflow.ellipsis,

@@ -5,13 +5,13 @@ import 'package:bed3avendor/utill/dimensions.dart';
 import 'package:bed3avendor/utill/styles.dart';
 
 class CustomPasswordTextField extends StatefulWidget {
-  final TextEditingController controller;
-  final String hintTxt;
-  final FocusNode focusNode;
-  final FocusNode nextNode;
-  final TextInputAction textInputAction;
+  final TextEditingController? controller;
+  final String? hintTxt;
+  final FocusNode? focusNode;
+  final FocusNode? nextNode;
+  final TextInputAction? textInputAction;
   final bool border;
-  final String prefixIconImage;
+  final String? prefixIconImage;
 
   CustomPasswordTextField({this.controller, this.hintTxt, this.focusNode, this.nextNode, this.textInputAction, this.border = false, this.prefixIconImage});
 
@@ -65,7 +65,7 @@ class _CustomPasswordTextFieldState extends State<CustomPasswordTextField> {
                   decoration: BoxDecoration(
                       color: Theme.of(context).primaryColor.withOpacity(.135)
                   ),
-                  child: Image.asset(widget.prefixIconImage,width: 20, height: 20,)):SizedBox(),
+                  child: Image.asset(widget.prefixIconImage!,width: 20, height: 20,)):SizedBox(),
 
               suffixIcon: GestureDetector(onTap: _toggle,
                   child: Icon(_obscureText ? Icons.visibility_off : Icons.visibility, size: 20,)),

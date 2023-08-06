@@ -18,27 +18,27 @@ class AnimSearchBar extends StatefulWidget {
 
   final double width;
   final TextEditingController textController;
-  final Icon suffixIcon;
-  final Icon prefixIcon;
+  final Icon? suffixIcon;
+  final Icon? prefixIcon;
   final String helpText;
   final int animationDurationInMilli;
   final Function onSuffixTap;
-  final Function onChanged;
+  final Function? onChanged;
   final bool rtl;
   final bool autoFocus;
-  final TextStyle style;
+  final TextStyle? style;
   final bool closeSearchOnSuffixTap;
   final Color color;
-  final List<TextInputFormatter> inputFormatters;
+  final List<TextInputFormatter>? inputFormatters;
 
   const AnimSearchBar({
-    Key key,
+    Key? key,
 
     /// The width cannot be null
-    @required this.width,
+    required this.width,
 
     /// The textController cannot be null
-    @required this.textController,
+    required this.textController,
     this.suffixIcon,
     this.prefixIcon,
     this.helpText = "Search...",
@@ -47,7 +47,7 @@ class AnimSearchBar extends StatefulWidget {
     this.color = Colors.white,
 
     /// The onSuffixTap cannot be null
-    @required this.onSuffixTap,
+    required this.onSuffixTap,
     this.animationDurationInMilli = 375,
 
     /// make the search bar to open from right to left
@@ -78,7 +78,7 @@ int toggle = 0;
 class _AnimSearchBarState extends State<AnimSearchBar>
     with SingleTickerProviderStateMixin {
   ///initializing the AnimationController
-  AnimationController _con;
+  late AnimationController _con;
   FocusNode focusNode = FocusNode();
 
   @override
@@ -212,7 +212,7 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                         toggle = 0;
                       });
                     },
-                    onChanged: widget.onChanged,
+                    onChanged: widget.onChanged as void Function(String)?,
 
                     ///style is of type TextStyle, the default is just a color black
                     style: widget.style ?? const TextStyle(color: Colors.black),
@@ -252,7 +252,7 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                 icon: widget.prefixIcon != null
                     ? toggle == 1
                     ? const Icon(Icons.arrow_back_ios)
-                    : widget.prefixIcon
+                    : widget.prefixIcon!
                     : Icon(
                   toggle == 1 ? Icons.arrow_back_ios : Icons.search,
                   size: 20.0,

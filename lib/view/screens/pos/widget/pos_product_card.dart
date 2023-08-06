@@ -17,9 +17,9 @@ import 'package:bed3avendor/view/screens/pos/widget/product_variation_selection_
 
 
 class POSProductWidget extends StatefulWidget {
-  final int index;
+  final int? index;
   final Product productModel;
-  POSProductWidget({@required this.productModel, this.index});
+  POSProductWidget({required this.productModel, this.index});
 
   @override
   State<POSProductWidget> createState() => _ProductWidgetState();
@@ -43,13 +43,13 @@ class _ProductWidgetState extends State<POSProductWidget> {
             builder: (context, cart,_) {
 
               if(cart.customerCartList != null && cart.customerCartList.isNotEmpty ){
-                List<CartModel> _cart = [];
+                List<CartModel>? _cart = [];
                 _cart = cart.customerCartList[cart.customerIndex].cart;
 
-                for(int i=0; i<_cart.length; i++){
-                  if(widget.productModel.id == _cart[i].product.id){
+                for(int i=0; i<_cart!.length; i++){
+                  if(widget.productModel.id == _cart[i].product!.id){
 
-                    product.setCartQuantity(_cart[i].quantity, widget.index);
+                    product.setCartQuantity(_cart[i].quantity, widget.index!);
                   }
 
                 }
@@ -57,7 +57,7 @@ class _ProductWidgetState extends State<POSProductWidget> {
 
               return GestureDetector(
                 onTap: (){
-                  if(widget.productModel.variation.isNotEmpty){
+                  if(widget.productModel.variation!.isNotEmpty){
                     showModalBottomSheet(context: context, isScrollControlled: true,
                         backgroundColor: Theme.of(context).primaryColor.withOpacity(0),
                         builder: (con) => CartBottomSheet(product: widget.productModel));
@@ -86,10 +86,10 @@ class _ProductWidgetState extends State<POSProductWidget> {
                                     height: Dimensions.image_size,
                                     child: ClipRRect(borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_SMALL),
                                         child: CustomImage(image: '${Provider.of<SplashProvider>(context, listen: false).
-                                        baseUrls.productThumbnailUrl}/${widget.productModel.thumbnail}',
+                                        baseUrls!.productThumbnailUrl}/${widget.productModel.thumbnail}',
                                           width: Dimensions.image_size, height: Dimensions.image_size,))),
                                 SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                                Text(getTranslated(widget.productModel.productType, context), style: robotoRegular.copyWith(color: Theme.of(context).primaryColor),),
+                                Text(getTranslated(widget.productModel.productType, context)!, style: robotoRegular.copyWith(color: Theme.of(context).primaryColor),),
                                 SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                               ],
                             ),
@@ -116,7 +116,7 @@ class _ProductWidgetState extends State<POSProductWidget> {
                                 SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                                 Row(
                                   children: [
-                                    widget.productModel.discount > 0 ?
+                                    widget.productModel.discount! > 0 ?
                                     Text(PriceConverter.convertPrice(context, widget.productModel.unitPrice),
                                       maxLines: 1,overflow: TextOverflow.ellipsis,
                                       style: robotoRegular.copyWith(color: ColorResources.mainCardFourColor(context),
@@ -136,7 +136,7 @@ class _ProductWidgetState extends State<POSProductWidget> {
                           ),
                         ],),
                     ),
-                    widget.productModel.variation.isNotEmpty?
+                    widget.productModel.variation!.isNotEmpty?
                     Positioned(
                         right:  Provider.of<LocalizationProvider>(context, listen: false).isLtr? 10 : null, bottom: 10, left:  Provider.of<LocalizationProvider>(context, listen: false).isLtr?  null : 10,
                         child: Align(
@@ -150,24 +150,24 @@ class _ProductWidgetState extends State<POSProductWidget> {
                         child: Consumer<CartProvider>(
                             builder: (context,cartController,_) {
                               return Container(child: Row(children: [
-                                product.cartQuantity[widget.index] > 0?
+                                product.cartQuantity[widget.index!]! > 0?
                                 InkWell(
 
                                   onTap: (){
-                                    if(product.cartQuantity[widget.index] > 1){
+                                    if(product.cartQuantity[widget.index!]! > 1){
                                       CartModel cartModel = CartModel(widget.productModel.unitPrice, widget.productModel.discount, 1, widget.productModel.tax,null,null, widget.productModel, widget.productModel.taxModel);
                                       cartController.addToCart(context, cartModel, decreaseQuantity: true);
                                     }
 
                                   },
-                                  child: Icon(Icons.remove_circle, color:product.cartQuantity[widget.index] > 1?
+                                  child: Icon(Icons.remove_circle, color:product.cartQuantity[widget.index!]! > 1?
                                       Theme.of(context).colorScheme.onPrimary : Theme.of(context).hintColor,
                                       size: Dimensions.INCREMENT_BUTTON),
                                 ):SizedBox(),
-                                product.cartQuantity[widget.index]>0?
+                                product.cartQuantity[widget.index!]!>0?
                                 Center(child: Padding(
                                   padding: const EdgeInsets.symmetric(horizontal : Dimensions.PADDING_SIZE_SMALL),
-                                  child: Text(product.cartQuantity[widget.index].toString(), style: robotoRegular.copyWith()),
+                                  child: Text(product.cartQuantity[widget.index!].toString(), style: robotoRegular.copyWith()),
                                 )):SizedBox(),
                                 InkWell(
                                   onTap: (){

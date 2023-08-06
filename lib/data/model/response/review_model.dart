@@ -1,17 +1,17 @@
 import 'dart:convert';
 
 class ReviewModel {
-  int id;
-  int productId;
-  int customerId;
-  String comment;
-  List<String> attachment;
-  double rating;
-  int status;
-  String createdAt;
-  String updatedAt;
-  Product product;
-  Customer customer;
+  int? id;
+  int? productId;
+  int? customerId;
+  String? comment;
+  List<String>? attachment;
+  double? rating;
+  int? status;
+  String? createdAt;
+  String? updatedAt;
+  Product? product;
+  Customer? customer;
 
 
   ReviewModel(
@@ -62,20 +62,20 @@ class ReviewModel {
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
     if (this.product != null) {
-      data['product'] = this.product.toJson();
+      data['product'] = this.product!.toJson();
     }
     if (this.customer != null) {
-      data['customer'] = this.customer.toJson();
+      data['customer'] = this.customer!.toJson();
     }
     return data;
   }
 }
 
 class Product {
-  int id;
-  String name;
-  String thumbnail;
-  String productType;
+  int? id;
+  String? name;
+  String? thumbnail;
+  String? productType;
   Product(
       {this.id,
         this.name,
@@ -101,11 +101,11 @@ class Product {
 }
 
 class Customer {
-  int id;
-  String name;
-  String fName;
-  String lName;
-  String image;
+  int? id;
+  String? name;
+  String? fName;
+  String? lName;
+  String? image;
 
 
 

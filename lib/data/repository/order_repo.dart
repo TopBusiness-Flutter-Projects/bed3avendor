@@ -6,12 +6,12 @@ import 'package:bed3avendor/data/model/response/base/api_response.dart';
 import 'package:bed3avendor/utill/app_constants.dart';
 
 class OrderRepo {
-  final DioClient dioClient;
-  OrderRepo({@required this.dioClient});
+  final DioClient? dioClient;
+  OrderRepo({required this.dioClient});
 
   Future<ApiResponse> getOrderList(int offset, String status) async {
     try {
-      final response = await dioClient.get('${AppConstants.ORDER_LIST_URI}?limit=10&offset=$offset&status=$status');
+      final response = await dioClient!.get('${AppConstants.ORDER_LIST_URI}?limit=10&offset=$offset&status=$status');
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
@@ -20,7 +20,7 @@ class OrderRepo {
 
   Future<ApiResponse> getOrderDetails(String orderID) async {
     try {
-      final response = await dioClient.get(AppConstants.ORDER_DETAILS+orderID);
+      final response = await dioClient!.get(AppConstants.ORDER_DETAILS+orderID);
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
@@ -29,9 +29,9 @@ class OrderRepo {
 
 
 
-  Future<ApiResponse> setDeliveryCharge(int orderID, String deliveryCharge, String expectedDeliveryDate) async {
+  Future<ApiResponse> setDeliveryCharge(int? orderID, String? deliveryCharge, String? expectedDeliveryDate) async {
     try {
-      final response = await dioClient.post(AppConstants.DELIVERY_CHARGE_FOR_DELIVERY, data: {
+      final response = await dioClient!.post(AppConstants.DELIVERY_CHARGE_FOR_DELIVERY, data: {
         "order_id": orderID,
         "_method" : "put",
         "deliveryman_charge": deliveryCharge,
@@ -44,10 +44,10 @@ class OrderRepo {
   }
 
 
-  Future<ApiResponse> orderStatus(int orderID , String status) async {
+  Future<ApiResponse> orderStatus(int? orderID , String? status) async {
     print('update order status ====>${orderID.toString()} =======>${status.toString()}');
     try {
-      Response response = await dioClient.post(
+      Response response = await dioClient!.post(
         '${AppConstants.UPDATE_ORDER_STATUS}$orderID',
         data: {'_method': 'put', 'order_status': status},
       );
@@ -86,9 +86,9 @@ class OrderRepo {
     }
   }
 
-  Future<ApiResponse> updatePaymentStatus({int orderId, String status}) async {
+  Future<ApiResponse> updatePaymentStatus({int? orderId, String? status}) async {
     try {
-      Response response = await dioClient.post(AppConstants.PAYMENT_STATUS_UPDATE,
+      Response response = await dioClient!.post(AppConstants.PAYMENT_STATUS_UPDATE,
         data: {"order_id": orderId, "payment_status": status},);
       return ApiResponse.withSuccess(response);
     } catch (e) {
@@ -99,9 +99,9 @@ class OrderRepo {
 
   }
 
-  Future<ApiResponse> getInvoiceData(int orderId) async {
+  Future<ApiResponse> getInvoiceData(int? orderId) async {
     try {
-      final response = await dioClient.get('${AppConstants.INVOICE}?id=$orderId');
+      final response = await dioClient!.get('${AppConstants.INVOICE}?id=$orderId');
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
@@ -109,9 +109,9 @@ class OrderRepo {
   }
 
 
-  Future<ApiResponse> getOrderFilterData(String type) async {
+  Future<ApiResponse> getOrderFilterData(String? type) async {
     try {
-      final response = await dioClient.get('${AppConstants.BUSINESS_ANALYTICS}$type');
+      final response = await dioClient!.get('${AppConstants.BUSINESS_ANALYTICS}$type');
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
@@ -119,9 +119,9 @@ class OrderRepo {
   }
 
 
-  Future<ApiResponse> assignThirdPartyDeliveryMan(String name,String trackingId, int orderId) async {
+  Future<ApiResponse> assignThirdPartyDeliveryMan(String name,String trackingId, int? orderId) async {
     try {
-      final response = await dioClient.post('${AppConstants.THIRD_PARTY_DELIVERY_MAN_ASSIGN}',
+      final response = await dioClient!.post('${AppConstants.THIRD_PARTY_DELIVERY_MAN_ASSIGN}',
           data: {'delivery_service_name' : name, 'third_party_delivery_tracking_id' : trackingId, 'order_id' : orderId});
       return ApiResponse.withSuccess(response);
     } catch (e) {

@@ -67,8 +67,8 @@ class DateConverter {
   static String dateTimeStringToMonthAndTime(String dateTime) {
     return DateFormat('dd MMM yyyy HH:mm').format(isoStringToLocalDate(dateTime));
   }
-  static bool isAvailable(String start, String end, {DateTime time}) {
-    DateTime _currentTime;
+  static bool isAvailable(String start, String end, {DateTime? time}) {
+    late DateTime _currentTime;
     if(time != null) {
       _currentTime = time;
     }else {

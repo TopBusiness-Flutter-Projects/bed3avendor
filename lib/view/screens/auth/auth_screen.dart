@@ -35,10 +35,10 @@ class AuthScreen extends StatelessWidget{
                               )),
                           Row(mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(getTranslated('seller', context),
+                              Text(getTranslated('seller', context)!,
                                   style: robotoMedium.copyWith(fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE_TWENTY)),
                               SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                              Text(getTranslated('app', context),
+                              Text(getTranslated('app', context)!,
                                   style: robotoMedium.copyWith(color: Theme.of(context).primaryColor,
                                       fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE_TWENTY)),
                             ],
@@ -51,11 +51,11 @@ class AuthScreen extends StatelessWidget{
 
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_DEFAULT),
-                  child: Text(getTranslated('login', context),
+                  child: Text(getTranslated('login', context)!,
                     style: titilliumBold.copyWith(fontSize: Dimensions.FONT_SIZE_OVER_LARGE))),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_DEFAULT,vertical: Dimensions.PADDING_SIZE_SMALL),
-                  child: Text(getTranslated('manage_your_business_from_app', context),
+                  child: Text(getTranslated('manage_your_business_from_app', context)!,
                     style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT, color: Theme.of(context).hintColor)),
                 ),
 

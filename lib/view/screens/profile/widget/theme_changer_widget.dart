@@ -17,7 +17,7 @@ import 'package:bed3avendor/view/screens/shipping/category_wise_shipping.dart';
 import 'package:bed3avendor/view/screens/shipping/widget/product_wise_shipping.dart';
 
 class ThemeChanger extends StatelessWidget {
-  const ThemeChanger({Key key}) : super(key: key);
+  const ThemeChanger({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,7 @@ class ThemeChanger extends StatelessWidget {
         ),
           SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL,),
 
-          Provider.of<SplashProvider>(context, listen: false).configModel.shippingMethod == 'sellerwise_shipping'?
+          Provider.of<SplashProvider>(context, listen: false).configModel!.shippingMethod == 'sellerwise_shipping'?
           SectionItemWidget(icon: Images.box, title: 'shipping_method',
             onTap: (){
             if(Provider.of<ShippingProvider>(context, listen: false).selectedShippingType == "category_wise"){
@@ -93,15 +93,15 @@ class ThemeChanger extends StatelessWidget {
 }
 
 class SectionItemWidget extends StatelessWidget {
-  final String icon;
-  final String title;
-  final Function onTap;
-  const SectionItemWidget({Key key, this.onTap, this.icon, this.title}) : super(key: key);
+  final String? icon;
+  final String? title;
+  final Function? onTap;
+  const SectionItemWidget({Key? key, this.onTap, this.icon, this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: onTap as void Function()?,
       child: Container(
         decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
@@ -109,10 +109,10 @@ class SectionItemWidget extends StatelessWidget {
         height: Dimensions.profile_card_height,
         child: Padding(padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_DEFAULT),
           child: Row(children: [Container(width: Dimensions.ICON_SIZE_DEFAULT, height: Dimensions.ICON_SIZE_DEFAULT,
-              child: Image.asset(icon)),
+              child: Image.asset(icon!)),
             SizedBox(width: Dimensions.PADDING_SIZE_SMALL,),
 
-            Expanded(child: Text(getTranslated(title, context),
+            Expanded(child: Text(getTranslated(title, context)!,
                 style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT)),),
 
 

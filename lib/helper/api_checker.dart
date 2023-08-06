@@ -6,12 +6,12 @@ import 'package:bed3avendor/view/base/custom_snackbar.dart';
 import 'package:bed3avendor/view/screens/auth/auth_screen.dart';
 
 class ApiChecker {
-  static void checkApi(BuildContext context, ApiResponse apiResponse) {
+  static void checkApi(BuildContext? context, ApiResponse apiResponse) {
     if(apiResponse.error.toString() == 'Failed to load data - status code: 401') {
-      Provider.of<AuthProvider>(context,listen: false).clearSharedData();
+      Provider.of<AuthProvider>(context!,listen: false).clearSharedData();
       Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => AuthScreen()), (route) => false);
     }else {
-      String _errorMessage;
+      String? _errorMessage;
       if (apiResponse.error is String) {
         _errorMessage = apiResponse.error.toString();
       } else {

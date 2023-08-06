@@ -5,9 +5,9 @@ import 'package:bed3avendor/utill/dimensions.dart';
 import 'package:bed3avendor/utill/styles.dart';
 
 class CustomDropDownItem extends StatelessWidget {
-  final String title;
-  final Widget widget;
-  const CustomDropDownItem({Key key, this.title, this.widget}) : super(key: key);
+  final String? title;
+  final Widget? widget;
+  const CustomDropDownItem({Key? key, this.title, this.widget}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class CustomDropDownItem extends StatelessWidget {
         title != null?
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_DEFAULT),
-          child: Text(getTranslated(title, context), style: robotoRegular,),
+          child: Text(getTranslated(title, context)!, style: robotoRegular,),
         ):SizedBox(),
 
         Padding(padding: const EdgeInsets.fromLTRB(Dimensions.PADDING_SIZE_DEFAULT, Dimensions.PADDING_SIZE_SMALL, Dimensions.PADDING_SIZE_DEFAULT,0),

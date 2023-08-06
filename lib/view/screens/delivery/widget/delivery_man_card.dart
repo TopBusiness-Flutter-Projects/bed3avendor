@@ -18,9 +18,9 @@ import 'package:bed3avendor/view/screens/delivery/widget/add_new_delivery_man.da
 
 
 class DeliveryManCardWidget extends StatelessWidget {
-  final DeliveryMan deliveryMan;
+  final DeliveryMan? deliveryMan;
   final bool isDetails;
-  const DeliveryManCardWidget({Key key, this.deliveryMan, this.isDetails = false}) : super(key: key);
+  const DeliveryManCardWidget({Key? key, this.deliveryMan, this.isDetails = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class DeliveryManCardWidget extends StatelessWidget {
           children:  [
             SlidableAction(
               onPressed: (value){
-                Provider.of<DeliveryManProvider>(context, listen: false).deleteDeliveryMan(context, deliveryMan.id);
+                Provider.of<DeliveryManProvider>(context, listen: false).deleteDeliveryMan(context, deliveryMan!.id);
               },
               backgroundColor: Theme.of(context).errorColor.withOpacity(.05),
               foregroundColor: Theme.of(context).errorColor,
@@ -60,7 +60,7 @@ class DeliveryManCardWidget extends StatelessWidget {
           children: [
             SlidableAction(
               onPressed: (value){
-                Provider.of<DeliveryManProvider>(context, listen: false).deleteDeliveryMan(context, deliveryMan.id);
+                Provider.of<DeliveryManProvider>(context, listen: false).deleteDeliveryMan(context, deliveryMan!.id);
               },
               backgroundColor: Theme.of(context).errorColor.withOpacity(.05),
               foregroundColor: Theme.of(context).errorColor,
@@ -115,7 +115,7 @@ class DeliveryManCardWidget extends StatelessWidget {
                           borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_SMALL),
                           child: CustomImage(  height: Dimensions.image_size,width: Dimensions.image_size,
                               image: '${Provider.of<SplashProvider>(context, listen: false).
-                              baseUrls.deliveryManImageUrl}/${deliveryMan.image}'),
+                              baseUrls!.deliveryManImageUrl}/${deliveryMan!.image}'),
 
                         ),
                       ),
@@ -131,7 +131,7 @@ class DeliveryManCardWidget extends StatelessWidget {
                             Row(
                               children: [
                                 Expanded(
-                                  child: Text(deliveryMan.fName + ' ' + deliveryMan.lName ?? '', style: robotoMedium.copyWith(
+                                  child: Text(deliveryMan!.fName! + ' ' + deliveryMan!.lName! ?? '', style: robotoMedium.copyWith(
                                       color: ColorResources.titleColor(context),fontSize: Dimensions.FONT_SIZE_DEFAULT),
                                       maxLines: 1, overflow: TextOverflow.ellipsis),
                                 ),
@@ -143,7 +143,7 @@ class DeliveryManCardWidget extends StatelessWidget {
                               padding: const EdgeInsets.symmetric(vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                               child: Row(children: [
                                 Icon(Icons.star_rate_rounded, color: Colors.orange),
-                                Text(deliveryMan.rating.isNotEmpty? double.parse(deliveryMan.rating[0].average).toStringAsFixed(1) : '0', style: robotoMedium,),
+                                Text(deliveryMan!.rating!.isNotEmpty? double.parse(deliveryMan!.rating![0].average!).toStringAsFixed(1) : '0', style: robotoMedium,),
                               ],),
                             ),
 
@@ -156,7 +156,7 @@ class DeliveryManCardWidget extends StatelessWidget {
                                     color: Theme.of(context).primaryColor,
                                     borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_EXTRA_SMALL)
                                 ),
-                                child: Text('${NumberFormat.compact().format(deliveryMan.orders.isNotEmpty? deliveryMan.orders[0].count : 0)} ${getTranslated('orders', context)}',
+                                child: Text('${NumberFormat.compact().format(deliveryMan!.orders!.isNotEmpty? deliveryMan!.orders![0].count : 0)} ${getTranslated('orders', context)}',
                                   style: robotoMedium.copyWith(color: Colors.white),),
                               ),
                             )
@@ -172,13 +172,13 @@ class DeliveryManCardWidget extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(mainAxisSize: MainAxisSize.min,children: [
-                      deliveryMan.isOnline == 1?
+                      deliveryMan!.isOnline == 1?
                       Icon(Icons.check_circle, size: Dimensions.ICON_SIZE_DEFAULT, color: Colors.green):
                       Icon(Icons.cancel, size: Dimensions.ICON_SIZE_DEFAULT, color: Theme.of(context).errorColor),
                       SizedBox(width: Dimensions.PADDING_SIZE_VERY_TINY),
-                      deliveryMan.isOnline == 1?
-                      Text(getTranslated('online', context),style: robotoMedium.copyWith(color: Colors.green),):
-                      Text(getTranslated('offline', context),style: robotoMedium.copyWith(color: Theme.of(context).errorColor),)
+                      deliveryMan!.isOnline == 1?
+                      Text(getTranslated('online', context)!,style: robotoMedium.copyWith(color: Colors.green),):
+                      Text(getTranslated('offline', context)!,style: robotoMedium.copyWith(color: Theme.of(context).errorColor),)
                     ],),
                   ),
                 )

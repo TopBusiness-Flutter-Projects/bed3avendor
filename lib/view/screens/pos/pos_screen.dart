@@ -30,7 +30,7 @@ import 'package:bed3avendor/view/screens/pos/widget/pos_no_product_widget.dart';
 
 class PosScreen extends StatefulWidget {
   final bool fromMenu;
-  const PosScreen({Key key, this.fromMenu = false}) : super(key: key);
+  const PosScreen({Key? key, this.fromMenu = false}) : super(key: key);
 
   @override
   State<PosScreen> createState() => _PosScreenState();
@@ -75,7 +75,7 @@ class _PosScreenState extends State<PosScreen> {
           color: Theme.of(context).cardColor,
           backgroundColor: Theme.of(context).primaryColor,
           onRefresh: () async {
-            return true;
+          //  return true;
           },
           child: CustomScrollView(
             controller: _scrollController,
@@ -89,15 +89,15 @@ class _PosScreenState extends State<PosScreen> {
                     subTotal = 0;
                     if(cartController.customerCartList.isNotEmpty){
                       subTotal = cartController.amount;
-                      for(int i=0; i< cartController.customerCartList[cartController.customerIndex].cart.length; i++ ){
-                        print('dis==> ${cartController.customerCartList[cartController.customerIndex].cart[i].product.discountType}');
-                        productDiscount  = cartController.customerCartList[cartController.customerIndex].cart[i].product.discountType == 'flat'?
-                        productDiscount + (cartController.customerCartList[cartController.customerIndex].cart[i].product.discount) * (cartController.customerCartList[cartController.customerIndex].cart[i].quantity) :
-                        productDiscount + (((cartController.customerCartList[cartController.customerIndex].cart[i].product.discount/100)*
-                            cartController.customerCartList[cartController.customerIndex].cart[i].product.unitPrice)) * (cartController.customerCartList[cartController.customerIndex].cart[i].quantity);
-                        if(cartController.customerCartList[cartController.customerIndex].cart[i].product.taxModel == "exclude"){
-                          productTax = productTax + (((cartController.customerCartList[cartController.customerIndex].cart[i].product.tax/100)*
-                              cartController.customerCartList[cartController.customerIndex].cart[i].product.unitPrice)) * (cartController.customerCartList[cartController.customerIndex].cart[i].quantity);
+                      for(int i=0; i< cartController.customerCartList[cartController.customerIndex].cart!.length; i++ ){
+                        print('dis==> ${cartController.customerCartList[cartController.customerIndex].cart![i].product!.discountType}');
+                        productDiscount  = cartController.customerCartList[cartController.customerIndex].cart![i].product!.discountType == 'flat'?
+                        productDiscount + cartController.customerCartList[cartController.customerIndex].cart![i].product!.discount! * cartController.customerCartList[cartController.customerIndex].cart![i].quantity! :
+                        productDiscount + (cartController.customerCartList[cartController.customerIndex].cart![i].product!.discount!/100)*
+                            cartController.customerCartList[cartController.customerIndex].cart![i].product!.unitPrice! * cartController.customerCartList[cartController.customerIndex].cart![i].quantity!;
+                        if(cartController.customerCartList[cartController.customerIndex].cart![i].product!.taxModel == "exclude"){
+                          productTax = productTax + (cartController.customerCartList[cartController.customerIndex].cart![i].product!.tax!/100)*
+                              cartController.customerCartList[cartController.customerIndex].cart![i].product!.unitPrice! * cartController.customerCartList[cartController.customerIndex].cart![i].quantity!;
 
                         }
 
@@ -218,7 +218,7 @@ class _PosScreenState extends State<PosScreen> {
                                     borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_MEDIUM_BORDER)),
                                 child: DropdownButton<int>(
                                   value: customerCartController.customerIds[cartController.customerIndex],
-                                  items: customerCartController.customerIds.map((int value) {
+                                  items: customerCartController.customerIds.map((int? value) {
                                     print('=======------${customerCartController.customerIds}/$value/${customerCartController.customerIndex}');
                                     return DropdownMenuItem<int>(
                                         value: value,
@@ -226,7 +226,7 @@ class _PosScreenState extends State<PosScreen> {
                                             style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL))
                                     );
                                   }).toList(),
-                                  onChanged: (int value) async {
+                                  onChanged: (int? value) async {
                                     await customerCartController.setCustomerIndex(cartController.customerIds.indexOf(value), true);
                                     customerCartController.setCustomerInfo(customerCartController.customerCartList[customerCartController.customerIndex].userId,
                                         customerCartController.customerCartList[(customerCartController.customerIndex)].customerName, '', true);
@@ -253,13 +253,13 @@ class _PosScreenState extends State<PosScreen> {
 
                           Expanded(
                               flex:6,
-                              child: Text(getTranslated('item_info', context))),
+                              child: Text(getTranslated('item_info', context)!)),
                           Expanded(
                               flex:4,
-                              child: Text(getTranslated('qty', context))),
+                              child: Text(getTranslated('qty', context)!)),
                           Expanded(
                               flex:1,
-                              child: Text(getTranslated('price', context))),
+                              child: Text(getTranslated('price', context)!)),
 
 
                         ],),
@@ -267,16 +267,16 @@ class _PosScreenState extends State<PosScreen> {
                       cartController.customerCartList.length > 0?
                       Consumer<CartProvider>(builder: (context,custController,_) {
                         return ListView.builder(
-                            itemCount: cartController.customerCartList[custController.customerIndex].cart.length,
+                            itemCount: cartController.customerCartList[custController.customerIndex].cart!.length,
                             shrinkWrap: true,
                             physics: NeverScrollableScrollPhysics(),
                             itemBuilder: (itemContext, index){
-                              return ItemCartWidget(cartModel: cartController.customerCartList[custController.customerIndex].cart[index], index:  index);
+                              return ItemCartWidget(cartModel: cartController.customerCartList[custController.customerIndex].cart![index], index:  index);
                             });
                       }) : SizedBox(),
 
 
-                      (cartController.customerCartList.isNotEmpty  && cartController.customerIndex !=null && cartController.customerCartList[cartController.customerIndex].cart.length > 0) ?
+                      (cartController.customerCartList.isNotEmpty  && cartController.customerIndex !=null && cartController.customerCartList[cartController.customerIndex].cart!.length > 0) ?
                       Padding(
                         padding: const EdgeInsets.only(top: Dimensions.PADDING_SIZE_MEDIUM),
                         child: Container(
@@ -292,7 +292,7 @@ class _PosScreenState extends State<PosScreen> {
                             Padding(
                               padding: const EdgeInsets.fromLTRB(Dimensions.FONT_SIZE_DEFAULT,  Dimensions.PADDING_SIZE_EXTRA_SMALL, Dimensions.FONT_SIZE_DEFAULT,Dimensions.FONT_SIZE_DEFAULT,),
                               child: Row(children: [
-                                Expanded(child: Text(getTranslated('bill_summery', context),
+                                Expanded(child: Text(getTranslated('bill_summery', context)!,
                                   style: robotoMedium.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE),)),
                                 Container(width: 120,height: 40,child: CustomButton(btnTxt: getTranslated('edit_discount', context),
                                   onTap: (){
@@ -327,7 +327,7 @@ class _PosScreenState extends State<PosScreen> {
                             Padding(
                               padding: const EdgeInsets.fromLTRB(Dimensions.PADDING_SIZE_DEFAULT,Dimensions.PADDING_SIZE_SMALL,
                                   Dimensions.PADDING_SIZE_DEFAULT, Dimensions.PADDING_SIZE_SMALL),
-                              child: Text(getTranslated('paid_by', context), style: robotoRegular.copyWith(),),
+                              child: Text(getTranslated('paid_by', context)!, style: robotoRegular.copyWith(),),
                             ),
 
                             Padding(
@@ -349,7 +349,7 @@ class _PosScreenState extends State<PosScreen> {
                                               borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_EXTRA_SMALL),
                                               border: Border.all(width: .5, color: Theme.of(context).hintColor)
                                           ),
-                                          child: Center(child: Text(getTranslated(_paymentVia[index], context),
+                                          child: Center(child: Text(getTranslated(_paymentVia[index], context)!,
                                             style: robotoRegular.copyWith(color: cartController.paymentTypeIndex == index?
                                             Colors.white :  null, fontSize: cartController.paymentTypeIndex == index? Dimensions.FONT_SIZE_LARGE : Dimensions.FONT_SIZE_DEFAULT),)),
                                         ),
@@ -374,14 +374,14 @@ class _PosScreenState extends State<PosScreen> {
                                 backgroundColor: Theme.of(context).hintColor.withOpacity(.25),
                                 onTap: (){
                                   subTotal = 0; productDiscount = 0; total = 0; payable = 0; couponAmount = 0; extraDiscount = 0; productTax = 0;
-                                  cartController.customerCartList[cartController.customerIndex].cart.clear();
+                                  cartController.customerCartList[cartController.customerIndex].cart!.clear();
                                   cartController.removeAllCart();
                                 },)),
                               SizedBox(width: Dimensions.PADDING_SIZE_SMALL,),
 
                               Expanded(child: CustomButton(btnTxt: getTranslated('place_order', context),
                                   onTap: (){
-                                    if(cartController.customerCartList[cartController.customerIndex].cart.isEmpty){
+                                    if(cartController.customerCartList[cartController.customerIndex].cart!.isEmpty){
                                       showCustomSnackBar(getTranslated('please_select_at_least_one_product', context), context);
                                     }
                                     else{
@@ -390,13 +390,13 @@ class _PosScreenState extends State<PosScreen> {
                                               onYesPressed: cartController.isLoading? null : () {
                                                 List<Cart> carts = [];
                                                 productDiscount = 0;
-                                                for (int index = 0; index < cartController.customerCartList[cartController.customerIndex].cart.length; index++) {
-                                                  CartModel cart = cartController.customerCartList[cartController.customerIndex].cart[index];
+                                                for (int index = 0; index < cartController.customerCartList[cartController.customerIndex].cart!.length; index++) {
+                                                  CartModel cart = cartController.customerCartList[cartController.customerIndex].cart![index];
                                                   carts.add(Cart(
-                                                    cart.product.id.toString(),
+                                                    cart.product!.id.toString(),
                                                     cart.price.toString(),
-                                                    cart.product.discountType == 'flat'?
-                                                    productDiscount + cart.product.discount??0 : productDiscount + ((cart.product.discount/100)*cart.product.unitPrice),
+                                                    cart.product!.discountType == 'flat'?
+                                                    productDiscount + cart.product!.discount!??0 : productDiscount + ((cart.product!.discount!/100)*cart.product!.unitPrice!),
                                                     cart.quantity,
                                                     cart.variant,
                                                     cart.variation!=null?
@@ -417,7 +417,7 @@ class _PosScreenState extends State<PosScreen> {
                                                 );
                                                 if(!cartController.singleClick){
                                                   cartController.placeOrder(context,_placeOrderBody).then((value){
-                                                    if(value.response.statusCode == 200){
+                                                    if(value.response!.statusCode == 200){
                                                       couponAmount = 0;
                                                       extraDiscount = 0;
                                                     }

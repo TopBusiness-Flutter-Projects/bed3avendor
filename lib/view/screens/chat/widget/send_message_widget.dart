@@ -10,8 +10,8 @@ import 'package:bed3avendor/utill/styles.dart';
 
 
 class SendMessageWidget extends StatefulWidget {
-  final int id;
-  const SendMessageWidget({Key key, this.id}) : super(key: key);
+  final int? id;
+  const SendMessageWidget({Key? key, this.id}) : super(key: key);
 
   @override
   State<SendMessageWidget> createState() => _SendMessageWidgetState();

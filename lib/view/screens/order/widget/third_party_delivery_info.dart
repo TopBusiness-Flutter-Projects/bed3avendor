@@ -10,8 +10,8 @@ import 'package:bed3avendor/view/base/custom_image.dart';
 
 
 class ThirdPartyDeliveryInfo extends StatelessWidget {
-  final Order orderModel;
-  const ThirdPartyDeliveryInfo({Key key, this.orderModel}) : super(key: key);
+  final Order? orderModel;
+  const ThirdPartyDeliveryInfo({Key? key, this.orderModel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class ThirdPartyDeliveryInfo extends StatelessWidget {
 
       ),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Text(getTranslated('third_party_information', context),
+        Text(getTranslated('third_party_information', context)!,
             style: robotoMedium.copyWith(color: ColorResources.titleColor(context),
               fontSize: Dimensions.FONT_SIZE_LARGE,)),
         SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT),
@@ -37,12 +37,12 @@ class ThirdPartyDeliveryInfo extends StatelessWidget {
 
 
           Expanded(child: Column( crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text('${orderModel.thirdPartyServiceName ?? ''} }',
+            Text('${orderModel!.thirdPartyServiceName ?? ''} }',
                 style: titilliumRegular.copyWith(color: ColorResources.titleColor(context),
                     fontSize: Dimensions.FONT_SIZE_DEFAULT)),
 
             SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL,),
-            Text('${orderModel.thirdPartyTrackingId}',
+            Text('${orderModel!.thirdPartyTrackingId}',
                 style: titilliumRegular.copyWith(color: ColorResources.titleColor(context),
                     fontSize: Dimensions.FONT_SIZE_DEFAULT)),
 

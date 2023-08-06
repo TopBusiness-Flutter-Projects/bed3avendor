@@ -1,10 +1,10 @@
 class InvoiceModel {
-  double orderAmount;
-  String createdAt;
-  double discountAmount;
-  double extraDiscount;
-  String paymentMethod;
-  List<Details> details;
+  double? orderAmount;
+  String? createdAt;
+  double? discountAmount;
+  double? extraDiscount;
+  String? paymentMethod;
+  List<Details>? details;
 
   InvoiceModel(
       {
@@ -47,7 +47,7 @@ class InvoiceModel {
     if (json['details'] != null) {
       details = <Details>[];
       json['details'].forEach((v) {
-        details.add(new Details.fromJson(v));
+        details!.add(new Details.fromJson(v));
       });
     }
   }
@@ -60,21 +60,21 @@ class InvoiceModel {
     data['extra_discount'] = this.extraDiscount;
     data['payment_method'] = this.paymentMethod;
     if (this.details != null) {
-      data['details'] = this.details.map((v) => v.toJson()).toList();
+      data['details'] = this.details!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class Details {
-  int id;
-  ProductDetails productDetails;
-  int qty;
-  double price;
-  double tax;
-  double discount;
-  String discountType;
-  String variant;
+  int? id;
+  ProductDetails? productDetails;
+  int? qty;
+  double? price;
+  double? tax;
+  double? discount;
+  String? discountType;
+  String? variant;
 
 
   Details(
@@ -130,7 +130,7 @@ class Details {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     if (this.productDetails != null) {
-      data['product_details'] = this.productDetails.toJson();
+      data['product_details'] = this.productDetails!.toJson();
     }
     data['qty'] = this.qty;
     data['price'] = this.price;
@@ -144,10 +144,10 @@ class Details {
 
 class ProductDetails {
 
-  String name;
-  String taxModel;
-  double discount;
-  String discountType;
+  String? name;
+  String? taxModel;
+  double? discount;
+  String? discountType;
 
   ProductDetails(
       {

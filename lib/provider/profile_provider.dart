@@ -13,39 +13,39 @@ import 'package:bed3avendor/localization/language_constrants.dart';
 import 'package:bed3avendor/view/base/custom_snackbar.dart';
 
 class ProfileProvider with ChangeNotifier {
-  final ProfileRepo profileRepo;
+  final ProfileRepo? profileRepo;
 
-  ProfileProvider({@required this.profileRepo});
+  ProfileProvider({required this.profileRepo});
 
-  SellerModel _userInfoModel;
-  SellerModel get userInfoModel => _userInfoModel;
-  int _userId;
-  int get userId =>_userId;
-  String _profileImage;
-  String get profileImage =>_profileImage;
+  SellerModel? _userInfoModel;
+  SellerModel? get userInfoModel => _userInfoModel;
+  int? _userId;
+  int? get userId =>_userId;
+  String? _profileImage;
+  String? get profileImage =>_profileImage;
   bool _isDeleting = false;
   bool get isDeleting => _isDeleting;
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
 
-  WithdrawModel withdrawModel;
+  WithdrawModel? withdrawModel;
   List<WithdrawModel> methodList = [];
-  int methodSelectedIndex = 0;
-  List<int> methodsIds = [];
+  int? methodSelectedIndex = 0;
+  List<int?> methodsIds = [];
 
 
 
   Future<ResponseModel> getSellerInfo(BuildContext context) async {
     ResponseModel _responseModel;
-    ApiResponse apiResponse = await profileRepo.getSellerInfo();
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
-      _userInfoModel = SellerModel.fromJson(apiResponse.response.data);
-      _userId = _userInfoModel.id;
-      _profileImage = _userInfoModel.image;
+    ApiResponse apiResponse = await profileRepo!.getSellerInfo();
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+      _userInfoModel = SellerModel.fromJson(apiResponse.response!.data);
+      _userId = _userInfoModel!.id;
+      _profileImage = _userInfoModel!.image;
       _responseModel = ResponseModel(true, 'successful');
     } else {
-      String _errorMessage;
+      String? _errorMessage;
       if (apiResponse.error is String) {
         _errorMessage = apiResponse.error.toString();
       } else {
@@ -63,12 +63,12 @@ class ProfileProvider with ChangeNotifier {
 
 
 
-  Future<ResponseModel> updateUserInfo(SellerModel updateUserModel, SellerBody seller, File file, String token, String password) async {
+  Future<ResponseModel> updateUserInfo(SellerModel updateUserModel, SellerBody seller, File? file, String token, String password) async {
     _isLoading = true;
     notifyListeners();
 
     ResponseModel responseModel;
-    http.StreamedResponse response = await profileRepo.updateProfile(updateUserModel, seller, file, token, password);
+    http.StreamedResponse response = await profileRepo!.updateProfile(updateUserModel, seller, file, token, password);
     _isLoading = false;
     if (response.statusCode == 200) {
       String message = 'Success';
@@ -107,10 +107,10 @@ class ProfileProvider with ChangeNotifier {
       inputValueList.add(textEditingController.text.trim());
 
     }
-    ApiResponse apiResponse = await profileRepo.withdrawBalance(keyList, inputValueList, methodList[methodSelectedIndex].id, balance);
-    print('$balance/${keyList.toString()}/${inputValueList.toString()}/${methodList[methodSelectedIndex].id}');
+    ApiResponse apiResponse = await profileRepo!.withdrawBalance(keyList, inputValueList, methodList[methodSelectedIndex!].id, balance);
+    print('$balance/${keyList.toString()}/${inputValueList.toString()}/${methodList[methodSelectedIndex!].id}');
 
-      if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+      if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
         Navigator.pop(context);
         inputValueList.clear();
         inputFieldControllerList.clear();
@@ -132,11 +132,11 @@ class ProfileProvider with ChangeNotifier {
   Future<ApiResponse> deleteCustomerAccount(BuildContext context) async {
     _isDeleting = true;
     notifyListeners();
-    ApiResponse apiResponse = await profileRepo.deleteUserAccount();
-    if (apiResponse.response.statusCode == 200) {
+    ApiResponse apiResponse = await profileRepo!.deleteUserAccount();
+    if (apiResponse.response!.statusCode == 200) {
       _isLoading = false;
-      Map map = apiResponse.response.data;
-      String message = map ['message'];
+      Map map = apiResponse.response!.data;
+      String? message = map ['message'];
       showCustomSnackBar(message, context, isToaster: true, isError: false);
 
     } else {
@@ -158,20 +158,20 @@ class ProfileProvider with ChangeNotifier {
   List<TextEditingController> inputFieldControllerList = [];
   void getInputFieldList(){
     inputFieldControllerList = [];
-    for(int i= 0; i< methodList[methodSelectedIndex].methodFields.length; i++){
+    for(int i= 0; i< methodList[methodSelectedIndex!].methodFields!.length; i++){
         inputFieldControllerList.add(TextEditingController());
     }
   }
 
-  List <String> keyList = [];
+  List <String?> keyList = [];
 
 
-  void setMethodTypeIndex(int index, {bool notify = true}){
+  void setMethodTypeIndex(int? index, {bool notify = true}){
     methodSelectedIndex = index;
     keyList = [];
     if(methodList.isNotEmpty){
-      for(int i= 0; i< methodList[methodSelectedIndex].methodFields.length; i++){
-        keyList.add(methodList[methodSelectedIndex].methodFields[i].inputName);
+      for(int i= 0; i< methodList[methodSelectedIndex!].methodFields!.length; i++){
+        keyList.add(methodList[methodSelectedIndex!].methodFields![i].inputName);
 
       }
       getInputFieldList();
@@ -188,9 +188,9 @@ class ProfileProvider with ChangeNotifier {
   Future<void> getWithdrawMethods(BuildContext context) async{
     methodList = [];
     methodsIds = [];
-    ApiResponse response = await profileRepo.getDynamicWithDrawMethod();
-      if(response.response.statusCode == 200) {
-        response.response.data.forEach((method) => methodList.add(WithdrawModel.fromJson(method)));
+    ApiResponse response = await profileRepo!.getDynamicWithDrawMethod();
+      if(response.response!.statusCode == 200) {
+        response.response!.data.forEach((method) => methodList.add(WithdrawModel.fromJson(method)));
         methodSelectedIndex = 0;
         getInputFieldList();
         for(int index = 0; index < methodList.length; index++) {

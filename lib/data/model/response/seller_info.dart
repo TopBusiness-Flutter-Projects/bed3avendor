@@ -1,25 +1,25 @@
 class SellerModel {
-  int id;
-  String fName;
-  String lName;
-  String phone;
-  String image;
-  String email;
-  String password;
-  String status;
-  String rememberToken;
-  String createdAt;
-  String updatedAt;
-  String bankName;
-  String branch;
-  String accountNo;
-  String holderName;
-  String authToken;
-  double salesCommissionPercentage;
-  String gst;
-  int productCount;
-  int ordersCount;
-  Wallet wallet;
+  int? id;
+  String? fName;
+  String? lName;
+  String? phone;
+  String? image;
+  String? email;
+  String? password;
+  String? status;
+  String? rememberToken;
+  String? createdAt;
+  String? updatedAt;
+  String? bankName;
+  String? branch;
+  String? accountNo;
+  String? holderName;
+  String? authToken;
+  double? salesCommissionPercentage;
+  String? gst;
+  int? productCount;
+  int? ordersCount;
+  Wallet? wallet;
 
   SellerModel(
       {this.id,
@@ -102,23 +102,23 @@ class SellerModel {
     data['product_count'] = this.productCount;
     data['orders_count'] = this.ordersCount;
     if (this.wallet != null) {
-      data['wallet'] = this.wallet.toJson();
+      data['wallet'] = this.wallet!.toJson();
     }
     return data;
   }
 }
 
 class Wallet {
-  int id;
-  double totalEarning;
-  double withdrawn;
-  String createdAt;
-  String updatedAt;
-  double commissionGiven;
-  double pendingWithdraw;
-  double deliveryChargeEarned;
-  double collectedCash;
-  double totalTaxCollected;
+  int? id;
+  double? totalEarning;
+  double? withdrawn;
+  String? createdAt;
+  String? updatedAt;
+  double? commissionGiven;
+  double? pendingWithdraw;
+  double? deliveryChargeEarned;
+  double? collectedCash;
+  double? totalTaxCollected;
 
   Wallet(
       {this.id,

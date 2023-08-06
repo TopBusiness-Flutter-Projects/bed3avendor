@@ -13,10 +13,10 @@ import 'package:bed3avendor/utill/styles.dart';
 import 'package:bed3avendor/view/screens/product/product_details.dart';
 
 class TopMostProductWidget extends StatelessWidget {
-  final Product productModel;
+  final Product? productModel;
   final bool isPopular;
-  final String totalSold;
-  const TopMostProductWidget({Key key, this.productModel, this.isPopular = false, this.totalSold}) : super(key: key);
+  final String? totalSold;
+  const TopMostProductWidget({Key? key, this.productModel, this.isPopular = false, this.totalSold}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +51,7 @@ class TopMostProductWidget extends StatelessWidget {
                     errorWidget: (ctx,url,err) => Image.asset(Images.placeholder_image,fit: BoxFit.cover,
                       height: Dimensions.image_size,width: Dimensions.image_size,),
                     imageUrl: '${Provider.of<SplashProvider>(context, listen: false).
-                    baseUrls.productThumbnailUrl}/${productModel.thumbnail}',),
+                    baseUrls!.productThumbnailUrl}/${productModel!.thumbnail}',),
                 ),
               ),
             ),
@@ -63,7 +63,7 @@ class TopMostProductWidget extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                   child: Center(
-                    child: Text(productModel.name.trim() ?? '',textAlign: TextAlign.center, style: robotoMedium.copyWith(
+                    child: Text(productModel!.name!.trim() ?? '',textAlign: TextAlign.center, style: robotoMedium.copyWith(
                         color: ColorResources.titleColor(context),fontSize: Dimensions.FONT_SIZE_DEFAULT),
                         maxLines: 1, overflow: TextOverflow.ellipsis),
                   ),
@@ -73,7 +73,7 @@ class TopMostProductWidget extends StatelessWidget {
                 isPopular?
                 Row(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('${NumberFormat.compact().format(productModel.reviewsCount)}',
+                    Text('${NumberFormat.compact().format(productModel!.reviewsCount)}',
                       style: robotoMedium.copyWith(color: Theme.of(context).errorColor, fontSize: Dimensions.FONT_SIZE_LARGE),),
                     SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL),
 
@@ -87,7 +87,7 @@ class TopMostProductWidget extends StatelessWidget {
                         color: Theme.of(context).errorColor,
                         borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_EXTRA_SMALL)
                     ),
-                    child: Text('${NumberFormat.compact().format(double.parse(totalSold))} ${getTranslated('sold', context)}',
+                    child: Text('${NumberFormat.compact().format(double.parse(totalSold!))} ${getTranslated('sold', context)}',
                       style: robotoMedium.copyWith(color: Colors.white),),
                   ),
                 )

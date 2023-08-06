@@ -6,7 +6,7 @@ import 'package:bed3avendor/utill/dimensions.dart';
 
 class CustomLoader extends StatelessWidget {
   final double height;
-  const CustomLoader({Key key, this.height = 1200}) : super(key: key);
+  const CustomLoader({Key? key, this.height = 1200}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

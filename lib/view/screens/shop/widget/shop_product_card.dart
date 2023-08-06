@@ -22,9 +22,9 @@ import 'package:bed3avendor/view/screens/product/product_details.dart';
 
 
 class ShopProductWidget extends StatefulWidget {
-  final Product productModel;
+  final Product? productModel;
   final bool isDetails;
-  ShopProductWidget({@required this.productModel, this.isDetails = false});
+  ShopProductWidget({required this.productModel, this.isDetails = false});
 
   @override
   State<ShopProductWidget> createState() => _ProductWidgetState();
@@ -45,7 +45,7 @@ class _ProductWidgetState extends State<ShopProductWidget> {
   var childrenButtonSize = const Size(45.0, 45.0);
   @override
   Widget build(BuildContext context) {
-    String baseUrl = Provider.of<SplashProvider>(context, listen: false).baseUrls.productImageUrl;
+    String? baseUrl = Provider.of<SplashProvider>(context, listen: false).baseUrls!.productImageUrl;
     return Container(
       child: Stack(
         children: [
@@ -75,10 +75,10 @@ class _ProductWidgetState extends State<ShopProductWidget> {
                                 height: 100,
                                 child: ClipRRect(borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_SMALL),
                                   child: CustomImage(image: '${Provider.of<SplashProvider>(context, listen: false).
-                                  baseUrls.productThumbnailUrl}/${widget.productModel?.thumbnail}'))),
+                                  baseUrls!.productThumbnailUrl}/${widget.productModel?.thumbnail}'))),
                               SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                               widget.isDetails?SizedBox():
-                              Text(getTranslated(widget.productModel?.productType, context), style: robotoRegular.copyWith(color: Theme.of(context).primaryColor),),
+                              Text(getTranslated(widget.productModel?.productType, context)!, style: robotoRegular.copyWith(color: Theme.of(context).primaryColor),),
                             ],
                           ),
                         ),
@@ -92,32 +92,32 @@ class _ProductWidgetState extends State<ShopProductWidget> {
                                 padding: EdgeInsets.only(right: Provider.of<LocalizationProvider>(context, listen: false).isLtr? 30:0,
                                   left: Provider.of<LocalizationProvider>(context, listen: false).isLtr? 0:30,
                                 ),
-                                child: Text(widget.productModel.name ?? '', style: robotoRegular.copyWith(color: ColorResources.titleColor(context)),
+                                child: Text(widget.productModel!.name ?? '', style: robotoRegular.copyWith(color: ColorResources.titleColor(context)),
                                   maxLines: 2, overflow: TextOverflow.ellipsis),
                               ),
                               SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
 
                               Container(padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_SMALL,vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                                      color: widget.productModel.requestStatus == 0? ColorResources.COLUMBIA_BLUE :
-                                      widget.productModel.requestStatus == 1? ColorResources.GREEN : ColorResources.getRed(context)),
-                                  child: Text(widget.productModel.requestStatus == 0? '${getTranslated('new_request', context)}':
-                                  widget.productModel.requestStatus == 1? '${getTranslated('approved', context)}' : '${getTranslated('denied', context)}',
+                                      color: widget.productModel!.requestStatus == 0? ColorResources.COLUMBIA_BLUE :
+                                      widget.productModel!.requestStatus == 1? ColorResources.GREEN : ColorResources.getRed(context)),
+                                  child: Text(widget.productModel!.requestStatus == 0? '${getTranslated('new_request', context)}':
+                                  widget.productModel!.requestStatus == 1? '${getTranslated('approved', context)}' : '${getTranslated('denied', context)}',
                                       style: robotoRegular.copyWith(color: Colors.white),
                                       maxLines: 1, overflow: TextOverflow.ellipsis)),
                               SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
 
-                              widget.isDetails && widget.productModel.images != null?
+                              widget.isDetails && widget.productModel!.images != null?
                               Container(height: Dimensions.PRODUCT_IMAGE_SIZE,
                                 child: ListView.builder(
-                                  itemCount: widget.productModel.images?.length,
+                                  itemCount: widget.productModel!.images?.length,
                                   shrinkWrap: true,
                                     scrollDirection: Axis.horizontal,
                                     itemBuilder: (context, index){
                                   return GestureDetector(
                                     onTap: (){
                                       showDialog(context: context, builder: (_){
-                                        return ImageDialog(imageUrl: '$baseUrl/${widget.productModel.images[index]}');
+                                        return ImageDialog(imageUrl: '$baseUrl/${widget.productModel!.images![index]}');
                                       });
                                     },
                                     child: Padding(
@@ -128,7 +128,7 @@ class _ProductWidgetState extends State<ShopProductWidget> {
                                       width: Dimensions.PRODUCT_IMAGE_SIZE,height: Dimensions.image_size,
                                           child: ClipRRect(
                                             borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                                            child: CustomImage(image: '$baseUrl/${widget.productModel.images[index]}',
+                                            child: CustomImage(image: '$baseUrl/${widget.productModel!.images![index]}',
                                               width: Dimensions.PRODUCT_IMAGE_SIZE,height: Dimensions.PRODUCT_IMAGE_SIZE,),
                                           )),
                                     ),
@@ -139,15 +139,15 @@ class _ProductWidgetState extends State<ShopProductWidget> {
                                   Text('${getTranslated('purchase_price', context)} : ',
                                     style: robotoRegular.copyWith(color: Theme.of(context).hintColor),),
 
-                                  Text(PriceConverter.convertPrice(context, widget.productModel.purchasePrice),
+                                  Text(PriceConverter.convertPrice(context, widget.productModel!.purchasePrice),
                                     style: robotoMedium.copyWith(color: ColorResources.titleColor(context)),)]),
                                 SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
 
                                 Row(children: [
                                   Text('${getTranslated('selling_price', context)} : ',
                                     style: robotoRegular.copyWith(color: Theme.of(context).hintColor),),
-                                  Text(PriceConverter.convertPrice(context, widget.productModel.unitPrice,
-                                      discountType: widget.productModel.discountType, discount: widget.productModel.discount),
+                                  Text(PriceConverter.convertPrice(context, widget.productModel!.unitPrice,
+                                      discountType: widget.productModel!.discountType, discount: widget.productModel!.discount),
                                       style: robotoMedium.copyWith(color: ColorResources.titleColor(context)))]),
                               ],),)
                           ],),
@@ -155,7 +155,7 @@ class _ProductWidgetState extends State<ShopProductWidget> {
                         ),
                       ],),
 
-                    widget.isDetails && widget.productModel.deniedNote != null?
+                    widget.isDetails && widget.productModel!.deniedNote != null?
                     Padding(
                       padding: const EdgeInsets.only(top: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                       child: Row(crossAxisAlignment: CrossAxisAlignment.start,children: [
@@ -163,7 +163,7 @@ class _ProductWidgetState extends State<ShopProductWidget> {
                             style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT, color: Theme.of(context).primaryColor)),
 
                         Expanded(
-                          child: Text( widget.productModel.deniedNote,overflow: TextOverflow.ellipsis,
+                          child: Text( widget.productModel!.deniedNote!,overflow: TextOverflow.ellipsis,
                               maxLines: 50,
                               style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT)),
                         ),
@@ -251,10 +251,10 @@ class _ProductWidgetState extends State<ShopProductWidget> {
                             refund: false,
                             description: getTranslated('are_you_sure_want_to_delete_this_product', context),
                             onYesPressed: () {
-                              Provider.of<SellerProvider>(context, listen:false).deleteProduct(context ,widget.productModel.id).then((value) {
+                              Provider.of<SellerProvider>(context, listen:false).deleteProduct(context ,widget.productModel!.id).then((value) {
                                 Provider.of<ProductProvider>(context,listen: false).getStockOutProductList(1, context, 'en');
                                 Provider.of<ProductProvider>(context, listen: false).initSellerProductList(Provider.of<ProfileProvider>(context, listen: false).
-                                userInfoModel.id.toString(), 1, context, 'en','', reload: true);
+                                userInfoModel!.id.toString(), 1, context, 'en','', reload: true);
                               });
                             }
 

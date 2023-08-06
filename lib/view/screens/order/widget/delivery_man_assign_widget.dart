@@ -13,10 +13,10 @@ import 'package:bed3avendor/view/base/custom_snackbar.dart';
 import 'package:bed3avendor/view/base/textfeild/custom_text_feild.dart';
 
 class DeliveryManAssignWidget extends StatefulWidget {
-  final int orderId;
-  final String orderType;
-  final Order orderModel;
-  const DeliveryManAssignWidget({Key key, this.orderType, this.orderModel, this.orderId}) : super(key: key);
+  final int? orderId;
+  final String? orderType;
+  final Order? orderModel;
+  const DeliveryManAssignWidget({Key? key, this.orderType, this.orderModel, this.orderId}) : super(key: key);
 
   @override
   State<DeliveryManAssignWidget> createState() => _DeliveryManAssignWidgetState();
@@ -36,21 +36,21 @@ class _DeliveryManAssignWidgetState extends State<DeliveryManAssignWidget> {
   @override
   void initState() {
 
-    if(widget.orderModel.deliverymanCharge != null){
-      _deliveryManCharge.text = widget.orderModel.deliverymanCharge.toString();
+    if(widget.orderModel!.deliverymanCharge != null){
+      _deliveryManCharge.text = widget.orderModel!.deliverymanCharge.toString();
     }
-    if(widget.orderModel.expectedDeliveryDate != null){
-      _expectedDeliveryDate.text = widget.orderModel.expectedDeliveryDate;
+    if(widget.orderModel!.expectedDeliveryDate != null){
+      _expectedDeliveryDate.text = widget.orderModel!.expectedDeliveryDate!;
     }
 
-    if(widget.orderModel.thirdPartyServiceName!=null){
-      _thirdPartyShippingNameController.text = widget.orderModel.thirdPartyServiceName;
+    if(widget.orderModel!.thirdPartyServiceName!=null){
+      _thirdPartyShippingNameController.text = widget.orderModel!.thirdPartyServiceName!;
     }
-    if(widget.orderModel.thirdPartyTrackingId!=null){
-      _thirdPartyShippingIdController.text = widget.orderModel.thirdPartyTrackingId;
+    if(widget.orderModel!.thirdPartyTrackingId!=null){
+      _thirdPartyShippingIdController.text = widget.orderModel!.thirdPartyTrackingId!;
     }
-    if(widget.orderModel.deliveryType != null){
-      if(widget.orderModel.deliveryType == 'self_delivery'){
+    if(widget.orderModel!.deliveryType != null){
+      if(widget.orderModel!.deliveryType == 'self_delivery'){
         Provider.of<DeliveryManProvider>(context, listen: false).setDeliveryTypeIndex(1, false);
       }else{
         Provider.of<DeliveryManProvider>(context, listen: false).setDeliveryTypeIndex(2, false);
@@ -68,10 +68,10 @@ class _DeliveryManAssignWidgetState extends State<DeliveryManAssignWidget> {
     return Consumer<DeliveryManProvider>(
       builder: (context, delivery, _) {
         return Container(child: Column(children: [
-          Provider.of<SplashProvider>(context,listen: false).configModel.shippingMethod =='sellerwise_shipping' && widget.orderType != 'POS'?
+          Provider.of<SplashProvider>(context,listen: false).configModel!.shippingMethod =='sellerwise_shipping' && widget.orderType != 'POS'?
           Column(crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(getTranslated('delivery_type', context), style: robotoRegular,),
+              Text(getTranslated('delivery_type', context)!, style: robotoRegular,),
               SizedBox(height: Dimensions.PADDING_SIZE_SMALL,),
               Container(height: 45,
                 child: Container( padding: EdgeInsets.symmetric(horizontal:Dimensions.FONT_SIZE_EXTRA_SMALL ),
@@ -82,13 +82,13 @@ class _DeliveryManAssignWidgetState extends State<DeliveryManAssignWidget> {
                       value: delivery.selectedDeliveryTypeIndex ==0? 'select_delivery_type':delivery.selectedDeliveryTypeIndex ==1? 'by_self_delivery_man':'by_third_party_delivery_service',
                       isExpanded: true,
                       underline: SizedBox(),
-                      onChanged: (String newValue) {
+                      onChanged: (String? newValue) {
                        delivery.setDeliveryTypeIndex(newValue == 'select_delivery_type'? 0 : newValue == 'by_self_delivery_man'? 1 : 2, true);
                       },
                       items:delivery.deliveryTypeList.map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
-                          child: Text(getTranslated(value, context)),
+                          child: Text(getTranslated(value, context)!),
                         );
                       }).toList(),
                     )
@@ -105,7 +105,7 @@ class _DeliveryManAssignWidgetState extends State<DeliveryManAssignWidget> {
                 child: widget.orderType == 'POS'? SizedBox(): Consumer<DeliveryManProvider>(builder: (context, deliveryMan, child) {
                   return Column(crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(getTranslated('deliveryman', context), style: robotoRegular,),
+                      Text(getTranslated('deliveryman', context)!, style: robotoRegular,),
                       SizedBox(height: Dimensions.PADDING_SIZE_SMALL,),
                       Row(children: [Expanded(child: Container(
                         padding: EdgeInsets.only(left: Dimensions.PADDING_SIZE_SMALL, right: Dimensions.PADDING_SIZE_SMALL,),
@@ -118,23 +118,23 @@ class _DeliveryManAssignWidgetState extends State<DeliveryManAssignWidget> {
                           isExpanded: true,
                           decoration: InputDecoration(border: InputBorder.none),
                           iconSize: 24, elevation: 16, style: titilliumRegular,
-                          items: deliveryMan.deliveryManIds.map((int value) {
+                          items: deliveryMan.deliveryManIds.map((int? value) {
                             return DropdownMenuItem<int>(
                               value: deliveryMan.deliveryManIds.indexOf(value),
                               child: Text(value != 0?
-                              '${deliveryMan.deliveryManList[(deliveryMan.deliveryManIds.indexOf(value) -1)].fName} '
-                                  '${deliveryMan.deliveryManList[(deliveryMan.deliveryManIds.indexOf(value) -1)].lName}':
-                              getTranslated('select_delivery_man', context),
+                              '${deliveryMan.deliveryManList![(deliveryMan.deliveryManIds.indexOf(value) -1)].fName} '
+                                  '${deliveryMan.deliveryManList![(deliveryMan.deliveryManIds.indexOf(value) -1)].lName}':
+                              getTranslated('select_delivery_man', context)!,
                                 style: TextStyle(color: ColorResources.getTextColor(context)),),);
                           }).toList(),
-                          onChanged: (int value) {
+                          onChanged: (int? value) {
                             deliveryMan.setDeliverymanIndex(value, true);
-                            deliveryMan.assignDeliveryMan(context,widget.orderId, deliveryMan.deliveryManList[value-1].id);
+                            deliveryMan.assignDeliveryMan(context,widget.orderId, deliveryMan.deliveryManList![value!-1].id);
                           },
                         ),),),],),
 
                       SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT,),
-                      Text(getTranslated('additional_delivery_man_fee', context), style: robotoRegular,),
+                      Text(getTranslated('additional_delivery_man_fee', context)!, style: robotoRegular,),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: Dimensions.PADDING_SIZE_SMALL),
                         child: CustomTextField(hintText: getTranslated('delivery_man_charge', context),
@@ -143,15 +143,15 @@ class _DeliveryManAssignWidgetState extends State<DeliveryManAssignWidget> {
                         isAmount: true,),
                       ),
                       SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
-                      Text(getTranslated('expected_delivery_date', context), style: robotoRegular,),
+                      Text(getTranslated('expected_delivery_date', context)!, style: robotoRegular,),
                       SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
                       Consumer<OrderProvider>(
                         builder: (context, orderProvider,_) {
                           String expectedDate = orderProvider.startDate != null  ?
 
-                          orderProvider.dateFormat.format(orderProvider.startDate) :widget.orderModel.expectedDeliveryDate != null?
-                          widget.orderModel.expectedDeliveryDate:
-                          getTranslated('expected_delivery_date', context);
+                          orderProvider.dateFormat.format(orderProvider.startDate!) :widget.orderModel!.expectedDeliveryDate != null?
+                          widget.orderModel!.expectedDeliveryDate!:
+                          getTranslated('expected_delivery_date', context)!;
                           String dateForDelivery  = _expectedDeliveryDate.text = expectedDate;
                           String deliveryCharge  = _deliveryManCharge.text;
 
@@ -161,8 +161,8 @@ class _DeliveryManAssignWidgetState extends State<DeliveryManAssignWidget> {
                               orderProvider.setDeliveryCharge(orderId: widget.orderId, deliveryCharge: deliveryCharge,deliveryDate: dateForDelivery, context: context);
                             },
                             child: CustomTextField(
-                              hintText: widget.orderModel.expectedDeliveryDate != null?
-                              widget.orderModel.expectedDeliveryDate :getTranslated('expected_delivery_date', context),
+                              hintText: widget.orderModel!.expectedDeliveryDate != null?
+                              widget.orderModel!.expectedDeliveryDate :getTranslated('expected_delivery_date', context),
                             border: true,
                             controller: _expectedDeliveryDate,
                               idDate: true,
@@ -181,7 +181,7 @@ class _DeliveryManAssignWidgetState extends State<DeliveryManAssignWidget> {
                 child: Column(crossAxisAlignment: CrossAxisAlignment.end,
                   children: [Container(child: Row(children: [
                     Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                      Text(getTranslated('third_party_delivery_service', context),
+                      Text(getTranslated('third_party_delivery_service', context)!,
                         style: robotoRegular.copyWith(),),
                       SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
 
@@ -200,7 +200,7 @@ class _DeliveryManAssignWidgetState extends State<DeliveryManAssignWidget> {
 
 
                     Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                      Text(getTranslated('third_party_delivery_tracking_id', context),
+                      Text(getTranslated('third_party_delivery_tracking_id', context)!,
                         style: robotoRegular),
                       SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
                       CustomTextField(
@@ -229,7 +229,7 @@ class _DeliveryManAssignWidgetState extends State<DeliveryManAssignWidget> {
                                 showCustomSnackBar(getTranslated('delivery_service_provider_name_required',context), context);
                               } else{
                                 order.isLoading? CircularProgressIndicator(color: Theme.of(context).primaryColor) :
-                                order.assignThirdPartyDeliveryMan(context, serviceName, trackingId, widget.orderModel.id);
+                                order.assignThirdPartyDeliveryMan(context, serviceName, trackingId, widget.orderModel!.id);
                               }},),
                           );
                         }

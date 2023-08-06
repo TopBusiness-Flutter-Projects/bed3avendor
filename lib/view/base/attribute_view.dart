@@ -14,17 +14,17 @@ import 'custom_snackbar.dart';
 
 
 class AttributeView extends StatefulWidget {
-  final Product product;
+  final Product? product;
   final bool colorOn;
   final bool onlyQuantity;
-  AttributeView({@required this.product, @required this.colorOn, this.onlyQuantity = false});
+  AttributeView({required this.product, required this.colorOn, this.onlyQuantity = false});
 
   @override
   State<AttributeView> createState() => _AttributeViewState();
 }
 
 class _AttributeViewState extends State<AttributeView> {
-  bool colorONOFF;
+  bool? colorONOFF;
   int addVar = 0;
 
   void _load(){
@@ -55,16 +55,16 @@ class _AttributeViewState extends State<AttributeView> {
         return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           SizedBox(height: Dimensions.PADDING_SIZE_SMALL,),
           widget.onlyQuantity?SizedBox():
-          Text(getTranslated('other_attributes', context),
+          Text(getTranslated('other_attributes', context)!,
               style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT)),
           SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
 
           widget.onlyQuantity?SizedBox():
           SizedBox(height: 50,
-            child: resProvider.attributeList.length> 0 ?
+            child: resProvider.attributeList!.length> 0 ?
             ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: resProvider.attributeList.length,
+              itemCount: resProvider.attributeList!.length,
               itemBuilder: (context, index) {
                 if(index == 0 && widget.colorOn){
                   return SizedBox();
@@ -77,14 +77,14 @@ class _AttributeViewState extends State<AttributeView> {
                     margin: EdgeInsets.only(right: Dimensions.PADDING_SIZE_SMALL),
                     padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                     decoration: BoxDecoration(
-                      color: resProvider.attributeList[index].active ?
+                      color: resProvider.attributeList![index].active ?
                       Theme.of(context).primaryColor : Theme.of(context).hintColor.withOpacity(.10),
                       borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_EXTRA_SMALL),
                     ),
                     child: Text(
-                      resProvider.attributeList[index].attribute.name, maxLines: 2, textAlign: TextAlign.center,
+                      resProvider.attributeList![index].attribute.name!, maxLines: 2, textAlign: TextAlign.center,
                       style: robotoRegular.copyWith(
-                        color: resProvider.attributeList[index].active ?
+                        color: resProvider.attributeList![index].active ?
                         Theme.of(context).cardColor : Theme.of(context).disabledColor,
                       ),
                     ),
@@ -93,22 +93,22 @@ class _AttributeViewState extends State<AttributeView> {
               },
             ):SizedBox(),
           ),
-          SizedBox(height: resProvider.attributeList.where((element) => element.active).length > 0 ?
+          SizedBox(height: resProvider.attributeList!.where((element) => element.active).length > 0 ?
           Dimensions.PADDING_SIZE_LARGE : 0),
           widget.onlyQuantity?SizedBox():
-          resProvider.attributeList.length>0?
+          resProvider.attributeList!.length>0?
           ListView.builder(
             physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-            itemCount: resProvider.attributeList.length,
+            itemCount: resProvider.attributeList!.length,
             itemBuilder: (context, index) {
-              return (resProvider.attributeList[index].active && index != 0) ?
+              return (resProvider.attributeList![index].active && index != 0) ?
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
 
                 Column(crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      resProvider.attributeList[index].attribute.name, maxLines: 2, textAlign: TextAlign.center,
+                      resProvider.attributeList![index].attribute.name!, maxLines: 2, textAlign: TextAlign.center,
                       style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE),
                     ),
                     SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
@@ -117,7 +117,7 @@ class _AttributeViewState extends State<AttributeView> {
 
                       Expanded(child: CustomTextField(
                         border: true,
-                        controller: resProvider.attributeList[index].controller,
+                        controller: resProvider.attributeList![index].controller,
                         textInputAction: TextInputAction.done,
                         capitalization: TextCapitalization.words,
                         // title: false,
@@ -127,11 +127,11 @@ class _AttributeViewState extends State<AttributeView> {
                       Container(height: 50, width : 80,
                         child: CustomButton(
                           onTap: () {
-                            String _variant = resProvider.attributeList[index].controller.text.trim();
+                            String _variant = resProvider.attributeList![index].controller.text.trim();
                             if(_variant.isEmpty) {
                               showCustomSnackBar(getTranslated('enter_a_variant_name', context),context);
                             }else {
-                              resProvider.attributeList[index].controller.text = '';
+                              resProvider.attributeList![index].controller.text = '';
                               resProvider.addVariant(context,index, _variant, widget.product, true);
                             }
                           },
@@ -146,10 +146,10 @@ class _AttributeViewState extends State<AttributeView> {
                 SizedBox(height: Dimensions.PADDING_SIZE_SMALL,),
                 Container(
                   height: 30,
-                  child: resProvider.attributeList[index].variants.length > 0? ListView.builder(
+                  child: resProvider.attributeList![index].variants.length > 0? ListView.builder(
                     scrollDirection: Axis.horizontal,
                     padding: EdgeInsets.only(top: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                    itemCount: resProvider.attributeList[index].variants.length,
+                    itemCount: resProvider.attributeList![index].variants.length,
                     itemBuilder: (context, i) {
                       return Container(
                         padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_SMALL,vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL),
@@ -159,7 +159,7 @@ class _AttributeViewState extends State<AttributeView> {
                           borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_MEDIUM),
                         ),
                         child: Row(mainAxisAlignment: MainAxisAlignment.center,crossAxisAlignment: CrossAxisAlignment.center,children: [
-                          Text(resProvider.attributeList[index].variants[i], style: robotoRegular),
+                          Text(resProvider.attributeList![index].variants[i]!, style: robotoRegular),
                           SizedBox(width: Dimensions.PADDING_SIZE_SMALL,),
                           InkWell(
                             onTap: () => resProvider.removeVariant(context,index, i, widget.product),
@@ -170,7 +170,7 @@ class _AttributeViewState extends State<AttributeView> {
                     },
                   ):Align(
                       alignment: Alignment.centerLeft,
-                      child: Text(getTranslated('no_variant_added_yet', context),
+                      child: Text(getTranslated('no_variant_added_yet', context)!,
                         style: robotoRegular.copyWith(color: ColorResources.mainCardFourColor(context).withOpacity(.8)),)),
                 ),
 
@@ -186,7 +186,7 @@ class _AttributeViewState extends State<AttributeView> {
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                 Expanded(
                   flex: 4,
-                  child: Text(getTranslated('variant',context),
+                  child: Text(getTranslated('variant',context)!,
                     style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE,
                         color: Theme.of(context).disabledColor),
                   ),
@@ -194,7 +194,7 @@ class _AttributeViewState extends State<AttributeView> {
                 widget.onlyQuantity?SizedBox():
                 Expanded(
                   flex: 4,
-                  child: Text(getTranslated('price',context),
+                  child: Text(getTranslated('price',context)!,
                       style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE,
                           color: Theme.of(context).disabledColor)),
                 ),
@@ -202,7 +202,7 @@ class _AttributeViewState extends State<AttributeView> {
 
                 Expanded(
                   flex: widget.onlyQuantity ? 3 : 4,
-                  child: Text(getTranslated('quantity',context),
+                  child: Text(getTranslated('quantity',context)!,
                     style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE,
                         color: Theme.of(context).disabledColor),),
                 ),

@@ -30,7 +30,7 @@ class ScrollingFabAnimated extends StatefulWidget {
   final Widget text;
 
   /// Value to set the curve for animation
-  final Curve curve;
+  final Curve? curve;
 
   /// ScrollController to use to determine when user is on top or not
   final ScrollController scrollController;
@@ -39,7 +39,7 @@ class ScrollingFabAnimated extends StatefulWidget {
   final double limitIndicator;
 
   /// Color to set the button background color
-  final Color color;
+  final Color? color;
 
   /// Value to indicate if animate or not the icon
   final bool animateIcon;
@@ -48,14 +48,14 @@ class ScrollingFabAnimated extends StatefulWidget {
   final bool inverted;
 
   /// Double value to set the button radius
-  final double radius;
+  final double? radius;
 
   const ScrollingFabAnimated(
-      {Key key,
-        @required this.icon,
-        @required this.text,
-        @required this.onPress,
-        @required this.scrollController,
+      {Key? key,
+        required this.icon,
+        required this.text,
+        required this.onPress,
+        required this.scrollController,
         this.elevation = 5.0,
         this.width = 120.0,
         this.height = 60.0,
@@ -129,7 +129,7 @@ class _ScrollingFabAnimatedState extends State<ScrollingFabAnimated> {
       child: TweenAnimationBuilder(
         tween: Tween<double>(begin: 0, end: _endTween),
         duration: widget.duration,
-        builder: (BuildContext _, double size, Widget child) {
+        builder: (BuildContext _, double size, Widget? child) {
           double _widthPercent = (widget.width - widget.height).abs() / 100;
           bool _isFull = _endTween == 100;
           double _radius = widget.radius ?? (widget.height / 2);

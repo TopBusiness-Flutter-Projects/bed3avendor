@@ -14,13 +14,13 @@ import 'package:bed3avendor/view/screens/top_delivery_man/widget/top_delivery_ma
 
 class TopDeliveryManView extends StatelessWidget {
   final bool isMain;
-  const TopDeliveryManView({Key key, this.isMain = false}) : super(key: key);
+  const TopDeliveryManView({Key? key, this.isMain = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Consumer<DeliveryManProvider>(
       builder: (context, deliveryProvider, child) {
-        List<DeliveryMan> deliveryManList;
+        List<DeliveryMan>? deliveryManList;
         deliveryManList = deliveryProvider.topDeliveryManList;
 
 
@@ -42,7 +42,7 @@ class TopDeliveryManView extends StatelessWidget {
             ),
           ):SizedBox(),
 
-          !deliveryProvider.isLoading ? deliveryManList.length != 0 ?
+          !deliveryProvider.isLoading ? deliveryManList!.length != 0 ?
           Padding(
             padding: const EdgeInsets.symmetric(horizontal : Dimensions.PADDING_SIZE_SMALL,
                 vertical: Dimensions.PADDING_SIZE_SMALL),
@@ -59,7 +59,7 @@ class TopDeliveryManView extends StatelessWidget {
               itemCount: isMain && deliveryManList.length > 4 ? 4: deliveryManList.length,
               itemBuilder: (context, index) {
 
-                return TopDeliveryManWidget(deliveryMan : deliveryManList[index]);
+                return TopDeliveryManWidget(deliveryMan : deliveryManList![index]);
               },
             ),
           ): NoDataScreen() :SizedBox.shrink(),

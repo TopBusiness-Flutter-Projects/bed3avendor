@@ -13,8 +13,8 @@ import 'package:bed3avendor/view/screens/delivery/widget/delivery_man_withdraw_c
 import 'package:bed3avendor/view/screens/delivery/withdraw/withdraw_details_screen.dart';
 
 class DeliveryManOverViewScreen extends StatelessWidget {
-  final DeliveryMan deliveryMan;
-  const DeliveryManOverViewScreen({Key key, this.deliveryMan}) : super(key: key);
+  final DeliveryMan? deliveryMan;
+  const DeliveryManOverViewScreen({Key? key, this.deliveryMan}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,19 +37,19 @@ class DeliveryManOverViewScreen extends StatelessWidget {
 
                     BalanceStatementWidget(icon: Images.current_balance, text: getTranslated('current_balance', context),
                         color: Colors.green[900],amount: deliveryManProvider.deliveryManDetails?.deliveryMan?.wallet != null ?
-                        double.parse(deliveryManProvider.deliveryManDetails.deliveryMan.wallet.currentBalance) : 0),
+                        double.parse(deliveryManProvider.deliveryManDetails!.deliveryMan!.wallet!.currentBalance!) : 0),
                     Divider(),
                     BalanceStatementWidget(icon: Images.withdrawable_balance, text: getTranslated('withdrawable_balance', context),
                         color: Colors.orange,amount: deliveryManProvider.deliveryManDetails?.withdrawbaleBalance != null ?
-                        deliveryManProvider.deliveryManDetails.withdrawbaleBalance : 0),
+                        deliveryManProvider.deliveryManDetails!.withdrawbaleBalance : 0),
                     Divider(),
                     BalanceStatementWidget(icon: Images.pending_withdraw, text: getTranslated('pending_withdraw', context),
                         color: Colors.green,amount: deliveryManProvider.deliveryManDetails?.deliveryMan?.wallet != null ?
-                        double.parse(deliveryManProvider.deliveryManDetails.deliveryMan.wallet.pendingWithdraw) : 0),
+                        double.parse(deliveryManProvider.deliveryManDetails!.deliveryMan!.wallet!.pendingWithdraw!) : 0),
                     Divider(),
                     BalanceStatementWidget(icon: Images.total_withdrawn, text: getTranslated('total_withdrawn', context),
                         color: Theme.of(context).primaryColor, amount: deliveryManProvider.deliveryManDetails?.deliveryMan?.wallet != null ?
-                        double.parse(deliveryManProvider.deliveryManDetails.deliveryMan.wallet.totalWithdraw) : 0),
+                        double.parse(deliveryManProvider.deliveryManDetails!.deliveryMan!.wallet!.totalWithdraw!) : 0),
                     SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                 ],),),
 
@@ -102,7 +102,7 @@ class DeliveryManOverViewScreen extends StatelessWidget {
                     children: [
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_SMALL),
-                        child: Text(getTranslated('bank_information', context),
+                        child: Text(getTranslated('bank_information', context)!,
                           style: robotoMedium.copyWith(color: Theme.of(context).primaryColor, fontSize: Dimensions.FONT_SIZE_LARGE),),
                       ),
                     ],

@@ -1,8 +1,8 @@
 class CouponModel {
-  int totalSize;
-  String limit;
-  String offset;
-  List<Coupons> coupons;
+  int? totalSize;
+  String? limit;
+  String? offset;
+  List<Coupons>? coupons;
 
   CouponModel({this.totalSize, this.limit, this.offset, this.coupons});
 
@@ -13,7 +13,7 @@ class CouponModel {
     if (json['coupons'] != null) {
       coupons = <Coupons>[];
       json['coupons'].forEach((v) {
-        coupons.add(new Coupons.fromJson(v));
+        coupons!.add(new Coupons.fromJson(v));
       });
     }
   }
@@ -24,32 +24,32 @@ class CouponModel {
     data['limit'] = this.limit;
     data['offset'] = this.offset;
     if (this.coupons != null) {
-      data['coupons'] = this.coupons.map((v) => v.toJson()).toList();
+      data['coupons'] = this.coupons!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class Coupons {
-  int id;
-  String addedBy;
-  String couponType;
-  String couponBearer;
-  int sellerId;
-  int customerId;
-  String title;
-  String code;
-  String startDate;
-  String expireDate;
-  double minPurchase;
-  double maxDiscount;
-  double discount;
-  String discountType;
-  int status;
-  String createdAt;
-  String updatedAt;
-  int limit;
-  int orderCount;
+  int? id;
+  String? addedBy;
+  String? couponType;
+  String? couponBearer;
+  int? sellerId;
+  int? customerId;
+  String? title;
+  String? code;
+  String? startDate;
+  String? expireDate;
+  double? minPurchase;
+  double? maxDiscount;
+  double? discount;
+  String? discountType;
+  int? status;
+  String? createdAt;
+  String? updatedAt;
+  int? limit;
+  int? orderCount;
 
   Coupons(
       {this.id,

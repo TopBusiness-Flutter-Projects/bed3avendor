@@ -24,13 +24,13 @@ import 'package:bed3avendor/view/screens/order/widget/third_party_delivery_info.
 
 
 class OrderDetailsScreen extends StatefulWidget {
-  final Order orderModel;
-  final int orderId;
-  final String orderType;
-  final String shippingType;
-  final double extraDiscount;
-  final String extraDiscountType;
-  OrderDetailsScreen({this.orderModel, @required this.orderId, @required this.orderType, this.shippingType, this.extraDiscount, this.extraDiscountType});
+  final Order? orderModel;
+  final int? orderId;
+  final String? orderType;
+  final String? shippingType;
+  final double? extraDiscount;
+  final String? extraDiscountType;
+  OrderDetailsScreen({this.orderModel, required this.orderId, required this.orderType, this.shippingType, this.extraDiscount, this.extraDiscountType});
 
   @override
   State<OrderDetailsScreen> createState() => _OrderDetailsScreenState();
@@ -38,13 +38,13 @@ class OrderDetailsScreen extends StatefulWidget {
 
 class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  void _loadData(BuildContext context, String type) async {
+  void _loadData(BuildContext context, String? type) async {
     if(widget.orderModel == null) {
       await Provider.of<SplashProvider>(context, listen: false).initConfig(context);
     }
     Provider.of<OrderProvider>(context, listen: false).getOrderDetails(widget.orderId.toString(), context);
     Provider.of<OrderProvider>(context, listen: false).initOrderStatusList(context,
-        Provider.of<SplashProvider>(context, listen: false).configModel.shippingMethod == 'inhouse_shipping' ?  'inhouse_shipping':"seller_wise");
+        Provider.of<SplashProvider>(context, listen: false).configModel!.shippingMethod == 'inhouse_shipping' ?  'inhouse_shipping':"seller_wise");
     Provider.of<DeliveryManProvider>(context, listen: false).getDeliveryManList(widget.orderModel, context);
   }
 
@@ -54,8 +54,8 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
   @override
   void initState() {
 
-    Provider.of<OrderProvider>(context, listen: false).setPaymentStatus(widget.orderModel.paymentStatus);
-    Provider.of<OrderProvider>(context, listen: false).updateStatus(widget.orderModel.orderStatus, notify: false);
+    Provider.of<OrderProvider>(context, listen: false).setPaymentStatus(widget.orderModel!.paymentStatus);
+    Provider.of<OrderProvider>(context, listen: false).updateStatus(widget.orderModel!.orderStatus, notify: false);
     super.initState();
   }
 
@@ -69,7 +69,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
       body: RefreshIndicator(
         onRefresh: () async{
           _loadData(context,widget.shippingType);
-          return true;
+         // return true;
         },
         child: Consumer<OrderProvider>(
             builder: (context, order, child) {
@@ -77,19 +77,19 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
 
               double _itemsPrice = 0;
               double _discount = 0;
-              double eeDiscount = 0;
-              double _coupon = widget.orderModel.discountAmount;
+              double? eeDiscount = 0;
+              double _coupon = widget.orderModel!.discountAmount!;
               double _tax = 0;
-              double _shipping = widget.orderModel.shippingCost;
+              double _shipping = widget.orderModel!.shippingCost!;
               if (order.orderDetails != null) {
-                order.orderDetails.forEach((orderDetails) {
+                order.orderDetails!.forEach((orderDetails) {
                   if(orderDetails.productDetails?.productType == "physical"){
                     _onlyDigital =  false;
                   }
-                  _itemsPrice = _itemsPrice + (orderDetails.price * orderDetails.qty);
-                  _discount = _discount + orderDetails.discount;
+                  _itemsPrice = _itemsPrice + (orderDetails.price! * orderDetails.qty!);
+                  _discount = _discount + orderDetails.discount!;
 
-                    _tax = _tax + orderDetails.tax;
+                    _tax = _tax + orderDetails.tax!;
 
                 });
               }
@@ -97,14 +97,14 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
 
               if(widget.orderType == 'POS'){
                 if(widget.extraDiscountType == 'percent'){
-                  eeDiscount = _itemsPrice * (widget.extraDiscount/100);
+                  eeDiscount = _itemsPrice * (widget.extraDiscount!/100);
                 }else{
                   eeDiscount = widget.extraDiscount;
                 }
               }
-              double _totalPrice = _subTotal + _shipping - _coupon - eeDiscount;
+              double _totalPrice = _subTotal + _shipping - _coupon - eeDiscount!;
 
-              return order.orderDetails != null ? order.orderDetails.length > 0 ?
+              return order.orderDetails != null ? order.orderDetails!.length > 0 ?
               ListView(
                 physics: BouncingScrollPhysics(),
                 children: [
@@ -127,7 +127,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
 
                       child: Column(crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(getTranslated('order_summery', context),
+                        Text(getTranslated('order_summery', context)!,
                             style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE,
                               color: ColorResources.titleColor(context),) ),
                         SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT,),
@@ -137,11 +137,11 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                           padding: EdgeInsets.all(0),
                           shrinkWrap: true,
                           physics: NeverScrollableScrollPhysics(),
-                          itemCount: order.orderDetails.length,
+                          itemCount: order.orderDetails!.length,
                           itemBuilder: (context, index) {
-                            return OrderedProductListItem(orderDetailsModel: order.orderDetails[index],
+                            return OrderedProductListItem(orderDetailsModel: order.orderDetails![index],
                                 paymentStatus: order.paymentStatus,orderId: widget.orderId,
-                              index: index, length: order.orderDetails.length,
+                              index: index, length: order.orderDetails!.length,
                             );
                           },
                         ),
@@ -150,7 +150,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                     ),),
 
 
-                    widget.orderModel.orderNote != null?
+                    widget.orderModel!.orderNote != null?
                     Container(
                       decoration: BoxDecoration(
                         color: Theme.of(context).cardColor,
@@ -175,13 +175,13 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                 padding: const EdgeInsets.only(right: Dimensions.PADDING_SIZE_SMALL),
                                 child: Image.asset(Images.order_note,color: ColorResources.getTextColor(context), width: Dimensions.ICON_SIZE_SMALL ),
                               ),
-                              Text(getTranslated('order_note', context), style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE,
+                              Text(getTranslated('order_note', context)!, style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE,
                                 color: ColorResources.titleColor(context),)),
                             ],
                           ),
                           SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
 
-                          Text('${widget.orderModel.orderNote != null? widget.orderModel.orderNote ?? '': ""}',
+                          Text('${widget.orderModel!.orderNote != null? widget.orderModel!.orderNote ?? '': ""}',
                               style: titilliumRegular.copyWith(color: ColorResources.getTextColor(context))),
                         ],),
                       ),
@@ -196,7 +196,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
 
                       // Total
                       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                        Text(getTranslated('sub_total', context),
+                        Text(getTranslated('sub_total', context)!,
                             style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE,
                                 color: ColorResources.titleColor(context))),
 
@@ -209,7 +209,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
 
 
                       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                        Text(getTranslated('tax', context),
+                        Text(getTranslated('tax', context)!,
                             style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE,
                                 color: ColorResources.titleColor(context))),
 
@@ -223,7 +223,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
 
 
                       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                        Text(getTranslated('discount', context),
+                        Text(getTranslated('discount', context)!,
                             style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE,
                                 color: ColorResources.titleColor(context))),
 
@@ -237,7 +237,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
 
                       widget.orderType == "POS"?
                       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                        Text(getTranslated('extra_discount', context),
+                        Text(getTranslated('extra_discount', context)!,
                             style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE,
                                 color: ColorResources.titleColor(context))),
                         Text('- ${PriceConverter.convertPrice(context, eeDiscount)}',
@@ -248,7 +248,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
 
 
                       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                        Text(getTranslated('coupon_discount', context),
+                        Text(getTranslated('coupon_discount', context)!,
                             style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE,
                                 color: ColorResources.titleColor(context))),
                         Text('- ${PriceConverter.convertPrice(context, _coupon)}',
@@ -259,7 +259,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
 
 
                       if(!_onlyDigital)Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                        Text(getTranslated('shipping_fee', context),
+                        Text(getTranslated('shipping_fee', context)!,
                             style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE,
                                 color: ColorResources.titleColor(context))),
                         Text('+ ${PriceConverter.convertPrice(context, _shipping)}',
@@ -273,7 +273,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
 
 
                         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                          Text(getTranslated('total_amount', context),
+                          Text(getTranslated('total_amount', context)!,
                               style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE,
                                   color: Theme.of(context).primaryColor)),
                           Text(PriceConverter.convertPrice(context, _totalPrice),
@@ -289,19 +289,19 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
 
 
 
-                  widget.orderModel.customer != null?
+                  widget.orderModel!.customer != null?
                   CustomerContactWidget(orderModel: widget.orderModel):SizedBox(),
 
                   SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
 
 
-                  widget.orderModel.deliveryMan != null?
+                  widget.orderModel!.deliveryMan != null?
                   Padding(
                     padding: const EdgeInsets.only(bottom: Dimensions.PADDING_SIZE_SMALL),
                     child: DeliveryManContactInformation(orderModel: widget.orderModel, orderType: widget.orderType, onlyDigital: _onlyDigital),
                   ):SizedBox(),
 
-                  widget.orderModel.thirdPartyServiceName != null?
+                  widget.orderModel!.thirdPartyServiceName != null?
                   Padding(
                     padding: const EdgeInsets.only(bottom: Dimensions.PADDING_SIZE_SMALL),
                     child: ThirdPartyDeliveryInfo(orderModel: widget.orderModel),

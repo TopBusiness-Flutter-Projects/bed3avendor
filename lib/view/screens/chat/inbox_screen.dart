@@ -37,7 +37,7 @@ class _InboxScreenState extends State<InboxScreen> {
       backgroundColor: ColorResources.getIconBg(context),
       appBar: CustomAppBar(title: getTranslated('inbox', context)),
       body: Consumer<ChatProvider>(builder: (context, chatProvider, child) {
-        List<Chat> _chatList;
+        List<Chat>? _chatList;
          _chatList = chatProvider.chatModel?.chat;
         return Column(children: [
 
@@ -58,17 +58,17 @@ class _InboxScreenState extends State<InboxScreen> {
                         child: PaginatedListView(
                           reverse: false,
                           scrollController: _scrollController,
-                          onPaginate: (int offset) => chatProvider.getChatList(context,offset, reload: false),
-                          totalSize: chatProvider.chatModel.totalSize,
-                          offset: int.parse(chatProvider.chatModel.offset),
+                          onPaginate: (int? offset) => chatProvider.getChatList(context,offset!, reload: false),
+                          totalSize: chatProvider.chatModel!.totalSize,
+                          offset: int.parse(chatProvider.chatModel!.offset!),
                           enabledPagination: chatProvider.chatModel == null,
                           itemView: ListView.builder(
-                            itemCount: chatProvider.chatModel.chat.length,
+                            itemCount: chatProvider.chatModel!.chat!.length,
                             padding: EdgeInsets.zero,
                             physics: const NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
                             itemBuilder: (context, index) {
-                              return  ChatCardWidget(chat: chatProvider.chatModel.chat[index]);
+                              return  ChatCardWidget(chat: chatProvider.chatModel!.chat![index]);
                             },
                           ),
                         ),

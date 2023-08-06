@@ -10,9 +10,9 @@ import 'package:bed3avendor/view/base/textfeild/custom_text_feild.dart';
 
 
 class FieldItemView extends StatelessWidget {
-  final MethodFields methodField;
-  final Map<String, TextEditingController> textControllers;
-  const FieldItemView({Key key, this.methodField, this.textControllers}) : super(key: key);
+  final MethodFields? methodField;
+  final Map<String, TextEditingController>? textControllers;
+  const FieldItemView({Key? key, this.methodField, this.textControllers}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class FieldItemView extends StatelessWidget {
           child: Row(
             children: [
               Text(
-                '${methodField.inputName.replaceAll('_', ' ').formattedUpperCase()}',
+                '${methodField!.inputName!.replaceAll('_', ' ').formattedUpperCase()}',
                 style: robotoRegular.copyWith(color: Theme.of(context).primaryColor),
               ),
              SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL,),
@@ -36,18 +36,18 @@ class FieldItemView extends StatelessWidget {
         SizedBox(height: 5,),
 
         CustomTextField(
-          controller: textControllers[methodField.inputName],
-          hintText:  methodField.placeholder,
-          textInputType:  _getType(methodField.inputType),
+          controller: textControllers![methodField!.inputName],
+          hintText:  methodField!.placeholder,
+          textInputType:  _getType(methodField!.inputType),
           fillColor: Theme.of(context).cardColor,
-          isPassword: methodField.inputType == 'password',
+          isPassword: methodField!.inputType == 'password',
         ),
         SizedBox(height: 10,),
       ],
     );
   }
 
-  TextInputType _getType(String type) {
+  TextInputType _getType(String? type) {
     switch(type) {
       case 'number': {
         return TextInputType.number;
@@ -84,7 +84,7 @@ class FieldItemView extends StatelessWidget {
 
 extension StringExtension on String {
   String formattedUpperCase() => replaceAllMapped(
-      RegExp(r'(?<= |-|^).'), (match) => match[0].toUpperCase());
+      RegExp(r'(?<= |-|^).'), (match) => match[0]!.toUpperCase());
 }
 
 const INDEX_NOT_FOUND = -1;
@@ -92,7 +92,7 @@ const INDEX_NOT_FOUND = -1;
 
 class DateInputFormatter extends TextInputFormatter {
   String _placeholder = '--/----';
-  TextEditingValue _lastNewValue;
+  TextEditingValue? _lastNewValue;
 
   @override
   TextEditingValue formatEditUpdate(
@@ -124,7 +124,7 @@ class DateInputFormatter extends TextInputFormatter {
 
     final String oldText = oldValue.text;
     final String newText = newValue.text;
-    String resultText;
+    String? resultText;
 
     int index = _indexOfDifference(newText, oldText);
     if (oldText.length < newText.length) {

@@ -13,7 +13,7 @@ import 'package:bed3avendor/view/screens/order/order_screen.dart';
 
 
 class CouponListScreen extends StatefulWidget {
-  const CouponListScreen({Key key}) : super(key: key);
+  const CouponListScreen({Key? key}) : super(key: key);
   @override
   State<CouponListScreen> createState() => _CouponListScreenState();
 }
@@ -43,10 +43,10 @@ class _CouponListScreenState extends State<CouponListScreen> {
             child: PaginatedListView(
               reverse: false,
               scrollController: scrollController,
-              totalSize: couponProvider.couponModel.totalSize,
-              offset: couponProvider.couponModel != null ? int.parse(couponProvider.couponModel.offset) : null,
-              onPaginate: (int offset) async {
-                await couponProvider.getCouponList(context, offset, reload: false);
+              totalSize: couponProvider.couponModel!.totalSize,
+              offset: couponProvider.couponModel != null ? int.parse(couponProvider.couponModel!.offset!) : null,
+              onPaginate: (int? offset) async {
+                await couponProvider.getCouponList(context, offset!, reload: false);
               },
 
               itemView:  ListView.builder(

@@ -12,17 +12,17 @@ extension EmailValidator on String {
 }
 
 class CustomTextField extends StatefulWidget {
-  final TextEditingController controller;
-  final String hintText;
-  final TextInputType textInputType;
-  final int maxLine;
-  final FocusNode focusNode;
-  final FocusNode nextNode;
-  final TextInputAction textInputAction;
+  final TextEditingController? controller;
+  final String? hintText;
+  final TextInputType? textInputType;
+  final int? maxLine;
+  final FocusNode? focusNode;
+  final FocusNode? nextNode;
+  final TextInputAction? textInputAction;
   final bool isPhoneNumber;
   final bool isValidator;
-  final String validatorMessage;
-  final Color fillColor;
+  final String? validatorMessage;
+  final Color? fillColor;
   final TextCapitalization capitalization;
   final bool isAmount;
   final bool amountIcon;
@@ -30,10 +30,10 @@ class CustomTextField extends StatefulWidget {
   final bool isDescription;
   final bool idDate;
   final bool isPassword;
-  final Function(String text) onChanged;
-  final String prefixIconImage;
+  final Function(String text)? onChanged;
+  final String? prefixIconImage;
   final isPos;
-  final int maxSize;
+  final int? maxSize;
   final bool variant;
 
   CustomTextField(
@@ -100,7 +100,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
 
         validator: (input){
-          if(input.isEmpty){
+          if(input!.isEmpty){
             if(widget.isValidator){
               return widget.validatorMessage??"";
             }
@@ -120,7 +120,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 decoration: BoxDecoration(
               color: Theme.of(context).primaryColor.withOpacity(.135)
             ),
-            child: Image.asset(widget.prefixIconImage,width: 20, height: 20,)),
+            child: Image.asset(widget.prefixIconImage!,width: 20, height: 20,)),
           ):SizedBox(),
           suffixIconConstraints:  BoxConstraints(
             minWidth:widget.variant ? 5 : widget.isPos? 0:40,

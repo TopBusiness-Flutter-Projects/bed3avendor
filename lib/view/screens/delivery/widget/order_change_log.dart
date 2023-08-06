@@ -9,8 +9,8 @@ import 'package:bed3avendor/utill/dimensions.dart';
 import 'package:bed3avendor/utill/styles.dart';
 
 class OrderChangeLogWidget extends StatelessWidget {
-  final int orderId;
-  const OrderChangeLogWidget({Key key, this.orderId}) : super(key: key);
+  final int? orderId;
+  const OrderChangeLogWidget({Key? key, this.orderId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class OrderChangeLogWidget extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: Dimensions.PADDING_SIZE_SMALL),
             decoration: BoxDecoration(color: Theme.of(context).cardColor,
                 borderRadius: BorderRadius.all(Radius.circular(Dimensions.PADDING_SIZE_SMALL)),
-              boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 800 : 200],
+              boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 800 : 200]!,
                   spreadRadius: 0.5, blurRadius: 0.3)],),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_DEFAULT,
@@ -71,7 +71,7 @@ class OrderChangeLogWidget extends StatelessWidget {
 
                                 child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
 
-                                  Text(getTranslated(changelog.changeLogList[index].status, context),
+                                  Text(getTranslated(changelog.changeLogList[index].status, context)!,
                                       style: robotoMedium.copyWith(color: ColorResources.getTextColor(context))),
 
 
@@ -79,7 +79,7 @@ class OrderChangeLogWidget extends StatelessWidget {
                                   Text('${changelog.changeLogList[index].userType ?? ''}',
                                       style: robotoRegular.copyWith(color: Theme.of(context).hintColor)),
 
-                                  Text('${DateConverter.isoStringToDateTimeString(changelog.changeLogList[index].createdAt)}',
+                                  Text('${DateConverter.isoStringToDateTimeString(changelog.changeLogList[index].createdAt!)}',
                                       style: robotoRegular.copyWith(color: Theme.of(context).hintColor)),
 
                                 ]),

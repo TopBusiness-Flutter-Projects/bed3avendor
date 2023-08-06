@@ -9,8 +9,8 @@ import 'package:bed3avendor/utill/styles.dart';
 import 'package:bed3avendor/view/base/custom_image.dart';
 
 class CustomerContactWidget extends StatelessWidget {
-  final Order orderModel;
-  const CustomerContactWidget({Key key, this.orderModel}) : super(key: key);
+  final Order? orderModel;
+  const CustomerContactWidget({Key? key, this.orderModel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class CustomerContactWidget extends StatelessWidget {
 
       ),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Text(getTranslated('customer_information', context),
+        Text(getTranslated('customer_information', context)!,
             style: robotoMedium.copyWith(color: ColorResources.titleColor(context),
               fontSize: Dimensions.FONT_SIZE_LARGE,)),
         SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT),
@@ -30,25 +30,25 @@ class CustomerContactWidget extends StatelessWidget {
 
         Row(children: [ClipRRect(borderRadius: BorderRadius.circular(50),
           child: CustomImage( height: 50,width: 50, fit: BoxFit.cover,
-            image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls.customerImageUrl}/${orderModel.customer.image}')),
+            image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls!.customerImageUrl}/${orderModel!.customer!.image}')),
           SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
 
 
 
           Expanded(child: Column( crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text('${orderModel.customer.fName ?? ''} ''${orderModel.customer.lName ?? ''}',
+            Text('${orderModel!.customer!.fName ?? ''} ''${orderModel!.customer!.lName ?? ''}',
                 style: titilliumRegular.copyWith(color: ColorResources.titleColor(context),
                     fontSize: Dimensions.FONT_SIZE_DEFAULT)),
 
             SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL,),
-            Text('${orderModel.customer.phone}',
+            Text('${orderModel!.customer!.phone}',
                 style: titilliumRegular.copyWith(color: ColorResources.titleColor(context),
                     fontSize: Dimensions.FONT_SIZE_DEFAULT)),
 
 
             SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL,),
 
-            Text('${orderModel.customer.email ?? ''}',
+            Text('${orderModel!.customer!.email ?? ''}',
                 style: titilliumRegular.copyWith(color: ColorResources.titleColor(context),
                     fontSize: Dimensions.FONT_SIZE_DEFAULT)),
 

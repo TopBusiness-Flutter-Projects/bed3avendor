@@ -9,8 +9,8 @@ import 'package:bed3avendor/view/screens/delivery/widget/delivery_man_order_hist
 
 
 class DeliveryManOrderListScreen extends StatelessWidget {
-  final DeliveryMan deliveryMan;
-  const DeliveryManOrderListScreen({Key key, this.deliveryMan}) : super(key: key);
+  final DeliveryMan? deliveryMan;
+  const DeliveryManOrderListScreen({Key? key, this.deliveryMan}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class DeliveryManOrderListScreen extends StatelessWidget {
         RefreshIndicator(
           backgroundColor: Theme.of(context).primaryColor,
           onRefresh: () async {
-            await order.getDeliveryManOrderListHistory(context,1,deliveryMan.id);
+            await order.getDeliveryManOrderListHistory(context,1,deliveryMan!.id);
           },
           child: ListView.builder(
             itemCount: orderList.length,

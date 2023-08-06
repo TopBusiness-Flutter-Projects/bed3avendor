@@ -6,7 +6,7 @@ import 'package:bed3avendor/utill/styles.dart';
 import 'package:bed3avendor/view/screens/auth/auth_screen.dart';
 
 class RegisterSuccessfulWidget extends StatelessWidget {
-  const RegisterSuccessfulWidget({Key key}) : super(key: key);
+  const RegisterSuccessfulWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,24 +24,24 @@ class RegisterSuccessfulWidget extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom : Dimensions.PADDING_SIZE_DEFAULT),
                 child: Container(width: 50,child: Image.asset(Images.success_icon)),
               ),
-              Text(getTranslated('shop_register_message1', context),style: robotoRegular,),
+              Text(getTranslated('shop_register_message1', context)!,style: robotoRegular,),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(getTranslated('been_sent', context),style: robotoRegular),
+                    Text(getTranslated('been_sent', context)!,style: robotoRegular),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 2.0),
-                      child: Text(getTranslated('successfully', context),style: robotoMedium.copyWith(color: Colors.green[600])),
+                      child: Text(getTranslated('successfully', context)!,style: robotoMedium.copyWith(color: Colors.green[600])),
                     ),
-                    Text(getTranslated('to_admin', context),style: robotoRegular),
+                    Text(getTranslated('to_admin', context)!,style: robotoRegular),
                   ],
                 ),
               ),
               Padding(
                 padding:  EdgeInsets.symmetric(horizontal : 20),
-                child: Text(getTranslated('shop_register_message2', context),style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL), textAlign: TextAlign.center,),
+                child: Text(getTranslated('shop_register_message2', context)!,style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL), textAlign: TextAlign.center,),
               ),
             ]),
 

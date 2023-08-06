@@ -14,28 +14,28 @@ import 'package:bed3avendor/view/screens/pos/widget/product_variation_selection_
 
 
 class SearchedProductItemWidget extends StatelessWidget {
-  final Product product;
-  const SearchedProductItemWidget({Key key, this.product}) : super(key: key);
+  final Product? product;
+  const SearchedProductItemWidget({Key? key, this.product}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    String baseUrl = Provider.of<SplashProvider>(context, listen: false).baseUrls.productThumbnailUrl;
+    String? baseUrl = Provider.of<SplashProvider>(context, listen: false).baseUrls!.productThumbnailUrl;
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Consumer<CartProvider>(
         builder: (context, cartController, _) {
           return InkWell(
             onTap: (){
-              if(product.currentStock < 1){
+              if(product!.currentStock! < 1){
                 showCustomSnackBar(getTranslated('stock_out', context), context, isToaster: true);
               }else{
-                if(product.variation.isNotEmpty){
+                if(product!.variation!.isNotEmpty){
                   showModalBottomSheet(context: context, isScrollControlled: true,
                       backgroundColor: Theme.of(context).primaryColor.withOpacity(0),
                       builder: (con) => CartBottomSheet(product: product, callback: (){
                         showCustomSnackBar(getTranslated('added_to_cart', context), context, isError: false);},));
                 }else{
-                  CartModel cartModel = CartModel(product.unitPrice, product.discount, 1, product.tax,null,null, product, product.taxModel);
+                  CartModel cartModel = CartModel(product!.unitPrice, product!.discount, 1, product!.tax,null,null, product, product!.taxModel);
                   cartController.addToCart(context, cartModel);
                 }
 
@@ -53,12 +53,12 @@ class SearchedProductItemWidget extends StatelessWidget {
                   padding: const EdgeInsets.all(Dimensions.PADDING_SIZE_BORDER),
                   child: CustomImage(
                     fit: BoxFit.cover,
-                    image: '$baseUrl/${product.thumbnail}',
+                    image: '$baseUrl/${product!.thumbnail}',
                   ),
                 ),
               ),),
               SizedBox(width: Dimensions.PADDING_SIZE_DEFAULT,),
-              Expanded(child: Text(product.name, style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT),
+              Expanded(child: Text(product!.name!, style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT),
                 maxLines: 1,overflow: TextOverflow.ellipsis,))
             ])),
           );

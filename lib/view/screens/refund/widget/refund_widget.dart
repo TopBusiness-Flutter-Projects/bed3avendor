@@ -15,16 +15,16 @@ import 'package:bed3avendor/view/screens/refund/refund_details_screen.dart';
 import 'package:bed3avendor/view/screens/refund/widget/refund_attachment_list.dart';
 
 class RefundWidget extends StatelessWidget {
-  final RefundModel refundModel;
+  final RefundModel? refundModel;
   final bool isDetails;
-  RefundWidget({@required this.refundModel, this.isDetails = false});
+  RefundWidget({required this.refundModel, this.isDetails = false});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: isDetails? null:() => Navigator.push(context, MaterialPageRoute(builder: (_) => RefundDetailsScreen(
-          refundModel: refundModel, orderDetailsId: refundModel.orderDetailsId,
-          variation: refundModel.orderDetails.variant))),
+          refundModel: refundModel, orderDetailsId: refundModel!.orderDetailsId,
+          variation: refundModel!.orderDetails!.variant))),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(Dimensions.PADDING_SIZE_DEFAULT, 0, Dimensions.PADDING_SIZE_DEFAULT, Dimensions.PADDING_SIZE_MEDIUM),
         child: Container(
@@ -58,20 +58,20 @@ class RefundWidget extends StatelessWidget {
                           style: robotoRegular.copyWith(color: Theme.of(context).primaryColor,
                               fontSize: Dimensions.FONT_SIZE_LARGE),),
 
-                        Text(' ${refundModel.orderId.toString()}',
+                        Text(' ${refundModel!.orderId.toString()}',
                           style: robotoMedium.copyWith(color: ColorResources.getTextColor(context),
                               fontSize: Dimensions.FONT_SIZE_LARGE),),
                       ],
                     ),
                   ),
 
-                  refundModel.product != null?
+                  refundModel!.product != null?
                   Container(padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_SMALL, vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                     decoration: BoxDecoration(
                     color: Theme.of(context).primaryColor,
                     borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_EXTRA_SMALL)
                   ),
-                    child: Text(PriceConverter.convertPrice(context, refundModel.product?.unitPrice),
+                    child: Text(PriceConverter.convertPrice(context, refundModel!.product?.unitPrice),
                       style: robotoMedium.copyWith(color: Colors.white,
                           fontSize: Dimensions.FONT_SIZE_LARGE)),
                   ):SizedBox(),
@@ -80,7 +80,7 @@ class RefundWidget extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(left: Dimensions.PADDING_SIZE_MEDIUM,bottom: Dimensions.PADDING_SIZE_SMALL, right: Dimensions.PADDING_SIZE_MEDIUM),
-              child: Text('${getTranslated('requested_on', context)} : ${DateConverter.localDateToIsoStringAMPM(DateTime.parse(refundModel.createdAt))}',
+              child: Text('${getTranslated('requested_on', context)} : ${DateConverter.localDateToIsoStringAMPM(DateTime.parse(refundModel!.createdAt!))}',
                   style: robotoRegular.copyWith(color: Theme.of(context).hintColor)),
             ),
             Container(
@@ -89,13 +89,13 @@ class RefundWidget extends StatelessWidget {
 
               child: refundModel != null ?
               Row(children: [
-                refundModel.product != null?
+                refundModel!.product != null?
                 Container(
                   width: Dimensions.stock_out_image_size, height: Dimensions.stock_out_image_size,
                   child: ClipRRect(
                     borderRadius: BorderRadius.all(Radius.circular(Dimensions.PADDING_SIZE_SMALL),),
-                    child: CustomImage(image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls.productThumbnailUrl}/'
-                        '${refundModel.product.thumbnail}',)
+                    child: CustomImage(image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls!.productThumbnailUrl}/'
+                        '${refundModel!.product!.thumbnail}',)
 
                   ) ,
                   decoration: BoxDecoration(
@@ -108,11 +108,11 @@ class RefundWidget extends StatelessWidget {
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
 
                   SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL,),
-                  refundModel.product != null?
-                  Text('${refundModel.product.name.toString()}',
+                  refundModel!.product != null?
+                  Text('${refundModel!.product!.name.toString()}',
                     maxLines: 1, overflow: TextOverflow.ellipsis,
                     style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT)):SizedBox(),
-                  refundModel.product != null?
+                  refundModel!.product != null?
                   SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL,):SizedBox(),
 
                   Row( mainAxisAlignment: MainAxisAlignment.start,
@@ -121,7 +121,7 @@ class RefundWidget extends StatelessWidget {
 
                         child: Image.asset(Images.order_pending_icon),),
                       Padding(padding: const EdgeInsets.all(8.0),
-                        child: Text(getTranslated(refundModel.status, context),
+                        child: Text(getTranslated(refundModel!.status, context)!,
                             style: robotoRegular.copyWith(color: ColorResources.getPrimary(context))),
                       ),
                     ],
@@ -130,10 +130,10 @@ class RefundWidget extends StatelessWidget {
 
                   Row(children: [
                     Container(height: Dimensions.ICON_SIZE_DEFAULT, width: Dimensions.ICON_SIZE_DEFAULT,
-                      child: Image.asset(refundModel.paymentInfo == 'cash_on_delivery'? Images.cash_payment_icon:
-                      refundModel.paymentInfo == 'pay_by_wallet'? Images.pay_by_wallet_icon : Images.digital_payment_icon),),
+                      child: Image.asset(refundModel!.paymentInfo == 'cash_on_delivery'? Images.cash_payment_icon:
+                      refundModel!.paymentInfo == 'pay_by_wallet'? Images.pay_by_wallet_icon : Images.digital_payment_icon),),
                     SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
-                    Text(refundModel.order != null? getTranslated(refundModel.order.paymentMethod, context):'',
+                    Text(refundModel!.order != null? getTranslated(refundModel!.order!.paymentMethod, context)!:'',
                         style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT, color: Theme.of(context).hintColor)),
                   ],),
                 ],),),
@@ -148,7 +148,7 @@ class RefundWidget extends StatelessWidget {
                 Text('${getTranslated('reason', context)}: ',
                     style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT, color: Theme.of(context).primaryColor)),
 
-                Text( refundModel.refundReason,overflow: TextOverflow.ellipsis,
+                Text( refundModel!.refundReason!,overflow: TextOverflow.ellipsis,
                     maxLines: isDetails? 50 : 1,
                     style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT)),
               ],):
@@ -157,14 +157,14 @@ class RefundWidget extends StatelessWidget {
                     style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT, color: Theme.of(context).primaryColor)),
 
                 Expanded(
-                  child: Text( refundModel.refundReason,overflow: TextOverflow.ellipsis,
+                  child: Text( refundModel!.refundReason!,overflow: TextOverflow.ellipsis,
                       maxLines: isDetails? 50 : 1,
                       style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT)),
                 ),
               ],),
             ),
 
-            refundModel.images != null && refundModel.images.length>0 && isDetails?
+            refundModel!.images != null && refundModel!.images!.length>0 && isDetails?
             RefundAttachmentList(refundModel: refundModel) : SizedBox(),
             ],
           ),

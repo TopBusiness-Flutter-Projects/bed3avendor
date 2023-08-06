@@ -27,9 +27,9 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   final PageController _pageController = PageController();
   int _pageIndex = 0;
-  List<Widget> _screens;
+  late List<Widget> _screens;
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
-  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+  FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin;
 
   @override
   void initState() {
@@ -54,7 +54,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     var iOSInitialize = const IOSInitializationSettings();
     var initializationsSettings = InitializationSettings(android: androidInitialize, iOS: iOSInitialize);
     flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-    flutterLocalNotificationsPlugin.initialize(initializationsSettings);
+    flutterLocalNotificationsPlugin!.initialize(initializationsSettings);
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       debugPrint("onMessage: ${message.data}");
@@ -124,7 +124,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  BottomNavigationBarItem _barItem(String icon, String label, int index) {
+  BottomNavigationBarItem _barItem(String icon, String? label, int index) {
     return BottomNavigationBarItem(
       icon: Padding(
         padding: const EdgeInsets.only(bottom : Dimensions.PADDING_SIZE_EXTRA_SMALL),

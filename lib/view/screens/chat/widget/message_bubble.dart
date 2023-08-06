@@ -13,17 +13,17 @@ import 'package:bed3avendor/utill/styles.dart';
 class MessageBubble extends StatelessWidget {
   final Message message;
 
-  MessageBubble({@required this.message});
+  MessageBubble({required this.message});
 
   @override
   Widget build(BuildContext context) {
     bool isMe = message.sentBySeller == 1;
 
-    String baseUrl = Provider.of<ChatProvider>(context, listen: false).userTypeIndex == 0 ?
-    Provider.of<SplashProvider>(context, listen: false).baseUrls.customerImageUrl:
-    Provider.of<SplashProvider>(context, listen: false).baseUrls.sellerImageUrl;
-    String image = Provider.of<ChatProvider>(context, listen: false).userTypeIndex == 0 ?
-    message.customer != null? message.customer?.image :'' : message.deliveryMan.image;
+    String? baseUrl = Provider.of<ChatProvider>(context, listen: false).userTypeIndex == 0 ?
+    Provider.of<SplashProvider>(context, listen: false).baseUrls!.customerImageUrl:
+    Provider.of<SplashProvider>(context, listen: false).baseUrls!.sellerImageUrl;
+    String? image = Provider.of<ChatProvider>(context, listen: false).userTypeIndex == 0 ?
+    message.customer != null? message.customer?.image :'' : message.deliveryMan!.image;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: Dimensions.PADDING_SIZE_SMALL),
       child: Row(crossAxisAlignment: CrossAxisAlignment.end,
@@ -62,7 +62,7 @@ class MessageBubble extends StatelessWidget {
                       color: isMe ? Theme.of(context).hintColor.withOpacity(.125) : ColorResources.getPrimary(context).withOpacity(.10),
                     ),
                     child: Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-                      message.message.isNotEmpty ? Text(message.message,
+                      message.message!.isNotEmpty ? Text(message.message!,
                           style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT,
                                color: isMe ?
                                ColorResources.getTextColor(context): ColorResources.getTextColor(context))) : SizedBox.shrink(),
@@ -70,7 +70,7 @@ class MessageBubble extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                  child: Text(DateConverter.customTime(DateTime.parse(message.createdAt)),
+                  child: Text(DateConverter.customTime(DateTime.parse(message.createdAt!)),
                       style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL,
                         color: ColorResources.getHint(context),
                       )),

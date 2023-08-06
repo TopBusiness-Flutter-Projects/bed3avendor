@@ -35,7 +35,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
 
-  File file;
+  File? file;
   final picker = ImagePicker();
   final GlobalKey<ScaffoldMessengerState> _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
 
@@ -57,9 +57,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
     String _password = _passwordController.text.trim();
     String _confirmPassword = _confirmPasswordController.text.trim();
 
-    if(Provider.of<ProfileProvider>(context, listen: false).userInfoModel.fName == _firstNameController.text
-        && Provider.of<ProfileProvider>(context, listen: false).userInfoModel.lName == _lastNameController.text
-        && Provider.of<ProfileProvider>(context, listen: false).userInfoModel.phone == _phoneController.text && file == null
+    if(Provider.of<ProfileProvider>(context, listen: false).userInfoModel!.fName == _firstNameController.text
+        && Provider.of<ProfileProvider>(context, listen: false).userInfoModel!.lName == _lastNameController.text
+        && Provider.of<ProfileProvider>(context, listen: false).userInfoModel!.phone == _phoneController.text && file == null
     && _passwordController.text.isEmpty && _confirmPasswordController.text.isEmpty) {
       showCustomSnackBar(getTranslated('change_something_to_update', context), context);
 
@@ -86,13 +86,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
 
     else {
-      SellerModel updateUserInfoModel = Provider.of<ProfileProvider>(context, listen: false).userInfoModel;
+      SellerModel updateUserInfoModel = Provider.of<ProfileProvider>(context, listen: false).userInfoModel!;
       updateUserInfoModel.fName = _firstNameController.text ?? "";
       updateUserInfoModel.lName = _lastNameController.text ?? "";
       updateUserInfoModel.phone = _phoneController.text ?? '';
       String _password = _passwordController.text ?? '';
 
-      SellerModel _bank = Provider.of<BankInfoProvider>(context, listen: false).bankInfo;
+      SellerModel _bank = Provider.of<BankInfoProvider>(context, listen: false).bankInfo!;
       SellerBody _sellerBody = SellerBody(
           sMethod: '_put', fName: _firstNameController.text ?? "", lName: _lastNameController.text ?? "",
         image: updateUserInfoModel.image,
@@ -104,10 +104,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ).then((response) {
         if(response.isSuccess) {
           Provider.of<ProfileProvider>(context, listen: false).getSellerInfo(context);
-         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated('updated_successfully', context)), backgroundColor: Colors.green));
+         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated('updated_successfully', context)!), backgroundColor: Colors.green));
           setState(() {});
         }else {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(response.message), backgroundColor: Colors.red));
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(response.message!), backgroundColor: Colors.red));
         }
       });
     }
@@ -130,9 +130,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
         builder: (context, profile, child) {
 
           if(_firstNameController.text.isEmpty || _lastNameController.text.isEmpty) {
-            _firstNameController.text = profile.userInfoModel.fName;
-            _lastNameController.text = profile.userInfoModel.lName;
-            _phoneController.text = profile.userInfoModel.phone;
+            _firstNameController.text = profile.userInfoModel!.fName!;
+            _lastNameController.text = profile.userInfoModel!.lName!;
+            _phoneController.text = profile.userInfoModel!.phone!;
           }
           return SingleChildScrollView(
             child: Column(
@@ -152,8 +152,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         borderRadius: BorderRadius.circular(50),
                         child: file == null ?
                         CustomImage(width: 100,height: 100,fit: BoxFit.cover,
-                            image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls.sellerImageUrl}/${profile.userInfoModel.image ?? ''}')
-                            : Image.file(file, width: 100, height: 100, fit: BoxFit.fill),),
+                            image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls!.sellerImageUrl}/${profile.userInfoModel!.image ?? ''}')
+                            : Image.file(file!, width: 100, height: 100, fit: BoxFit.fill),),
 
                       Positioned(
                         bottom: 0,
@@ -195,7 +195,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         textInputType: TextInputType.name,
                         focusNode: _fNameFocus,
                         nextNode: _lNameFocus,
-                        hintText: profile.userInfoModel.fName ?? '',
+                        hintText: profile.userInfoModel!.fName ?? '',
                         controller: _firstNameController,
                       ),
 
@@ -205,7 +205,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         textInputType: TextInputType.name,
                         focusNode: _lNameFocus,
                         nextNode: _phoneFocus,
-                        hintText: profile.userInfoModel.lName,
+                        hintText: profile.userInfoModel!.lName,
                         controller: _lastNameController,
                       ),
 
@@ -213,7 +213,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Container(
                         child: CustomTextField(
                           idDate: true,
-                          hintText: profile.userInfoModel.email ?? "",
+                          hintText: profile.userInfoModel!.email ?? "",
                           border: true,
 
                         ),
@@ -226,7 +226,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           textInputType: TextInputType.number,
                           focusNode: _phoneFocus,
                           nextNode: _passwordFocus,
-                          hintText: profile.userInfoModel.phone ?? "",
+                          hintText: profile.userInfoModel!.phone ?? "",
                           controller: _phoneController,
                           isPhoneNumber: true,
                         ),

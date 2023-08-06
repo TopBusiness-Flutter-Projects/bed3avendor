@@ -7,7 +7,7 @@ import 'package:bed3avendor/utill/styles.dart';
 
 class OrderShimmer extends StatelessWidget {
   final bool isEnabled;
-  OrderShimmer({@required this.isEnabled});
+  OrderShimmer({required this.isEnabled});
 
   @override
   Widget build(BuildContext context) {
@@ -17,11 +17,11 @@ class OrderShimmer extends StatelessWidget {
       decoration: BoxDecoration(
         color: Theme.of(context).highlightColor,
         borderRadius: BorderRadius.circular(10),
-        boxShadow: [BoxShadow(color: Colors.grey[200], blurRadius: 10, spreadRadius: 1)],
+        boxShadow: [BoxShadow(color: Colors.grey[200]!, blurRadius: 10, spreadRadius: 1)],
       ),
       child: Shimmer.fromColors(
-        baseColor: Colors.grey[300],
-        highlightColor: Colors.grey[100],
+        baseColor: Colors.grey[300]!,
+        highlightColor: Colors.grey[100]!,
         enabled: isEnabled,
         child: Column(
           children: [

@@ -22,20 +22,20 @@ import 'package:bed3avendor/view/screens/addProduct/widget/select_category_widge
 import 'package:bed3avendor/view/screens/addProduct/widget/title_and_description_widget.dart';
 
 class AddProductScreen extends StatefulWidget {
-  final Product product;
-  final AddProductModel addProduct;
-  final EditProduct editProduct;
-  AddProductScreen({Key key, this.product,  this.addProduct, this.editProduct}): super(key: key);
+  final Product? product;
+  final AddProductModel? addProduct;
+  final EditProduct? editProduct;
+  AddProductScreen({Key? key, this.product,  this.addProduct, this.editProduct}): super(key: key);
   @override
   _AddProductScreenState createState() => _AddProductScreenState();
 }
 
 class _AddProductScreenState extends State<AddProductScreen> with TickerProviderStateMixin {
-  TabController _tabController;
-  int length;
-  bool _update;
+  TabController? _tabController;
+  int? length;
+  late bool _update;
   int cat=0, subCat=0, subSubCat=0, unit=0, brand=0;
-  String unitValue = '';
+  String? unitValue = '';
   List<String> titleList = [];
   List<String> descriptionList = [];
 
@@ -43,7 +43,7 @@ class _AddProductScreenState extends State<AddProductScreen> with TickerProvider
 
   void _load(){
     String languageCode = Provider.of<LocalizationProvider>(context, listen: false).locale.countryCode == 'US'?
-    'en':Provider.of<LocalizationProvider>(context, listen: false).locale.countryCode.toLowerCase();
+    'en':Provider.of<LocalizationProvider>(context, listen: false).locale.countryCode!.toLowerCase();
     Provider.of<SplashProvider>(context,listen: false).getColorList();
     Provider.of<SellerProvider>(context,listen: false).getAttributeList(context, widget.product, languageCode);
     Provider.of<SellerProvider>(context,listen: false).getCategoryList(context,widget.product, languageCode);
@@ -54,36 +54,36 @@ class _AddProductScreenState extends State<AddProductScreen> with TickerProvider
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: Provider.of<SplashProvider>(context,listen: false).configModel.languageList.length,
+    _tabController = TabController(length: Provider.of<SplashProvider>(context,listen: false).configModel!.languageList!.length,
         initialIndex: 0,vsync: this);
 
     _tabController?.addListener((){
-      print('my index is'+ _tabController.index.toString());
+      print('my index is'+ _tabController!.index.toString());
     });
 
     _load();
-    length = Provider.of<SplashProvider>(context,listen: false).configModel.languageList.length;
+    length = Provider.of<SplashProvider>(context,listen: false).configModel!.languageList!.length;
     _update = widget.product != null;
 
 
 
     if(widget.product != null){
-      unitValue = widget.product.unit;
-      Provider.of<SellerProvider>(context,listen: false).productCode.text = widget.product.code;
-      Provider.of<SellerProvider>(context,listen: false).getEditProduct(context, widget.product.id);
-      Provider.of<SellerProvider>(context,listen: false).setValueForUnit(widget.product.unit.toString()) ;
-      Provider.of<SellerProvider>(context,listen: false).setProductTypeIndex(widget.product.productType == "physical"? 0 : 1, false) ;
-      Provider.of<SellerProvider>(context,listen: false).setDigitalProductTypeIndex(widget.product.digitalProductType == "ready_after_sell"? 0 : 1, false) ;
+      unitValue = widget.product!.unit;
+      Provider.of<SellerProvider>(context,listen: false).productCode.text = widget.product!.code!;
+      Provider.of<SellerProvider>(context,listen: false).getEditProduct(context, widget.product!.id);
+      Provider.of<SellerProvider>(context,listen: false).setValueForUnit(widget.product!.unit.toString()) ;
+      Provider.of<SellerProvider>(context,listen: false).setProductTypeIndex(widget.product!.productType == "physical"? 0 : 1, false) ;
+      Provider.of<SellerProvider>(context,listen: false).setDigitalProductTypeIndex(widget.product!.digitalProductType == "ready_after_sell"? 0 : 1, false) ;
     }else{
       Provider.of<SellerProvider>(context,listen: false).
-      getTitleAndDescriptionList(Provider.of<SplashProvider>(context,listen: false).configModel.languageList, null);
+      getTitleAndDescriptionList(Provider.of<SplashProvider>(context,listen: false).configModel!.languageList!, null);
     }
 
   }
 
   @override
   Widget build(BuildContext context) {
-    List<int> _brandIds;
+    late List<int?> _brandIds;
      return Scaffold(
       appBar: CustomAppBar(title: widget.product != null ?
       getTranslated('update_product', context):getTranslated('add_product', context),),
@@ -94,12 +94,12 @@ class _AddProductScreenState extends State<AddProductScreen> with TickerProvider
              _brandIds = [];
             _brandIds.add(0);
             if(resProvider.brandList != null) {
-              for(int index=0; index<resProvider.brandList.length; index++) {
-                _brandIds.add(resProvider.brandList[index].id);
+              for(int index=0; index<resProvider.brandList!.length; index++) {
+                _brandIds.add(resProvider.brandList![index].id);
               }
-              if(_update && widget.product.brandId != null) {
+              if(_update && widget.product!.brandId != null) {
                 if(brand ==0){
-                  resProvider.setBrandIndex(_brandIds.indexOf(widget.product.brandId), false);
+                  resProvider.setBrandIndex(_brandIds.indexOf(widget.product!.brandId), false);
                   brand++;
                 }
 
@@ -135,14 +135,14 @@ class _AddProductScreenState extends State<AddProductScreen> with TickerProvider
                     ),
 
                     SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
-                    Provider.of<SplashProvider>(context, listen: false).configModel.digitalProductSetting == "1"?
+                    Provider.of<SplashProvider>(context, listen: false).configModel!.digitalProductSetting == "1"?
                     DigitalProductWidget(resProvider: resProvider, product: widget.product):SizedBox(),
 
                     Container(padding: EdgeInsets.fromLTRB(Dimensions.PADDING_SIZE_DEFAULT, 0, Dimensions.PADDING_SIZE_DEFAULT, 0),
                       child: Column(children: [
                       Row(
                         children: [
-                          Text(getTranslated('product_code_sku', context), style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT)),
+                          Text(getTranslated('product_code_sku', context)!, style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT)),
                           Text('*',style: robotoBold.copyWith(color: ColorResources.mainCardFourColor(context),
                               fontSize: Dimensions.FONT_SIZE_DEFAULT),),
                           Spacer(),
@@ -152,7 +152,7 @@ class _AddProductScreenState extends State<AddProductScreen> with TickerProvider
                               var code = rng.nextInt(900000) + 100000;
                               resProvider.productCode.text = code.toString();
                             },
-                              child: Text(getTranslated('generate_code', context), style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT, color: ColorResources.mainCardFourColor(context)))),
+                              child: Text(getTranslated('generate_code', context)!, style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT, color: ColorResources.mainCardFourColor(context)))),
                         ],
                       ),
                       SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
@@ -168,8 +168,8 @@ class _AddProductScreenState extends State<AddProductScreen> with TickerProvider
 
 
 
-                    SizedBox(height:  Provider.of<SplashProvider>(context, listen: false).configModel.brandSetting == "1" ? Dimensions.PADDING_SIZE_SMALL:0),
-                    Provider.of<SplashProvider>(context, listen: false).configModel.brandSetting == "1"?
+                    SizedBox(height:  Provider.of<SplashProvider>(context, listen: false).configModel!.brandSetting == "1" ? Dimensions.PADDING_SIZE_SMALL:0),
+                    Provider.of<SplashProvider>(context, listen: false).configModel!.brandSetting == "1"?
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_DEFAULT),
                       child: Column(
@@ -177,7 +177,7 @@ class _AddProductScreenState extends State<AddProductScreen> with TickerProvider
                         children: [
                           Row(
                             children: [
-                              Text(getTranslated('select_brand', context) , style: robotoRegular.copyWith(
+                              Text(getTranslated('select_brand', context)! , style: robotoRegular.copyWith(
                                   color: ColorResources.titleColor(context), fontSize: Dimensions.FONT_SIZE_DEFAULT)),
                               Text('*',style: robotoBold.copyWith(color: ColorResources.mainCardFourColor(context),
                                   fontSize: Dimensions.FONT_SIZE_DEFAULT),),
@@ -193,13 +193,13 @@ class _AddProductScreenState extends State<AddProductScreen> with TickerProvider
                             ),
                             child: DropdownButton<int>(
                               value: resProvider.brandIndex,
-                              items: _brandIds.map((int value) {
+                              items: _brandIds.map((int? value) {
                                 return DropdownMenuItem<int>(
                                   value: _brandIds.indexOf(value),
-                                  child: Text(value != 0 ? resProvider.brandList[(_brandIds.indexOf(value)-1)].name : getTranslated('select', context)),
+                                  child: Text(value != 0 ? resProvider.brandList![(_brandIds.indexOf(value)-1)].name! : getTranslated('select', context)!),
                                 );
                               }).toList(),
-                              onChanged: (int value) {
+                              onChanged: (int? value) {
                                 resProvider.setBrandIndex(value, true);
                                 // resProvider.changeBrandSelectedIndex(value);
                               },
@@ -225,7 +225,7 @@ class _AddProductScreenState extends State<AddProductScreen> with TickerProvider
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(children: [
-                            Text(getTranslated('select_unit', context), style: robotoRegular.copyWith(
+                            Text(getTranslated('select_unit', context)!, style: robotoRegular.copyWith(
                                 color: ColorResources.titleColor(context), fontSize: Dimensions.FONT_SIZE_DEFAULT)),
                             Text('*',style: robotoBold.copyWith(color: ColorResources.mainCardFourColor(context),
                                 fontSize: Dimensions.FONT_SIZE_DEFAULT),),
@@ -239,9 +239,9 @@ class _AddProductScreenState extends State<AddProductScreen> with TickerProvider
                               border: Border.all(width: .5, color: Theme.of(context).hintColor.withOpacity(.7)),
                             ),
                             child: DropdownButton<String>(
-                              hint: resProvider.unitValue == null ? Text(getTranslated('select', context)) :
-                              Text(resProvider.unitValue, style: TextStyle(color: ColorResources.getTextColor(context)),),
-                              items: Provider.of<SplashProvider>(context,listen: false).configModel.unit.map((String value) {
+                              hint: resProvider.unitValue == null ? Text(getTranslated('select', context)!) :
+                              Text(resProvider.unitValue!, style: TextStyle(color: ColorResources.getTextColor(context)),),
+                              items: Provider.of<SplashProvider>(context,listen: false).configModel!.unit!.map((String value) {
                                 return DropdownMenuItem<String>(
                                     value: value,
                                     child: Text(value));}).toList(),
@@ -271,7 +271,7 @@ class _AddProductScreenState extends State<AddProductScreen> with TickerProvider
          height: 80,
          decoration: BoxDecoration(
            color: Theme.of(context).cardColor,
-           boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 800 : 200],
+           boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 800 : 200]!,
                spreadRadius: 0.5, blurRadius: 0.3)],
          ),
          child: Consumer<SellerProvider>(
@@ -306,7 +306,7 @@ class _AddProductScreenState extends State<AddProductScreen> with TickerProvider
                  else if (resProvider.categoryIndex == 0) {
                    showCustomSnackBar(getTranslated('select_a_category',context),context);
                  }
-                 else if (resProvider.brandIndex == 0 && Provider.of<SplashProvider>(context, listen: false).configModel.brandSetting == "1") {
+                 else if (resProvider.brandIndex == 0 && Provider.of<SplashProvider>(context, listen: false).configModel!.brandSetting == "1") {
                    showCustomSnackBar(getTranslated('select_a_brand',context),context);
                  }
                  else if (resProvider.unitValue == '' || resProvider.unitValue == null &&  resProvider.productTypeIndex == 0) {
@@ -329,10 +329,10 @@ class _AddProductScreenState extends State<AddProductScreen> with TickerProvider
 
 
                    Navigator.push(context, MaterialPageRoute(builder: (_) => AddProductNextScreen(
-                       categoryId: resProvider.categoryList[resProvider.categoryIndex-1].id.toString(),
-                       subCategoryId: resProvider.subCategoryIndex != 0? resProvider.subCategoryList[resProvider.subCategoryIndex-1].id.toString(): "-1",
-                       subSubCategoryId: resProvider.subSubCategoryIndex != 0? resProvider.subSubCategoryList[resProvider.subSubCategoryIndex-1].id.toString():"-1",
-                       brandId: _brandIds[resProvider.brandIndex].toString(),
+                       categoryId: resProvider.categoryList![resProvider.categoryIndex!-1].id.toString(),
+                       subCategoryId: resProvider.subCategoryIndex != 0? resProvider.subCategoryList![resProvider.subCategoryIndex!-1].id.toString(): "-1",
+                       subSubCategoryId: resProvider.subSubCategoryIndex != 0? resProvider.subSubCategoryList![resProvider.subSubCategoryIndex!-1].id.toString():"-1",
+                       brandId: _brandIds[resProvider.brandIndex!].toString(),
                        unit: unitValue,
                        product: widget.product, addProduct: widget.addProduct)));
 
@@ -360,8 +360,8 @@ class _AddProductScreenState extends State<AddProductScreen> with TickerProvider
 
   List<Widget> _generateTabChildren() {
     List<Widget> _tabs = [];
-    for(int index=0; index < Provider.of<SplashProvider>(context, listen: false).configModel.languageList.length; index++) {
-      _tabs.add(Text(Provider.of<SplashProvider>(context, listen: false).configModel.languageList[index].name.capitalize(),
+    for(int index=0; index < Provider.of<SplashProvider>(context, listen: false).configModel!.languageList!.length; index++) {
+      _tabs.add(Text(Provider.of<SplashProvider>(context, listen: false).configModel!.languageList![index].name!.capitalize(),
           style: robotoBold.copyWith()));
     }
     return _tabs;
@@ -369,7 +369,7 @@ class _AddProductScreenState extends State<AddProductScreen> with TickerProvider
 
   List<Widget> _generateTabPage(SellerProvider resProvider) {
     List<Widget> _tabView = [];
-    for(int index=0; index < Provider.of<SplashProvider>(context, listen: false).configModel.languageList.length; index++) {
+    for(int index=0; index < Provider.of<SplashProvider>(context, listen: false).configModel!.languageList!.length; index++) {
       _tabView.add(TitleAndDescriptionWidget(resProvider: resProvider, index: index));
     }
     return _tabView;

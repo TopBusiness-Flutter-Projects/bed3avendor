@@ -13,12 +13,12 @@ import 'package:bed3avendor/view/base/custom_app_bar.dart';
 
 
 class InVoicePrintScreen extends StatefulWidget {
-  final InvoiceModel invoice;
-  final ShopModel shopModel;
-  final int orderId;
-  final double discountProduct;
-  final double total;
-  const InVoicePrintScreen({Key key, this.invoice, this.shopModel, this.orderId, this.discountProduct, this.total}) : super(key: key);
+  final InvoiceModel? invoice;
+  final ShopModel? shopModel;
+  final int? orderId;
+  final double? discountProduct;
+  final double? total;
+  const InVoicePrintScreen({Key? key, this.invoice, this.shopModel, this.orderId, this.discountProduct, this.total}) : super(key: key);
 
   @override
   State<InVoicePrintScreen> createState() => _InVoicePrintScreenState();
@@ -29,15 +29,15 @@ class _InVoicePrintScreenState extends State<InVoicePrintScreen> {
   var _isBle = false;
   var printerManager = PrinterManager.instance;
   var devices = <BluetoothPrinter>[];
-  StreamSubscription<PrinterDevice> _subscription;
-  StreamSubscription<BTStatus> _subscriptionBtStatus;
+  StreamSubscription<PrinterDevice>? _subscription;
+  StreamSubscription<BTStatus>? _subscriptionBtStatus;
   BTStatus _currentStatus = BTStatus.none;
-  List<int> pendingTask;
+  List<int>? pendingTask;
   String _ipAddress = '';
   String _port = '9100';
   final _ipController = TextEditingController();
   final _portController = TextEditingController();
-  BluetoothPrinter selectedPrinter;
+  BluetoothPrinter? selectedPrinter;
 
   @override
   void initState() {
@@ -54,11 +54,11 @@ class _InVoicePrintScreenState extends State<InVoicePrintScreen> {
       if (status == BTStatus.connected && pendingTask != null) {
         if (Platform.isAndroid) {
           Future.delayed(const Duration(milliseconds: 1000), () {
-            PrinterManager.instance.send(type: PrinterType.bluetooth, bytes: pendingTask);
+            PrinterManager.instance.send(type: PrinterType.bluetooth, bytes: pendingTask!);
             pendingTask = null;
           });
         } else if (Platform.isIOS) {
-          PrinterManager.instance.send(type: PrinterType.bluetooth, bytes: pendingTask);
+          PrinterManager.instance.send(type: PrinterType.bluetooth, bytes: pendingTask!);
           pendingTask = null;
         }
       }
@@ -117,8 +117,8 @@ class _InVoicePrintScreenState extends State<InVoicePrintScreen> {
 
   void selectDevice(BluetoothPrinter device) async {
     if (selectedPrinter != null) {
-      if ((device.address != selectedPrinter.address) || (device.typePrinter == PrinterType.usb && selectedPrinter.vendorId != device.vendorId)) {
-        await PrinterManager.instance.disconnect(type: selectedPrinter.typePrinter);
+      if ((device.address != selectedPrinter!.address) || (device.typePrinter == PrinterType.usb && selectedPrinter!.vendorId != device.vendorId)) {
+        await PrinterManager.instance.disconnect(type: selectedPrinter!.typePrinter);
       }
     }
 
@@ -132,9 +132,9 @@ class _InVoicePrintScreenState extends State<InVoicePrintScreen> {
     final generator = Generator(PaperSize.mm80, profile);
     List<int> bytes = [];
 
-    bytes += generator.text('${widget.shopModel.name}',
+    bytes += generator.text('${widget.shopModel!.name}',
         styles: const PosStyles(align: PosAlign.center,bold: true));
-    bytes += generator.text('${widget.shopModel.contact}',
+    bytes += generator.text('${widget.shopModel!.contact}',
         styles: const PosStyles(align: PosAlign.center));
 
     bytes += generator.text('...............................................................', styles: const PosStyles(align: PosAlign.center));
@@ -142,20 +142,20 @@ class _InVoicePrintScreenState extends State<InVoicePrintScreen> {
 
     bytes += generator.row([
       PosColumn(
-        text: '${getTranslated('invoice', context).toUpperCase()}#${widget.orderId}',
+        text: '${getTranslated('invoice', context)!.toUpperCase()}#${widget.orderId}',
         width: 6,
         styles: PosStyles(align: PosAlign.left, underline: true),
       ),
 
       PosColumn(
-        text: getTranslated('payment_method', context),
+        text: getTranslated('payment_method', context)!,
         width: 6,
         styles: PosStyles(align: PosAlign.right, underline: true),
       ),
     ]);
     bytes += generator.row([
       PosColumn(
-        text: '${DateConverter.dateTimeStringToMonthAndTime(widget.invoice.createdAt)}',
+        text: '${DateConverter.dateTimeStringToMonthAndTime(widget.invoice!.createdAt!)}',
         width: 6,
         styles: PosStyles(align: PosAlign.left),
       ),
@@ -169,23 +169,23 @@ class _InVoicePrintScreenState extends State<InVoicePrintScreen> {
 
     bytes += generator.row([
       PosColumn(
-        text: '${getTranslated('sl', context).toUpperCase()}',
+        text: '${getTranslated('sl', context)!.toUpperCase()}',
         width: 2,
         styles: PosStyles(align: PosAlign.left),
       ),
 
       PosColumn(
-        text: getTranslated('product_info', context),
+        text: getTranslated('product_info', context)!,
         width: 6,
         styles: PosStyles(align: PosAlign.left),
       ),
       PosColumn(
-        text: getTranslated('qty', context),
+        text: getTranslated('qty', context)!,
         width: 1,
         styles: PosStyles(align: PosAlign.right),
       ),
       PosColumn(
-        text: getTranslated('price', context),
+        text: getTranslated('price', context)!,
         width: 3,
         styles: PosStyles(align: PosAlign.right),
       ),
@@ -193,7 +193,7 @@ class _InVoicePrintScreenState extends State<InVoicePrintScreen> {
 
     bytes += generator.text('...............................................................', styles: const PosStyles(align: PosAlign.center));
 
-    for(int i =0; i< widget.invoice.details.length; i++){
+    for(int i =0; i< widget.invoice!.details!.length; i++){
       bytes += generator.row([
         PosColumn(
           text: '${i+1}',
@@ -202,17 +202,17 @@ class _InVoicePrintScreenState extends State<InVoicePrintScreen> {
         ),
 
         PosColumn(
-          text: '${widget.invoice.details[i].productDetails.name}',
+          text: '${widget.invoice!.details![i].productDetails!.name}',
           width: 7,
           styles: PosStyles(align: PosAlign.left),
         ),
         PosColumn(
-          text: '${widget.invoice.details[i].qty.toString()}',
+          text: '${widget.invoice!.details![i].qty.toString()}',
           width: 1,
           styles: PosStyles(align: PosAlign.right),
         ),
         PosColumn(
-          text: '${widget.invoice.details[i].price}',
+          text: '${widget.invoice!.details![i].price}',
           width: 3,
           styles: PosStyles(align: PosAlign.right),
         ),
@@ -225,20 +225,20 @@ class _InVoicePrintScreenState extends State<InVoicePrintScreen> {
 
     bytes += generator.row([
       PosColumn(
-        text: getTranslated('subtotal', context),
+        text: getTranslated('subtotal', context)!,
         width: 6,
         styles: PosStyles(align: PosAlign.left,),
       ),
 
       PosColumn(
-        text: '${widget.invoice.orderAmount}',
+        text: '${widget.invoice!.orderAmount}',
         width: 6,
         styles: PosStyles(align: PosAlign.right,),
       ),
     ]);
     bytes += generator.row([
       PosColumn(
-        text: getTranslated('product_discount', context),
+        text: getTranslated('product_discount', context)!,
         width: 6,
         styles: PosStyles(align: PosAlign.left),
       ),
@@ -252,7 +252,7 @@ class _InVoicePrintScreenState extends State<InVoicePrintScreen> {
 
     bytes += generator.row([
       PosColumn(
-        text: getTranslated('coupon_discount', context),
+        text: getTranslated('coupon_discount', context)!,
         width: 6,
         styles: PosStyles(align: PosAlign.left),
       ),
@@ -265,20 +265,20 @@ class _InVoicePrintScreenState extends State<InVoicePrintScreen> {
     ]);
     bytes += generator.row([
       PosColumn(
-        text: getTranslated('extra_discount', context),
+        text: getTranslated('extra_discount', context)!,
         width: 6,
         styles: PosStyles(align: PosAlign.left),
       ),
 
       PosColumn(
-        text: '${widget.invoice.extraDiscount}',
+        text: '${widget.invoice!.extraDiscount}',
         width: 6,
         styles: PosStyles(align: PosAlign.right),
       ),
     ]);
     bytes += generator.row([
       PosColumn(
-        text: getTranslated('tax', context),
+        text: getTranslated('tax', context)!,
         width: 6,
         styles: PosStyles(align: PosAlign.left),
       ),
@@ -294,13 +294,13 @@ class _InVoicePrintScreenState extends State<InVoicePrintScreen> {
 
     bytes += generator.row([
       PosColumn(
-        text: getTranslated('total', context),
+        text: getTranslated('total', context)!,
         width: 6,
         styles: PosStyles(align: PosAlign.left),
       ),
 
       PosColumn(
-        text: '${widget.total - widget.discountProduct}',
+        text: '${widget.total! - widget.discountProduct!}',
         width: 6,
         styles: PosStyles(align: PosAlign.right),
       ),
@@ -308,13 +308,13 @@ class _InVoicePrintScreenState extends State<InVoicePrintScreen> {
 
     bytes += generator.row([
       PosColumn(
-        text: getTranslated('change', context),
+        text: getTranslated('change', context)!,
         width: 6,
         styles: PosStyles(align: PosAlign.left),
       ),
 
       PosColumn(
-        text: '${widget.invoice.orderAmount - widget.total - widget.discountProduct}',
+        text: '${widget.invoice!.orderAmount! - widget.total! - widget.discountProduct!}',
         width: 6,
         styles: PosStyles(align: PosAlign.right),
       ),
@@ -325,7 +325,7 @@ class _InVoicePrintScreenState extends State<InVoicePrintScreen> {
 
     bytes += generator.text(' ', styles: const PosStyles(align: PosAlign.center));
     bytes += generator.text('...............................................................', styles: const PosStyles(align: PosAlign.center));
-    bytes += generator.text(getTranslated('thank_you', context), styles: const PosStyles(align: PosAlign.center));
+    bytes += generator.text(getTranslated('thank_you', context)!, styles: const PosStyles(align: PosAlign.center));
     bytes += generator.text(' ',);
 
 
@@ -335,7 +335,7 @@ class _InVoicePrintScreenState extends State<InVoicePrintScreen> {
   /// print ticket
   void _printEscPos(List<int> bytes, Generator generator) async {
     if (selectedPrinter == null) return;
-    var bluetoothPrinter = selectedPrinter;
+    var bluetoothPrinter = selectedPrinter!;
 
     switch (bluetoothPrinter.typePrinter) {
       case PrinterType.usb:
@@ -350,14 +350,14 @@ class _InVoicePrintScreenState extends State<InVoicePrintScreen> {
         await printerManager.connect(
             type: bluetoothPrinter.typePrinter,
             model:
-            BluetoothPrinterInput(name: bluetoothPrinter.deviceName, address: bluetoothPrinter.address, isBle: bluetoothPrinter.isBle ?? false));
+            BluetoothPrinterInput(name: bluetoothPrinter.deviceName, address: bluetoothPrinter.address!, isBle: bluetoothPrinter.isBle ?? false));
         pendingTask = null;
         if (Platform.isIOS || Platform.isAndroid) pendingTask = bytes;
         break;
       case PrinterType.network:
         bytes += generator.feed(2);
         bytes += generator.cut();
-        await printerManager.connect(type: bluetoothPrinter.typePrinter, model: TcpPrinterInput(ipAddress: bluetoothPrinter.address));
+        await printerManager.connect(type: bluetoothPrinter.typePrinter, model: TcpPrinterInput(ipAddress: bluetoothPrinter.address!));
         break;
       default:
     }
@@ -392,9 +392,9 @@ class _InVoicePrintScreenState extends State<InVoicePrintScreen> {
                       onTap: () {selectDevice(device);},
                       leading: selectedPrinter != null &&
                           ((device.typePrinter == PrinterType.usb && Platform.isWindows
-                              ? device.deviceName == selectedPrinter.deviceName
-                              : device.vendorId != null && selectedPrinter.vendorId == device.vendorId) ||
-                              (device.address != null && selectedPrinter.address == device.address))
+                              ? device.deviceName == selectedPrinter!.deviceName
+                              : device.vendorId != null && selectedPrinter!.vendorId == device.vendorId) ||
+                              (device.address != null && selectedPrinter!.address == device.address))
                           ? const Icon(
                         Icons.check,
                         color: Colors.green,
@@ -406,7 +406,7 @@ class _InVoicePrintScreenState extends State<InVoicePrintScreen> {
                         },
                         child: Padding(
                           padding: EdgeInsets.symmetric(vertical: 2, horizontal: 20),
-                          child: Text(getTranslated('print_invoice', context), textAlign: TextAlign.center),
+                          child: Text(getTranslated('print_invoice', context)!, textAlign: TextAlign.center),
                         ),
                       ),
                     ),
@@ -453,7 +453,7 @@ class _InVoicePrintScreenState extends State<InVoicePrintScreen> {
                       },
                       child: Padding(
                         padding: EdgeInsets.symmetric(vertical: 4, horizontal: 50),
-                        child: Text(getTranslated('print_invoice', context), textAlign: TextAlign.center),
+                        child: Text(getTranslated('print_invoice', context)!, textAlign: TextAlign.center),
                       ),
                     ),
                   ),
@@ -468,16 +468,16 @@ class _InVoicePrintScreenState extends State<InVoicePrintScreen> {
 }
 
 class BluetoothPrinter {
-  int id;
-  String deviceName;
-  String address;
-  String port;
-  String vendorId;
-  String productId;
+  int? id;
+  String? deviceName;
+  String? address;
+  String? port;
+  String? vendorId;
+  String? productId;
   bool isBle;
 
   PrinterType typePrinter;
-  bool state;
+  bool? state;
 
   BluetoothPrinter(
       {this.deviceName,

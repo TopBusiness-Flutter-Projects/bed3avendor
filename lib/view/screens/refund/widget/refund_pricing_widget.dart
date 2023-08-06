@@ -9,7 +9,7 @@ import 'package:bed3avendor/view/base/custom_divider.dart';
 import 'package:bed3avendor/view/screens/refund/widget/refund_details.dart';
 
 class RefundPricingWidget extends StatelessWidget {
-  const RefundPricingWidget({Key key}) : super(key: key);
+  const RefundPricingWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,21 +24,21 @@ class RefundPricingWidget extends StatelessWidget {
                 child: refund.refundDetailsModel != null?
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
 
-                  ProductCalculationItem(title: 'product_price',price: refund.refundDetailsModel.productPrice,isQ: true, isPositive: true,),
+                  ProductCalculationItem(title: 'product_price',price: refund.refundDetailsModel!.productPrice,isQ: true, isPositive: true,),
 
                   SizedBox(height: Dimensions.PADDING_SIZE_SMALL,),
 
-                  ProductCalculationItem(title: 'product_discount',price: refund.refundDetailsModel.productTotalDiscount, isNegative: true,),
+                  ProductCalculationItem(title: 'product_discount',price: refund.refundDetailsModel!.productTotalDiscount, isNegative: true,),
 
                   SizedBox(height: Dimensions.PADDING_SIZE_SMALL,),
-                  ProductCalculationItem(title: 'coupon_discount',price: refund.refundDetailsModel.couponDiscount, isNegative: true,),
+                  ProductCalculationItem(title: 'coupon_discount',price: refund.refundDetailsModel!.couponDiscount, isNegative: true,),
 
 
                   SizedBox(height: Dimensions.PADDING_SIZE_SMALL,),
-                  ProductCalculationItem(title: 'product_tax',price: refund.refundDetailsModel.productTotalTax, isPositive: true,),
+                  ProductCalculationItem(title: 'product_tax',price: refund.refundDetailsModel!.productTotalTax, isPositive: true,),
 
                   SizedBox(height: Dimensions.PADDING_SIZE_SMALL,),
-                  ProductCalculationItem(title: 'subtotal',price: refund.refundDetailsModel.subtotal),
+                  ProductCalculationItem(title: 'subtotal',price: refund.refundDetailsModel!.subtotal),
 
                   SizedBox(height: Dimensions.PADDING_SIZE_SMALL,),
                   CustomDivider(),
@@ -49,7 +49,7 @@ class RefundPricingWidget extends StatelessWidget {
                       style: robotoMedium.copyWith(color: Theme.of(context).primaryColor,fontSize: Dimensions.FONT_SIZE_DEFAULT),),
                     Spacer(),
                     Text('${PriceConverter.convertPrice(context,
-                        refund.refundDetailsModel.refundAmount)}',
+                        refund.refundDetailsModel!.refundAmount)}',
                       style: robotoMedium.copyWith(color: Theme.of(context).primaryColor,fontSize: Dimensions.FONT_SIZE_LARGE),),
                   ],),
 

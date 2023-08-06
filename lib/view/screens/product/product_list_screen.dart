@@ -13,7 +13,7 @@ import 'package:bed3avendor/view/screens/shop/widget/all_product_widget.dart';
 
 
 class ProductListMenuScreen extends StatefulWidget {
-  const ProductListMenuScreen({Key key}) : super(key: key);
+  const ProductListMenuScreen({Key? key}) : super(key: key);
   @override
   State<ProductListMenuScreen> createState() => _ProductListMenuScreenState();
 }
@@ -24,7 +24,7 @@ class _ProductListMenuScreenState extends State<ProductListMenuScreen> {
   @override
   Widget build(BuildContext context) {
 
-    int userId = Provider.of<ProfileProvider>(context, listen: false).userId;
+    int? userId = Provider.of<ProfileProvider>(context, listen: false).userId;
     Provider.of<ProductProvider>(context, listen: false).initSellerProductList(userId.toString(), 1, context, 'en','', reload: true);
 
     return Scaffold(

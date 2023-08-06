@@ -13,12 +13,12 @@ import 'package:bed3avendor/view/base/custom_image.dart';
 
 class DeliveryManReviewItem extends StatelessWidget {
   final DeliveryManReview reviewModel;
-  const DeliveryManReviewItem({Key key, @required this.reviewModel}) : super(key: key);
+  const DeliveryManReviewItem({Key? key, required this.reviewModel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    print('--------bb-------->${reviewModel.customer.fName}');
-    String baseUrl = '${Provider.of<SplashProvider>(context, listen: false).configModel.baseUrls.customerImageUrl}';
+    print('--------bb-------->${reviewModel.customer!.fName}');
+    String baseUrl = '${Provider.of<SplashProvider>(context, listen: false).configModel!.baseUrls!.customerImageUrl}';
     return Padding(
       padding: const EdgeInsets.fromLTRB(Dimensions.PADDING_SIZE_DEFAULT,0, Dimensions.PADDING_SIZE_DEFAULT, Dimensions.PADDING_SIZE_SMALL),
       child: Container(
@@ -40,7 +40,7 @@ class DeliveryManReviewItem extends StatelessWidget {
                     child: Container(
                       width: Dimensions.PRODUCT_IMAGE_SIZE,
                       height: Dimensions.PRODUCT_IMAGE_SIZE,
-                      child: CustomImage(image:"$baseUrl/${reviewModel.customer.image}"),
+                      child: CustomImage(image:"$baseUrl/${reviewModel.customer!.image}"),
                     ),
                   ),
                 SizedBox(width: Dimensions.PADDING_SIZE_SMALL,),
@@ -50,9 +50,9 @@ class DeliveryManReviewItem extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           reviewModel.customer != null?
-                            Text(reviewModel.customer.fName + " " + reviewModel.customer.lName,
+                            Text(reviewModel.customer!.fName! + " " + reviewModel.customer!.lName!,
                               style: robotoMedium.copyWith(),
-                            ):Text(getTranslated('customer_not_available', context),
+                            ):Text(getTranslated('customer_not_available', context)!,
                             style: robotoMedium.copyWith(),),
 
 
@@ -76,13 +76,13 @@ class DeliveryManReviewItem extends StatelessWidget {
                           )
 
                         ])),
-                Text(DateConverter.localDateToIsoStringAMPM(DateTime.parse(reviewModel.createdAt)),)
+                Text(DateConverter.localDateToIsoStringAMPM(DateTime.parse(reviewModel.createdAt!)),)
               ],
             ),
 
             Padding(
                 padding: const EdgeInsets.only(left: Dimensions.PADDING_SIZE_SMALL,top : Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                child: Text(reviewModel.comment,
+                child: Text(reviewModel.comment!,
                   style: robotoRegular.copyWith(),
                   textAlign: TextAlign.start,
                 )),

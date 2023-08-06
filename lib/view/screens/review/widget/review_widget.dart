@@ -14,10 +14,10 @@ import 'package:bed3avendor/view/base/image_diaglog.dart';
 
 
 class ReviewWidget extends StatelessWidget {
-  final int index;
-  final Reviews reviewModel;
-  final bool isDetails;
-  ReviewWidget({@required this.reviewModel, this.isDetails = false, this.index});
+  final int? index;
+  final Reviews? reviewModel;
+  final bool? isDetails;
+  ReviewWidget({required this.reviewModel, this.isDetails = false, this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class ReviewWidget extends StatelessWidget {
             vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL),
         decoration: BoxDecoration(
             color: Theme.of(context).cardColor,
-            boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 800 : 200],
+            boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 800 : 200]!,
           spreadRadius: 0.5, blurRadius: 0.3)],
         ),
 
@@ -44,20 +44,20 @@ class ReviewWidget extends StatelessWidget {
                       height: Dimensions.stock_out_image_size,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(Dimensions.PADDING_SIZE_SMALL)),
-                        boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 800 : 200],
+                        boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 800 : 200]!,
                             spreadRadius: 0.5, blurRadius: 0.3)],
 
                       ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.all(Radius.circular(Dimensions.PADDING_SIZE_SMALL)),
                         child: CustomImage(image: '${Provider.of<SplashProvider>(context, listen: false).
-                          baseUrls.productThumbnailUrl}/${reviewModel.product.thumbnail}',)
+                          baseUrls!.productThumbnailUrl}/${reviewModel!.product!.thumbnail}',)
 
                       ),
                     ),
                   ),
                   SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                  Text(getTranslated(reviewModel.product.productType, context), style: robotoRegular.copyWith(color: Theme.of(context).primaryColor),),
+                  Text(getTranslated(reviewModel!.product!.productType, context)!, style: robotoRegular.copyWith(color: Theme.of(context).primaryColor),),
                 ],
               ),
             ),
@@ -69,14 +69,14 @@ class ReviewWidget extends StatelessWidget {
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
 
-                    reviewModel.customer != null?
-                    Text('${reviewModel.customer.fName ?? ''}' '${reviewModel.customer.lName ?? ''}',
+                    reviewModel!.customer != null?
+                    Text('${reviewModel!.customer!.fName ?? ''}' '${reviewModel!.customer!.lName ?? ''}',
                         style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE),
                         maxLines: 1, overflow: TextOverflow.ellipsis):SizedBox(),
                     SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
 
 
-                    Text(reviewModel.product.name ?? '',
+                    Text(reviewModel!.product!.name ?? '',
                         style: robotoRegular.copyWith(color: ColorResources.titleColor(context)),
                         maxLines: 1, overflow: TextOverflow.ellipsis),
 
@@ -86,32 +86,32 @@ class ReviewWidget extends StatelessWidget {
                       Icon(Icons.star, color: Provider.of<ThemeProvider>(context).darkTheme ?
                           Colors.white : Colors.orange, size: Dimensions.ICON_SIZE_DEFAULT),
 
-                      Text('${reviewModel.rating.toDouble().toStringAsFixed(1)}/5'),
+                      Text('${reviewModel!.rating!.toDouble().toStringAsFixed(1)}/5'),
 
                       Spacer(),
 
 
-                      Text(DateConverter.localDateToIsoStringAMPM(DateTime.parse(reviewModel.createdAt)),)
+                      Text(DateConverter.localDateToIsoStringAMPM(DateTime.parse(reviewModel!.createdAt!)),)
 
                     ]),
                     SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
 
 
-                    Text(reviewModel.comment ?? '',
+                    Text(reviewModel!.comment ?? '',
                       style: robotoHintRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT),
-                      maxLines: isDetails ? 100: 2, overflow: TextOverflow.ellipsis,),
+                      maxLines: isDetails! ? 100: 2, overflow: TextOverflow.ellipsis,),
                     SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
 
-                    (reviewModel.attachment != null && reviewModel.attachment.length > 0) ? Padding(
+                    (reviewModel!.attachment != null && reviewModel!.attachment!.length > 0) ? Padding(
                       padding: const EdgeInsets.only(top: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                       child: SizedBox(
                         height: 40,
                         child: ListView.builder(
                           shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
-                          itemCount: reviewModel.attachment.length,
+                          itemCount: reviewModel!.attachment!.length,
                           itemBuilder: (context, index) {
-                            String imageUrl = '${Provider.of<SplashProvider>(context, listen: false).baseUrls.reviewImageUrl}/review/${reviewModel.attachment[index]}';
+                            String imageUrl = '${Provider.of<SplashProvider>(context, listen: false).baseUrls!.reviewImageUrl}/review/${reviewModel!.attachment![index]}';
                             return InkWell(
                               onTap: () => showDialog(context: context, builder: (ctx) =>
                                   ImageDialog(imageUrl:imageUrl), ),

@@ -11,8 +11,8 @@ import 'package:bed3avendor/view/screens/delivery/widget/delivery_man_collected_
 
 
 class CollectedCashFromDeliveryMan extends StatefulWidget {
-  final DeliveryMan deliveryMan;
-  const CollectedCashFromDeliveryMan({Key key, this.deliveryMan}) : super(key: key);
+  final DeliveryMan? deliveryMan;
+  const CollectedCashFromDeliveryMan({Key? key, this.deliveryMan}) : super(key: key);
 
   @override
   State<CollectedCashFromDeliveryMan> createState() => _CollectedCashFromDeliveryManState();
@@ -24,13 +24,13 @@ class _CollectedCashFromDeliveryManState extends State<CollectedCashFromDelivery
   Widget build(BuildContext context) {
     return Consumer<DeliveryManProvider>(
         builder: (context, collectedCashProvider, child) {
-          List<CollectedCash> collectedCashList;
-          collectedCashList = collectedCashProvider.collectedCashModel.collectedCash;
+          List<CollectedCash>? collectedCashList;
+          collectedCashList = collectedCashProvider.collectedCashModel!.collectedCash;
           return collectedCashList != null ? collectedCashProvider.earningList.length > 0 ?
           RefreshIndicator(
             backgroundColor: Theme.of(context).primaryColor,
             onRefresh: () async {
-              await collectedCashProvider.getDeliveryCollectedCashList(context, widget.deliveryMan.id, 1);
+              await collectedCashProvider.getDeliveryCollectedCashList(context, widget.deliveryMan!.id, 1);
             },
             child:
             collectedCashList != null ? collectedCashList.isNotEmpty?
@@ -40,10 +40,10 @@ class _CollectedCashFromDeliveryManState extends State<CollectedCashFromDelivery
                 reverse: false,
                 scrollController: scrollController,
                 totalSize: collectedCashProvider.collectedCashModel?.totalSize,
-                offset: collectedCashProvider.collectedCashModel != null ? int.parse(collectedCashProvider.collectedCashModel.offset.toString()) : null,
-                onPaginate: (int offset) async {
+                offset: collectedCashProvider.collectedCashModel != null ? int.parse(collectedCashProvider.collectedCashModel!.offset.toString()) : null,
+                onPaginate: (int? offset) async {
                   print('==========offset========>$offset');
-                  await collectedCashProvider.getDeliveryCollectedCashList(context, widget.deliveryMan.id, offset, reload: false);
+                  await collectedCashProvider.getDeliveryCollectedCashList(context, widget.deliveryMan!.id, offset!, reload: false);
                 },
 
                 itemView: ListView.builder(
@@ -52,7 +52,7 @@ class _CollectedCashFromDeliveryManState extends State<CollectedCashFromDelivery
                   physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemBuilder: (BuildContext context, int index) {
-                    return DeliveryManCollectedCashCard(collectedCash: collectedCashList[index], index: index);
+                    return DeliveryManCollectedCashCard(collectedCash: collectedCashList![index], index: index);
                   },
                 ),
               ),

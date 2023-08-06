@@ -12,11 +12,11 @@ import 'package:bed3avendor/utill/images.dart';
 import 'package:bed3avendor/utill/styles.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final String title;
+  final String? title;
   final bool isBackButtonExist;
-  final Function onBackPressed;
-  final Function filter;
-  final Function switchAction;
+  final Function? onBackPressed;
+  final Function? filter;
+  final Function? switchAction;
   final bool isAction;
   final bool isSwitch;
   final bool isCart;
@@ -24,10 +24,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool activeDelivery;
   final bool productSwitch;
   final bool reviewSwitch;
-  final int index;
+  final int? index;
   final bool isTooltip;
-  final Widget widget;
-  CustomAppBar({@required this.title,
+  final Widget? widget;
+  CustomAppBar({required this.title,
     this.isBackButtonExist = true,
     this.onBackPressed,
     this.isAction = false,
@@ -56,12 +56,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         child: AppBar(
           shadowColor: Theme.of(context).primaryColor.withOpacity(.5),
           titleSpacing: 0,
-          title: Text(title, style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE,
-              color: Theme.of(context).textTheme.bodyText1.color)),
+          title: Text(title!, style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE,
+              color: Theme.of(context).textTheme.bodyText1!.color)),
           centerTitle: true,
           leading: isBackButtonExist ? IconButton(icon: Icon(Icons.arrow_back_ios, size: Dimensions.ICON_SIZE_DEFAULT),
-              color: Theme.of(context).textTheme.bodyText1.color,
-            onPressed: () => onBackPressed != null ? onBackPressed() : Navigator.pop(context)) :
+              color: Theme.of(context).textTheme.bodyText1!.color,
+            onPressed: () => onBackPressed != null ? onBackPressed!() : Navigator.pop(context)) :
           IconButton(icon: Image.asset(Images.logo, color : Theme.of(context).primaryColor,scale: 5,), onPressed: () {  },),
           backgroundColor: Theme.of(context).highlightColor,
           elevation: 0,
@@ -78,9 +78,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                           child: FlutterSwitch(width: 40,height: 22,toggleSize: 18,
                               padding: 2,
                               value: productSwitch? details.productDetails?.status == 1 :
-                              reviewSwitch? productReview.reviewList[index].status==1 :
+                              reviewSwitch? productReview.reviewList[index!].status==1 :
                               delivery.deliveryManDetails?.deliveryMan?.isActive == 1,
-                              onToggle: switchAction),
+                              onToggle: switchAction as void Function(bool)),
                         );
                       }
                     );
@@ -107,7 +107,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                             ),
                             Positioned(top: -4, right: -4,
                               child: CircleAvatar(radius: 7, backgroundColor: Colors.green,
-                                child: Text('${cartController.customerCartList.isNotEmpty?cartController.customerCartList[cartController.customerIndex].cart.length : 0}',
+                                child: Text('${cartController.customerCartList.isNotEmpty?cartController.customerCartList[cartController.customerIndex].cart!.length : 0}',
                                     style: robotoRegular.copyWith(color: Theme.of(context).cardColor,
                                     fontSize: Dimensions.FONT_SIZE_SMALL)), ),
                             ),

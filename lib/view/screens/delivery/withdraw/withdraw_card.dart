@@ -10,10 +10,10 @@ import 'package:bed3avendor/utill/styles.dart';
 import 'package:bed3avendor/view/screens/delivery/withdraw/withdraw_details_screen.dart';
 
 class WithdrawCardWidget extends StatelessWidget {
-  final Withdraws withdraw;
-  final int index;
+  final Withdraws? withdraw;
+  final int? index;
   final bool isDetails;
-  const WithdrawCardWidget({Key key, this.withdraw, this.index, this.isDetails = false}) : super(key: key);
+  const WithdrawCardWidget({Key? key, this.withdraw, this.index, this.isDetails = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +50,7 @@ class WithdrawCardWidget extends StatelessWidget {
                     children: [
                       TextSpan(text: '${getTranslated('xid', context)}# ', style: robotoRegular),
                       TextSpan(
-                        text: withdraw.id.toString(),
+                        text: withdraw!.id.toString(),
                         style: robotoMedium,
                       ),
 
@@ -62,7 +62,7 @@ class WithdrawCardWidget extends StatelessWidget {
                   decoration: BoxDecoration(
                   color: Theme.of(context).primaryColor.withOpacity(.07),
                   borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_EXTRA_SMALL),),
-                  child: Text(PriceConverter.convertPrice(context, withdraw.amount),
+                  child: Text(PriceConverter.convertPrice(context, withdraw!.amount),
                     style: robotoMedium.copyWith(color: Theme.of(context).primaryColor),),)
               ],),
             ),
@@ -70,7 +70,7 @@ class WithdrawCardWidget extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(right: Dimensions.PADDING_SIZE_SMALL,left: Dimensions.PADDING_SIZE_SMALL,
                   top: Dimensions.PADDING_SIZE_EXTRA_SMALL, bottom: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-              child: Text(DateConverter.localDateToIsoStringAMPM(DateTime.parse(withdraw.createdAt)),
+              child: Text(DateConverter.localDateToIsoStringAMPM(DateTime.parse(withdraw!.createdAt!)),
                   style: robotoRegular.copyWith(color: Theme.of(context).hintColor)),
             ),
             SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL,),
@@ -81,21 +81,21 @@ class WithdrawCardWidget extends StatelessWidget {
               const EdgeInsets.only(left: Dimensions.PADDING_SIZE_SMALL, bottom: Dimensions.PADDING_SIZE_SMALL, right: Dimensions.PADDING_SIZE_SMALL),
               child: Row( mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  withdraw.approved ==1 ?
+                  withdraw!.approved ==1 ?
                   Icon(Icons.check_circle, size: Dimensions.ICON_SIZE_SMALL,color: Colors.green):
-                  withdraw.approved ==2 ?
+                  withdraw!.approved ==2 ?
                   Icon(Icons.cancel, size: Dimensions.ICON_SIZE_SMALL, color: Colors.red):
                   Icon(Icons.watch_later, size: Dimensions.ICON_SIZE_SMALL, color: Theme.of(context).primaryColor),
                   Padding(padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_SMALL),
-                    child: Text(withdraw.approved ==1 ?
-                    getTranslated('approved', context) :
-                    withdraw.approved ==2 ?
-                    getTranslated('denied', context):
-                    getTranslated('pending', context),
+                    child: Text(withdraw!.approved ==1 ?
+                    getTranslated('approved', context)! :
+                    withdraw!.approved ==2 ?
+                    getTranslated('denied', context)!:
+                    getTranslated('pending', context)!,
                         style: robotoRegular.copyWith(color:
-                        withdraw.approved ==1 ?
+                        withdraw!.approved ==1 ?
                         Colors.green:
-                        withdraw.approved ==2 ?
+                        withdraw!.approved ==2 ?
                         Colors.red:
                         Theme.of(context).primaryColor
                         )
@@ -107,11 +107,11 @@ class WithdrawCardWidget extends StatelessWidget {
               ),
             ),
 
-            withdraw.transactionNote != null?
+            withdraw!.transactionNote != null?
             Padding(
               padding: const EdgeInsets.fromLTRB(Dimensions.PADDING_SIZE_SMALL, Dimensions.PADDING_SIZE_SMALL,
                   Dimensions.PADDING_SIZE_SMALL, Dimensions.PADDING_SIZE_SMALL),
-              child: Text('${getTranslated('note', context)} : ${withdraw.transactionNote}',
+              child: Text('${getTranslated('note', context)} : ${withdraw!.transactionNote}',
                 maxLines: isDetails ? 50 : 1,
                 overflow: TextOverflow.ellipsis,
                 style: robotoRegular.copyWith(color: ColorResources.getTextColor(context).withOpacity(.9)),),

@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 class TopDeliveryMan {
-  int totalSize;
-  String limit;
-  String offset;
-  List<DeliveryMan> deliveryMan;
+  int? totalSize;
+  String? limit;
+  String? offset;
+  List<DeliveryMan>? deliveryMan;
 
   TopDeliveryMan({this.totalSize, this.limit, this.offset, this.deliveryMan});
 
@@ -15,7 +15,7 @@ class TopDeliveryMan {
     if (json['delivery_man'] != null) {
       deliveryMan = <DeliveryMan>[];
       json['delivery_man'].forEach((v) {
-        deliveryMan.add(new DeliveryMan.fromJson(v));
+        deliveryMan!.add(new DeliveryMan.fromJson(v));
       });
     }
   }
@@ -26,27 +26,27 @@ class TopDeliveryMan {
     data['limit'] = this.limit;
     data['offset'] = this.offset;
     if (this.deliveryMan != null) {
-      data['delivery_man'] = this.deliveryMan.map((v) => v.toJson()).toList();
+      data['delivery_man'] = this.deliveryMan!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class DeliveryMan {
-  int id;
-  String fName;
-  String lName;
-  String address;
-  String countryCode;
-  String phone;
-  String email;
-  String identityNumber;
-  String identityType;
-  List<dynamic> identityImage;
-  String image;
-  int isOnline;
-  List<Rating> rating;
-  List<Orders> orders;
+  int? id;
+  String? fName;
+  String? lName;
+  String? address;
+  String? countryCode;
+  String? phone;
+  String? email;
+  String? identityNumber;
+  String? identityType;
+  List<dynamic>? identityImage;
+  String? image;
+  int? isOnline;
+  List<Rating>? rating;
+  List<Orders>? orders;
 
   DeliveryMan(
       {this.id,
@@ -80,13 +80,13 @@ class DeliveryMan {
     if (json['rating'] != null) {
       rating = <Rating>[];
       json['rating'].forEach((v) {
-        rating.add(new Rating.fromJson(v));
+        rating!.add(new Rating.fromJson(v));
       });
     }
     if (json['orders'] != null) {
       orders = <Orders>[];
       json['orders'].forEach((v) {
-        orders.add(new Orders.fromJson(v));
+        orders!.add(new Orders.fromJson(v));
       });
     }
   }
@@ -106,18 +106,18 @@ class DeliveryMan {
     data['image'] = this.image;
     data['is_online'] = this.isOnline;
     if (this.rating != null) {
-      data['rating'] = this.rating.map((v) => v.toJson()).toList();
+      data['rating'] = this.rating!.map((v) => v.toJson()).toList();
     }
     if (this.orders != null) {
-      data['orders'] = this.orders.map((v) => v.toJson()).toList();
+      data['orders'] = this.orders!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class Rating {
-  String average;
-  int deliveryManId;
+  String? average;
+  int? deliveryManId;
 
   Rating({this.average, this.deliveryManId});
 
@@ -135,8 +135,8 @@ class Rating {
 }
 
 class Orders {
-  int deliveryManId;
-  int count;
+  int? deliveryManId;
+  int? count;
 
   Orders({this.deliveryManId, this.count});
 

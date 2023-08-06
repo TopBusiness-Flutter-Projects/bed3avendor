@@ -17,8 +17,8 @@ import 'package:bed3avendor/view/screens/stockOut/widget/stockout_product_card.d
 
 class StockOutProductView extends StatelessWidget {
   final bool isHome;
-  final ScrollController scrollController;
-  StockOutProductView({ @required this.isHome, this.scrollController});
+  final ScrollController? scrollController;
+  StockOutProductView({ required this.isHome, this.scrollController});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class StockOutProductView extends StatelessWidget {
           && Provider.of<ProductProvider>(context, listen: false).stockOutProductList.length != 0
           && !Provider.of<ProductProvider>(context, listen: false).isLoading) {
         int pageSize;
-        pageSize = (Provider.of<ProductProvider>(context, listen: false).stockOutProductPageSize/10).ceil();
+        pageSize = (Provider.of<ProductProvider>(context, listen: false).stockOutProductPageSize!/10).ceil();
 
         if(Provider.of<ProductProvider>(context, listen: false).offset < pageSize) {
           Provider.of<ProductProvider>(context, listen: false).setOffset(Provider.of<ProductProvider>(context, listen: false).offset+1);
@@ -38,7 +38,7 @@ class StockOutProductView extends StatelessWidget {
           Provider.of<ProductProvider>(context, listen: false).getStockOutProductList(
               Provider.of<ProductProvider>(context, listen: false).
               offset, context, Provider.of<LocalizationProvider>(context, listen: false).locale.languageCode == 'US'?
-          'en':Provider.of<LocalizationProvider>(context, listen: false).locale.countryCode.toLowerCase());
+          'en':Provider.of<LocalizationProvider>(context, listen: false).locale.countryCode!.toLowerCase());
 
         }
       }

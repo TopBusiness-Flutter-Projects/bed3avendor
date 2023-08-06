@@ -7,8 +7,8 @@ import 'package:bed3avendor/view/base/custom_button.dart';
 
 
 class ConfirmPurchaseDialog extends StatelessWidget {
-  final Function onYesPressed;
-  const ConfirmPurchaseDialog({Key key, @required this.onYesPressed}) : super(key: key);
+  final Function? onYesPressed;
+  const ConfirmPurchaseDialog({Key? key, required this.onYesPressed}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class ConfirmPurchaseDialog extends StatelessWidget {
           child: Column(children: [
             Container(width: 70,height: 70,
             child: Image.asset(Images.confirm_purchase),),
-            Text(getTranslated('confirm_purchase', context)),
+            Text(getTranslated('confirm_purchase', context)!),
             Padding(padding: const EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT),
               child: Container(height: 40,
                 child: Row(children: [
@@ -28,7 +28,7 @@ class ConfirmPurchaseDialog extends StatelessWidget {
                       onTap: ()=>Navigator.pop(context))), SizedBox(width: Dimensions.PADDING_SIZE_DEFAULT),
                   Expanded(child: CustomButton(btnTxt: getTranslated('yes', context),
                     onTap: (){
-                    onYesPressed();
+                    onYesPressed!();
                     Navigator.pop(context);
                     },)),
                 ],),

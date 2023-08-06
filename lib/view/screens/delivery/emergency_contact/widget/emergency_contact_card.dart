@@ -13,9 +13,9 @@ import 'package:bed3avendor/view/screens/delivery/emergency_contact/widget/add_e
 
 
 class EmergencyContactCardWidget extends StatelessWidget {
-  final ContactList contactList;
-  final int index;
-  const EmergencyContactCardWidget({Key key, this.contactList, this.index}) : super(key: key);
+  final ContactList? contactList;
+  final int? index;
+  const EmergencyContactCardWidget({Key? key, this.contactList, this.index}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class EmergencyContactCardWidget extends StatelessWidget {
               children:  [
                 SlidableAction(
                   onPressed: (value){
-                    emergencyContactProvider.deleteEmergencyContact(context, contactList.id);
+                    emergencyContactProvider.deleteEmergencyContact(context, contactList!.id);
                   },
                   backgroundColor: Theme.of(context).errorColor.withOpacity(.05),
                   foregroundColor: Theme.of(context).errorColor,
@@ -60,7 +60,7 @@ class EmergencyContactCardWidget extends StatelessWidget {
               children: [
                 SlidableAction(
                   onPressed: (value){
-                    emergencyContactProvider.deleteEmergencyContact(context, contactList.id);
+                    emergencyContactProvider.deleteEmergencyContact(context, contactList!.id);
                   },
                   backgroundColor: Theme.of(context).errorColor.withOpacity(.05),
                   foregroundColor: Theme.of(context).errorColor,
@@ -101,7 +101,7 @@ class EmergencyContactCardWidget extends StatelessWidget {
                               Row(
                                 children: [
                                   Expanded(
-                                    child: Text(contactList.name ?? '', style: robotoRegular.copyWith(
+                                    child: Text(contactList!.name ?? '', style: robotoRegular.copyWith(
                                         color: ColorResources.titleColor(context),fontSize: Dimensions.FONT_SIZE_DEFAULT),
                                         maxLines: 2, overflow: TextOverflow.ellipsis),
 
@@ -119,7 +119,7 @@ class EmergencyContactCardWidget extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_EXTRA_SMALL)),
 
 
-                                child: Text(contactList.phone ?? '',
+                                child: Text(contactList!.phone ?? '',
                                   style: robotoRegular.copyWith(color: Theme.of(context).cardColor),),
                               )
 
@@ -138,9 +138,9 @@ class EmergencyContactCardWidget extends StatelessWidget {
                       children: [
                         Consumer<EmergencyContactProvider>(
                           builder: (context, emergencyContactProvider, _) {
-                            return FlutterSwitch(value: contactList.status == 1, activeColor: Theme.of(context).primaryColor,
+                            return FlutterSwitch(value: contactList!.status == 1, activeColor: Theme.of(context).primaryColor,
                               width: 48,height: 25,toggleSize: 20,padding: 2,onToggle: (value){
-                              emergencyContactProvider.statusOnOffEmergencyContact(context, contactList.id, value ? 1 : 0, index);
+                              emergencyContactProvider.statusOnOffEmergencyContact(context, contactList!.id, value ? 1 : 0, index);
                               },);
                           }
                         ),

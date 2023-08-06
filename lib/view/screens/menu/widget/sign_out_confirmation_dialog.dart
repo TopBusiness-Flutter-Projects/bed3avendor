@@ -13,7 +13,7 @@ import 'package:bed3avendor/view/screens/auth/auth_screen.dart';
 
 class SignOutConfirmationDialog extends StatelessWidget {
   final bool isDelete;
-  const SignOutConfirmationDialog({Key key, this.isDelete = false}) : super(key: key);
+  const SignOutConfirmationDialog({Key? key, this.isDelete = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +33,8 @@ class SignOutConfirmationDialog extends StatelessWidget {
 
                 Padding(
                   padding: EdgeInsets.fromLTRB(Dimensions.PADDING_SIZE_LARGE, 13, Dimensions.PADDING_SIZE_LARGE,0),
-                  child: Text(isDelete? getTranslated('want_to_delete_account', context):
-                  getTranslated('want_to_sign_out', context),
+                  child: Text(isDelete? getTranslated('want_to_delete_account', context)!:
+                  getTranslated('want_to_sign_out', context)!,
                       style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE, color: Theme.of(context).hintColor),
                       textAlign: TextAlign.center),
                 ),
@@ -55,7 +55,7 @@ class SignOutConfirmationDialog extends StatelessWidget {
 
                               if(isDelete){
                                 Provider.of<ProfileProvider>(context, listen: false).deleteCustomerAccount(context).then((condition) {
-                                  if(condition.response.statusCode == 200){
+                                  if(condition.response!.statusCode == 200){
                                     Navigator.pop(context);
                                     Provider.of<AuthProvider>(context,listen: false).clearSharedData();
                                     Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => AuthScreen()), (route) => false);

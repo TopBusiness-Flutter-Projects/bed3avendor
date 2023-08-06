@@ -22,26 +22,26 @@ import 'package:bed3avendor/provider/order_provider.dart';
 import 'package:bed3avendor/view/base/custom_snackbar.dart';
 
 class DeliveryManProvider extends ChangeNotifier {
-  final DeliveryManRepo deliveryManRepo;
-  DeliveryManProvider({@required this.deliveryManRepo});
-  List<DeliveryManModel> _deliveryManList;
-  List<DeliveryManModel> get  deliveryManList => _deliveryManList;
-  List<DeliveryMan> _topDeliveryManList;
-  List<DeliveryMan> get topDeliveryManList =>_topDeliveryManList;
-  List<DeliveryMan> _listOfDeliveryMan;
-  List<DeliveryMan> get listOfDeliveryMan =>_listOfDeliveryMan;
+  final DeliveryManRepo? deliveryManRepo;
+  DeliveryManProvider({required this.deliveryManRepo});
+  List<DeliveryManModel>? _deliveryManList;
+  List<DeliveryManModel>? get  deliveryManList => _deliveryManList;
+  List<DeliveryMan>? _topDeliveryManList;
+  List<DeliveryMan>? get topDeliveryManList =>_topDeliveryManList;
+  List<DeliveryMan>? _listOfDeliveryMan;
+  List<DeliveryMan>? get listOfDeliveryMan =>_listOfDeliveryMan;
 
-  int _deliveryManIndex = 0;
-  int get deliveryManIndex => _deliveryManIndex;
+  int? _deliveryManIndex = 0;
+  int? get deliveryManIndex => _deliveryManIndex;
   bool _isLoading = false;
   bool get isLoading => _isLoading;
-  String _addOrderStatusErrorText;
-  String get addOrderStatusErrorText => _addOrderStatusErrorText;
-  List<int> _deliveryManIds = [];
-  List<int> get deliveryManIds => _deliveryManIds;
+  String? _addOrderStatusErrorText;
+  String? get addOrderStatusErrorText => _addOrderStatusErrorText;
+  List<int?> _deliveryManIds = [];
+  List<int?> get deliveryManIds => _deliveryManIds;
 
-  d.DeliveryManDetails _deliveryManDetails;
-  d.DeliveryManDetails get deliveryManDetails =>_deliveryManDetails;
+  d.DeliveryManDetails? _deliveryManDetails;
+  d.DeliveryManDetails? get deliveryManDetails =>_deliveryManDetails;
 
 
   TextEditingController firstNameController = TextEditingController();
@@ -63,19 +63,19 @@ class DeliveryManProvider extends ChangeNotifier {
   FocusNode identityNumberNode = FocusNode();
   FocusNode addressNode = FocusNode();
 
-  XFile _profileImage;
-  XFile get profileImage => _profileImage;
-  XFile _identityImage;
-  XFile get identityImage => _identityImage;
-  List<XFile> _identityImages = [];
-  List<XFile> get identityImages => _identityImages;
+  XFile? _profileImage;
+  XFile? get profileImage => _profileImage;
+  XFile? _identityImage;
+  XFile? get identityImage => _identityImage;
+  List<XFile?> _identityImages = [];
+  List<XFile?> get identityImages => _identityImages;
 
   List<Order> _deliverymanOrderList = [];
   List<Order> get deliverymanOrderList => _deliverymanOrderList;
 
 
-  DeliveryManEarning _deliveryManEarning;
-  DeliveryManEarning get deliveryManEarning=> _deliveryManEarning;
+  DeliveryManEarning? _deliveryManEarning;
+  DeliveryManEarning? get deliveryManEarning=> _deliveryManEarning;
 
   List<Earning> _earningList =[];
   List<Earning> get earningList => _earningList;
@@ -120,21 +120,21 @@ class DeliveryManProvider extends ChangeNotifier {
 
   }
 
-  Future<void> getDeliveryManList(Order orderModel, BuildContext context) async {
+  Future<void> getDeliveryManList(Order? orderModel, BuildContext context) async {
     _deliveryManIds =[];
     _deliveryManIds.add(0);
     _deliveryManIndex = 0;
-    ApiResponse apiResponse = await deliveryManRepo.getDeliveryManList();
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+    ApiResponse apiResponse = await deliveryManRepo!.getDeliveryManList();
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _deliveryManList = [];
-      apiResponse.response.data.forEach((deliveryMan) => _deliveryManList.add(DeliveryManModel.fromJson(deliveryMan)));
+      apiResponse.response!.data.forEach((deliveryMan) => _deliveryManList!.add(DeliveryManModel.fromJson(deliveryMan)));
       _deliveryManIndex = 0;
 
-      for(int index = 0; index < _deliveryManList.length; index++) {
-        _deliveryManIds.add(_deliveryManList[index].id);
+      for(int index = 0; index < _deliveryManList!.length; index++) {
+        _deliveryManIds.add(_deliveryManList![index].id);
       }
 
-      if(orderModel.deliveryManId != null){
+      if(orderModel!.deliveryManId != null){
         setDeliverymanIndex(deliveryManIds.indexOf(int.parse(orderModel.deliveryManId.toString())), false);
       }
 
@@ -146,14 +146,14 @@ class DeliveryManProvider extends ChangeNotifier {
 
   Future<void> deliveryManListURI(BuildContext context, int offset, String search, {bool reload = true}) async {
 
-    ApiResponse apiResponse = await deliveryManRepo.deliveryManList(offset, search);
+    ApiResponse apiResponse = await deliveryManRepo!.deliveryManList(offset, search);
     if(reload){
       _listOfDeliveryMan = [];
       _isLoading = true;
     }
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _isLoading = false;
-      _listOfDeliveryMan.addAll(TopDeliveryMan.fromJson(apiResponse.response.data).deliveryMan);
+      _listOfDeliveryMan!.addAll(TopDeliveryMan.fromJson(apiResponse.response!.data).deliveryMan!);
     } else {
       ApiChecker.checkApi(context, apiResponse);
     }
@@ -161,15 +161,15 @@ class DeliveryManProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> getDeliveryManOrderListHistory(BuildContext context, int offset, int deliveryManId, {bool reload = true}) async {
-    ApiResponse apiResponse = await deliveryManRepo.deliveryManOrderList(offset, deliveryManId);
+  Future<void> getDeliveryManOrderListHistory(BuildContext context, int offset, int? deliveryManId, {bool reload = true}) async {
+    ApiResponse apiResponse = await deliveryManRepo!.deliveryManOrderList(offset, deliveryManId);
     if(reload){
       _deliverymanOrderList = [];
       _isLoading = true;
     }
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _isLoading = false;
-      _deliverymanOrderList.addAll(DeliveryManOrderHistory.fromJson(apiResponse.response.data).orders);
+      _deliverymanOrderList.addAll(DeliveryManOrderHistory.fromJson(apiResponse.response!.data).orders!);
     } else {
       ApiChecker.checkApi(context, apiResponse);
     }
@@ -179,20 +179,20 @@ class DeliveryManProvider extends ChangeNotifier {
 
 
 
-  Future<void> getDeliveryManEarningListHistory(BuildContext context, int offset, int deliveryManId, {bool reload = true}) async {
-    ApiResponse apiResponse = await deliveryManRepo.deliveryManEarningList(offset, deliveryManId);
+  Future<void> getDeliveryManEarningListHistory(BuildContext context, int offset, int? deliveryManId, {bool reload = true}) async {
+    ApiResponse apiResponse = await deliveryManRepo!.deliveryManEarningList(offset, deliveryManId);
     if(reload){
       _deliveryManEarning = null;
 
     }
     _isLoading = true;
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       if(offset == 1) {
-        _deliveryManEarning = DeliveryManEarning.fromJson(apiResponse.response.data);
+        _deliveryManEarning = DeliveryManEarning.fromJson(apiResponse.response!.data);
       }else{
-        _deliveryManEarning.totalSize = DeliveryManEarning.fromJson(apiResponse.response.data).totalSize;
-        _deliveryManEarning.offset = DeliveryManEarning.fromJson(apiResponse.response.data).offset;
-        _deliveryManEarning.orders.addAll(DeliveryManEarning.fromJson(apiResponse.response.data).orders);
+        _deliveryManEarning!.totalSize = DeliveryManEarning.fromJson(apiResponse.response!.data).totalSize;
+        _deliveryManEarning!.offset = DeliveryManEarning.fromJson(apiResponse.response!.data).offset;
+        _deliveryManEarning!.orders!.addAll(DeliveryManEarning.fromJson(apiResponse.response!.data).orders!);
       }
 
     } else {
@@ -203,12 +203,12 @@ class DeliveryManProvider extends ChangeNotifier {
   }
 
 
-  Future<void> getDeliveryManDetails(BuildContext context, int deliveryManId) async {
+  Future<void> getDeliveryManDetails(BuildContext context, int? deliveryManId) async {
     _isLoading = true;
-    ApiResponse apiResponse = await deliveryManRepo.deliveryManDetails(deliveryManId);
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+    ApiResponse apiResponse = await deliveryManRepo!.deliveryManDetails(deliveryManId);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _isLoading = false;
-      _deliveryManDetails = d.DeliveryManDetails.fromJson(apiResponse.response.data);
+      _deliveryManDetails = d.DeliveryManDetails.fromJson(apiResponse.response!.data);
     } else {
       ApiChecker.checkApi(context, apiResponse);
     }
@@ -222,9 +222,9 @@ class DeliveryManProvider extends ChangeNotifier {
       _topDeliveryManList = [];
     }
     _isLoading = true;
-    ApiResponse apiResponse = await deliveryManRepo.getTopDeliveryManList();
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
-      _topDeliveryManList.addAll(TopDeliveryMan.fromJson(apiResponse.response.data).deliveryMan);
+    ApiResponse apiResponse = await deliveryManRepo!.getTopDeliveryManList();
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+      _topDeliveryManList!.addAll(TopDeliveryMan.fromJson(apiResponse.response!.data).deliveryMan!);
 
     } else {
       ApiChecker.checkApi(context, apiResponse);
@@ -237,14 +237,14 @@ class DeliveryManProvider extends ChangeNotifier {
   List<OrderHistoryLogModel> _changeLogList =[];
   List<OrderHistoryLogModel> get changeLogList => _changeLogList;
 
-  Future<void> getDeliveryManOrderHistoryLogList(BuildContext context, int orderId) async {
+  Future<void> getDeliveryManOrderHistoryLogList(BuildContext context, int? orderId) async {
 
     _isLoading = true;
-    ApiResponse apiResponse = await deliveryManRepo.getDeliverymanOrderHistoryLog(orderId);
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+    ApiResponse apiResponse = await deliveryManRepo!.getDeliverymanOrderHistoryLog(orderId);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
 
       _changeLogList =[];
-      apiResponse.response.data.forEach((changeLog){
+      apiResponse.response!.data.forEach((changeLog){
         OrderHistoryLogModel log = OrderHistoryLogModel.fromJson(changeLog);
         _changeLogList.add(log);
       });
@@ -272,11 +272,11 @@ class DeliveryManProvider extends ChangeNotifier {
   }
 
 
-  Future<void> assignDeliveryMan(BuildContext context,int orderId, int deliveryManId) async {
+  Future<void> assignDeliveryMan(BuildContext context,int? orderId, int? deliveryManId) async {
     _isLoading = true;
     ApiResponse apiResponse;
-    apiResponse = await deliveryManRepo.assignDeliveryMan(orderId, deliveryManId);
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+    apiResponse = await deliveryManRepo!.assignDeliveryMan(orderId, deliveryManId);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       Provider.of<OrderProvider>(context, listen: false).getOrderList(context, 1,'all');
       Provider.of<OrderProvider>(context, listen: false).getOrderDetails(orderId.toString(), context);
       _isLoading = false;
@@ -290,13 +290,13 @@ class DeliveryManProvider extends ChangeNotifier {
 
   }
 
-  Future<void> deliveryManStatusOnOff(BuildContext context,int id, int status) async {
+  Future<void> deliveryManStatusOnOff(BuildContext context,int? id, int status) async {
     _isLoading = true;
     ApiResponse apiResponse;
-    apiResponse = await deliveryManRepo.deliveryManStatusOnOff(id, status);
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+    apiResponse = await deliveryManRepo!.deliveryManStatusOnOff(id, status);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       getDeliveryManDetails(context,id);
-      _deliveryManDetails.deliveryMan.isActive = status;
+      _deliveryManDetails!.deliveryMan!.isActive = status;
       _isLoading = false;
       showCustomSnackBar(getTranslated('status_updated_successfully', context), context, isToaster: true, isError: false);
     } else {
@@ -309,19 +309,19 @@ class DeliveryManProvider extends ChangeNotifier {
 
 
 
-  Future<void> collectCashFromDeliveryMan(BuildContext context, int deliveryManId, String amount) async {
+  Future<void> collectCashFromDeliveryMan(BuildContext context, int? deliveryManId, String amount) async {
     _isLoading = true;
     notifyListeners();
     ApiResponse apiResponse;
-    apiResponse = await deliveryManRepo.collectCashFromDeliveryMan(deliveryManId, amount);
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+    apiResponse = await deliveryManRepo!.collectCashFromDeliveryMan(deliveryManId, amount);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _isLoading = false;
       Navigator.pop(context);
       getDeliveryManDetails(context, deliveryManId);
      showCustomSnackBar(getTranslated('amount_collected_from_deliveryman', context), context, isToaster: true);
     }else{
       _isLoading = false;
-      Map map = apiResponse.response.data;
+      Map map = apiResponse.response!.data;
       showCustomSnackBar(map['message'], context, isToaster: true);
     }
     notifyListeners();
@@ -329,12 +329,12 @@ class DeliveryManProvider extends ChangeNotifier {
   }
 
 
-  Future<void> deleteDeliveryMan(BuildContext context, int deliveryManId) async {
+  Future<void> deleteDeliveryMan(BuildContext context, int? deliveryManId) async {
     ApiResponse apiResponse;
-    apiResponse = await deliveryManRepo.deleteDeliveryMan(deliveryManId);
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+    apiResponse = await deliveryManRepo!.deleteDeliveryMan(deliveryManId);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       deliveryManListURI(context, 1,'');
-      String message = apiResponse.response.data['message'];
+      String? message = apiResponse.response!.data['message'];
       showCustomSnackBar(message, context, isError: false);
     }
     notifyListeners();
@@ -342,7 +342,7 @@ class DeliveryManProvider extends ChangeNotifier {
   }
 
 
-  void setDeliverymanIndex(int index, bool notify) {
+  void setDeliverymanIndex(int? index, bool notify) {
     _deliveryManIndex = index;
     if(notify) {
       notifyListeners();
@@ -352,18 +352,18 @@ class DeliveryManProvider extends ChangeNotifier {
   List<String> _identityTypeList = ['passport', 'Driving Licence', 'Nid', 'Company Id' ];
   List<String> get identityTypeList => _identityTypeList;
 
-  String _identityType;
-  String get identityType => _identityType;
+  String? _identityType;
+  String? get identityType => _identityType;
 
-  void setIdentityType (String setValue){
+  void setIdentityType (String? setValue){
     print('------$setValue====$_identityType');
     _identityType = setValue;
 
   }
-  String _countryDialCode = '+880';
-  String get countryDialCode => _countryDialCode;
+  String? _countryDialCode = '+880';
+  String? get countryDialCode => _countryDialCode;
 
-  void setCountryDialCode (String setValue){
+  void setCountryDialCode (String? setValue){
     print('------$setValue====$_identityType');
     _countryDialCode = setValue;
 
@@ -374,9 +374,9 @@ class DeliveryManProvider extends ChangeNotifier {
   Future<ApiResponse> addNewDeliveryMan(BuildContext context, DeliveryManBody deliveryManBody, {bool isUpdate = false}) async {
     _isLoading = true;
     notifyListeners();
-    ApiResponse  response = await deliveryManRepo.addNewDeliveryMan(_profileImage, _identityImages,
+    ApiResponse  response = await deliveryManRepo!.addNewDeliveryMan(_profileImage, _identityImages,
         deliveryManBody, Provider.of<AuthProvider>(context, listen: false).getUserToken(), isUpdate: isUpdate);
-    if(response.response.statusCode == 200) {
+    if(response.response!.statusCode == 200) {
       _isLoading = false;
       firstNameController.clear();
       lastNameController.clear();
@@ -406,16 +406,16 @@ class DeliveryManProvider extends ChangeNotifier {
   List<DeliveryManReview> _deliveryManReviewList = [];
   List<DeliveryManReview> get deliveryManReviewList => _deliveryManReviewList;
 
-  Details _details;
-  Details get details => _details;
+  Details? _details;
+  Details? get details => _details;
 
-  Future<void> getDeliveryManWithdrawDetails(BuildContext context, int id) async {
+  Future<void> getDeliveryManWithdrawDetails(BuildContext context, int? id) async {
     _isLoading = true;
-    ApiResponse apiResponse = await deliveryManRepo.deliveryManWithdrawDetails(id);
+    ApiResponse apiResponse = await deliveryManRepo!.deliveryManWithdrawDetails(id);
 
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _isLoading = false;
-      _details = DeliveryManWithdrawDetailModel.fromJson(apiResponse.response.data).details;
+      _details = DeliveryManWithdrawDetailModel.fromJson(apiResponse.response!.data).details;
 
     } else {
       _isLoading = false;
@@ -429,14 +429,14 @@ class DeliveryManProvider extends ChangeNotifier {
 
   Future<void> getDeliveryManWithdrawList(BuildContext context, int offset, String status, {bool reload = true}) async {
 
-    ApiResponse apiResponse = await deliveryManRepo.deliveryManWithdrawList(offset, status);
+    ApiResponse apiResponse = await deliveryManRepo!.deliveryManWithdrawList(offset, status);
     if(reload){
       _withdrawList = [];
       _isLoading = true;
     }
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _isLoading = false;
-      _withdrawList.addAll(DeliveryManWithdrawModel.fromJson(apiResponse.response.data).withdraws);
+      _withdrawList.addAll(DeliveryManWithdrawModel.fromJson(apiResponse.response!.data).withdraws!);
     } else {
       _isLoading = false;
       ApiChecker.checkApi(context, apiResponse);
@@ -445,15 +445,15 @@ class DeliveryManProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> getDeliveryManReviewList(BuildContext context, int offset, int id , {bool reload = true}) async {
-    ApiResponse apiResponse = await deliveryManRepo.getDeliveryManReviewList(offset, id);
+  Future<void> getDeliveryManReviewList(BuildContext context, int offset, int? id , {bool reload = true}) async {
+    ApiResponse apiResponse = await deliveryManRepo!.getDeliveryManReviewList(offset, id);
     if(reload){
       _deliveryManReviewList = [];
       _isLoading = true;
     }
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _isLoading = false;
-      _deliveryManReviewList.addAll(DeliveryManReviewModel.fromJson(apiResponse.response.data).reviews);
+      _deliveryManReviewList.addAll(DeliveryManReviewModel.fromJson(apiResponse.response!.data).reviews!);
     } else {
       _isLoading = false;
       ApiChecker.checkApi(context, apiResponse);
@@ -463,18 +463,18 @@ class DeliveryManProvider extends ChangeNotifier {
   }
 
 
-  Future<void> deliveryManWithdrawApprovedDenied(BuildContext context,int id, String note, int approved, int index) async {
+  Future<void> deliveryManWithdrawApprovedDenied(BuildContext context,int? id, String note, int approved, int? index) async {
     _isLoading = true;
     ApiResponse apiResponse;
-    apiResponse = await deliveryManRepo.deliveryManWithdrawApprovedDenied(id, note, approved);
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+    apiResponse = await deliveryManRepo!.deliveryManWithdrawApprovedDenied(id, note, approved);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       Navigator.pop(context);
-      _withdrawList[index].approved = approved;
+      _withdrawList[index!].approved = approved;
       getDeliveryManWithdrawList(context, 1, 'all');
-      String message = apiResponse.response.data['message'];
+      String? message = apiResponse.response!.data['message'];
       showCustomSnackBar(message, context, isToaster: true);
     } else {
-      String message = apiResponse.response.data['message'];
+      String? message = apiResponse.response!.data['message'];
       showCustomSnackBar(message, context, isToaster: true);
     }
     notifyListeners();
@@ -502,25 +502,25 @@ class DeliveryManProvider extends ChangeNotifier {
   }
 
 
-  CollectedCashModel _collectedCashModel;
-  CollectedCashModel get collectedCashModel => _collectedCashModel;
+  CollectedCashModel? _collectedCashModel;
+  CollectedCashModel? get collectedCashModel => _collectedCashModel;
 
-  Future<void> getDeliveryCollectedCashList(BuildContext context, int deliveryManId, int offset, {bool reload = true}) async {
+  Future<void> getDeliveryCollectedCashList(BuildContext context, int? deliveryManId, int offset, {bool reload = true}) async {
     if(reload){
       _collectedCashModel = null;
       _isLoading = true;
     }
 
     _isLoading = true;
-    ApiResponse apiResponse = await deliveryManRepo.getDeliveryManCollectedCashList(deliveryManId, offset);
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+    ApiResponse apiResponse = await deliveryManRepo!.getDeliveryManCollectedCashList(deliveryManId, offset);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _isLoading = false;
       if(offset == 1 ){
-        _collectedCashModel = CollectedCashModel.fromJson(apiResponse.response.data);
+        _collectedCashModel = CollectedCashModel.fromJson(apiResponse.response!.data);
       }else{
-        _collectedCashModel.totalSize =  CollectedCashModel.fromJson(apiResponse.response.data).totalSize;
-        _collectedCashModel.offset =  CollectedCashModel.fromJson(apiResponse.response.data).offset;
-        _collectedCashModel.collectedCash.addAll(CollectedCashModel.fromJson(apiResponse.response.data).collectedCash)  ;
+        _collectedCashModel!.totalSize =  CollectedCashModel.fromJson(apiResponse.response!.data).totalSize;
+        _collectedCashModel!.offset =  CollectedCashModel.fromJson(apiResponse.response!.data).offset;
+        _collectedCashModel!.collectedCash!.addAll(CollectedCashModel.fromJson(apiResponse.response!.data).collectedCash!)  ;
       }
 
     } else {

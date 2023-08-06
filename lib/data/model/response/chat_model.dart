@@ -1,8 +1,8 @@
 class ChatModel {
-  int totalSize;
-  String limit;
-  String offset;
-  List<Chat> chat;
+  int? totalSize;
+  String? limit;
+  String? offset;
+  List<Chat>? chat;
 
   ChatModel({this.totalSize, this.limit, this.offset, this.chat});
 
@@ -13,7 +13,7 @@ class ChatModel {
     if (json['chat'] != null) {
       chat = <Chat>[];
       json['chat'].forEach((v) {
-        chat.add(new Chat.fromJson(v));
+        chat!.add(new Chat.fromJson(v));
       });
     }
   }
@@ -24,24 +24,24 @@ class ChatModel {
     data['limit'] = this.limit;
     data['offset'] = this.offset;
     if (this.chat != null) {
-      data['chat'] = this.chat.map((v) => v.toJson()).toList();
+      data['chat'] = this.chat!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class Chat {
-  int id;
-  int userId;
-  int deliveryManId;
-  String message;
-  int sentByCustomer;
-  int sentByDeliveryMan;
-  int seenBySeller;
-  String createdAt;
-  String updatedAt;
-  DeliveryMan deliveryMan;
-  Customer customer;
+  int? id;
+  int? userId;
+  int? deliveryManId;
+  String? message;
+  int? sentByCustomer;
+  int? sentByDeliveryMan;
+  int? seenBySeller;
+  String? createdAt;
+  String? updatedAt;
+  DeliveryMan? deliveryMan;
+  Customer? customer;
 
   Chat(
       {this.id,
@@ -86,22 +86,22 @@ class Chat {
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
     if (this.deliveryMan != null) {
-      data['delivery_man'] = this.deliveryMan.toJson();
+      data['delivery_man'] = this.deliveryMan!.toJson();
     }
     if (this.customer != null) {
-      data['customer'] = this.customer.toJson();
+      data['customer'] = this.customer!.toJson();
     }
     return data;
   }
 }
 
 class DeliveryMan {
-  int id;
-  String fName;
-  String lName;
-  String phone;
-  String email;
-  String image;
+  int? id;
+  String? fName;
+  String? lName;
+  String? phone;
+  String? email;
+  String? image;
 
 
   DeliveryMan(
@@ -135,12 +135,12 @@ class DeliveryMan {
 }
 
 class Customer {
-  int id;
-  String fName;
-  String lName;
-  String phone;
-  String image;
-  String email;
+  int? id;
+  String? fName;
+  String? lName;
+  String? phone;
+  String? image;
+  String? email;
 
 
   Customer(
