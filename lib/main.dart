@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:bed3avendor/provider/search_product_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -77,6 +78,7 @@ Future<void> main() async {
       ChangeNotifierProvider(create: (context) => di.sl<ShippingProvider>()),
       ChangeNotifierProvider(create: (context) => di.sl<DeliveryManProvider>()),
       ChangeNotifierProvider(create: (context) => di.sl<RefundProvider>()),
+      ChangeNotifierProvider(create: (context) => di.sl<SearchProvider>()),
       ChangeNotifierProvider(create: (context) => di.sl<BottomMenuController>()),
       ChangeNotifierProvider(create: (context) => di.sl<CartProvider>()),
       ChangeNotifierProvider(create: (context) => di.sl<EmergencyContactProvider>()),

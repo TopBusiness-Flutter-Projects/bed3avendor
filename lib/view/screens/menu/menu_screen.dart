@@ -27,9 +27,10 @@ import 'package:bed3avendor/view/screens/bank_info/bank_info_view.dart';
 class MenuBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
     List<CustomBottomSheet> _activateMenu = [
       CustomBottomSheet(image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls!.sellerImageUrl}/'
-          '${Provider.of<ProfileProvider>(context, listen: false).userInfoModel!.image}',isProfile: true, title: getTranslated('profile', context),
+          '${Provider.of<ProfileProvider>(context, listen: false).userInfoModel!.image??''}',isProfile: true, title: getTranslated('profile', context),
 
           onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (_) => ProfileScreenView()))),
 
@@ -47,6 +48,15 @@ class MenuBottomSheet extends StatelessWidget {
 
       CustomBottomSheet(image: Images.coupon_icon, title: getTranslated('coupons', context),
           onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (_)=> CouponListScreen()))),
+    if(Provider.of<SplashProvider>(context, listen: false).configModel!.returnPolicy!.status ==1)
+    CustomBottomSheet(image: Images.return_policy, title: getTranslated('return_policy', context),
+    onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (_)=> HtmlViewScreen(
+    title: getTranslated('return_policy', context),
+
+    url: Provider.of<SplashProvider>(context, listen: false).configModel!.returnPolicy!.content)))),
+      if(Provider.of<SplashProvider>(context, listen: false).configModel!.posActive == 1)
+        CustomBottomSheet(image: Images.pos, title: getTranslated('pos', context),
+            onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (_)=> NavBarScreen()))),
 
       if(Provider.of<SplashProvider>(context, listen: false).configModel!.shippingMethod == 'sellerwise_shipping')
       CustomBottomSheet(image: Images.delivery_man_icon, title: getTranslated('deliveryman', context),
@@ -101,11 +111,6 @@ class MenuBottomSheet extends StatelessWidget {
               url: Provider.of<SplashProvider>(context, listen: false).configModel!.refundPolicy!.content)))),
 
 
-      if(Provider.of<SplashProvider>(context, listen: false).configModel!.returnPolicy!.status ==1)
-      CustomBottomSheet(image: Images.return_policy, title: getTranslated('return_policy', context),
-          onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (_)=> HtmlViewScreen(
-            title: getTranslated('return_policy', context),
-            url: Provider.of<SplashProvider>(context, listen: false).configModel!.returnPolicy!.content)))),
 
 
       if(Provider.of<SplashProvider>(context, listen: false).configModel!.cancellationPolicy!.status ==1)
@@ -118,8 +123,8 @@ class MenuBottomSheet extends StatelessWidget {
       CustomBottomSheet(image: Images.logOut, title: getTranslated('logout', context),
           onTap: ()=> showCupertinoModalPopup(context: context, builder: (_) => SignOutConfirmationDialog())),
 
-      CustomBottomSheet(image: Images.app_info, title: 'v - ${AppConstants.APP_VERSION}',
-          onTap: (){}),
+      // CustomBottomSheet(image: Images.app_info, title: 'v - ${AppConstants.APP_VERSION}',
+      //     onTap: (){}),
     ];
 
 

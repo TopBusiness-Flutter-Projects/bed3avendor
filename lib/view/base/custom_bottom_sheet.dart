@@ -28,7 +28,7 @@ class CustomBottomSheet extends StatelessWidget {
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [Container(width: MediaQuery.of(context).size.width/14,
-              height: MediaQuery.of(context).size.width/14,
+              height: MediaQuery.of(context).size.width/18,
               child: isProfile?
                   ClipRRect(
                     borderRadius: BorderRadius.circular(50),

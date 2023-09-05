@@ -47,7 +47,7 @@ class _BarCodeGenerateScreenState extends State<BarCodeGenerateScreen> {
     _port.listen((dynamic data) {
 
     });
-    FlutterDownloader.registerCallback(downloadCallback);
+    FlutterDownloader.registerCallback(downloadCallback as DownloadCallback);
   }
 
 
@@ -63,7 +63,7 @@ class _BarCodeGenerateScreenState extends State<BarCodeGenerateScreen> {
 
 
 
-  @pragma('vm:entry-point')
+
   static void downloadCallback(String id, DownloadTaskStatus status, int progress) {
     final SendPort send = IsolateNameServer.lookupPortByName('downloader_send_port')!;
     send.send([id, status, progress]);

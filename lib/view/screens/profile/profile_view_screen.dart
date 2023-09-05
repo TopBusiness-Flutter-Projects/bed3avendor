@@ -117,39 +117,40 @@ class _ProfileScreenViewState extends State<ProfileScreenView> {
 
                   ],),
                 ),
+                SizedBox(height: Dimensions.PADDING_SIZE_LARGE,),
 
-                Padding(
-                  padding: const EdgeInsets.fromLTRB( Dimensions.PADDING_SIZE_MEDIUM,
-                       Dimensions.PADDING_SEVEN, Dimensions.PADDING_SIZE_MEDIUM, Dimensions.PADDING_SIZE_MEDIUM),
-                  child: Row(mainAxisAlignment:MainAxisAlignment.spaceBetween,children: [
-
-                    Expanded(child: InfoItem(icon: Images.product_icon, title: 'products',amount: profile.userInfoModel!.productCount.toString())),
-                    SizedBox(width: Dimensions.PADDING_SIZE_SMALL,),
-                    Expanded(child: InfoItem(icon: Images.order, title: 'orders',amount: profile.userInfoModel!.ordersCount.toString())),
-                    SizedBox(width: Dimensions.PADDING_SIZE_SMALL,),
-                    Expanded(child: InfoItem(icon: Images.total_earn_icon, title: 'withdrawable_balance',amount: profile.userInfoModel!.wallet!.totalEarning.toString(), isMoney: true)),
-
-
-                  ],),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.fromLTRB( Dimensions.PADDING_SIZE_MEDIUM,
+                //        Dimensions.PADDING_SEVEN, Dimensions.PADDING_SIZE_MEDIUM, Dimensions.PADDING_SIZE_MEDIUM),
+                //   child: Row(mainAxisAlignment:MainAxisAlignment.spaceBetween,children: [
+                //
+                //     Expanded(child: InfoItem(icon: Images.product_icon, title: 'products',amount: profile.userInfoModel!.productCount.toString())),
+                //     SizedBox(width: Dimensions.PADDING_SIZE_SMALL,),
+                //     Expanded(child: InfoItem(icon: Images.order, title: 'orders',amount: profile.userInfoModel!.ordersCount.toString())),
+                //     SizedBox(width: Dimensions.PADDING_SIZE_SMALL,),
+                //     Expanded(child: InfoItem(icon: Images.total_earn_icon, title: 'withdrawable_balance',amount: profile.userInfoModel!.wallet!.totalEarning.toString(), isMoney: true)),
+                //
+                //
+                //   ],),
+                // ),
 
 
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_MEDIUM),
                   child: ThemeChanger(),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: Dimensions.PADDING_SIZE_DEFAULT,bottom: Dimensions.PADDING_SIZE_EXTRA_LARGE),
-                  child: Row(mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(getTranslated('app_version', context)!),
-                      Padding(
-                        padding: const EdgeInsets.only(left: Dimensions.FONT_SIZE_EXTRA_SMALL),
-                        child: Text(AppConstants.APP_VERSION),
-                      ),
-                    ],
-                  ),
-                )
+                // Padding(
+                //   padding: const EdgeInsets.only(top: Dimensions.PADDING_SIZE_DEFAULT,bottom: Dimensions.PADDING_SIZE_EXTRA_LARGE),
+                //   child: Row(mainAxisAlignment: MainAxisAlignment.center,
+                //     children: [
+                //       Text(getTranslated('app_version', context)!),
+                //       Padding(
+                //         padding: const EdgeInsets.only(left: Dimensions.FONT_SIZE_EXTRA_SMALL),
+                //         child: Text(AppConstants.APP_VERSION),
+                //       ),
+                //     ],
+                //   ),
+                // )
 
 
               ],

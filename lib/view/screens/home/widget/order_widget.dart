@@ -24,7 +24,8 @@ class OrderWidget extends StatelessWidget {
         children: [
           InkWell(
             onTap: () => Navigator.push(context,
-                MaterialPageRoute(builder: (_) => OrderDetailsScreen (
+                MaterialPageRoute(builder: (_) =>
+                    OrderDetailsScreen (
                   orderModel: orderModel ,orderId: orderModel.id,orderType: orderModel.orderType,
                   extraDiscount: orderModel.extraDiscount,extraDiscountType: orderModel.extraDiscountType,
                 ))),
@@ -46,17 +47,28 @@ class OrderWidget extends StatelessWidget {
                     padding: const EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
                     child: Row(mainAxisAlignment : MainAxisAlignment.spaceBetween,
                       children: [
-                        Container(padding: const EdgeInsets.all(8.0),
-                          decoration: BoxDecoration(
-                              color: Theme.of(context).primaryColor.withOpacity(.05),
-                              borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_EXTRA_SMALL)
+                        Expanded(
+                          child: Container(padding: const EdgeInsets.all(8.0),
+                            decoration: BoxDecoration(
+                                color: Theme.of(context).primaryColor.withOpacity(.05),
+                                borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_EXTRA_SMALL)
+                            ),
+                            child: Center(
+                              child: Text('اسم العميل',
+                                style: robotoMedium.copyWith(color:  Theme.of(context).primaryColor,fontSize: Dimensions.FONT_SIZE_LARGE),),
+                            ),
                           ),
+                        ),
+                        Container(padding: const EdgeInsets.all(8.0),
+                          // decoration: BoxDecoration(
+                          //     color: Theme.of(context).primaryColor.withOpacity(.05),
+                          //     borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_EXTRA_SMALL)
+                          // ),
                           child: Row(
                             children: [
-                              Text('${getTranslated('order_no', context)}# ',
-                                style: robotoRegular.copyWith(color: ColorResources.getPrimary(context),fontSize: Dimensions.FONT_SIZE_LARGE),),
-                              Text('${orderModel.id} ${orderModel.orderType == 'POS'? '(POS)':''} ',
-                                style: robotoMedium.copyWith(color: ColorResources.getTextColor(context),fontSize: Dimensions.FONT_SIZE_LARGE),),
+
+                              Text('${orderModel.id} ',
+                                style: robotoMedium.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE,color: Theme.of(context).hintColor),),
                             ],
                           ),
                         ),
@@ -68,7 +80,7 @@ class OrderWidget extends StatelessWidget {
                           ),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Text(PriceConverter.convertPrice(context, orderModel.orderAmount !=null?orderModel.orderAmount:0),
+                            child: Text('تفاصيل الطلب',
                               style: robotoMedium.copyWith(color: Colors.white),),
                           ),),
                       ],
@@ -85,12 +97,56 @@ class OrderWidget extends StatelessWidget {
                     padding: const EdgeInsets.fromLTRB( Dimensions.PADDING_SIZE_SMALL, 0, Dimensions.PADDING_SIZE_SMALL, Dimensions.PADDING_SIZE_SMALL),
                     child: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
 
-                      orderModel.createdAt != null?
-                      Text(DateConverter.localDateToIsoStringAMPM(DateTime.parse(orderModel.createdAt!)),
-                          style: robotoRegular.copyWith(color: Theme.of(context).hintColor)):SizedBox(),
+                      Row(
+                        children: [
+                          Expanded(
+
+                            child: Column(
+
+                              children: [
+                                orderModel.createdAt != null?
+                                Text(DateConverter.localDateToIsoStringAMPM(DateTime.parse(orderModel.createdAt!)),
+                                    maxLines: 1,
+                                    style: robotoRegular.copyWith(color: Theme.of(context).hintColor,fontSize: Dimensions.FONT_SIZE_DEFAULT)):SizedBox(),
+                                Text('المنطقة : شبين الكوم',
+                                    maxLines: 1,
+
+                                    style: robotoRegular.copyWith(color: Theme.of(context).hintColor,fontSize: Dimensions.FONT_SIZE_DEFAULT)),
+                              ],
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                            ),
+                            flex: 2,
+                          ),
+                          Expanded(
+
+                            child: Center(
+                              child: Column(
+                                children: [
+
+                                  Text(
+                                      getTranslated('discount', context)!,
+                                      style: robotoRegular.copyWith(color: Theme.of(context).primaryColor)),
+                                  Text(orderModel.discountAmount.toString()+" "+'ج.م ',
+                                      style: robotoRegular.copyWith(color: Theme.of(context).primaryColor)),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Column(
+                            children: [
+
+                              Text("الاصناف : "+ orderModel.orderAmount.toString(),
+                                  style: robotoRegular.copyWith(color: Theme.of(context).hintColor)),
+                              Text('3500 ج.م',
+                                  style: robotoRegular.copyWith(color: Theme.of(context).hintColor)),
+                            ],
+                          ),
+                        ],
+                      ),
 
 
-                      SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
+                     // SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
 
 
                       Row(mainAxisAlignment:MainAxisAlignment.spaceBetween,
@@ -119,25 +175,25 @@ class OrderWidget extends StatelessWidget {
                             ],
                           ),
 
-                          Row(children: [
-
-
-                            Text(orderModel?.paymentMethod != null?getTranslated(orderModel.paymentMethod??'', context)!:'',
-                                style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT, color: Theme.of(context).hintColor)),
-                            SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
-                            Container(height: Dimensions.ICON_SIZE_DEFAULT, width: Dimensions.ICON_SIZE_DEFAULT,
-
-                              child: Image.asset(orderModel.paymentMethod == 'cash_on_delivery'? Images.payment_icon:
-                              orderModel.paymentMethod == 'pay_by_wallet'? Images.pay_by_wallet_icon : Images.digital_payment_icon),),
-
-                          ],),
+                          // Row(children: [
+                          //
+                          //
+                          //   Text(orderModel?.paymentMethod != null?getTranslated(orderModel.paymentMethod??'', context)!:'',
+                          //       style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT, color: Theme.of(context).hintColor)),
+                          //   SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
+                          //   Container(height: Dimensions.ICON_SIZE_DEFAULT, width: Dimensions.ICON_SIZE_DEFAULT,
+                          //
+                          //     child: Image.asset(orderModel.paymentMethod == 'cash_on_delivery'? Images.payment_icon:
+                          //     orderModel.paymentMethod == 'pay_by_wallet'? Images.pay_by_wallet_icon : Images.digital_payment_icon),),
+                          //
+                          // ],),
 
                       ],),
                     ],),
                   ),)
               ],),),
           ),
-          SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
+     //     SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
 
         ],
       ),

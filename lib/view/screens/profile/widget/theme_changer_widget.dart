@@ -16,6 +16,8 @@ import 'package:bed3avendor/view/screens/settings/setting_screen.dart';
 import 'package:bed3avendor/view/screens/shipping/category_wise_shipping.dart';
 import 'package:bed3avendor/view/screens/shipping/widget/product_wise_shipping.dart';
 
+import '../../product/product_list_screen.dart';
+
 class ThemeChanger extends StatelessWidget {
   const ThemeChanger({Key? key}) : super(key: key);
 
@@ -55,18 +57,24 @@ class ThemeChanger extends StatelessWidget {
         ),
           SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL,),
 
-          Provider.of<SplashProvider>(context, listen: false).configModel!.shippingMethod == 'sellerwise_shipping'?
-          SectionItemWidget(icon: Images.box, title: 'shipping_method',
+          // Provider.of<SplashProvider>(context, listen: false).configModel!.shippingMethod == 'sellerwise_shipping'?
+          // SectionItemWidget(icon: Images.box, title: 'shipping_method',
+          //   onTap: (){
+          //   if(Provider.of<ShippingProvider>(context, listen: false).selectedShippingType == "category_wise"){
+          //     Navigator.of(context).push(MaterialPageRoute(builder: (_) => CategoryWiseShippingScreen()));
+          //   }else if(Provider.of<ShippingProvider>(context, listen: false).selectedShippingType == "order_wise"){
+          //     Navigator.of(context).push(MaterialPageRoute(builder: (_) => OrderWiseShippingScreen()));
+          //   }else{
+          //     Navigator.of(context).push(MaterialPageRoute(builder: (_) => ProductWiseShipping()));
+          //   }},):SizedBox(),
+          //
+          //
+          // SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL,),
+
+          SectionItemWidget(icon: Images.product_num, title: 'عدد الاصناف',
             onTap: (){
-            if(Provider.of<ShippingProvider>(context, listen: false).selectedShippingType == "category_wise"){
-              Navigator.of(context).push(MaterialPageRoute(builder: (_) => CategoryWiseShippingScreen()));
-            }else if(Provider.of<ShippingProvider>(context, listen: false).selectedShippingType == "order_wise"){
-              Navigator.of(context).push(MaterialPageRoute(builder: (_) => OrderWiseShippingScreen()));
-            }else{
-              Navigator.of(context).push(MaterialPageRoute(builder: (_) => ProductWiseShipping()));
-            }},):SizedBox(),
-
-
+              Navigator.push(context, MaterialPageRoute(builder: (_)=> ProductListMenuScreen()));
+            },),
           SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL,),
 
           SectionItemWidget(icon: Images.edit_profile, title: 'settings',
@@ -76,6 +84,18 @@ class ThemeChanger extends StatelessWidget {
           SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL,),
 
           SectionItemWidget(icon: Images.bank_card, title: 'bank_info',
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (_)=> BankInfoView()));
+            },),
+
+          SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL,),
+          SectionItemWidget(icon: Images.resetpassword, title: 'تغيير كلمة المرور',
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (_)=> BankInfoView()));
+            },),
+
+          SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL,),
+          SectionItemWidget(icon: Images.logOut2, title: 'logout',
             onTap: (){
               Navigator.push(context, MaterialPageRoute(builder: (_)=> BankInfoView()));
             },),
@@ -112,7 +132,10 @@ class SectionItemWidget extends StatelessWidget {
               child: Image.asset(icon!)),
             SizedBox(width: Dimensions.PADDING_SIZE_SMALL,),
 
-            Expanded(child: Text(getTranslated(title, context)!,
+            Expanded(child: Text(
+                '${getTranslated(title, context)!=null?
+            getTranslated(title, context):
+            title}',
                 style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT)),),
 
 

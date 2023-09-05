@@ -1,3 +1,4 @@
+import 'package:bed3avendor/provider/search_product_provider.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -90,6 +91,7 @@ Future<void> init() async {
   sl.registerFactory(() => ShippingProvider(shippingRepo: sl()));
   sl.registerFactory(() => DeliveryManProvider(deliveryManRepo: sl()));
   sl.registerFactory(() => RefundProvider(refundRepo: sl()));
+  sl.registerFactory(() => SearchProvider(refundRepo: sl()));
   sl.registerFactory(() => CartProvider(cartRepo: sl()));
   sl.registerFactory(() => BottomMenuController());
   sl.registerFactory(() => EmergencyContactProvider(emergencyContactRepo: sl()));

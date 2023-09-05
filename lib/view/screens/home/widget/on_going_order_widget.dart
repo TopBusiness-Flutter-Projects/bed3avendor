@@ -40,33 +40,33 @@ class OngoingOrderWidget extends StatelessWidget {
                       color: ColorResources.getTextColor(context),
                       fontSize: Dimensions.FONT_SIZE_DEFAULT),),
 
-                  Expanded(child: SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_LARGE,)),
-                  Container(
-                    height: 50,width: 120,
-                    padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_SMALL),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).cardColor,
-                      border: Border.all(width: .7,color: Theme.of(context).hintColor.withOpacity(.3)),
-                      borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_EXTRA_SMALL),
-
-                    ),
-                    child: DropdownButton<String>(
-                      value: order.analyticsIndex == 0 ? 'overall' : order.analyticsIndex == 1 ?  'today' : 'this_month',
-                      items: <String>['overall', 'today', 'this_month' ].map((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(getTranslated(value, context)!, style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT),),
-                        );
-                      }).toList(),
-                      onChanged: (value) {
-                        order.setAnalyticsFilterName(context,value, true);
-                       order.setAnalyticsFilterType(value == 'overall' ? 0 : value == 'today'? 1:2, true);
-
-                      },
-                      isExpanded: true,
-                      underline: SizedBox(),
-                    ),
-                  ),
+                  // Expanded(child: SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_LARGE,)),
+                  // Container(
+                  //   height: 50,width: 120,
+                  //   padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_SMALL),
+                  //   decoration: BoxDecoration(
+                  //     color: Theme.of(context).cardColor,
+                  //     border: Border.all(width: .7,color: Theme.of(context).hintColor.withOpacity(.3)),
+                  //     borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_EXTRA_SMALL),
+                  //
+                  //   ),
+                  //   child: DropdownButton<String>(
+                  //     value: order.analyticsIndex == 0 ? 'overall' : order.analyticsIndex == 1 ?  'today' : 'this_month',
+                  //     items: <String>['overall', 'today', 'this_month' ].map((String value) {
+                  //       return DropdownMenuItem<String>(
+                  //         value: value,
+                  //         child: Text(getTranslated(value, context)!, style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT),),
+                  //       );
+                  //     }).toList(),
+                  //     onChanged: (value) {
+                  //       order.setAnalyticsFilterName(context,value, true);
+                  //      order.setAnalyticsFilterType(value == 'overall' ? 0 : value == 'today'? 1:2, true);
+                  //
+                  //     },
+                  //     isExpanded: true,
+                  //     underline: SizedBox(),
+                  //   ),
+                  // ),
 
                 ],),
             ),
@@ -91,8 +91,8 @@ class OngoingOrderWidget extends StatelessWidget {
                   children: [
                     OrderTypeButtonHead(
                       color: ColorResources.mainCardOneColor(context),
-                      text: getTranslated('pending', context), index: 1,
-                      subText: getTranslated('orders', context),
+                      text: getTranslated('orders', context), index: 1,
+                      subText: getTranslated('pending', context),
                       numberOfOrder: orderProvider.businessAnalyticsFilterData?.pending, callback: callback,
                     ),
 
@@ -101,22 +101,22 @@ class OngoingOrderWidget extends StatelessWidget {
                       color: ColorResources.mainCardTwoColor(context),
                       text: getTranslated('processing', context), index: 2,
                       numberOfOrder: orderProvider.businessAnalyticsFilterData?.processing, callback: callback,
-                      subText: getTranslated('orders', context),
+                      subText: '',
 
                     ),
 
 
                     OrderTypeButtonHead(
                       color: ColorResources.mainCardThreeColor(context),
-                      text: getTranslated('confirmed', context), index: 7,
-                      subText: getTranslated('orders', context),
+                      text: getTranslated('in_way', context), index: 7,
+                      subText:'',
                       numberOfOrder: orderProvider.businessAnalyticsFilterData?.confirmed, callback: callback,
                     ),
 
 
                     OrderTypeButtonHead(
                       color: ColorResources.mainCardFourColor(context),
-                      text: getTranslated('out_for_delivery', context), index: 8,
+                      text: getTranslated('delivered', context), index: 8,
                       subText: '',
                       numberOfOrder: orderProvider.businessAnalyticsFilterData?.outForDelivery, callback: callback,
                     ),
@@ -126,7 +126,49 @@ class OngoingOrderWidget extends StatelessWidget {
             ) : SizedBox(height: 150,
                 child: Center(child: CircularProgressIndicator(
                     valueColor: AlwaysStoppedAnimation(Theme.of(context).primaryColor)))),
+           // SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_MEDIUM),
+              child:   Container(
+
+                width: MediaQuery.of(context).size.width,
+
+                height: 50,
+
+                decoration: BoxDecoration(
+
+                    borderRadius: BorderRadius.all(Radius.circular(Dimensions.PADDING_SIZE),
+
+                    ),
+
+                    color: ColorResources.YELLOW
+
+                ),
+
+                child: Padding(
+                  padding: const EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
+                  child: Row(
+
+                    children: [
+
+                      Text('اجمالى الفواتير',
+
+                        style: robotoMedium.copyWith(color:ColorResources.getWhite(context),fontSize: Dimensions.FONT_SIZE_LARGE),),
+
+                      Spacer(),
+                      Text('3500 ج.م',
+
+                        style: robotoMedium.copyWith(color:ColorResources.getWhite(context),fontSize: Dimensions.FONT_SIZE_LARGE),),
+
+                    ],
+
+                  ),
+                ),
+
+              ),
+            ),
             SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
+
           ],),);
       }
     );

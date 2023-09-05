@@ -43,7 +43,7 @@ class _OrderedProductListItemState extends State<OrderedProductListItem> {
     IsolateNameServer.registerPortWithName(_port.sendPort, 'downloader_send_port');
     _port.listen((dynamic data) {
     });
-    FlutterDownloader.registerCallback(downloadCallback);
+   // FlutterDownloader.registerCallback(downloadCallback as void Function(String, int, int));
   }
 
   @override

@@ -64,7 +64,8 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
     _loadData(context,widget.shippingType);
     return Scaffold(
       key: _scaffoldKey,
-      appBar: CustomAppBar(title: getTranslated('order_details', context)),
+      appBar: CustomAppBar(title: getTranslated('order_details', context),
+        isTooltip: true,widget: Icon(Icons.save),),
 
       body: RefreshIndicator(
         onRefresh: () async{

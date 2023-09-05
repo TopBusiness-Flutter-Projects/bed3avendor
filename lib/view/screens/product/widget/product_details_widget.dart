@@ -179,17 +179,17 @@ class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
                         child: Column(crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(Dimensions.PADDING_SIZE_DEFAULT, Dimensions.PADDING_SIZE_MEDIUM, Dimensions.PADDING_SIZE_DEFAULT, 0),
+                            padding:  EdgeInsets.fromLTRB(Dimensions.PADDING_SIZE_DEFAULT, Dimensions.PADDING_SIZE_MEDIUM, Dimensions.PADDING_SIZE_DEFAULT, 0),
                             child: Text(getTranslated('description', context)!, style: robotoBold,),
                           ),
 
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(Dimensions.PADDING_SIZE_SMALL, 0, Dimensions.PADDING_SIZE_DEFAULT, Dimensions.PADDING_SIZE_SMALL),
+                            padding:  EdgeInsets.fromLTRB(Dimensions.PADDING_SIZE_SMALL, 0, Dimensions.PADDING_SIZE_DEFAULT, Dimensions.PADDING_SIZE_SMALL),
                             child: Html(data: widget.productModel!.details,
-                              tagsList: Html.tags,
-                              customRenders: {
-                                tableMatcher(): tableRender(),
-                              },
+                              // tagsList: Html.tags,
+                              // customRenders: {
+                              //   tableMatcher(): tableRender(),
+                              // },
                               style: {
                               "table": Style(
                                   backgroundColor: Color.fromARGB(0x50, 0xee, 0xee, 0xee),
@@ -198,11 +198,13 @@ class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
                                   border: Border(bottom: BorderSide(color: Colors.grey)),
                                 ),
                                 "th": Style(
-                                  padding: EdgeInsets.all(6),
+
+                                  padding: HtmlPaddings.all(6)
+                                ,
                                   backgroundColor: Colors.grey,
                                 ),
                                 "td": Style(
-                                  padding: EdgeInsets.all(6),
+                                  padding: HtmlPaddings.all(6),
                                   alignment: Alignment.topLeft,
                                 ),
 

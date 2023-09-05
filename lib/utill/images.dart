@@ -50,11 +50,14 @@ class Images {
   static const String app_info = 'assets/image/app-info.png';
   static const String bank_info = 'assets/image/bank-info.png';
   static const String logOut = 'assets/image/logout.png';
+  static const String logOut2 = 'assets/image/logout2.png';
+  static const String resetpassword = 'assets/image/reset-password.png';
   static const String privacy_policy = 'assets/image/privacy-policy.png';
   static const String profile = 'assets/image/profile.png';
   static const String settings = 'assets/image/settings.png';
   static const String terms_and_condition = 'assets/image/terms-and-conditions.png';
   static const String edit_profile = 'assets/image/edit_profile.png';
+  static const String product_num = 'assets/image/product_num.png';
   static const String send = 'assets/image/send.png';
   static const String card_white = 'assets/image/card_white.png';
   static const String delete = 'assets/image/delete.png';
@@ -63,6 +66,7 @@ class Images {
   static const String transactions = 'assets/image/transactions.png';
   static const String order = 'assets/image/orders.png';
   static const String refund = 'assets/image/refunds.png';
+  static const String reports = 'assets/image/reports.png';
   static const String menu = 'assets/image/menu.png';
   static const String delete_product = 'assets/image/delete_product.png';
 
@@ -90,6 +94,7 @@ class Images {
   static const String pay_by_wallet_icon = 'assets/image/pay_by_wallet_icon.png';
   static const String confirm_purchase = 'assets/image/confirm_purchase.png';
   static const String billing_section = 'assets/image/billing_section.png';
+  static const String budget = 'assets/image/budget.png';
   static const String scanner = 'assets/image/scanner.png';
   static const String product_icon = 'assets/image/product_icon.png';
   static const String pos = 'assets/image/pos_icon.png';

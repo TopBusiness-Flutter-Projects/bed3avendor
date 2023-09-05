@@ -100,7 +100,8 @@
   "discount": "خصم",
   "total_amount": "المبلغ الإجمالي",
   "pending": "قيد الانتظار",
-  "processing": "معالجة",
+  "processing": "جارى التحضير",
+  "in_way": "فى الطريق",
   "delivered": "تم التوصيل",
   "return": "إرجاع",
   "failed": "باءت بالفشل",
@@ -136,10 +137,10 @@
   "enter_lower_amount": "أدخل مبلغًا أقل من رصيدك",
   "enter_minimum_amount of": "أدخل الحد الأدنى للمبلغ",
   "more": "أكثر",
-  "orders": "أوامر",
+  "orders": "فواتير",
   "confirmed": "مؤكد",
   "out_for_delivery": "خارج ل توصيل",
-  "cancelled": "ألغيت",
+  "cancelled": "ملغى",
   "your_earnings" : "أرباحك",
   "commission_given" : "العمولة المقدمة",
   "wallet": "محفظة",
@@ -314,7 +315,7 @@
   "select_month": "اختر الشهر",
   "transaction_length": "قائمة المعاملات",
   "reviews": "المراجعات",
-  "products": "منتجات",
+  "products": "الأصناف",
   "inset_lang_wise_title_des": "أدخل اسم المنتج والأوصاف اللغوية",
   "select_brand": "اختر الماركة",
   "select_category": "اختر الفئة",
@@ -694,7 +695,11 @@
   "vacation_date_range": "نطاق تاريخ الإجازة",
   "taxModel": "النموذج الضريبي",
   "image_upload_failed": "Image upload failed",
-  "product_add_failed": "Product add failed"
+  "product_add_failed": "Product add failed",
+  "reports": "التقرير",
+  "offers": "عروض",
+  "notavailable": "غير متوفر"
+
 }
 
 

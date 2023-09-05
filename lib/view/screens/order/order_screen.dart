@@ -42,28 +42,31 @@ class _OrderScreenState extends State<OrderScreen> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_SMALL, vertical: Dimensions.PADDING_SIZE_SMALL),
               child: SizedBox(
-                height: 40,
+                height: 50,
                 child: ListView(
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
                   children: [
-                    OrderTypeButton(text: getTranslated('all', context), index: 0, ),
+                    // OrderTypeButton(text: getTranslated('all', context), index: 0, ),
+                    // SizedBox(width: 5),
+                    OrderTypeButton(text: getTranslated('pending', context), index: 0),
                     SizedBox(width: 5),
-                    OrderTypeButton(text: getTranslated('pending', context), index: 1),
+                    OrderTypeButton(text: getTranslated('processing', context), index: 1),
                     SizedBox(width: 5),
-                    OrderTypeButton(text: getTranslated('processing', context), index: 2),
+                    OrderTypeButton
+                      (text: getTranslated('in_way', context), index: 2),
                     SizedBox(width: 5),
                     OrderTypeButton(text: getTranslated('delivered', context), index: 3),
                     SizedBox(width: 5),
-                    OrderTypeButton(text: getTranslated('return', context), index: 4),
+                    // OrderTypeButton(text: getTranslated('return', context), index: 4),
+                    // SizedBox(width: 5),
+                    // OrderTypeButton(text: getTranslated('failed', context), index: 5),
+                    // SizedBox(width: 5),
+                    OrderTypeButton(text: getTranslated('cancelled', context), index: 4),
                     SizedBox(width: 5),
-                    OrderTypeButton(text: getTranslated('failed', context), index: 5),
-                    SizedBox(width: 5),
-                    OrderTypeButton(text: getTranslated('cancelled', context), index: 6),
-                    SizedBox(width: 5),
-                    OrderTypeButton(text: getTranslated('confirmed', context), index: 7),
-                    SizedBox(width: 5),
-                    OrderTypeButton(text: getTranslated('out_for_delivery', context), index: 8),
+                    // OrderTypeButton(text: getTranslated('confirmed', context), index: 7),
+                    // SizedBox(width: 5),
+                    // OrderTypeButton(text: getTranslated('out_for_delivery', context), index: 8),
 
                   ],
                 ),
@@ -175,18 +178,38 @@ class OrderTypeButton extends StatelessWidget {
           Provider.of<OrderProvider>(context, listen: false).setIndex(context, index);
         },
         child: Consumer<OrderProvider>(builder: (context, order, child) {
-          return Container(
-            height: 40,
-            padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_LARGE,),
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: order.orderTypeIndex == index ? Theme.of(context).primaryColor : ColorResources.getButtonHintColor(context),
-              borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_LARGE),
-            ),
-            child: Text(text!, style: order.orderTypeIndex == index ? titilliumBold.copyWith(color: order.orderTypeIndex == index
-                    ? ColorResources.getWhite(context) : ColorResources.getTextColor(context)):
-                robotoRegular.copyWith(color: order.orderTypeIndex == index
-                ? ColorResources.getWhite(context) : ColorResources.getTextColor(context))),
+          return Column(
+            children: [
+              Container(
+                height: 40,
+                padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_LARGE,),
+                alignment: Alignment.center,
+                // decoration: BoxDecoration(
+                //   color: order.orderTypeIndex == index ? Theme.of(context).primaryColor : ColorResources.getButtonHintColor(context),
+                //   borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_LARGE),
+                // ),
+                child: Text(text!, style: order.orderTypeIndex == index ? titilliumBold.copyWith(color: order.orderTypeIndex == index
+                        ? ColorResources.getBlue(context): ColorResources.getTextColor(context)):
+                    robotoRegular.copyWith(color: order.orderTypeIndex == index
+                    ? ColorResources.getBlue(context) : ColorResources.getTextColor(context))),
+              ),
+              SizedBox(
+                height: 2,
+              width: MediaQuery.of(context).size.width/4,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Divider(
+                        height: 2,
+
+                          color: order.orderTypeIndex == index ? Theme.of(context).primaryColor : ColorResources.getButtonHintColor(context),
+
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
           );
         },
         ),

@@ -17,6 +17,8 @@ import 'package:bed3avendor/view/screens/menu/menu_screen.dart';
 import 'package:bed3avendor/view/screens/order/order_screen.dart';
 import 'package:bed3avendor/view/screens/refund/refund_screen.dart';
 
+import '../searchproduct/searchproducts.dart';
+
 
 class DashboardScreen extends StatefulWidget {
 
@@ -37,15 +39,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
     Provider.of<ProfileProvider>(context, listen: false).getSellerInfo(context);
 
     _screens = [
+      SearchProducts(
+      ),
+
+      OrderScreen(),
+     // RefundScreen(),
       HomePageScreen(callback: () {
         setState(() {
           _setPage(1);
         });
       }),
-
-      OrderScreen(),
-      RefundScreen(),
-
     ];
 
     NetworkInfo.checkConnectivity(context);
@@ -92,9 +95,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
           currentIndex: _pageIndex,
           type: BottomNavigationBarType.fixed,
           items: [
-            _barItem(Images.home, getTranslated('home', context), 0),
+            _barItem(Images.shop_product, getTranslated('products', context), 0),
             _barItem(Images.order, getTranslated('my_order', context), 1),
-            _barItem(Images.refund, getTranslated('refund', context), 2),
+            _barItem(Images.reports, getTranslated('reports', context), 2),
             _barItem(Images.menu, getTranslated('menu', context), 3)
           ],
           onTap: (int index) {

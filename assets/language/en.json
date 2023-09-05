@@ -100,7 +100,8 @@
   "discount": "Discount",
   "total_amount": "Total Amount",
   "pending": "Pending",
-  "processing": "Packaging",
+  "processing": "Processing",
+  "in_way": "In Way",
   "delivered": "Delivered",
   "return": "Return",
   "failed": "Failed to Delivery",
@@ -702,5 +703,8 @@
   "include": "Include",
   "exclude": "Exclude",
   "image_upload_failed": "Image upload failed",
-  "product_add_failed": "Product add failed"
+  "product_add_failed": "Product add failed",
+  "reports": "Reports",
+  "offers": "Offers",
+  "notavailable": "Not Available"
 }
