@@ -105,7 +105,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                               width: Dimensions.ICON_SIZE_DEFAULT,
                               color: Theme.of(context).primaryColor,
                             ),
-                            Positioned(top: -4, right: -4,
+                            Positioned(
+                              top: -4,
+                              right: -4,
                               child: CircleAvatar(radius: 7, backgroundColor: Colors.green,
                                 child: Text('${cartController.customerCartList.isNotEmpty?cartController.customerCartList[cartController.customerIndex].cart!.length : 0}',
                                     style: robotoRegular.copyWith(color: Theme.of(context).cardColor,

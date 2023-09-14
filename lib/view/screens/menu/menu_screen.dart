@@ -40,8 +40,8 @@ class MenuBottomSheet extends StatelessWidget {
       CustomBottomSheet(image: Images.add_product, title: getTranslated('add_product', context),
           onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (_)=> AddProductScreen()))),
 
-      CustomBottomSheet(image: Images.product_icon_pp, title: getTranslated('products', context),
-          onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (_)=> ProductListMenuScreen()))),
+      // CustomBottomSheet(image: Images.product_icon_pp, title: getTranslated('products', context),
+      //     onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (_)=> ProductListMenuScreen()))),
 
       CustomBottomSheet(image: Images.review_icon, title: getTranslated('reviews', context),
           onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (_)=> ProductReview()))),

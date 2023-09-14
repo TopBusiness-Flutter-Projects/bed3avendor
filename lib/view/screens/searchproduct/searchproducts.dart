@@ -1,7 +1,9 @@
+import 'package:bed3avendor/view/screens/searchproduct/widget/edit_product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 
+import '../../../data/model/response/edt_product_model.dart';
 import '../../../data/model/response/refund_model.dart';
 import '../../../localization/language_constrants.dart';
 import '../../../provider/search_product_provider.dart';
@@ -267,28 +269,38 @@ class _SearchProductsState extends State<SearchProducts> {
                                     ),
                                   ),
                                   SizedBox(width: Dimensions.PADDING_SIZE_LARGE,),
-                                  Container(
-                                    width: MediaQuery.of(context).size.width/3.5,
-                                    decoration: BoxDecoration(
-                                        color: Theme.of(context).primaryColor,
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(Dimensions
-                                                .PADDING_SIZE_SMALL))),
-                                    child: Center(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Row(
-                                          children: [
-                                            Icon(Icons.edit,
-                                                color: Colors.white),
-                                            SizedBox(width: 20,),
-
-                                            Text(
-                                              '${getTranslated('edit', context)}',
-                                              style: robotoMedium.copyWith(
+                                  InkWell(
+                                    onTap: () {
+                                      showModalBottomSheet(
+                                          context: context,
+                                          isScrollControlled: true,
+                                          backgroundColor: Colors.transparent,
+                                          builder: (con) => EditProductScreen()
+                                      );
+                                    },
+                                    child: Container(
+                                      width: MediaQuery.of(context).size.width/3.5,
+                                      decoration: BoxDecoration(
+                                          color: Theme.of(context).primaryColor,
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(Dimensions
+                                                  .PADDING_SIZE_SMALL))),
+                                      child: Center(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Row(
+                                            children: [
+                                              Icon(Icons.edit,
                                                   color: Colors.white),
-                                            )
-                                          ],
+                                              SizedBox(width: 20,),
+
+                                              Text(
+                                                '${getTranslated('edit', context)}',
+                                                style: robotoMedium.copyWith(
+                                                    color: Colors.white),
+                                              )
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),

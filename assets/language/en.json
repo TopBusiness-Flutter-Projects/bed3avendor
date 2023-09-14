@@ -706,5 +706,6 @@
   "product_add_failed": "Product add failed",
   "reports": "Reports",
   "offers": "Offers",
-  "notavailable": "Not Available"
+  "notavailable": "Not Available",
+  "confirm": "Confirm"
 }
