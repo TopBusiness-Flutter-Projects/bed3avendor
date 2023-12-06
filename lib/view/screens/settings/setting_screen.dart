@@ -17,34 +17,36 @@ class SettingsScreen extends StatelessWidget {
     Provider.of<SplashProvider>(context, listen: false).setFromSetting(true);
 
     return Scaffold(
-      appBar: CustomAppBar(title: getTranslated('settings', context),),
+      appBar: CustomAppBar(
+        title: getTranslated('settings', context),
+      ),
       body: ListView(
         physics: BouncingScrollPhysics(),
         children: [
-
           SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-
           TitleButton(
             icon: Images.language,
             title: getTranslated('choose_language', context),
-            onTap: ()=> Navigator.of(context).push(MaterialPageRoute(builder: (_) => ChooseLanguageScreen())),
+            onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => ChooseLanguageScreen())),
           ),
-
-
-
-          Provider.of<SplashProvider>(context, listen: false).configModel!.shippingMethod == 'sellerwise_shipping'?
-          TitleButton(
-            icon: Images.ship,
-            title: '${getTranslated('shipping_setting', context)}',
-            onTap: () => showAnimatedDialog(context, ChooseShippingDialog()),
-          ):SizedBox(),
-
+          Provider.of<SplashProvider>(context, listen: false)
+                      .configModel!
+                      .shippingMethod ==
+                  'sellerwise_shipping'
+              ? TitleButton(
+                  icon: Images.ship,
+                  title: '${getTranslated('shipping_setting', context)}',
+                  onTap: () =>
+                      showAnimatedDialog(context, ChooseShippingDialog()),
+                )
+              : SizedBox(),
         ],
       ),
     );
   }
-
 }
+
 class TitleButton extends StatelessWidget {
   final String icon;
   final String? title;
@@ -54,26 +56,49 @@ class TitleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL),
+      padding: const EdgeInsets.symmetric(
+          vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL),
       child: InkWell(
         onTap: onTap as void Function()?,
         child: Container(
           decoration: BoxDecoration(
             color: Theme.of(context).cardColor,
-            boxShadow: [BoxShadow(color:Provider.of<ThemeProvider>(context, listen: false).darkTheme? Theme.of(context).primaryColor.withOpacity(0):
-            Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 800 : 200]!,
-                spreadRadius: 0.5, blurRadius: 0.3)],
+            boxShadow: [
+              BoxShadow(
+                  color: Provider.of<ThemeProvider>(context, listen: false)
+                          .darkTheme
+                      ? Theme.of(context).primaryColor.withOpacity(0)
+                      : Colors.grey[
+                          Provider.of<ThemeProvider>(context).darkTheme
+                              ? 800
+                              : 200]!,
+                  spreadRadius: 0.5,
+                  blurRadius: 0.3)
+            ],
           ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical : Dimensions.PADDING_SIZE_DEFAULT, horizontal: Dimensions.PADDING_SIZE_LARGE),
-            child: Row(children: [
-              Container(width:Dimensions.ICON_SIZE_LARGE, height:Dimensions.ICON_SIZE_LARGE, child: Image.asset(icon)),
-              SizedBox(width: Dimensions.PADDING_SIZE_SMALL,),
-              Text(title!, style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE)),
-              Spacer(),
-              Icon(Icons.arrow_forward_ios, color: Theme.of(context).primaryColor,size: Dimensions.ICON_SIZE_SMALL,),
-            ],
-
+            padding: const EdgeInsets.symmetric(
+                vertical: Dimensions.PADDING_SIZE_DEFAULT,
+                horizontal: Dimensions.PADDING_SIZE_LARGE),
+            child: Row(
+              children: [
+                Container(
+                    width: Dimensions.ICON_SIZE_LARGE,
+                    height: Dimensions.ICON_SIZE_LARGE,
+                    child: Image.asset(icon)),
+                SizedBox(
+                  width: Dimensions.PADDING_SIZE_SMALL,
+                ),
+                Text(title!,
+                    style: titilliumRegular.copyWith(
+                        fontSize: Dimensions.FONT_SIZE_LARGE)),
+                Spacer(),
+                Icon(
+                  Icons.arrow_forward_ios,
+                  color: Theme.of(context).primaryColor,
+                  size: Dimensions.ICON_SIZE_SMALL,
+                ),
+              ],
             ),
           ),
         ),
@@ -81,4 +106,3 @@ class TitleButton extends StatelessWidget {
     );
   }
 }
-

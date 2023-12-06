@@ -20,7 +20,6 @@ class AddNewCustomerScreen extends StatefulWidget {
 }
 
 class _AddNewCustomerScreenState extends State<AddNewCustomerScreen> {
-
   TextEditingController _fName = TextEditingController();
   TextEditingController _lName = TextEditingController();
   TextEditingController _email = TextEditingController();
@@ -29,7 +28,6 @@ class _AddNewCustomerScreenState extends State<AddNewCustomerScreen> {
   TextEditingController _city = TextEditingController();
   TextEditingController _zipCode = TextEditingController();
   TextEditingController _address = TextEditingController();
-
 
   FocusNode _fNameNode = FocusNode();
   FocusNode _lNameNode = FocusNode();
@@ -45,18 +43,22 @@ class _AddNewCustomerScreenState extends State<AddNewCustomerScreen> {
     // TODO: implement initState
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: getTranslated('add_new_customer', context),isBackButtonExist: true),
+      appBar: CustomAppBar(
+          title: getTranslated('add_new_customer', context),
+          isBackButtonExist: true),
       body: SingleChildScrollView(
-        child: Consumer<CartProvider>(
-          builder: (context,customerProvider,_) {
-            return Column(children: [
+        child: Consumer<CartProvider>(builder: (context, customerProvider, _) {
+          return Column(
+            children: [
               SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
-
               Container(
-                  margin: EdgeInsets.only(left: Dimensions.PADDING_SIZE_LARGE, right: Dimensions.PADDING_SIZE_LARGE,
+                  margin: EdgeInsets.only(
+                      left: Dimensions.PADDING_SIZE_LARGE,
+                      right: Dimensions.PADDING_SIZE_LARGE,
                       bottom: Dimensions.PADDING_SIZE_SMALL),
                   child: CustomTextField(
                     border: true,
@@ -68,9 +70,10 @@ class _AddNewCustomerScreenState extends State<AddNewCustomerScreen> {
                     textInputAction: TextInputAction.next,
                   )),
               SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
-
               Container(
-                  margin: EdgeInsets.only(left: Dimensions.PADDING_SIZE_LARGE, right: Dimensions.PADDING_SIZE_LARGE,
+                  margin: EdgeInsets.only(
+                      left: Dimensions.PADDING_SIZE_LARGE,
+                      right: Dimensions.PADDING_SIZE_LARGE,
                       bottom: Dimensions.PADDING_SIZE_SMALL),
                   child: CustomTextField(
                     border: true,
@@ -82,11 +85,10 @@ class _AddNewCustomerScreenState extends State<AddNewCustomerScreen> {
                     textInputAction: TextInputAction.next,
                   )),
               SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
-
-
-
               Container(
-                  margin: EdgeInsets.only(left: Dimensions.PADDING_SIZE_LARGE, right: Dimensions.PADDING_SIZE_LARGE,
+                  margin: EdgeInsets.only(
+                      left: Dimensions.PADDING_SIZE_LARGE,
+                      right: Dimensions.PADDING_SIZE_LARGE,
                       bottom: Dimensions.PADDING_SIZE_SMALL),
                   child: CustomTextField(
                     border: true,
@@ -97,10 +99,9 @@ class _AddNewCustomerScreenState extends State<AddNewCustomerScreen> {
                     controller: _email,
                     textInputAction: TextInputAction.next,
                   )),
-              
-
               Container(
-                margin: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_DEFAULT,
+                margin: EdgeInsets.symmetric(
+                    horizontal: Dimensions.PADDING_SIZE_DEFAULT,
                     vertical: Dimensions.PADDING_SIZE_SMALL),
                 child: Row(children: [
                   CodePickerWidget(
@@ -112,13 +113,11 @@ class _AddNewCustomerScreenState extends State<AddNewCustomerScreen> {
                     showDropDownButton: true,
                     padding: EdgeInsets.zero,
                     showFlagMain: true,
-                    textStyle: TextStyle(color: Theme.of(context).textTheme.headline1!.color),
-
+                    textStyle: TextStyle(
+                        color: Theme.of(context).textTheme.headline1!.color),
                   ),
-
-
-
-                  Expanded(child: CustomTextField(
+                  Expanded(
+                      child: CustomTextField(
                     hintText: getTranslated('ENTER_MOBILE_NUMBER', context),
                     controller: _phone,
                     focusNode: _phoneNode,
@@ -127,15 +126,14 @@ class _AddNewCustomerScreenState extends State<AddNewCustomerScreen> {
                     border: true,
                     textInputAction: TextInputAction.next,
                     textInputType: TextInputType.phone,
-
                   )),
                 ]),
               ),
               SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
-
-
               Container(
-                  margin: EdgeInsets.only(left: Dimensions.PADDING_SIZE_LARGE, right: Dimensions.PADDING_SIZE_LARGE,
+                  margin: EdgeInsets.only(
+                      left: Dimensions.PADDING_SIZE_LARGE,
+                      right: Dimensions.PADDING_SIZE_LARGE,
                       bottom: Dimensions.PADDING_SIZE_SMALL),
                   child: CustomTextField(
                     border: true,
@@ -147,9 +145,10 @@ class _AddNewCustomerScreenState extends State<AddNewCustomerScreen> {
                     textInputAction: TextInputAction.next,
                   )),
               SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
-
               Container(
-                  margin: EdgeInsets.only(left: Dimensions.PADDING_SIZE_LARGE, right: Dimensions.PADDING_SIZE_LARGE,
+                  margin: EdgeInsets.only(
+                      left: Dimensions.PADDING_SIZE_LARGE,
+                      right: Dimensions.PADDING_SIZE_LARGE,
                       bottom: Dimensions.PADDING_SIZE_SMALL),
                   child: CustomTextField(
                     border: true,
@@ -161,9 +160,10 @@ class _AddNewCustomerScreenState extends State<AddNewCustomerScreen> {
                     textInputAction: TextInputAction.next,
                   )),
               SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
-
               Container(
-                  margin: EdgeInsets.only(left: Dimensions.PADDING_SIZE_LARGE, right: Dimensions.PADDING_SIZE_LARGE,
+                  margin: EdgeInsets.only(
+                      left: Dimensions.PADDING_SIZE_LARGE,
+                      right: Dimensions.PADDING_SIZE_LARGE,
                       bottom: Dimensions.PADDING_SIZE_SMALL),
                   child: CustomTextField(
                     border: true,
@@ -175,9 +175,10 @@ class _AddNewCustomerScreenState extends State<AddNewCustomerScreen> {
                     textInputAction: TextInputAction.next,
                   )),
               SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
-
               Container(
-                  margin: EdgeInsets.only(left: Dimensions.PADDING_SIZE_LARGE, right: Dimensions.PADDING_SIZE_LARGE,
+                  margin: EdgeInsets.only(
+                      left: Dimensions.PADDING_SIZE_LARGE,
+                      right: Dimensions.PADDING_SIZE_LARGE,
                       bottom: Dimensions.PADDING_SIZE_SMALL),
                   child: CustomTextField(
                     border: true,
@@ -188,66 +189,83 @@ class _AddNewCustomerScreenState extends State<AddNewCustomerScreen> {
                     textInputAction: TextInputAction.done,
                   )),
               SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
-
               Padding(
                 padding: const EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT),
-                child:customerProvider.isLoading?CircularProgressIndicator():
-                CustomButton(btnTxt: getTranslated('add', context),
-                  onTap: (){
-                  String firstName = _fName.text.trim();
-                  String lastName = _lName.text.trim();
-                  String email = _email.text.trim();
-                  String phone = _phone.text.trim();
-                  String country = _country.text.trim();
-                  String city = _city.text.trim();
-                  String zip = _zipCode.text.trim();
-                  String address = _address.text.trim() ;
+                child: customerProvider.isLoading
+                    ? CircularProgressIndicator()
+                    : CustomButton(
+                        btnTxt: getTranslated('add', context),
+                        onTap: () {
+                          String firstName = _fName.text.trim();
+                          String lastName = _lName.text.trim();
+                          String email = _email.text.trim();
+                          String phone = _phone.text.trim();
+                          String country = _country.text.trim();
+                          String city = _city.text.trim();
+                          String zip = _zipCode.text.trim();
+                          String address = _address.text.trim();
 
-                  if(firstName.isEmpty){
-                    showCustomSnackBar(getTranslated('first_name_is_required', context), context);
-                  }else if(lastName.isEmpty){
-                    showCustomSnackBar(getTranslated('last_name_is_required', context), context);
-                  }else if(email.isEmpty){
-                    showCustomSnackBar(getTranslated('email_is_required', context), context);
-                  }else if(email.isEmpty){
-                    showCustomSnackBar(getTranslated('email_name_is_required', context), context);
-                  }else if (EmailChecker.isNotValid(email)) {
-                    showCustomSnackBar(getTranslated('email_is_ot_valid', context), context);
-                  }else if(phone.isEmpty){
-                    showCustomSnackBar(getTranslated('phone_is_required', context), context);
-                  }else if(country.isEmpty){
-                    showCustomSnackBar(getTranslated('country_is_required', context), context);
-                  }else if(city.isEmpty){
-                    showCustomSnackBar(getTranslated('city_is_required', context), context);
-                  }else if(zip.isEmpty){
-                    showCustomSnackBar(getTranslated('zip_is_required', context), context);
-                  }else if(address.isEmpty){
-                    showCustomSnackBar(getTranslated('address_is_required', context), context);
-                  }else{
-                    CustomerBody customerBody = CustomerBody(
-                      fName :  firstName,
-                      lName: lastName,
-                      email: email,
-                      phone: phone,
-                      country: country,
-                      city: city,
-                      zipCode: zip,
-                      address: address
-
-                    );
-                    customerProvider.addNewCustomer(context, customerBody);
-
-                  }
-
-                  },),
+                          if (firstName.isEmpty) {
+                            showCustomSnackBar(
+                                getTranslated(
+                                    'first_name_is_required', context),
+                                context);
+                          } else if (lastName.isEmpty) {
+                            showCustomSnackBar(
+                                getTranslated('last_name_is_required', context),
+                                context);
+                          } else if (email.isEmpty) {
+                            showCustomSnackBar(
+                                getTranslated('email_is_required', context),
+                                context);
+                          } else if (email.isEmpty) {
+                            showCustomSnackBar(
+                                getTranslated(
+                                    'email_name_is_required', context),
+                                context);
+                          } else if (EmailChecker.isNotValid(email)) {
+                            showCustomSnackBar(
+                                getTranslated('email_is_ot_valid', context),
+                                context);
+                          } else if (phone.isEmpty) {
+                            showCustomSnackBar(
+                                getTranslated('phone_is_required', context),
+                                context);
+                          } else if (country.isEmpty) {
+                            showCustomSnackBar(
+                                getTranslated('country_is_required', context),
+                                context);
+                          } else if (city.isEmpty) {
+                            showCustomSnackBar(
+                                getTranslated('city_is_required', context),
+                                context);
+                          } else if (zip.isEmpty) {
+                            showCustomSnackBar(
+                                getTranslated('zip_is_required', context),
+                                context);
+                          } else if (address.isEmpty) {
+                            showCustomSnackBar(
+                                getTranslated('address_is_required', context),
+                                context);
+                          } else {
+                            CustomerBody customerBody = CustomerBody(
+                                fName: firstName,
+                                lName: lastName,
+                                email: email,
+                                phone: phone,
+                                country: country,
+                                city: city,
+                                zipCode: zip,
+                                address: address);
+                            customerProvider.addNewCustomer(
+                                context, customerBody);
+                          }
+                        },
+                      ),
               )
-
-
-
-
-            ],);
-          }
-        ),
+            ],
+          );
+        }),
       ),
     );
   }
