@@ -25,17 +25,11 @@ class SplashProvider extends ChangeNotifier {
   List<String>? get unitList => _unitList;
   List<ColorList>? get colorList => _colorList;
   int get unitIndex => _unitIndex;
-  int get colorIndex =>_colorIndex;
+  int get colorIndex => _colorIndex;
   List<String?> _shippingTypeList = [];
   String _shippingStatusType = '';
   List<String?> get shippingTypeList => _shippingTypeList;
   String get shippingStatusType => _shippingStatusType;
-
-
-
-
-
-
 
   ConfigModel? get configModel => _configModel;
   BaseUrls? get baseUrls => _baseUrls;
@@ -54,18 +48,19 @@ class SplashProvider extends ChangeNotifier {
     _hasConnection = true;
     ApiResponse apiResponse = await splashRepo!.getConfig();
     bool isSuccess;
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
       _configModel = ConfigModel.fromJson(apiResponse.response!.data);
       _baseUrls = ConfigModel.fromJson(apiResponse.response!.data).baseUrls;
       String? _currencyCode = splashRepo!.getCurrency();
-      for(CurrencyList currencyList in _configModel!.currencyList!) {
-        if(currencyList.id == _configModel!.systemDefaultCurrency) {
-          if(_currencyCode == null || _currencyCode.isEmpty) {
+      for (CurrencyList currencyList in _configModel!.currencyList!) {
+        if (currencyList.id == _configModel!.systemDefaultCurrency) {
+          if (_currencyCode == null || _currencyCode.isEmpty) {
             _currencyCode = currencyList.code;
           }
           _defaultCurrency = currencyList;
         }
-        if(currencyList.code == 'USD') {
+        if (currencyList.code == 'USD') {
           _usdCurrency = currencyList;
         }
       }
@@ -75,7 +70,8 @@ class SplashProvider extends ChangeNotifier {
     } else {
       isSuccess = false;
       ApiChecker.checkApi(context, apiResponse);
-      if(apiResponse.error.toString() == 'Connection to API server failed due to internet connection') {
+      if (apiResponse.error.toString() ==
+          'Connection to API server failed due to internet connection') {
         _hasConnection = false;
       }
     }
@@ -89,7 +85,7 @@ class SplashProvider extends ChangeNotifier {
 
   void getCurrencyData(String? currencyCode) {
     _configModel!.currencyList!.forEach((currency) {
-      if(currencyCode == currency.code) {
+      if (currencyCode == currency.code) {
         _myCurrency = currency;
         _currencyIndex = _configModel!.currencyList!.indexOf(currency);
         return;
@@ -108,13 +104,12 @@ class SplashProvider extends ChangeNotifier {
     return _colorIds;
   }
 
-
-
   void setCurrency(int index) {
     splashRepo!.setCurrency(_configModel!.currencyList![index].code!);
     getCurrencyData(_configModel!.currencyList![index].code);
     notifyListeners();
   }
+
   void setShippingType(int index) {
     splashRepo!.setShippingType(_shippingTypeList[index]!);
     notifyListeners();
@@ -125,7 +120,6 @@ class SplashProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-
   void initSharedPrefData() {
     splashRepo!.initSharedData();
   }
@@ -134,14 +128,13 @@ class SplashProvider extends ChangeNotifier {
     _fromSetting = isSetting;
   }
 
-
-
-
   void initShippingTypeList(BuildContext context, String type) async {
-    ApiResponse apiResponse = await splashRepo!.getShippingTypeList(context,type);
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+    ApiResponse apiResponse =
+        await splashRepo!.getShippingTypeList(context, type);
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
       _shippingTypeList.clear();
-      _shippingTypeList =[];
+      _shippingTypeList = [];
       _shippingTypeList.addAll(apiResponse.response!.data);
     } else {
       ApiChecker.checkApi(context, apiResponse);

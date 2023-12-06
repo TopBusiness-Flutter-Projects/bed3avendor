@@ -38,23 +38,27 @@ import 'package:bed3avendor/view/screens/splash/splash_screen.dart';
 import 'firebase_options.dart';
 import 'di_container.dart' as di;
 import 'notification/my_notification.dart';
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 
 Future<void> main() async {
   //////55
   HttpOverrides.global = new MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp( options: DefaultFirebaseOptions.currentPlatform,);
-  await FlutterDownloader.initialize(
-      debug: true ,
-      ignoreSsl: true
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
   );
+  await FlutterDownloader.initialize(debug: true, ignoreSsl: true);
   await di.init();
-  final NotificationAppLaunchDetails? notificationAppLaunchDetails = await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
+  final NotificationAppLaunchDetails? notificationAppLaunchDetails =
+      await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
   int? _orderID;
   if (notificationAppLaunchDetails?.didNotificationLaunchApp ?? false) {
-    _orderID = (notificationAppLaunchDetails!.payload != null && notificationAppLaunchDetails.payload!.isNotEmpty)
-        ? int.parse(notificationAppLaunchDetails.payload!) : null;
+    _orderID = (notificationAppLaunchDetails!.payload != null &&
+            notificationAppLaunchDetails.payload!.isNotEmpty)
+        ? int.parse(notificationAppLaunchDetails.payload!)
+        : null;
   }
   await MyNotification.initialize(flutterLocalNotificationsPlugin);
   FirebaseMessaging.onBackgroundMessage(myBackgroundMessageHandler);
@@ -64,7 +68,8 @@ Future<void> main() async {
       ChangeNotifierProvider(create: (context) => di.sl<ThemeProvider>()),
       ChangeNotifierProvider(create: (context) => di.sl<SplashProvider>()),
       ChangeNotifierProvider(create: (context) => di.sl<LanguageProvider>()),
-      ChangeNotifierProvider(create: (context) => di.sl<LocalizationProvider>()),
+      ChangeNotifierProvider(
+          create: (context) => di.sl<LocalizationProvider>()),
       ChangeNotifierProvider(create: (context) => di.sl<AuthProvider>()),
       ChangeNotifierProvider(create: (context) => di.sl<ProfileProvider>()),
       ChangeNotifierProvider(create: (context) => di.sl<ShopProvider>()),
@@ -75,14 +80,17 @@ Future<void> main() async {
       ChangeNotifierProvider(create: (context) => di.sl<TransactionProvider>()),
       ChangeNotifierProvider(create: (context) => di.sl<SellerProvider>()),
       ChangeNotifierProvider(create: (context) => di.sl<ProductProvider>()),
-      ChangeNotifierProvider(create: (context) => di.sl<ProductReviewProvider>()),
+      ChangeNotifierProvider(
+          create: (context) => di.sl<ProductReviewProvider>()),
       ChangeNotifierProvider(create: (context) => di.sl<ShippingProvider>()),
       ChangeNotifierProvider(create: (context) => di.sl<DeliveryManProvider>()),
       ChangeNotifierProvider(create: (context) => di.sl<RefundProvider>()),
       ChangeNotifierProvider(create: (context) => di.sl<SearchProvider>()),
-      ChangeNotifierProvider(create: (context) => di.sl<BottomMenuController>()),
+      ChangeNotifierProvider(
+          create: (context) => di.sl<BottomMenuController>()),
       ChangeNotifierProvider(create: (context) => di.sl<CartProvider>()),
-      ChangeNotifierProvider(create: (context) => di.sl<EmergencyContactProvider>()),
+      ChangeNotifierProvider(
+          create: (context) => di.sl<EmergencyContactProvider>()),
       ChangeNotifierProvider(create: (context) => di.sl<CouponProvider>()),
     ],
     child: MyApp(orderId: _orderID),
@@ -118,9 +126,12 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
 class MyHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {
-    return super.createHttpClient(context)..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }

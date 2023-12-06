@@ -27,7 +27,7 @@ class SplashRepo {
     if (!sharedPreferences!.containsKey(AppConstants.SEARCH_ADDRESS)) {
       sharedPreferences!.setStringList(AppConstants.SEARCH_ADDRESS, []);
     }
-    if(!sharedPreferences!.containsKey(AppConstants.CURRENCY)) {
+    if (!sharedPreferences!.containsKey(AppConstants.CURRENCY)) {
       sharedPreferences!.setString(AppConstants.CURRENCY, '');
     }
   }
@@ -39,25 +39,24 @@ class SplashRepo {
   void setCurrency(String currencyCode) {
     sharedPreferences!.setString(AppConstants.CURRENCY, currencyCode);
   }
+
   void setShippingType(String shippingType) {
     sharedPreferences!.setString(AppConstants.SHIPPING_TYPE, shippingType);
   }
 
-  Future<ApiResponse> getShippingTypeList(BuildContext context, String type) async {
+  Future<ApiResponse> getShippingTypeList(
+      BuildContext context, String type) async {
     try {
       List<String> shippingTypeList = [];
-      shippingTypeList = [
-        'order_wise',
-        'product_wise',
-        'category_wise'
-        ];
+      shippingTypeList = ['order_wise', 'product_wise', 'category_wise'];
 
-
-      Response response = Response(requestOptions: RequestOptions(path: ''), data: shippingTypeList, statusCode: 200);
+      Response response = Response(
+          requestOptions: RequestOptions(path: ''),
+          data: shippingTypeList,
+          statusCode: 200);
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
     }
   }
-
 }

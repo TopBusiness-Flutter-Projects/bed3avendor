@@ -113,7 +113,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_MEDIUM),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: Dimensions.PADDING_SIZE_MEDIUM),
                               child: Row(
                                 children: [
                                   Expanded(
@@ -123,13 +124,17 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                         'من',
                                         style: robotoMedium.copyWith(
                                             color: Colors.black,
-                                            fontSize: Dimensions.FONT_SIZE_LARGE),
+                                            fontSize:
+                                                Dimensions.FONT_SIZE_LARGE),
                                       ),
                                       Container(
                                         decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.all(Radius.circular(Dimensions.PADDING_SIZE_SMALL)),
-                                            border: Border.all(color: ColorResources.HINT_TEXT_COLOR)
-                                        ),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(Dimensions
+                                                    .PADDING_SIZE_SMALL)),
+                                            border: Border.all(
+                                                color: ColorResources
+                                                    .HINT_TEXT_COLOR)),
                                         child: Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Row(
@@ -139,34 +144,42 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                 style: robotoMedium.copyWith(
                                                     color: Theme.of(context)
                                                         .primaryColor,
-                                                    fontSize:
-                                                        Dimensions.FONT_SIZE_LARGE),
+                                                    fontSize: Dimensions
+                                                        .FONT_SIZE_LARGE),
                                               ),
                                               Spacer(),
-                                              Icon(Icons.calendar_today_outlined)
+                                              Icon(
+                                                  Icons.calendar_today_outlined)
                                             ],
                                           ),
                                         ),
                                       )
                                     ],
                                     mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                   )),
-                                  SizedBox(width: Dimensions.PADDING_SIZE,),
+                                  SizedBox(
+                                    width: Dimensions.PADDING_SIZE,
+                                  ),
                                   Expanded(
                                       child: Column(
                                     children: [
                                       Text(
                                         'إالى',
                                         style: robotoMedium.copyWith(
-                                            color:Colors.black,
-                                            fontSize: Dimensions.FONT_SIZE_LARGE),
+                                            color: Colors.black,
+                                            fontSize:
+                                                Dimensions.FONT_SIZE_LARGE),
                                       ),
                                       Container(
                                         decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(Radius.circular(Dimensions.PADDING_SIZE_SMALL)),
-                                          border: Border.all(color: ColorResources.HINT_TEXT_COLOR)
-                                        ),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(Dimensions
+                                                    .PADDING_SIZE_SMALL)),
+                                            border: Border.all(
+                                                color: ColorResources
+                                                    .HINT_TEXT_COLOR)),
                                         child: Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Row(
@@ -176,148 +189,227 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                 style: robotoMedium.copyWith(
                                                     color: Theme.of(context)
                                                         .primaryColor,
-                                                    fontSize:
-                                                    Dimensions.FONT_SIZE_LARGE),
+                                                    fontSize: Dimensions
+                                                        .FONT_SIZE_LARGE),
                                               ),
                                               Spacer(),
-                                              Icon(Icons.calendar_today_outlined)
+                                              Icon(
+                                                  Icons.calendar_today_outlined)
                                             ],
                                           ),
                                         ),
                                       )
                                     ],
                                     mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                   ))
                                 ],
                               ),
                             ),
-                          SizedBox(height: Dimensions.PADDING_SIZE_LARGE,),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_MEDIUM),
-                            child: Material(
-                              elevation: 4,
-                              borderRadius: BorderRadius.all(Radius.circular(Dimensions.PADDING_SIZE)),
-                              child: Container(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    children: [
-                                      SizedBox(width: Dimensions.PADDING_SIZE_LARGE,),
-                                      Image.asset(
-                                        width: 70,
-                                      height: 70,
-                                      Images.confirm_purchase
-
-                                      ),
-                                      SizedBox(width: Dimensions.PADDING_SIZE_LARGE,),
-
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: [
-                                          SizedBox(height: Dimensions.PADDING_SIZE_LARGE,),
-
-                                          Text('عدد الفواتير المستلمة',
-                                          style: robotoMedium.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE,color: ColorResources.getTextColor(context)),),
-                                          SizedBox(height: Dimensions.PADDING_SIZE_SMALL,),
-
-                                          Text('41',
-                                          style: robotoMedium.copyWith(color:Colors.black,fontSize: Dimensions.FONT_SIZE_LARGE),),
-                                          SizedBox(height: Dimensions.PADDING_SIZE_LARGE,),
-
-                                      ],)
-                                    ],
+                            SizedBox(
+                              height: Dimensions.PADDING_SIZE_LARGE,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: Dimensions.PADDING_SIZE_MEDIUM),
+                              child: Material(
+                                elevation: 4,
+                                borderRadius: BorderRadius.all(
+                                    Radius.circular(Dimensions.PADDING_SIZE)),
+                                child: Container(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      children: [
+                                        SizedBox(
+                                          width: Dimensions.PADDING_SIZE_LARGE,
+                                        ),
+                                        Image.asset(
+                                            width: 70,
+                                            height: 70,
+                                            Images.confirm_purchase),
+                                        SizedBox(
+                                          width: Dimensions.PADDING_SIZE_LARGE,
+                                        ),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            SizedBox(
+                                              height:
+                                                  Dimensions.PADDING_SIZE_LARGE,
+                                            ),
+                                            Text(
+                                              'عدد الفواتير المستلمة',
+                                              style: robotoMedium.copyWith(
+                                                  fontSize: Dimensions
+                                                      .FONT_SIZE_LARGE,
+                                                  color: ColorResources
+                                                      .getTextColor(context)),
+                                            ),
+                                            SizedBox(
+                                              height:
+                                                  Dimensions.PADDING_SIZE_SMALL,
+                                            ),
+                                            Text(
+                                              '41',
+                                              style: robotoMedium.copyWith(
+                                                  color: Colors.black,
+                                                  fontSize: Dimensions
+                                                      .FONT_SIZE_LARGE),
+                                            ),
+                                            SizedBox(
+                                              height:
+                                                  Dimensions.PADDING_SIZE_LARGE,
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                      ),
-                            SizedBox(height: Dimensions.PADDING_SIZE_LARGE,),
+                            SizedBox(
+                              height: Dimensions.PADDING_SIZE_LARGE,
+                            ),
 
                             Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_MEDIUM),
-                            child: Material(
-                              elevation: 4,
-                              borderRadius: BorderRadius.all(Radius.circular(Dimensions.PADDING_SIZE)),
-                              child: Container(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    children: [
-                                      SizedBox(width: Dimensions.PADDING_SIZE_LARGE,),
-                                      Image.asset(
-                                        width: 70,
-                                      height: 70,
-                                      Images.confirm_purchase
-
-                                      ),
-                                      SizedBox(width: Dimensions.PADDING_SIZE_LARGE,),
-
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: [
-                                          SizedBox(height: Dimensions.PADDING_SIZE_LARGE,),
-
-                                          Text('عدد الفواتير المحققة',
-                                            style: robotoMedium.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE,color: ColorResources.getTextColor(context)),),
-                                          SizedBox(height: Dimensions.PADDING_SIZE_SMALL,),
-
-                                          Text('41',
-                                          style: robotoMedium.copyWith(color:Colors.black,fontSize: Dimensions.FONT_SIZE_LARGE),),
-                                          SizedBox(height: Dimensions.PADDING_SIZE_LARGE,),
-
-                                      ],)
-                                    ],
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: Dimensions.PADDING_SIZE_MEDIUM),
+                              child: Material(
+                                elevation: 4,
+                                borderRadius: BorderRadius.all(
+                                    Radius.circular(Dimensions.PADDING_SIZE)),
+                                child: Container(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      children: [
+                                        SizedBox(
+                                          width: Dimensions.PADDING_SIZE_LARGE,
+                                        ),
+                                        Image.asset(
+                                            width: 70,
+                                            height: 70,
+                                            Images.confirm_purchase),
+                                        SizedBox(
+                                          width: Dimensions.PADDING_SIZE_LARGE,
+                                        ),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            SizedBox(
+                                              height:
+                                                  Dimensions.PADDING_SIZE_LARGE,
+                                            ),
+                                            Text(
+                                              'عدد الفواتير المحققة',
+                                              style: robotoMedium.copyWith(
+                                                  fontSize: Dimensions
+                                                      .FONT_SIZE_LARGE,
+                                                  color: ColorResources
+                                                      .getTextColor(context)),
+                                            ),
+                                            SizedBox(
+                                              height:
+                                                  Dimensions.PADDING_SIZE_SMALL,
+                                            ),
+                                            Text(
+                                              '41',
+                                              style: robotoMedium.copyWith(
+                                                  color: Colors.black,
+                                                  fontSize: Dimensions
+                                                      .FONT_SIZE_LARGE),
+                                            ),
+                                            SizedBox(
+                                              height:
+                                                  Dimensions.PADDING_SIZE_LARGE,
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                      ),
-                            SizedBox(height: Dimensions.PADDING_SIZE_LARGE,),
+                            SizedBox(
+                              height: Dimensions.PADDING_SIZE_LARGE,
+                            ),
 
                             Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_MEDIUM),
-                            child: Material(
-                              elevation: 4,
-                              borderRadius: BorderRadius.all(Radius.circular(Dimensions.PADDING_SIZE)),
-                              child: Container(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    children: [
-                                      SizedBox(width: Dimensions.PADDING_SIZE_LARGE,),
-                                      Image.asset(
-                                        width: 70,
-                                      height: 70,
-                                      Images.budget
-
-                                      ),
-                                      SizedBox(width: Dimensions.PADDING_SIZE_LARGE,),
-
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: [
-                                          SizedBox(height: Dimensions.PADDING_SIZE_LARGE,),
-
-                                          Text('اجمالى الفواتير ',
-                                            style: robotoMedium.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE,color: ColorResources.getTextColor(context)),),
-                                          SizedBox(height: Dimensions.PADDING_SIZE_SMALL,),
-
-                                          Text('18888 ج.م',
-                                          style: robotoMedium.copyWith(color:Colors.black,fontSize: Dimensions.FONT_SIZE_LARGE),),
-                                          SizedBox(height: Dimensions.PADDING_SIZE_LARGE,),
-
-                                      ],)
-                                    ],
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: Dimensions.PADDING_SIZE_MEDIUM),
+                              child: Material(
+                                elevation: 4,
+                                borderRadius: BorderRadius.all(
+                                    Radius.circular(Dimensions.PADDING_SIZE)),
+                                child: Container(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      children: [
+                                        SizedBox(
+                                          width: Dimensions.PADDING_SIZE_LARGE,
+                                        ),
+                                        Image.asset(
+                                            width: 70,
+                                            height: 70,
+                                            Images.budget),
+                                        SizedBox(
+                                          width: Dimensions.PADDING_SIZE_LARGE,
+                                        ),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            SizedBox(
+                                              height:
+                                                  Dimensions.PADDING_SIZE_LARGE,
+                                            ),
+                                            Text(
+                                              'اجمالى الفواتير ',
+                                              style: robotoMedium.copyWith(
+                                                  fontSize: Dimensions
+                                                      .FONT_SIZE_LARGE,
+                                                  color: ColorResources
+                                                      .getTextColor(context)),
+                                            ),
+                                            SizedBox(
+                                              height:
+                                                  Dimensions.PADDING_SIZE_SMALL,
+                                            ),
+                                            Text(
+                                              '18888 ج.م',
+                                              style: robotoMedium.copyWith(
+                                                  color: Colors.black,
+                                                  fontSize: Dimensions
+                                                      .FONT_SIZE_LARGE),
+                                            ),
+                                            SizedBox(
+                                              height:
+                                                  Dimensions.PADDING_SIZE_LARGE,
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                      ),
-                            SizedBox(height: Dimensions.PADDING_SIZE_LARGE,),
+                            SizedBox(
+                              height: Dimensions.PADDING_SIZE_LARGE,
+                            ),
 
                             // CompletedOrderWidget(callback: widget.callback),
                             // SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
