@@ -16,7 +16,8 @@ class HtmlViewScreen extends StatelessWidget {
           Expanded(
             child: SingleChildScrollView(
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_SMALL),
+                padding: EdgeInsets.symmetric(
+                    horizontal: Dimensions.PADDING_SIZE_SMALL),
                 child: Html(
                   data: url,
                 ),

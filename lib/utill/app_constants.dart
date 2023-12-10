@@ -2,7 +2,7 @@ import 'package:bed3avendor/data/model/response/language_model.dart';
 import 'package:bed3avendor/utill/images.dart';
 
 class AppConstants {
-  static const String APP_NAME = 'Seller App';
+  static const String APP_NAME = 'بضاعه بائع';
   static const String APP_VERSION = '13.1';
   static const String COMPANY_NAME = 'Bed3a';
   static const String BASE_URL = 'https://bedah.topbusiness.io';

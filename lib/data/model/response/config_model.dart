@@ -30,8 +30,6 @@ class ConfigModel {
   String? _companyLogo;
   int? _posActive;
 
-
-
   ConfigModel({
     int? systemDefaultCurrency,
     BaseUrls? baseUrls,
@@ -63,7 +61,6 @@ class ConfigModel {
     int? decimalPointSetting,
     String? companyLogo,
     int? posActive,
-
   }) {
     this._systemDefaultCurrency = systemDefaultCurrency;
     this._baseUrls = baseUrls;
@@ -136,7 +133,7 @@ class ConfigModel {
   String? get shippingMethod => _shippingMethod;
   String? get version => _version;
   String? get forgetPasswordVerification => _forgetPasswordVerification;
-  String? get countryCode =>_countryCode;
+  String? get countryCode => _countryCode;
   int? get decimalPointSettings => _decimalPointSettings;
   String? get brandSetting => _brandSetting;
   String? get digitalProductSetting => _digitalProductSetting;
@@ -149,16 +146,19 @@ class ConfigModel {
   String? get companyLogo => _companyLogo;
   int? get posActive => _posActive;
 
-
-
-
   ConfigModel.fromJson(Map<String, dynamic> json) {
     _systemDefaultCurrency = json['system_default_currency'];
-    _baseUrls = json['base_urls'] != null ? new BaseUrls.fromJson(json['base_urls']) : null;
-    _staticUrls = json['static_urls'] != null ? new StaticUrls.fromJson(json['static_urls']) : null;
+    _baseUrls = json['base_urls'] != null
+        ? new BaseUrls.fromJson(json['base_urls'])
+        : null;
+    _staticUrls = json['static_urls'] != null
+        ? new StaticUrls.fromJson(json['static_urls'])
+        : null;
     if (json['currency_list'] != null) {
       _currencyList = [];
-      json['currency_list'].forEach((v) { _currencyList!.add(new CurrencyList.fromJson(v)); });
+      json['currency_list'].forEach((v) {
+        _currencyList!.add(new CurrencyList.fromJson(v));
+      });
     }
     if (json['language'] != null) {
       _languageList = [];
@@ -167,27 +167,36 @@ class ConfigModel {
       });
     }
 
-    _colors = List<ColorList>.from(json["colors"].map((x) => ColorList.fromJson(x)));
+    _colors =
+        List<ColorList>.from(json["colors"].map((x) => ColorList.fromJson(x)));
     _unit = List<String>.from(json["unit"].map((x) => x));
     _aboutUs = json['about_us'];
     _privacyPolicy = json['privacy_policy'];
     if (json['faq'] != null) {
       _faq = [];
-      json['faq'].forEach((v) {_faq!.add(new Faq.fromJson(v));
+      json['faq'].forEach((v) {
+        _faq!.add(new Faq.fromJson(v));
       });
     }
     _termsConditions = json['terms_&_conditions'];
-    _refundPolicy = json['refund_policy'] != null ? new RefundPolicy.fromJson(json['refund_policy']) : null;
-    _returnPolicy = json['return_policy'] != null ? new RefundPolicy.fromJson(json['return_policy']) : null;
-    _cancellationPolicy = json['cancellation_policy'] != null ? new RefundPolicy.fromJson(json['cancellation_policy']) : null;
+    _refundPolicy = json['refund_policy'] != null
+        ? new RefundPolicy.fromJson(json['refund_policy'])
+        : null;
+    _returnPolicy = json['return_policy'] != null
+        ? new RefundPolicy.fromJson(json['return_policy'])
+        : null;
+    _cancellationPolicy = json['cancellation_policy'] != null
+        ? new RefundPolicy.fromJson(json['cancellation_policy'])
+        : null;
     _currencyModel = json['currency_model'];
     _shippingMethod = json['shipping_method'];
-    if(json['software_version'] != null){
+    if (json['software_version'] != null) {
       _version = json['software_version'];
     }
     _forgetPasswordVerification = json['forgot_password_verification'];
     _countryCode = json['country_code'];
-    _decimalPointSettings = int.tryParse(json['decimal_point_settings'].toString());
+    _decimalPointSettings =
+        int.tryParse(json['decimal_point_settings'].toString());
     _brandSetting = json['brand_setting'];
     _digitalProductSetting = json['digital_product_setting'];
     _digitalPayment = json['digital_payment'];
@@ -195,22 +204,21 @@ class ConfigModel {
     _sellerRegistration = json['seller_registration'].toString();
     _companyPhone = json['company_phone'].toString();
     _companyEmail = json['company_email'].toString();
-    if(json['decimal_point_settings'] != null && json['decimal_point_settings'] != "" ){
-      _decimalPointSetting = int.parse(json['decimal_point_settings'].toString());
+    if (json['decimal_point_settings'] != null &&
+        json['decimal_point_settings'] != "") {
+      _decimalPointSetting =
+          int.parse(json['decimal_point_settings'].toString());
     }
-    _companyLogo =json['company_logo']??'';
-    if(json['pos_active'] != null){
-      try{
-        _posActive =json['pos_active'];
-      }catch(e){
+    _companyLogo = json['company_logo'] ?? '';
+    if (json['pos_active'] != null) {
+      try {
+        _posActive = json['pos_active'];
+      } catch (e) {
         _posActive = int.parse(json['pos_active'].toString());
       }
-    }else{
+    } else {
       _posActive = 0;
     }
-
-
-
   }
 
   Map<String, dynamic> toJson() {
@@ -223,7 +231,8 @@ class ConfigModel {
       data['static_urls'] = this._staticUrls!.toJson();
     }
     if (this._currencyList != null) {
-      data['currency_list'] = this._currencyList!.map((v) => v.toJson()).toList();
+      data['currency_list'] =
+          this._currencyList!.map((v) => v.toJson()).toList();
     }
     if (this._languageList != null) {
       data['language'] = this._languageList!.map((v) => v.toJson()).toList();
@@ -280,7 +289,8 @@ class BaseUrls {
   String? _digitalProductUrl;
   String? _deliveryManImageUrl;
 
-  BaseUrls({String? productImageUrl,
+  BaseUrls({
+    String? productImageUrl,
     String? productThumbnailUrl,
     String? brandImageUrl,
     String? customerImageUrl,
@@ -364,7 +374,14 @@ class StaticUrls {
   String? _categories;
   String? _customerAccount;
 
-  StaticUrls({String? aboutUs, String? faq, String? termsConditions, String? contactUs, String? brands, String? categories, String? customerAccount}) {
+  StaticUrls(
+      {String? aboutUs,
+      String? faq,
+      String? termsConditions,
+      String? contactUs,
+      String? brands,
+      String? categories,
+      String? customerAccount}) {
     this._aboutUs = aboutUs;
     this._faq = faq;
     this._termsConditions = termsConditions;
@@ -404,6 +421,7 @@ class StaticUrls {
     return data;
   }
 }
+
 class Faq {
   int? _id;
   String? _question;
@@ -415,12 +433,12 @@ class Faq {
 
   Faq(
       {int? id,
-        String? question,
-        String? answer,
-        int? ranking,
-        int? status,
-        String? createdAt,
-        String? updatedAt}) {
+      String? question,
+      String? answer,
+      int? ranking,
+      int? status,
+      String? createdAt,
+      String? updatedAt}) {
     this._id = id;
     this._question = question;
     this._answer = answer;
@@ -437,7 +455,6 @@ class Faq {
   int? get status => _status;
   String? get createdAt => _createdAt;
   String? get updatedAt => _updatedAt;
-
 
   Faq.fromJson(Map<String, dynamic> json) {
     _id = json['id'];
@@ -462,31 +479,25 @@ class Faq {
   }
 }
 
-
-
 class ColorList {
   int? _id;
   String? _name;
   String? _code;
 
-  ColorList({int? id, String? name, String? code}){
-
+  ColorList({int? id, String? name, String? code}) {
     this._id = id;
     this._name = name;
     this._code = code;
-
   }
 
   int? get id => _id;
   String? get name => _name;
   String? get code => _code;
 
-
   ColorList.fromJson(Map<String, dynamic> json) {
-    _id = json ['id'];
-    _name = json ['name'];
-    _code = json ['code'];
-
+    _id = json['id'];
+    _name = json['name'];
+    _code = json['code'];
   }
 
   Map<String, dynamic> toJson() {
@@ -503,7 +514,6 @@ class ColorList {
   }
 }
 
-
 class CurrencyList {
   int? _id;
   String? _name;
@@ -514,7 +524,15 @@ class CurrencyList {
   String? _createdAt;
   String? _updatedAt;
 
-  CurrencyList({int? id, String? name, String? symbol, String? code, double? exchangeRate, int? status, String? createdAt, String? updatedAt}) {
+  CurrencyList(
+      {int? id,
+      String? name,
+      String? symbol,
+      String? code,
+      double? exchangeRate,
+      int? status,
+      String? createdAt,
+      String? updatedAt}) {
     this._id = id;
     this._name = name;
     this._symbol = symbol;
@@ -577,7 +595,6 @@ class Language {
     return data;
   }
 }
-
 
 class LanguageList {
   String? _bn;
@@ -702,7 +719,54 @@ class En {
   String? _stripe;
   String? _paytm;
 
-  En({String? home, String? signIn, String? myCart, String? shippingMethod, String? banner, String? addMainBanner, String? addFooterBanner, String? mainBannerForm, String? bannerUrl, String? bannerType, String? published, String? mainBannerImage, String? footerBannerForm, String? footerBannerImage, String? bannerTable, String? bannerPhoto, String? categories, String? allCategories, String? latestProducts, String? moreProducts, String? brands, String? brandUpdate, String? viewAll, String? brand, String? brandForm, String? name, String? brandLogo, String? brandTable, String? sl, String? image, String? action, String? save, String? update, String? category, String? icon, String? categoryForm, String? categoryTable, String? slug, String? subCategory, String? subCategoryForm, String? subCategoryTable, String? selectCategoryName, String? cashOnDelivery, String? sslCommerzPayment, String? paypal, String? stripe, String? paytm}) {
+  En(
+      {String? home,
+      String? signIn,
+      String? myCart,
+      String? shippingMethod,
+      String? banner,
+      String? addMainBanner,
+      String? addFooterBanner,
+      String? mainBannerForm,
+      String? bannerUrl,
+      String? bannerType,
+      String? published,
+      String? mainBannerImage,
+      String? footerBannerForm,
+      String? footerBannerImage,
+      String? bannerTable,
+      String? bannerPhoto,
+      String? categories,
+      String? allCategories,
+      String? latestProducts,
+      String? moreProducts,
+      String? brands,
+      String? brandUpdate,
+      String? viewAll,
+      String? brand,
+      String? brandForm,
+      String? name,
+      String? brandLogo,
+      String? brandTable,
+      String? sl,
+      String? image,
+      String? action,
+      String? save,
+      String? update,
+      String? category,
+      String? icon,
+      String? categoryForm,
+      String? categoryTable,
+      String? slug,
+      String? subCategory,
+      String? subCategoryForm,
+      String? subCategoryTable,
+      String? selectCategoryName,
+      String? cashOnDelivery,
+      String? sslCommerzPayment,
+      String? paypal,
+      String? stripe,
+      String? paytm}) {
     this._home = home;
     this._signIn = signIn;
     this._myCart = myCart;
@@ -918,7 +982,6 @@ class RefundPolicy {
 
   int? get status => _status;
   String? get content => _content;
-
 
   RefundPolicy.fromJson(Map<String, dynamic> json) {
     _status = json['status'];
