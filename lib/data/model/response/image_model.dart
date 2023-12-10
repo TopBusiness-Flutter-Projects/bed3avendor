@@ -7,8 +7,8 @@ class ImageModel {
   String? imageString;
   ColorImage? colorImage;
 
-  ImageModel({this.type, this.color, this.image, this.imageString,this.colorImage});
-
+  ImageModel(
+      {this.type, this.color, this.image, this.imageString, this.colorImage});
   ImageModel.fromJson(Map<String, dynamic> json) {
     type = json['type'];
     color = json['color'];

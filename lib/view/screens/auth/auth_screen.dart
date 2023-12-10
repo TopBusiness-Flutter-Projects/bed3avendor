@@ -7,70 +7,78 @@ import 'package:bed3avendor/utill/images.dart';
 import 'package:bed3avendor/utill/styles.dart';
 import 'package:bed3avendor/view/screens/auth/login_screen.dart';
 
-
-
-class AuthScreen extends StatelessWidget{
+class AuthScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Provider.of<AuthProvider>(context, listen: false).isActiveRememberMe;
     return Scaffold(
-      body: Consumer<AuthProvider>(
-        builder: (context, auth, child) {
-          return SingleChildScrollView(
-            child: Column(mainAxisAlignment: MainAxisAlignment.start,crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Stack(children: [
+      body: Consumer<AuthProvider>(builder: (context, auth, child) {
+        return SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Stack(
+                children: [
                   Align(
                     alignment: Alignment.topCenter,
                     child: Padding(
-                      padding:  EdgeInsets.only(top : MediaQuery.of(context).size.height/12,
-                      bottom: 38),
+                      padding: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.height / 12,
+                          bottom: 38),
                       child: Column(
                         children: [
                           Hero(
                               tag: 'logo',
                               child: Padding(
-                                padding: const EdgeInsets.only(top : Dimensions.PADDING_SIZE_EXTRA_LARGE),
-                                child: Image.asset(Images.logo,width: 80),
+                                padding: const EdgeInsets.only(
+                                    top: Dimensions.PADDING_SIZE_EXTRA_LARGE),
+                                child: Image.asset(Images.logo, width: 80),
                               )),
-                          Row(mainAxisAlignment: MainAxisAlignment.center,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(getTranslated('seller', context)!,
-                                  style: robotoMedium.copyWith(fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE_TWENTY)),
-                              SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL),
+                                  style: robotoMedium.copyWith(
+                                      fontSize: Dimensions
+                                          .FONT_SIZE_EXTRA_LARGE_TWENTY)),
+                              SizedBox(
+                                  width: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                               Text(getTranslated('app', context)!,
-                                  style: robotoMedium.copyWith(color: Theme.of(context).primaryColor,
-                                      fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE_TWENTY)),
+                                  style: robotoMedium.copyWith(
+                                      color: Theme.of(context).primaryColor,
+                                      fontSize: Dimensions
+                                          .FONT_SIZE_EXTRA_LARGE_TWENTY)),
                             ],
                           )
                         ],
                       ),
                     ),
                   ),
-                ],),
-
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_DEFAULT),
+                ],
+              ),
+              Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: Dimensions.PADDING_SIZE_DEFAULT),
                   child: Text(getTranslated('login', context)!,
-                    style: titilliumBold.copyWith(fontSize: Dimensions.FONT_SIZE_OVER_LARGE))),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_DEFAULT,vertical: Dimensions.PADDING_SIZE_SMALL),
-                  child: Text(getTranslated('manage_your_business_from_app', context)!,
-                    style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT, color: Theme.of(context).hintColor)),
-                ),
-
-                SizedBox(height: Dimensions.PADDING_SIZE_LARGE),
-
-                SignInWidget()
-
-              ],
-            ),
-          );
-        }
-      ),
+                      style: titilliumBold.copyWith(
+                          fontSize: Dimensions.FONT_SIZE_OVER_LARGE))),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: Dimensions.PADDING_SIZE_DEFAULT,
+                    vertical: Dimensions.PADDING_SIZE_SMALL),
+                child: Text(
+                    getTranslated('manage_your_business_from_app', context)!,
+                    style: titilliumRegular.copyWith(
+                        fontSize: Dimensions.FONT_SIZE_DEFAULT,
+                        color: Theme.of(context).hintColor)),
+              ),
+              SizedBox(height: Dimensions.PADDING_SIZE_LARGE),
+              SignInWidget()
+            ],
+          ),
+        );
+      }),
     );
   }
 }
-
-
-

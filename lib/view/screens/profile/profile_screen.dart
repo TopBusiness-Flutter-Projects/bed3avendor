@@ -16,7 +16,6 @@ import 'package:bed3avendor/view/base/custom_image.dart';
 import 'package:bed3avendor/view/base/custom_snackbar.dart';
 import 'package:bed3avendor/view/base/textfeild/custom_text_feild.dart';
 
-
 class ProfileScreen extends StatefulWidget {
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
@@ -33,14 +32,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
 
   File? file;
   final picker = ImagePicker();
-  final GlobalKey<ScaffoldMessengerState> _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
+  final GlobalKey<ScaffoldMessengerState> _scaffoldKey =
+      GlobalKey<ScaffoldMessengerState>();
 
   void _choose() async {
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery, imageQuality: 50, maxHeight: 500, maxWidth: 500);
+    final pickedFile = await picker.pickImage(
+        source: ImageSource.gallery,
+        imageQuality: 50,
+        maxHeight: 500,
+        maxWidth: 500);
     setState(() {
       if (pickedFile != null) {
         file = File(pickedFile.path);
@@ -57,57 +62,75 @@ class _ProfileScreenState extends State<ProfileScreen> {
     String _password = _passwordController.text.trim();
     String _confirmPassword = _confirmPasswordController.text.trim();
 
-    if(Provider.of<ProfileProvider>(context, listen: false).userInfoModel!.fName == _firstNameController.text
-        && Provider.of<ProfileProvider>(context, listen: false).userInfoModel!.lName == _lastNameController.text
-        && Provider.of<ProfileProvider>(context, listen: false).userInfoModel!.phone == _phoneController.text && file == null
-    && _passwordController.text.isEmpty && _confirmPasswordController.text.isEmpty) {
-      showCustomSnackBar(getTranslated('change_something_to_update', context), context);
-
-    }else if (_firstName.isEmpty) {
+    if (Provider.of<ProfileProvider>(context, listen: false)
+                .userInfoModel!
+                .fName ==
+            _firstNameController.text &&
+        Provider.of<ProfileProvider>(context, listen: false)
+                .userInfoModel!
+                .lName ==
+            _lastNameController.text &&
+        Provider.of<ProfileProvider>(context, listen: false)
+                .userInfoModel!
+                .phone ==
+            _phoneController.text &&
+        file == null &&
+        _passwordController.text.isEmpty &&
+        _confirmPasswordController.text.isEmpty) {
+      showCustomSnackBar(
+          getTranslated('change_something_to_update', context), context);
+    } else if (_firstName.isEmpty) {
       showCustomSnackBar(getTranslated('enter_first_name', context), context);
-
-    }else if (_lastName.isEmpty) {
+    } else if (_lastName.isEmpty) {
       showCustomSnackBar(getTranslated('enter_first_name', context), context);
-
-    }else if (_phoneNumber.isEmpty) {
+    } else if (_phoneNumber.isEmpty) {
       showCustomSnackBar(getTranslated('enter_phone_number', context), context);
-
-    }
-
-    else if((_password.isNotEmpty && _password.length < 6)
-        || (_confirmPassword.isNotEmpty && _confirmPassword.length < 6)) {
-      showCustomSnackBar(getTranslated('password_be_at_least', context), context);
-
-    }
-
-    else if(_password != _confirmPassword) {
-      showCustomSnackBar(getTranslated('password_did_not_match', context), context);
-
-    }
-
-    else {
-      SellerModel updateUserInfoModel = Provider.of<ProfileProvider>(context, listen: false).userInfoModel!;
+    } else if ((_password.isNotEmpty && _password.length < 6) ||
+        (_confirmPassword.isNotEmpty && _confirmPassword.length < 6)) {
+      showCustomSnackBar(
+          getTranslated('password_be_at_least', context), context);
+    } else if (_password != _confirmPassword) {
+      showCustomSnackBar(
+          getTranslated('password_did_not_match', context), context);
+    } else {
+      SellerModel updateUserInfoModel =
+          Provider.of<ProfileProvider>(context, listen: false).userInfoModel!;
       updateUserInfoModel.fName = _firstNameController.text ?? "";
       updateUserInfoModel.lName = _lastNameController.text ?? "";
       updateUserInfoModel.phone = _phoneController.text ?? '';
       String _password = _passwordController.text ?? '';
 
-      SellerModel _bank = Provider.of<BankInfoProvider>(context, listen: false).bankInfo!;
+      SellerModel _bank =
+          Provider.of<BankInfoProvider>(context, listen: false).bankInfo!;
       SellerBody _sellerBody = SellerBody(
-          sMethod: '_put', fName: _firstNameController.text ?? "", lName: _lastNameController.text ?? "",
+        sMethod: '_put',
+        fName: _firstNameController.text ?? '',
+        lName: _lastNameController.text ?? '',
         image: updateUserInfoModel.image,
-          bankName: _bank.bankName, branch: _bank.branch, holderName: _bank.holderName, accountNo: _bank.accountNo,
+        bankName: _bank.bankName,
+        branch: _bank.branch,
+        holderName: _bank.holderName,
+        accountNo: _bank.accountNo,
       );
 
-      await Provider.of<ProfileProvider>(context, listen: false).updateUserInfo(
-        updateUserInfoModel, _sellerBody, file, Provider.of<AuthProvider>(context, listen: false).getUserToken(), _password
-      ).then((response) {
-        if(response.isSuccess) {
-          Provider.of<ProfileProvider>(context, listen: false).getSellerInfo(context);
-         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated('updated_successfully', context)!), backgroundColor: Colors.green));
+      await Provider.of<ProfileProvider>(context, listen: false)
+          .updateUserInfo(
+              updateUserInfoModel,
+              _sellerBody,
+              file,
+              Provider.of<AuthProvider>(context, listen: false).getUserToken(),
+              _password)
+          .then((response) {
+        if (response.isSuccess) {
+          Provider.of<ProfileProvider>(context, listen: false)
+              .getSellerInfo(context);
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(getTranslated('updated_successfully', context)!),
+              backgroundColor: Colors.green));
           setState(() {});
-        }else {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(response.message!), backgroundColor: Colors.red));
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(response.message!), backgroundColor: Colors.red));
         }
       });
     }
@@ -116,20 +139,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     super.initState();
-
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      appBar: CustomAppBar(isBackButtonExist: true, title: getTranslated('edit_profile', context),),
+      appBar: CustomAppBar(
+        isBackButtonExist: true,
+        title: getTranslated('edit_profile', context),
+      ),
       resizeToAvoidBottomInset: true,
       key: _scaffoldKey,
       body: Consumer<ProfileProvider>(
         builder: (context, profile, child) {
-
-          if(_firstNameController.text.isEmpty || _lastNameController.text.isEmpty) {
+          if (_firstNameController.text.isEmpty ||
+              _lastNameController.text.isEmpty) {
             _firstNameController.text = profile.userInfoModel!.fName!;
             _lastNameController.text = profile.userInfoModel!.lName!;
             _phoneController.text = profile.userInfoModel!.phone!;
@@ -138,7 +162,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: Column(
               children: [
                 Container(
-                  margin: EdgeInsets.only(top: Dimensions.PADDING_SIZE_EXTRA_LARGE),
+                  margin:
+                      EdgeInsets.only(top: Dimensions.PADDING_SIZE_EXTRA_LARGE),
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     color: Theme.of(context).highlightColor,
@@ -150,28 +175,38 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: [
                       ClipRRect(
                         borderRadius: BorderRadius.circular(50),
-                        child: file == null ?
-                        CustomImage(width: 100,height: 100,fit: BoxFit.cover,
-                            image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls!.sellerImageUrl}/${profile.userInfoModel!.image ?? ''}')
-                            : Image.file(file!, width: 100, height: 100, fit: BoxFit.fill),),
-
+                        child: file == null
+                            ? CustomImage(
+                                width: 100,
+                                height: 100,
+                                fit: BoxFit.cover,
+                                image:
+                                    '${Provider.of<SplashProvider>(context, listen: false).baseUrls!.sellerImageUrl}/${profile.userInfoModel!.image ?? ''}')
+                            : Image.file(file!,
+                                width: 100, height: 100, fit: BoxFit.fill),
+                      ),
                       Positioned(
                         bottom: 0,
                         right: 0,
                         child: InkWell(
                           onTap: _choose,
-                          child: Container(width: 30,height: 30,
+                          child: Container(
+                            width: 30,
+                            height: 30,
                             decoration: BoxDecoration(
-                              color: Theme.of(context).primaryColor,
-                              borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_EXTRA_LARGE),
-                              border: Border.all(color: Theme.of(context).cardColor)
-                            ),
-
+                                color: Theme.of(context).primaryColor,
+                                borderRadius: BorderRadius.circular(
+                                    Dimensions.PADDING_SIZE_EXTRA_LARGE),
+                                border: Border.all(
+                                    color: Theme.of(context).cardColor)),
                             child: IconButton(
-
                               onPressed: _choose,
                               padding: EdgeInsets.all(0),
-                              icon: Icon(Icons.camera_alt_outlined, color: Colors.white, size: Dimensions.ICON_SIZE_DEFAULT,),
+                              icon: Icon(
+                                Icons.camera_alt_outlined,
+                                color: Colors.white,
+                                size: Dimensions.ICON_SIZE_DEFAULT,
+                              ),
                             ),
                           ),
                         ),
@@ -179,7 +214,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ],
                   ),
                 ),
-
                 Container(
                   margin: EdgeInsets.only(
                       top: Dimensions.PADDING_SIZE_DEFAULT,
@@ -187,8 +221,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       right: Dimensions.PADDING_SIZE_DEFAULT),
                   child: Column(
                     children: [
-
-
                       SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT),
                       CustomTextField(
                         border: true,
@@ -198,7 +230,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         hintText: profile.userInfoModel!.fName ?? '',
                         controller: _firstNameController,
                       ),
-
                       SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT),
                       CustomTextField(
                         border: true,
@@ -208,17 +239,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         hintText: profile.userInfoModel!.lName,
                         controller: _lastNameController,
                       ),
-
                       SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT),
                       Container(
                         child: CustomTextField(
                           idDate: true,
                           hintText: profile.userInfoModel!.email ?? "",
                           border: true,
-
                         ),
                       ),
-
                       SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT),
                       Container(
                         child: CustomTextField(
@@ -231,8 +259,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           isPhoneNumber: true,
                         ),
                       ),
-
-
                       SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT),
                       Container(
                         child: CustomTextField(
@@ -245,7 +271,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           textInputAction: TextInputAction.next,
                         ),
                       ),
-
                       SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT),
                       Container(
                         child: CustomTextField(
@@ -260,38 +285,39 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ],
                   ),
                 ),
-
-
-
-
-
-
-
               ],
             ),
           );
         },
       ),
-      bottomNavigationBar: Consumer<ProfileProvider>(
-        builder: (context, profile, child) {
-          return Container(height: 70,
-            decoration: BoxDecoration(
-              color: Theme.of(context).cardColor,
-              boxShadow: [BoxShadow(color: Theme.of(context).primaryColor.withOpacity(.125),
-                    spreadRadius: 2, blurRadius: 5, offset: Offset.fromDirection(1,2))],
-            ),
-            padding: EdgeInsets.all(Dimensions.PADDING_SIZE_MEDIUM),
-            width: MediaQuery.of(context).size.width,
-            child: !profile.isLoading
-                ? CustomButton(
-              borderRadius: 10,
-                backgroundColor: Theme.of(context).primaryColor, onTap: _updateUserAccount,
-                btnTxt: getTranslated('update_profile', context))
-                : Center(child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor))),
-          );
-        }
-      ),
+      bottomNavigationBar:
+          Consumer<ProfileProvider>(builder: (context, profile, child) {
+        return Container(
+          height: 70,
+          decoration: BoxDecoration(
+            color: Theme.of(context).cardColor,
+            boxShadow: [
+              BoxShadow(
+                  color: Theme.of(context).primaryColor.withOpacity(.125),
+                  spreadRadius: 2,
+                  blurRadius: 5,
+                  offset: Offset.fromDirection(1, 2))
+            ],
+          ),
+          padding: EdgeInsets.all(Dimensions.PADDING_SIZE_MEDIUM),
+          width: MediaQuery.of(context).size.width,
+          child: !profile.isLoading
+              ? CustomButton(
+                  borderRadius: 10,
+                  backgroundColor: Theme.of(context).primaryColor,
+                  onTap: _updateUserAccount,
+                  btnTxt: getTranslated('update_profile', context))
+              : Center(
+                  child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                          Theme.of(context).primaryColor))),
+        );
+      }),
     );
   }
 }

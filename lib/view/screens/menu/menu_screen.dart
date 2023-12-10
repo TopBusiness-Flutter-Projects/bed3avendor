@@ -37,11 +37,11 @@ class MenuBottomSheet extends StatelessWidget {
           onTap: () => Navigator.push(
               context, MaterialPageRoute(builder: (_) => ProfileScreenView()))),
 
-      CustomBottomSheet(
-          image: Images.my_shop,
-          title: getTranslated('my_shop', context),
-          onTap: () => Navigator.push(
-              context, MaterialPageRoute(builder: (_) => ShopScreen()))),
+      // CustomBottomSheet(
+      //     image: Images.my_shop,
+      //     title: getTranslated('my_shop', context),
+      //     onTap: () => Navigator.push(
+      //         context, MaterialPageRoute(builder: (_) => ShopScreen()))),
 
       CustomBottomSheet(
           image: Images.add_product,

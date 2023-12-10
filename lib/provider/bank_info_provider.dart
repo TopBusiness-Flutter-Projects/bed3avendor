@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:bed3avendor/data/model/body/seller_body.dart';
 import 'package:bed3avendor/data/model/response/base/api_response.dart';
@@ -25,32 +24,31 @@ class BankInfoProvider extends ChangeNotifier {
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
-
   int _revenueFilterTypeIndex = 0;
   int get revenueFilterTypeIndex => _revenueFilterTypeIndex;
   String? _revenueFilterType = '';
   String? get revenueFilterType => _revenueFilterType;
 
-
-  void setRevenueFilterName(BuildContext context, String? filterName, bool notify) {
+  void setRevenueFilterName(
+      BuildContext context, String? filterName, bool notify) {
     _revenueFilterType = filterName;
     String? callingString;
-    if(_revenueFilterType == 'this_year'){
+    if (_revenueFilterType == 'this_year') {
       callingString = 'yearEarn';
-    }else if(_revenueFilterType == 'this_month'){
+    } else if (_revenueFilterType == 'this_month') {
       callingString = 'MonthEarn';
-    }else if(_revenueFilterType == 'this_week'){
+    } else if (_revenueFilterType == 'this_week') {
       callingString = 'WeekEarn';
     }
-   getDashboardRevenueData(context, callingString);
-    if(notify) {
+    getDashboardRevenueData(context, callingString);
+    if (notify) {
       notifyListeners();
     }
   }
 
   void setRevenueFilterType(int index, bool notify) {
     _revenueFilterTypeIndex = index;
-    if(notify) {
+    if (notify) {
       notifyListeners();
     }
   }
@@ -63,36 +61,33 @@ class BankInfoProvider extends ChangeNotifier {
   double _lim = 0.0;
   double get lim => _lim;
 
-
-  Future<void> getDashboardRevenueData(BuildContext context, String? filterType) async {
+  Future<void> getDashboardRevenueData(
+      BuildContext context, String? filterType) async {
     ApiResponse apiResponse = await bankInfoRepo!.chartFilterData(filterType);
-    if(apiResponse.response != null  && apiResponse.response!.data != null && apiResponse.response!.statusCode == 200) {
+    if (apiResponse.response != null &&
+        apiResponse.response!.data != null &&
+        apiResponse.response!.statusCode == 200) {
       _userEarnings = [];
-      _userCommissions  = [];
+      _userCommissions = [];
       _earnings = [];
-      _commission =[];
-
+      _commission = [];
 
       _earnings.addAll(apiResponse.response!.data['seller_earn']);
       _commission.addAll(apiResponse.response!.data['commission_earn']);
 
-
-
-      for(dynamic data in _earnings) {
-        try{
+      for (dynamic data in _earnings) {
+        try {
           _userEarnings!.add(data.toDouble());
-        }catch(e){
+        } catch (e) {
           _userEarnings!.add(double.parse(data.toString()));
         }
-
       }
-      for(dynamic data in _commission) {
-        try{
+      for (dynamic data in _commission) {
+        try {
           _userCommissions!.add(data.toDouble());
-        }catch(e){
+        } catch (e) {
           _userCommissions!.add(double.parse(data.toString()));
         }
-
       }
       _userEarnings!.insert(0, 0);
       _userCommissions!.insert(0, 0);
@@ -103,21 +98,19 @@ class BankInfoProvider extends ChangeNotifier {
       _counts.sort();
       _comCounts.sort();
       double _max = 0;
-      _max = _counts.isNotEmpty? _counts[_counts.length-1]??0 : 0;
+      _max = _counts.isNotEmpty ? _counts[_counts.length - 1] ?? 0 : 0;
       double _maxx = 0;
-      _maxx = _counts.isNotEmpty?_comCounts[_comCounts.length-1]??0:0;
-      if(_max>_maxx){
+      _maxx = _counts.isNotEmpty ? _comCounts[_comCounts.length - 1] ?? 0 : 0;
+      if (_max > _maxx) {
         _lim = _max;
-      }else{
+      } else {
         _lim = _maxx;
       }
-
-    }else {
-      ApiChecker.checkApi(context,apiResponse);
+    } else {
+      ApiChecker.checkApi(context, apiResponse);
     }
     notifyListeners();
   }
-
 
   Future<void> getBankInfo(BuildContext context) async {
     ApiResponse apiResponse = await bankInfoRepo!.getBankList();
@@ -130,20 +123,26 @@ class BankInfoProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-
-  Future<ResponseModel?> updateUserInfo(BuildContext context,SellerModel updateUserModel, SellerBody seller, String token) async {
+  Future<ResponseModel?> updateUserInfo(BuildContext context,
+      SellerModel updateUserModel, SellerBody seller, String token) async {
     _isLoading = true;
     notifyListeners();
 
     ResponseModel? responseModel;
-    http.StreamedResponse response = await bankInfoRepo!.updateBank(updateUserModel, seller, token);
+    http.StreamedResponse response =
+        await bankInfoRepo!.updateBank(updateUserModel, seller, token);
     _isLoading = false;
     if (response.statusCode == 200) {
       Navigator.pop(context);
-      showCustomSnackBar(getTranslated('bank_info_updated_successfully', context), context, isToaster: true, isError: false);
+      showCustomSnackBar(
+          getTranslated('bank_info_updated_successfully', context) ?? '',
+          context,
+          isToaster: true,
+          isError: false);
     } else {
       print('${response.statusCode} ${response.reasonPhrase}');
-      responseModel = ResponseModel(false, '${response.statusCode} ${response.reasonPhrase}');
+      responseModel = ResponseModel(
+          false, '${response.statusCode} ${response.reasonPhrase}');
     }
     notifyListeners();
     return responseModel;
@@ -152,5 +151,4 @@ class BankInfoProvider extends ChangeNotifier {
   String getBankToken() {
     return bankInfoRepo!.getBankToken();
   }
-
 }

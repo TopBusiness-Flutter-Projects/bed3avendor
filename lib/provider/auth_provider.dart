@@ -27,8 +27,7 @@ class AuthProvider with ChangeNotifier {
   bool _isActiveRememberMe = false;
   bool get isActiveRememberMe => _isActiveRememberMe;
   int _selectionTabIndex = 1;
-  int get selectionTabIndex =>_selectionTabIndex;
-
+  int get selectionTabIndex => _selectionTabIndex;
 
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
@@ -39,7 +38,6 @@ class AuthProvider with ChangeNotifier {
   TextEditingController shopNameController = TextEditingController();
   TextEditingController shopAddressController = TextEditingController();
 
-
   FocusNode firstNameNode = FocusNode();
   FocusNode lastNameNode = FocusNode();
   FocusNode emailNode = FocusNode();
@@ -49,21 +47,26 @@ class AuthProvider with ChangeNotifier {
   FocusNode shopNameNode = FocusNode();
   FocusNode shopAddressNode = FocusNode();
 
-  Future<ApiResponse> login(BuildContext context, {String? emailAddress, String? password}) async {
+  Future<ApiResponse> login(BuildContext context,
+      {String? emailAddress, String? password}) async {
     _isLoading = true;
     notifyListeners();
-    ApiResponse apiResponse = await authRepo!.login(emailAddress: emailAddress, password: password);
+    ApiResponse apiResponse =
+        await authRepo!.login(emailAddress: emailAddress, password: password);
 
-
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
       _isLoading = false;
       Map map = apiResponse.response!.data;
       String token = map["token"];
       authRepo!.saveUserToken(token);
-
     } else {
       _isLoading = false;
-     showCustomSnackBar(getTranslated('invalid_credential_or_account_not_verified_yet', context), context);
+      showCustomSnackBar(
+          getTranslated(
+                  'invalid_credential_or_account_not_verified_yet', context) ??
+              '',
+          context);
     }
     notifyListeners();
     return apiResponse;
@@ -76,8 +79,10 @@ class AuthProvider with ChangeNotifier {
     _isLoading = false;
     notifyListeners();
     ResponseModel responseModel;
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
-      responseModel = ResponseModel(true, apiResponse.response!.data["message"]);
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
+      responseModel =
+          ResponseModel(true, apiResponse.response!.data["message"]);
     } else {
       String? errorMessage;
       if (apiResponse.error is String) {
@@ -95,13 +100,12 @@ class AuthProvider with ChangeNotifier {
 
   Future<void> updateToken(BuildContext context) async {
     ApiResponse apiResponse = await authRepo!.updateToken();
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
-
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
     } else {
       ApiChecker.checkApi(context, apiResponse);
     }
   }
-
 
   void updateTermsAndCondition(bool? value) {
     _isTermsAndCondition = value;
@@ -112,13 +116,13 @@ class AuthProvider with ChangeNotifier {
     _isActiveRememberMe = !_isActiveRememberMe;
     notifyListeners();
   }
-  void setIndexForTabBar(int index, {bool isNotify = true}){
+
+  void setIndexForTabBar(int index, {bool isNotify = true}) {
     _selectionTabIndex = index;
     print('here is your current index =====>$_selectionTabIndex');
-    if(isNotify){
+    if (isNotify) {
       notifyListeners();
     }
-
   }
 
   bool isLoggedIn() {
@@ -160,8 +164,8 @@ class AuthProvider with ChangeNotifier {
   String get email => _email;
   String get phone => _phone;
   bool _isPhoneNumberVerificationButtonLoading = false;
-  bool get isPhoneNumberVerificationButtonLoading => _isPhoneNumberVerificationButtonLoading;
-
+  bool get isPhoneNumberVerificationButtonLoading =>
+      _isPhoneNumberVerificationButtonLoading;
 
   updateVerificationCode(String query) {
     if (query.length == 4) {
@@ -173,18 +177,19 @@ class AuthProvider with ChangeNotifier {
     notifyListeners();
   }
 
-
-
   Future<ResponseModel> verifyOtp(String phone) async {
     _isPhoneNumberVerificationButtonLoading = true;
     _verificationMsg = '';
     notifyListeners();
-    ApiResponse apiResponse = await authRepo!.verifyOtp(phone, _verificationCode);
+    ApiResponse apiResponse =
+        await authRepo!.verifyOtp(phone, _verificationCode);
     _isPhoneNumberVerificationButtonLoading = false;
     notifyListeners();
     ResponseModel responseModel;
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
-      responseModel = ResponseModel(true, apiResponse.response!.data["message"]);
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
+      responseModel =
+          ResponseModel(true, apiResponse.response!.data["message"]);
     } else {
       String? errorMessage;
       if (apiResponse.error is String) {
@@ -202,17 +207,20 @@ class AuthProvider with ChangeNotifier {
     return responseModel;
   }
 
-
-  Future<ResponseModel> resetPassword(String identity, String otp, String password, String confirmPassword) async {
+  Future<ResponseModel> resetPassword(String identity, String otp,
+      String password, String confirmPassword) async {
     _isPhoneNumberVerificationButtonLoading = true;
     _verificationMsg = '';
     notifyListeners();
-    ApiResponse apiResponse = await authRepo!.resetPassword(identity,otp,password,confirmPassword);
+    ApiResponse apiResponse =
+        await authRepo!.resetPassword(identity, otp, password, confirmPassword);
     _isPhoneNumberVerificationButtonLoading = false;
     notifyListeners();
     ResponseModel responseModel;
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
-      responseModel = ResponseModel(true, apiResponse.response!.data["message"]);
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
+      responseModel =
+          ResponseModel(true, apiResponse.response!.data["message"]);
     } else {
       String? errorMessage;
       if (apiResponse.error is String) {
@@ -223,39 +231,40 @@ class AuthProvider with ChangeNotifier {
         print(errorResponse.errors![0].message);
         errorMessage = errorResponse.errors![0].message;
       }
-      responseModel = ResponseModel(false ,errorMessage);
+      responseModel = ResponseModel(false, errorMessage);
       _verificationMsg = errorMessage;
     }
     notifyListeners();
     return responseModel;
   }
 
-
   void pickImage(bool isProfile, bool shopLogo, bool isRemove) async {
-    if(isRemove) {
+    if (isRemove) {
       _sellerProfileImage = null;
       _shopLogo = null;
       _shopBanner = null;
-    }else {
+    } else {
       if (isProfile) {
-        _sellerProfileImage = await ImagePicker().pickImage(source: ImageSource.gallery);
-      } else if(shopLogo){
+        _sellerProfileImage =
+            await ImagePicker().pickImage(source: ImageSource.gallery);
+      } else if (shopLogo) {
         _shopLogo = await ImagePicker().pickImage(source: ImageSource.gallery);
-      }else {
-        _shopBanner = await ImagePicker().pickImage(source: ImageSource.gallery);
+      } else {
+        _shopBanner =
+            await ImagePicker().pickImage(source: ImageSource.gallery);
       }
     }
 
     notifyListeners();
-
   }
 
-
-  Future<ApiResponse> registration(BuildContext context,RegisterModel registerModel) async {
+  Future<ApiResponse> registration(
+      BuildContext context, RegisterModel registerModel) async {
     _isLoading = true;
     notifyListeners();
-    ApiResponse  response = await authRepo!.registration(_sellerProfileImage, _shopLogo, _shopBanner, registerModel);
-    if(response.response!.statusCode == 200) {
+    ApiResponse response = await authRepo!.registration(
+        _sellerProfileImage, _shopLogo, _shopBanner, registerModel);
+    if (response.response!.statusCode == 200) {
       _isLoading = false;
       firstNameController.clear();
       lastNameController.clear();
@@ -268,9 +277,11 @@ class AuthProvider with ChangeNotifier {
       _sellerProfileImage = null;
       _shopLogo = null;
       _shopBanner = null;
-      showCustomSnackBar(getTranslated("you_are_successfully_registered", context), context, isError: false);
-
-    }else {
+      showCustomSnackBar(
+          getTranslated("you_are_successfully_registered", context) ?? '',
+          context,
+          isError: false);
+    } else {
       _isLoading = false;
       Map map = response.response!.data;
       String? message = map['message'];
@@ -279,15 +290,12 @@ class AuthProvider with ChangeNotifier {
     _isLoading = false;
     notifyListeners();
     return response;
-
   }
 
   String? _countryDialCode = '+880';
   String? get countryDialCode => _countryDialCode;
 
-  void setCountryDialCode (String? setValue){
+  void setCountryDialCode(String? setValue) {
     _countryDialCode = setValue;
-
   }
-
 }
