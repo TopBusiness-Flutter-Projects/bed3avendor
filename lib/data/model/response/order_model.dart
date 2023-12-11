@@ -1,8 +1,6 @@
-
 import 'dart:convert';
 
 import 'package:bed3avendor/data/model/response/top_delivery_man.dart';
-
 
 class OrderModel {
   int? totalSize;
@@ -36,7 +34,6 @@ class OrderModel {
   }
 }
 
-
 class Order {
   int? _id;
   int? _customerId;
@@ -69,38 +66,38 @@ class Order {
   String? _expectedDeliveryDate;
   DeliveryMan? deliveryMan;
 
-  Order(
-      {int? id,
-        int? customerId,
-        String? customerType,
-        String? paymentStatus,
-        String? orderStatus,
-        String? paymentMethod,
-        String? transactionRef,
-        double? orderAmount,
-        int? shippingAddress,
-        String? shippingAddressData,
-        int? billingAddress,
-        BillingAddressData? billingAddressData,
-        double? shippingCost,
-        String? createdAt,
-        String? updatedAt,
-        double? discountAmount,
-        String? discountType,
-        Customer? customer,
-        int? deliveryManId,
-        String? orderNote,
-        String? orderType,
-        Shipping? shipping,
-        double? extraDiscount,
-        String? extraDiscountType,
-        String? deliveryType,
-        String? thirdPartyServiceNam,
-        String? thirdPartyTrackingId,
-        double? deliverymanCharge,
-        String? expectedDeliveryDate,
-        DeliveryMan? deliveryMan,
-      }) {
+  Order({
+    int? id,
+    int? customerId,
+    String? customerType,
+    String? paymentStatus,
+    String? orderStatus,
+    String? paymentMethod,
+    String? transactionRef,
+    double? orderAmount,
+    int? shippingAddress,
+    String? shippingAddressData,
+    int? billingAddress,
+    BillingAddressData? billingAddressData,
+    double? shippingCost,
+    String? createdAt,
+    String? updatedAt,
+    double? discountAmount,
+    String? discountType,
+    Customer? customer,
+    int? deliveryManId,
+    String? orderNote,
+    String? orderType,
+    Shipping? shipping,
+    double? extraDiscount,
+    String? extraDiscountType,
+    String? deliveryType,
+    String? thirdPartyServiceNam,
+    String? thirdPartyTrackingId,
+    double? deliverymanCharge,
+    String? expectedDeliveryDate,
+    DeliveryMan? deliveryMan,
+  }) {
     this._id = id;
     this._customerId = customerId;
     this._customerType = customerType;
@@ -145,8 +142,6 @@ class Order {
     if (deliveryMan != null) {
       this.deliveryMan = deliveryMan;
     }
-
-
   }
 
   // ignore: unnecessary_getters_setters
@@ -173,18 +168,17 @@ class Order {
   double? get discountAmount => _discountAmount;
   String? get discountType => _discountType;
   Customer? get customer => _customer;
-  int? get deliveryManId =>_deliveryManId;
+  int? get deliveryManId => _deliveryManId;
   String? get orderNote => _orderNote;
   String? get orderType => _orderType;
   Shipping? get shipping => _shipping;
   double? get extraDiscount => _extraDiscount;
   String? get extraDiscountType => _extraDiscountType;
   String? get deliveryType => _deliveryType;
-  String? get  thirdPartyServiceName => _thirdPartyServiceName;
-  String? get  thirdPartyTrackingId => _thirdPartyTrackingId;
+  String? get thirdPartyServiceName => _thirdPartyServiceName;
+  String? get thirdPartyTrackingId => _thirdPartyTrackingId;
   double? get deliverymanCharge => _deliverymanCharge;
   String? get expectedDeliveryDate => _expectedDeliveryDate;
-
 
   Order.fromJson(Map<String, dynamic> json) {
     _id = json['id'];
@@ -194,35 +188,37 @@ class Order {
     _orderStatus = json['order_status'];
     _paymentMethod = json['payment_method'];
     _transactionRef = json['transaction_ref'];
-    if(json['order_amount'] != null){
-      try{
+    if (json['order_amount'] != null) {
+      try {
         _orderAmount = json['order_amount'].toDouble();
-      }catch(e){
+      } catch (e) {
         _orderAmount = double.parse(json['order_amount'].toString());
       }
     }
-    if(json['shipping_cost'] != null){
+    if (json['shipping_cost'] != null) {
       _shippingCost = json['shipping_cost'].toDouble();
     }
 
     _shippingAddress = json['shipping_address'];
     _shippingAddressData = json['shipping_address_data'];
     _billingAddress = json['billing_address'];
-    if(json['billing_address_data'] != null){
-      try{
-        _billingAddressData =  BillingAddressData.fromJson(json['billing_address_data']);
-      }catch(e){
-        _billingAddressData =  BillingAddressData.fromJson(jsonDecode(json['billing_address_data']));
+    if (json['billing_address_data'] != null) {
+      try {
+        _billingAddressData =
+            BillingAddressData.fromJson(json['billing_address_data']);
+      } catch (e) {
+        _billingAddressData = BillingAddressData.fromJson(
+            jsonDecode(json['billing_address_data']));
       }
     }
 
     _createdAt = json['created_at'];
     _updatedAt = json['updated_at'];
-    if(json['delivery_man_id'] != null){
+    if (json['delivery_man_id'] != null) {
       _deliveryManId = json['delivery_man_id'];
     }
 
-    if(json['discount_amount']!=null){
+    if (json['discount_amount'] != null) {
       _discountAmount = json['discount_amount'].toDouble();
     }
 
@@ -235,25 +231,28 @@ class Order {
     _shipping = json['shipping'] != null
         ? new Shipping.fromJson(json['shipping'])
         : null;
-    if(json['extra_discount'] != null){
+    if (json['extra_discount'] != null) {
       _extraDiscount = json['extra_discount'].toDouble();
     }
 
     _extraDiscountType = json['extra_discount_type'];
-    if(json['delivery_type']!=null && json['delivery_type']!= ""){
+    if (json['delivery_type'] != null && json['delivery_type'] != "") {
       _deliveryType = json['delivery_type'];
     }
-    if(json['delivery_service_name']!=null && json['delivery_service_name']!= ""){
+    if (json['delivery_service_name'] != null &&
+        json['delivery_service_name'] != "") {
       _thirdPartyServiceName = json['delivery_service_name'];
     }
-    if(json['third_party_delivery_tracking_id']!=null && json['third_party_delivery_tracking_id']!= ""){
+    if (json['third_party_delivery_tracking_id'] != null &&
+        json['third_party_delivery_tracking_id'] != "") {
       _thirdPartyTrackingId = json['third_party_delivery_tracking_id'];
     }
-    if(json['deliveryman_charge'] != null){
-      try{
+    if (json['deliveryman_charge'] != null) {
+      try {
         _deliverymanCharge = json['deliveryman_charge'].toDouble();
-      }catch(e){
-        _deliverymanCharge = double.parse(json['deliveryman_charge'].toString());
+      } catch (e) {
+        _deliverymanCharge =
+            double.parse(json['deliveryman_charge'].toString());
       }
     }
 
@@ -261,7 +260,6 @@ class Order {
     deliveryMan = json['delivery_man'] != null
         ? new DeliveryMan.fromJson(json['delivery_man'])
         : null;
-
   }
 
   Map<String, dynamic> toJson() {
@@ -329,26 +327,26 @@ class Customer {
   String? _cmFirebaseToken;
   DeliveryMan? _deliveryMan;
 
-  Customer(
-      {int? id,
-        String? name,
-        String? fName,
-        String? lName,
-        String? phone,
-        String? image,
-        String? email,
-        String? emailVerifiedAt,
-        String? createdAt,
-        String? updatedAt,
-        String? streetAddress,
-        String? country,
-        String? city,
-        String? zip,
-        String? houseNo,
-        String? apartmentNo,
-        String? cmFirebaseToken,
-        DeliveryMan? deliveryMan,
-      }) {
+  Customer({
+    int? id,
+    String? name,
+    String? fName,
+    String? lName,
+    String? phone,
+    String? image,
+    String? email,
+    String? emailVerifiedAt,
+    String? createdAt,
+    String? updatedAt,
+    String? streetAddress,
+    String? country,
+    String? city,
+    String? zip,
+    String? houseNo,
+    String? apartmentNo,
+    String? cmFirebaseToken,
+    DeliveryMan? deliveryMan,
+  }) {
     this._id = id;
     this._name = name;
     this._fName = fName;
@@ -393,11 +391,11 @@ class Customer {
   Customer.fromJson(Map<String, dynamic> json) {
     _id = json['id'];
     _name = json['name'];
-    if(json['f_name']!=null){
+    if (json['f_name'] != null) {
       _fName = json['f_name'];
     }
 
-    if(json['l_name']!=null){
+    if (json['l_name'] != null) {
       _lName = json['l_name'];
     }
 
@@ -445,7 +443,6 @@ class Customer {
   }
 }
 
-
 class BillingAddressData {
   int? id;
   int? customerId;
@@ -464,19 +461,19 @@ class BillingAddressData {
 
   BillingAddressData(
       {this.id,
-        this.customerId,
-        this.contactPersonName,
-        this.addressType,
-        this.address,
-        this.city,
-        this.zip,
-        this.phone,
-        this.createdAt,
-        this.updatedAt,
-        this.country,
-        this.latitude,
-        this.longitude,
-        this.isBilling});
+      this.customerId,
+      this.contactPersonName,
+      this.addressType,
+      this.address,
+      this.city,
+      this.zip,
+      this.phone,
+      this.createdAt,
+      this.updatedAt,
+      this.country,
+      this.latitude,
+      this.longitude,
+      this.isBilling});
 
   BillingAddressData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -528,14 +525,14 @@ class Shipping {
 
   Shipping(
       {int? id,
-        int? creatorId,
-        String? creatorType,
-        String? title,
-        double? cost,
-        String? duration,
-        int? status,
-        String? createdAt,
-        String? updatedAt}) {
+      int? creatorId,
+      String? creatorType,
+      String? title,
+      double? cost,
+      String? duration,
+      int? status,
+      String? createdAt,
+      String? updatedAt}) {
     if (id != null) {
       this._id = id;
     }
@@ -575,7 +572,6 @@ class Shipping {
   String? get createdAt => _createdAt;
   String? get updatedAt => _updatedAt;
 
-
   Shipping.fromJson(Map<String, dynamic> json) {
     _id = json['id'];
     _creatorId = json['creator_id'];
@@ -602,4 +598,3 @@ class Shipping {
     return data;
   }
 }
-

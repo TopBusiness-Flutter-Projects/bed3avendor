@@ -107,7 +107,7 @@ class _NavBarScreenState extends State<NavBarScreen> {
                 },
                 icon:
                     menuController.currentTab == 3 ? Images.menu : Images.menu,
-                name: getTranslated('menu', context)!,
+                name: 'المزيد',
                 selectIndex: 3,
               ),
             ],

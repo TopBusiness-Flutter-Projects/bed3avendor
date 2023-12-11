@@ -13,13 +13,14 @@ class HtmlViewScreen extends StatelessWidget {
       body: Column(
         children: [
           CustomAppBar(title: title),
-          Expanded(
+          Flexible(
             child: SingleChildScrollView(
               child: Container(
                 padding: EdgeInsets.symmetric(
                     horizontal: Dimensions.PADDING_SIZE_SMALL),
                 child: Html(
                   data: url,
+                  // style: TextStyle(color: Colors.black),
                 ),
               ),
             ),

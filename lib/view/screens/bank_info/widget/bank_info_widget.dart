@@ -11,64 +11,77 @@ class BankInfoWidget extends StatelessWidget {
   final String? bank;
   final String? branch;
   final String? accountNo;
-  const BankInfoWidget({Key? key, this.name, this.bank, this.branch, this.accountNo}) : super(key: key);
+  const BankInfoWidget(
+      {Key? key, this.name, this.bank, this.branch, this.accountNo})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:  EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT),
-      child: Container(width: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT),
+      child: Container(
+        width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
             color: Theme.of(context).primaryColor,
-            borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_SMALL)
-        ),
+            borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_SMALL)),
         child: Stack(
           children: [
             Positioned(
               child: Align(
                 alignment: Alignment.centerRight,
-                child: Container(width: MediaQuery.of(context).size.width/3,
+                child: Container(
+                  width: MediaQuery.of(context).size.width / 3,
                   height: 200,
                   decoration: BoxDecoration(
                       color: Theme.of(context).cardColor.withOpacity(.05),
-                      borderRadius: const BorderRadius.only(topLeft: Radius.circular(100), bottomLeft: Radius.circular(100) )
-                  ),
-
+                      borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(100),
+                          bottomLeft: Radius.circular(100))),
                 ),
               ),
             ),
             Positioned(
               child: Align(
                 alignment: Alignment.centerRight,
-                child: Container(width: MediaQuery.of(context).size.width/4,
+                child: Container(
+                  width: MediaQuery.of(context).size.width / 4,
                   height: 200,
                   decoration: BoxDecoration(
                       color: Theme.of(context).cardColor.withOpacity(.05),
-                      borderRadius: const BorderRadius.only(topLeft: Radius.circular(100), bottomLeft: Radius.circular(100) )
-                  ),
-
+                      borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(100),
+                          bottomLeft: Radius.circular(100))),
                 ),
               ),
             ),
-            Column(children: [
-              SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT),
-              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                CardItem(title: 'ac_holder',value: name),
-                Padding(
-                  padding:  EdgeInsets.only(right: Dimensions.PADDING_SIZE_DEFAULT, left: Dimensions.PADDING_SIZE_DEFAULT),
-                  child: SizedBox(width: 50, child: Image.asset(Images.bankInfo)),
-                )
-              ],),
-              Divider(color: Theme.of(context).cardColor.withOpacity(.5),thickness: 1.5),
-
-              CardItem(title: 'bank', value: bank),
-              CardItem(title: 'branch', value: branch),
-              CardItem(title: 'account_no' ,value: accountNo),
-              SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT),
-
-            ],),
+            Column(
+              children: [
+                SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CardItem(title: 'ac_holder', value: name),
+                    Padding(
+                      padding: EdgeInsets.only(
+                          right: Dimensions.PADDING_SIZE_DEFAULT,
+                          left: Dimensions.PADDING_SIZE_DEFAULT),
+                      child: SizedBox(
+                          width: 50, child: Image.asset(Images.bankInfo)),
+                    )
+                  ],
+                ),
+                Divider(
+                    color: Theme.of(context).cardColor.withOpacity(.5),
+                    thickness: 1.5),
+                CardItem(title: 'bank', value: bank),
+                CardItem(title: 'branch', value: branch),
+                CardItem(title: 'account_no', value: accountNo),
+                SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT),
+              ],
+            ),
           ],
-        ),),
+        ),
+      ),
     );
   }
 }
@@ -81,16 +94,25 @@ class CardItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:  EdgeInsets.fromLTRB(Dimensions.PADDING_SIZE_DEFAULT, Dimensions.PADDING_SIZE_SMALL,
-          Dimensions.PADDING_SIZE_DEFAULT, Dimensions.PADDING_SIZE_SMALL),
+      padding: EdgeInsets.fromLTRB(
+          Dimensions.PADDING_SIZE_DEFAULT,
+          Dimensions.PADDING_SIZE_SMALL,
+          Dimensions.PADDING_SIZE_DEFAULT,
+          Dimensions.PADDING_SIZE_SMALL),
       child: Row(
         children: [
           Text('${getTranslated(title, context)} : ',
-              style: robotoRegular.copyWith(color: Provider.of<ThemeProvider>(context, listen: false).darkTheme?
-              Theme.of(context).hintColor: Theme.of(context).cardColor)),
-          Text(value!, style: robotoMedium.copyWith(color : Provider.of<ThemeProvider>(context, listen: false).darkTheme?
-          Theme.of(context).hintColor: Theme.of(context).cardColor)),
-
+              style: robotoRegular.copyWith(
+                  color: Provider.of<ThemeProvider>(context, listen: false)
+                          .darkTheme
+                      ? Theme.of(context).hintColor
+                      : Theme.of(context).cardColor)),
+          Text(value!,
+              style: robotoMedium.copyWith(
+                  color: Provider.of<ThemeProvider>(context, listen: false)
+                          .darkTheme
+                      ? Theme.of(context).hintColor
+                      : Theme.of(context).cardColor)),
         ],
       ),
     );
