@@ -151,6 +151,7 @@ class AppConstants {
       '/api/v3/seller/get-earning-statitics?type=';
   static const String BUSINESS_ANALYTICS =
       '/api/v3/seller/order-statistics?statistics_type=';
+  static const String HOME_SCREEN = '/api/v3/seller/order-statistics';
   static const String PRODUCT_DETAILS = '/api/v3/seller/products/details/';
   static const String DELIVERY_MAN_ORDER_CHANGE_LOG =
       '/api/v3/seller/delivery-man/order-status-history/';

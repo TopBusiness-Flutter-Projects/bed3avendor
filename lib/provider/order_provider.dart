@@ -12,6 +12,8 @@ import 'package:bed3avendor/helper/api_checker.dart';
 import 'package:bed3avendor/localization/language_constrants.dart';
 import 'package:bed3avendor/view/base/custom_snackbar.dart';
 
+import '../data/model/response/homescreenmodel.dart';
+import '../data/model/response/homescreenmodel.dart';
 import '../view/screens/order/order main details.dart';
 
 class OrderProvider extends ChangeNotifier {
@@ -120,7 +122,7 @@ class OrderProvider extends ChangeNotifier {
   String _orderType = 'all';
   String get orderType => _orderType;
   void setIndex(BuildContext context, int index,
-      {bool notify = true, ScrollController? scrollController}) {
+      {bool notify = true, ScrollController? scrollController, String? title}) {
     _orderTypeIndex = index;
     if (_orderTypeIndex == 0) {
       _orderType = 'all';
@@ -153,11 +155,13 @@ class OrderProvider extends ChangeNotifier {
     if (notify) {
       notifyListeners();
     }
-    // Navigator.push(
-    //     context,
-    //     MaterialPageRoute(
-    //         builder: (context) =>
-    //             MainOrderDetails(scrollController: scrollController)));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => MainOrderDetails(
+                  scrollController: scrollController,
+                  title: title!,
+                )));
   }
 
   Future<void> getOrderDetails(String orderID, BuildContext context) async {
@@ -339,6 +343,24 @@ class OrderProvider extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+  ///HomeScreenModel
+  HomeScreenModel? _homeScreenModel;
+  HomeScreenModel? get homeScreenModel => _homeScreenModel;
+  Future<void> getHomeScreenData(BuildContext context) async {
+    _isLoading = true;
+    ApiResponse response = await orderRepo!.getHomeScreenData();
+    if (response.response != null && response.response!.statusCode == 200) {
+      _homeScreenModel = HomeScreenModel.fromJson(response.response!.data);
+      _isLoading = false;
+    } else {
+      _isLoading = false;
+      ApiChecker.checkApi(context, response);
+    }
+    notifyListeners();
+  }
+
+  // Future<void> getHomeScreenData() async {}
 
   Future<ApiResponse> assignThirdPartyDeliveryMan(BuildContext context,
       String name, String trackingId, int? orderId) async {

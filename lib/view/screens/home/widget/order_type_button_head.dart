@@ -13,43 +13,55 @@ class OrderTypeButtonHead extends StatelessWidget {
   final int index;
   final Function? callback;
   final int? numberOfOrder;
-  OrderTypeButtonHead({required this.text,this.subText,this.color ,required this.index, required this.callback, required this.numberOfOrder});
+  OrderTypeButtonHead(
+      {required this.text,
+      this.subText,
+      this.color,
+      required this.index,
+      required this.callback,
+      required this.numberOfOrder});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Provider.of<OrderProvider>(context, listen: false).setIndex(context, index);
+        Provider.of<OrderProvider>(context, listen: false)
+            .setIndex(context, index);
         callback!();
       },
       child: Card(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_SMALL),),
+          borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_SMALL),
+        ),
         color: color,
         child: Stack(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_LARGE),
-              child: Container(alignment: Alignment.center,
+              padding: const EdgeInsets.symmetric(
+                  horizontal: Dimensions.PADDING_SIZE_LARGE),
+              child: Container(
+                alignment: Alignment.center,
                 child: Center(
-                  child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(numberOfOrder.toString(),
-                          style: robotoBold.copyWith(color: ColorResources.getWhite(context),
+                          style: robotoBold.copyWith(
+                              color: ColorResources.getWhite(context),
                               fontSize: Dimensions.FONT_SIZE_HEADER_LARGE)),
-
-                      Row(children: [
-                          Text(text!, style: robotoRegular.copyWith(color: ColorResources.getWhite(context),
-                              fontSize: Dimensions.FONT_SIZE_DEFAULT)),
+                      Row(
+                        children: [
+                          Text(text!,
+                              style: robotoRegular.copyWith(
+                                  color: ColorResources.getWhite(context),
+                                  fontSize: Dimensions.FONT_SIZE_DEFAULT)),
                           SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-
-                          Text(subText!, style: robotoRegular.copyWith(color: ColorResources.getWhite(context))),
+                          Text(subText!,
+                              style: robotoRegular.copyWith(
+                                  color: ColorResources.getWhite(context))),
                         ],
                       ),
-
-
-
                     ],
                   ),
                 ),
@@ -57,18 +69,22 @@ class OrderTypeButtonHead extends StatelessWidget {
             ),
             Row(
               children: [
-                Provider.of<LocalizationProvider>(context,listen: false).isLtr?SizedBox.shrink():Spacer(),
-                Container(width: MediaQuery.of(context).size.width/4,
-                  height:MediaQuery.of(context).size.width/4,
+                Provider.of<LocalizationProvider>(context, listen: false).isLtr
+                    ? SizedBox.shrink()
+                    : Spacer(),
+                Container(
+                  width: MediaQuery.of(context).size.width / 4,
+                  height: MediaQuery.of(context).size.width / 4,
                   decoration: BoxDecoration(
                       color: Theme.of(context).cardColor.withOpacity(.10),
-                      borderRadius: BorderRadius.only(bottomRight: Radius.circular(100))
-                  ),),
-                Provider.of<LocalizationProvider>(context,listen: false).isLtr?Spacer():SizedBox.shrink(),
+                      borderRadius:
+                          BorderRadius.only(bottomRight: Radius.circular(100))),
+                ),
+                Provider.of<LocalizationProvider>(context, listen: false).isLtr
+                    ? Spacer()
+                    : SizedBox.shrink(),
               ],
             )
-
-
           ],
         ),
       ),

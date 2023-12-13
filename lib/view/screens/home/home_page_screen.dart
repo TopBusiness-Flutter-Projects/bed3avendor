@@ -41,6 +41,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
         .getOrderList(context, 1, 'all');
     Provider.of<OrderProvider>(context, listen: false)
         .getAnalyticsFilterData(context, 'overall');
+    Provider.of<OrderProvider>(context, listen: false)
+        .getHomeScreenData(context);
+
     Provider.of<SplashProvider>(context, listen: false).getColorList();
     Provider.of<ProductProvider>(context, listen: false)
         .getStockOutProductList(1, context, 'en');
