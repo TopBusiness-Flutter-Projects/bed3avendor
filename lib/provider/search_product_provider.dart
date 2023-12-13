@@ -1,3 +1,4 @@
+import 'package:bed3avendor/data/model/response/orders_status_model.dart';
 import 'package:flutter/material.dart';
 import 'package:bed3avendor/data/model/response/base/api_response.dart';
 import 'package:bed3avendor/data/model/response/refund_details_model.dart';
@@ -12,21 +13,22 @@ class SearchProvider extends ChangeNotifier {
   final RefundRepo? refundRepo;
   SearchProvider({required this.refundRepo});
 
-
   List<RefundModel>? _refundList;
-  List<RefundModel>? get refundList => _refundList != null ? _refundList : _refundList;
+  List<RefundModel>? get refundList =>
+      _refundList != null ? _refundList : _refundList;
 
   List<RefundModel>? _pendingList;
   List<RefundModel>? _approvedList;
   List<RefundModel>? _deniedList;
   List<RefundModel>? _doneList;
 
-  List<RefundModel>? get pendingList => _pendingList != null ? _pendingList : _pendingList;
-  List<RefundModel>? get approvedList => _approvedList != null ? _approvedList : _approvedList;
-  List<RefundModel>? get deniedList => _deniedList != null ? _deniedList : _deniedList;
+  List<RefundModel>? get pendingList =>
+      _pendingList != null ? _pendingList : _pendingList;
+  List<RefundModel>? get approvedList =>
+      _approvedList != null ? _approvedList : _approvedList;
+  List<RefundModel>? get deniedList =>
+      _deniedList != null ? _deniedList : _deniedList;
   List<RefundModel>? get doneList => _doneList != null ? _doneList : _doneList;
-
-
 
   bool _isLoading = false;
   bool get isLoading => _isLoading;
@@ -46,16 +48,17 @@ class SearchProvider extends ChangeNotifier {
   bool _adminReplied = true;
   bool get adminReplied => _adminReplied;
 
-
-
-
-  Future<ApiResponse> updateRefundStatus(BuildContext context,int? id, String status, String note) async {
+  Future<ApiResponse> updateRefundStatus(
+      BuildContext context, int? id, String status, String note) async {
     _isLoading = true;
     notifyListeners();
     ApiResponse apiResponse;
     apiResponse = await refundRepo!.refundStatus(id, status, note);
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
-      showCustomSnackBar(getTranslated('successfully_updated_refund_status', context), context,isError: false);
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
+      showCustomSnackBar(
+          getTranslated('successfully_updated_refund_status', context), context,
+          isError: false);
       _isLoading = false;
     } else {
       _isLoading = false;
@@ -65,13 +68,16 @@ class SearchProvider extends ChangeNotifier {
     return apiResponse;
   }
 
-
-  Future<ApiResponse> getRefundReqInfo(BuildContext context, int? orderDetailId) async {
+  Future<ApiResponse> getRefundReqInfo(
+      BuildContext context, int? orderDetailId) async {
     _isLoading = true;
 
-    ApiResponse apiResponse = await refundRepo!.getRefundReqDetails(orderDetailId);
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
-      _refundDetailsModel = RefundDetailsModel.fromJson(apiResponse.response!.data);
+    ApiResponse apiResponse =
+        await refundRepo!.getRefundReqDetails(orderDetailId);
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
+      _refundDetailsModel =
+          RefundDetailsModel.fromJson(apiResponse.response!.data);
       _isLoading = false;
     } else {
       _isLoading = false;
@@ -83,23 +89,23 @@ class SearchProvider extends ChangeNotifier {
 
   Future<void> getRefundList(BuildContext context) async {
     ApiResponse apiResponse = await refundRepo!.getRefundList();
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
       _refundList = [];
       _pendingList = [];
       _approvedList = [];
       _deniedList = [];
       _doneList = [];
       apiResponse.response!.data.forEach((refund) {
-
         RefundModel refundModel = RefundModel.fromJson(refund);
         _refundList!.add(refundModel);
         if (refundModel.status == AppConstants.PENDING) {
           _pendingList!.add(refundModel);
         } else if (refundModel.status == AppConstants.APPROVED) {
           _approvedList!.add(refundModel);
-        }else if (refundModel.status == AppConstants.REJECTED) {
+        } else if (refundModel.status == AppConstants.REJECTED) {
           _deniedList!.add(refundModel);
-        }else if (refundModel.status == AppConstants.DONE) {
+        } else if (refundModel.status == AppConstants.DONE) {
           _doneList!.add(refundModel);
         }
       });
@@ -109,9 +115,9 @@ class SearchProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-
-  void setIndex(int index) {
+  void setIndex(int index, BuildContext context) {
     _refundTypeIndex = index;
+    getOrderDependOnStatus(context);
     notifyListeners();
   }
 
@@ -120,5 +126,27 @@ class SearchProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  //getOrderDependOnStatus
+  List<MainOrderStatus>? _mainOrderStatus;
+  List<MainOrderStatus>? get mainOrderStatus => _mainOrderStatus;
 
+  Future<void> getOrderDependOnStatus(BuildContext context) async {
+    ApiResponse apiResponse = await refundRepo!.getOrderDependOnStatus(
+        status: refundTypeIndex == 0
+            ? 'available'
+            : refundTypeIndex == 1
+                ? 'not_available'
+                : 'offer');
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
+      print('00000000000000000' + apiResponse.response!.data);
+      _mainOrderStatus = apiResponse.response!.data.map((e) {
+        return MainOrderStatus.fromJson(e);
+      });
+      ////
+    } else {
+      ApiChecker.checkApi(context, apiResponse);
+    }
+    notifyListeners();
+  }
 }

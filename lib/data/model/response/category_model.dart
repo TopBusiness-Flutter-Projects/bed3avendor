@@ -11,14 +11,14 @@ class CategoryModel {
 
   CategoryModel(
       {int? id,
-        String? name,
-        String? slug,
-        String? icon,
-        int? parentId,
-        int? position,
-        String? createdAt,
-        String? updatedAt,
-        List<SubCategory>? subCategories}) {
+      String? name,
+      String? slug,
+      String? icon,
+      int? parentId,
+      int? position,
+      String? createdAt,
+      String? updatedAt,
+      List<SubCategory>? subCategories}) {
     this._id = id;
     this._name = name;
     this._slug = slug;
@@ -87,14 +87,14 @@ class SubCategory {
 
   SubCategory(
       {int? id,
-        String? name,
-        String? slug,
-        String? icon,
-        int? parentId,
-        int? position,
-        String? createdAt,
-        String? updatedAt,
-        List<SubSubCategory>? subSubCategories}) {
+      String? name,
+      String? slug,
+      String? icon,
+      int? parentId,
+      int? position,
+      String? createdAt,
+      String? updatedAt,
+      List<SubSubCategory>? subSubCategories}) {
     this._id = id;
     this._name = name;
     this._slug = slug;
@@ -162,13 +162,13 @@ class SubSubCategory {
 
   SubSubCategory(
       {int? id,
-        String? name,
-        String? slug,
-        String? icon,
-        int? parentId,
-        int? position,
-        String? createdAt,
-        String? updatedAt}) {
+      String? name,
+      String? slug,
+      String? icon,
+      int? parentId,
+      int? position,
+      String? createdAt,
+      String? updatedAt}) {
     this._id = id;
     this._name = name;
     this._slug = slug;

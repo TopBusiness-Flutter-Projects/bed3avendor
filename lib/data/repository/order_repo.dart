@@ -146,4 +146,17 @@ class OrderRepo {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
     }
   }
+
+  getOrderStatisticsModel({
+    required String startDate,
+    required String endDate,
+  }) async {
+    try {
+      final response = await dioClient!.get(
+          '${AppConstants.GetOrderStatisticsModel}from=$startDate&to=$endDate');
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
 }

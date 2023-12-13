@@ -47,34 +47,34 @@ class _OrderScreenState extends State<OrderScreen> {
         builder: (context, order, child) {
           List<Order>? orderList = [];
           orderList = order.orderModel?.orders;
-          return ListView(
-            padding: EdgeInsets.symmetric(
-                horizontal: 0, vertical: Dimensions.PADDING_SIZE_SMALL),
-            shrinkWrap: true,
-            physics: const BouncingScrollPhysics(),
-            children: [
-              Container(
-                  height: MediaQuery.of(context).size.width / 2,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      color: ColorResources.COLOR_BLUE,
-                      borderRadius: BorderRadius.only(
-                          bottomRight: Radius.circular(22),
-                          bottomLeft: Radius.circular(22))),
-                  child: Stack(
-                    children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width / 2,
-                        height: MediaQuery.of(context).size.height,
-                        child: CustomPaint(
-                          painter: SplashPainter(),
-                        ),
-                      ),
-                      order.homeScreenModel == null
-                          ? Center(
-                              child: CircularProgressIndicator(),
-                            )
-                          : Column(
+          return order.homeScreenModel == null
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : ListView(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 0, vertical: Dimensions.PADDING_SIZE_SMALL),
+                  shrinkWrap: true,
+                  physics: const BouncingScrollPhysics(),
+                  children: [
+                    Container(
+                        height: MediaQuery.of(context).size.width / 2,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            color: ColorResources.COLOR_BLUE,
+                            borderRadius: BorderRadius.only(
+                                bottomRight: Radius.circular(22),
+                                bottomLeft: Radius.circular(22))),
+                        child: Stack(
+                          children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width / 2,
+                              height: MediaQuery.of(context).size.height,
+                              child: CustomPaint(
+                                painter: SplashPainter(),
+                              ),
+                            ),
+                            Column(
                               children: [
                                 Container(
                                   margin: const EdgeInsets.symmetric(
@@ -265,143 +265,144 @@ class _OrderScreenState extends State<OrderScreen> {
                                 )
                               ],
                             ),
-                    ],
-                  )),
-              Container(
-                // height: 50,
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'حالة الطلب',
-                  style: TextStyle(
-                      color: ColorResources.PRIMARY_MATERIAL, fontSize: 22),
-                ),
-              ),
-              NewOrderWidget(
-                  backColor: Color(0xffd0dff6),
-                  index: 0,
-                  scrollController: scrollController,
-                  imageName: 'assets/image/037-waiting.png',
-                  title: getTranslated('pending', context) ?? '',
-                  num: order.homeScreenModel!.pending.toString()),
-              // OrderTypeButton(text: getTranslated('all', context), index: 0, ),
-              // SizedBox(width: 5),
-              // OrderTypeButton(
-              //     order: order,
-              //     orderList: orderList,
-              //     orderModel: order.orderModel,
-              //     scrollController: scrollController,
-              //     text: getTranslated('pending', context),
-              //     index: 0),
-              SizedBox(height: 5),
-              NewOrderWidget(
-                  backColor: Color(0xfff2e4b7),
-                  scrollController: scrollController,
-                  index: 1,
-                  imageName: 'assets/image/051-shopping-list-1.png',
-                  title: getTranslated('processing', context) ?? '',
-                  num: order.homeScreenModel!.processing.toString()),
-              // OrderTypeButton(
-              //     order: order,
-              //     orderList: orderList,
-              //     orderModel: order.orderModel,
-              //     scrollController: scrollController,
-              //     text: getTranslated('processing', context),
-              //     index: 1),
-              SizedBox(height: 5),
-              NewOrderWidget(
-                  index: 2,
-                  backColor: Color(0xffc6f3de),
-                  scrollController: scrollController,
-                  imageName: 'assets/image/039-delivery-boy.png',
-                  title: getTranslated('in_way', context) ?? '',
-                  num: order.homeScreenModel!.outForDelivery.toString()),
-              // OrderTypeButton(
-              //     order: order,
-              //     orderList: orderList,
-              //     orderModel: order.orderModel,
-              //     scrollController: scrollController,
-              //     text: getTranslated('in_way', context),
-              //     index: 2),
-              SizedBox(height: 5),
-              NewOrderWidget(
-                  backColor: Color(0xff13ea60),
-                  index: 3,
-                  scrollController: scrollController,
-                  imageName: 'assets/image/040-received.png',
-                  title: getTranslated('delivered', context) ?? '',
-                  num: order.homeScreenModel!.delivered.toString()),
-              // OrderTypeButton(
-              //     order: order,
-              //     orderList: orderList,
-              //     orderModel: order.orderModel,
-              //     scrollController: scrollController,
-              //     text: getTranslated('delivered', context),
-              //     index: 3),
-              SizedBox(height: 5),
-              NewOrderWidget(
-                  index: 4,
-                  backColor: Color(0xffbbbbbb),
-                  scrollController: scrollController,
-                  imageName: 'assets/image/041-cancel.png',
-                  title: getTranslated('cancelled', context) ?? '',
-                  num: order.homeScreenModel!.canceled.toString()),
-              // OrderTypeButton(
-              //     order: order,
-              //     orderList: orderList,
-              //     orderModel: order.orderModel,
-              //     scrollController: scrollController,
-              //     text: getTranslated('cancelled', context),
-              //     index: 4),
-              SizedBox(height: 5),
+                          ],
+                        )),
+                    Container(
+                      // height: 50,
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        'حالة الطلب',
+                        style: TextStyle(
+                            color: ColorResources.PRIMARY_MATERIAL,
+                            fontSize: 22),
+                      ),
+                    ),
+                    NewOrderWidget(
+                        backColor: Color(0xffd0dff6),
+                        index: 0,
+                        scrollController: scrollController,
+                        imageName: 'assets/image/037-waiting.png',
+                        title: getTranslated('pending', context) ?? '',
+                        num: order.homeScreenModel!.pending.toString()),
+                    // OrderTypeButton(text: getTranslated('all', context), index: 0, ),
+                    // SizedBox(width: 5),
+                    // OrderTypeButton(
+                    //     order: order,
+                    //     orderList: orderList,
+                    //     orderModel: order.orderModel,
+                    //     scrollController: scrollController,
+                    //     text: getTranslated('pending', context),
+                    //     index: 0),
+                    SizedBox(height: 5),
+                    NewOrderWidget(
+                        backColor: Color(0xfff2e4b7),
+                        scrollController: scrollController,
+                        index: 1,
+                        imageName: 'assets/image/051-shopping-list-1.png',
+                        title: getTranslated('processing', context) ?? '',
+                        num: order.homeScreenModel!.processing.toString()),
+                    // OrderTypeButton(
+                    //     order: order,
+                    //     orderList: orderList,
+                    //     orderModel: order.orderModel,
+                    //     scrollController: scrollController,
+                    //     text: getTranslated('processing', context),
+                    //     index: 1),
+                    SizedBox(height: 5),
+                    NewOrderWidget(
+                        index: 2,
+                        backColor: Color(0xffc6f3de),
+                        scrollController: scrollController,
+                        imageName: 'assets/image/039-delivery-boy.png',
+                        title: getTranslated('in_way', context) ?? '',
+                        num: order.homeScreenModel!.outForDelivery.toString()),
+                    // OrderTypeButton(
+                    //     order: order,
+                    //     orderList: orderList,
+                    //     orderModel: order.orderModel,
+                    //     scrollController: scrollController,
+                    //     text: getTranslated('in_way', context),
+                    //     index: 2),
+                    SizedBox(height: 5),
+                    NewOrderWidget(
+                        backColor: Color(0xff13ea60),
+                        index: 3,
+                        scrollController: scrollController,
+                        imageName: 'assets/image/040-received.png',
+                        title: getTranslated('delivered', context) ?? '',
+                        num: order.homeScreenModel!.delivered.toString()),
+                    // OrderTypeButton(
+                    //     order: order,
+                    //     orderList: orderList,
+                    //     orderModel: order.orderModel,
+                    //     scrollController: scrollController,
+                    //     text: getTranslated('delivered', context),
+                    //     index: 3),
+                    SizedBox(height: 5),
+                    NewOrderWidget(
+                        index: 4,
+                        backColor: Color(0xffbbbbbb),
+                        scrollController: scrollController,
+                        imageName: 'assets/image/041-cancel.png',
+                        title: getTranslated('cancelled', context) ?? '',
+                        num: order.homeScreenModel!.canceled.toString()),
+                    // OrderTypeButton(
+                    //     order: order,
+                    //     orderList: orderList,
+                    //     orderModel: order.orderModel,
+                    //     scrollController: scrollController,
+                    //     text: getTranslated('cancelled', context),
+                    //     index: 4),
+                    SizedBox(height: 5),
 
-              //<<!todo>>>//data
-              // order.orderModel != null
-              //     ? orderList!.length > 0
-              //         ? Expanded(
-              //             child: RefreshIndicator(
-              //               onRefresh: () async {
-              //                 await order.getOrderList(
-              //                     context, 1, order.orderType);
-              //               },
-              //               child: SingleChildScrollView(
-              //                 controller: scrollController,
-              //                 child: PaginatedListView(
-              //                   reverse: false,
-              //                   scrollController: scrollController,
-              //                   totalSize: order.orderModel?.totalSize,
-              //                   offset: order.orderModel != null
-              //                       ? int.parse(
-              //                           order.orderModel!.offset.toString())
-              //                       : null,
-              //                   onPaginate: (int? offset) async {
-              //                     await order.getOrderList(
-              //                         context, offset!, order.orderType,
-              //                         reload: false);
-              //                   },
-              //                   itemView: ListView.builder(
-              //                     itemCount: orderList.length,
-              //                     padding: EdgeInsets.all(0),
-              //                     physics: NeverScrollableScrollPhysics(),
-              //                     shrinkWrap: true,
-              //                     itemBuilder:
-              //                         (BuildContext context, int index) {
-              //                       return OrderWidget(
-              //                         orderModel: orderList![index],
-              //                         index: index,
-              //                       );
-              //                     },
-              //                   ),
-              //                 ),
-              //               ),
-              //             ),
-              //           )
-              //         : Expanded(
-              //             child: NoDataScreen(
-              //             title: 'no_order_found',
-              //           ))
-              //     : Expanded(child: OrderShimmer()),
-            ],
-          );
+                    //<<!todo>>>//data
+                    // order.orderModel != null
+                    //     ? orderList!.length > 0
+                    //         ? Expanded(
+                    //             child: RefreshIndicator(
+                    //               onRefresh: () async {
+                    //                 await order.getOrderList(
+                    //                     context, 1, order.orderType);
+                    //               },
+                    //               child: SingleChildScrollView(
+                    //                 controller: scrollController,
+                    //                 child: PaginatedListView(
+                    //                   reverse: false,
+                    //                   scrollController: scrollController,
+                    //                   totalSize: order.orderModel?.totalSize,
+                    //                   offset: order.orderModel != null
+                    //                       ? int.parse(
+                    //                           order.orderModel!.offset.toString())
+                    //                       : null,
+                    //                   onPaginate: (int? offset) async {
+                    //                     await order.getOrderList(
+                    //                         context, offset!, order.orderType,
+                    //                         reload: false);
+                    //                   },
+                    //                   itemView: ListView.builder(
+                    //                     itemCount: orderList.length,
+                    //                     padding: EdgeInsets.all(0),
+                    //                     physics: NeverScrollableScrollPhysics(),
+                    //                     shrinkWrap: true,
+                    //                     itemBuilder:
+                    //                         (BuildContext context, int index) {
+                    //                       return OrderWidget(
+                    //                         orderModel: orderList![index],
+                    //                         index: index,
+                    //                       );
+                    //                     },
+                    //                   ),
+                    //                 ),
+                    //               ),
+                    //             ),
+                    //           )
+                    //         : Expanded(
+                    //             child: NoDataScreen(
+                    //             title: 'no_order_found',
+                    //           ))
+                    //     : Expanded(child: OrderShimmer()),
+                  ],
+                );
         },
       ),
     );

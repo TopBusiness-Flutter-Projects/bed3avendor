@@ -11,9 +11,8 @@ import 'package:bed3avendor/data/repository/order_repo.dart';
 import 'package:bed3avendor/helper/api_checker.dart';
 import 'package:bed3avendor/localization/language_constrants.dart';
 import 'package:bed3avendor/view/base/custom_snackbar.dart';
-
 import '../data/model/response/homescreenmodel.dart';
-import '../data/model/response/homescreenmodel.dart';
+import '../data/model/response/reports_model.dart';
 import '../view/screens/order/order main details.dart';
 
 class OrderProvider extends ChangeNotifier {
@@ -360,6 +359,26 @@ class OrderProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  OrderStatisticsModel? _orderStatisticsModel;
+  OrderStatisticsModel? get orderStatisticsModel => _orderStatisticsModel;
+  Future<void> getOrderStatisticsModel(
+    BuildContext context, {
+    required String startDate,
+    required String endDate,
+  }) async {
+    _isLoading = true;
+    ApiResponse response = await orderRepo!
+        .getOrderStatisticsModel(endDate: endDate, startDate: startDate);
+    if (response.response != null && response.response!.statusCode == 200) {
+      _orderStatisticsModel =
+          OrderStatisticsModel.fromJson(response.response!.data);
+      _isLoading = false;
+    } else {
+      _isLoading = false;
+      ApiChecker.checkApi(context, response);
+    }
+    notifyListeners();
+  }
   // Future<void> getHomeScreenData() async {}
 
   Future<ApiResponse> assignThirdPartyDeliveryMan(BuildContext context,
