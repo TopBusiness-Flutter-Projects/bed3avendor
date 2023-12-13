@@ -68,6 +68,7 @@ class AppConstants {
       '/api/v3/seller/shipping/selected-shipping-method';
   static const String GET_SHIPPING_METHOD_TYPE_URI =
       '/api/v3/seller/shipping/get-shipping-method';
+
   static const String THIRD_PARTY_DELIVERY_MAN_ASSIGN =
       '/api/v3/seller/orders/assign-third-party-delivery';
   static const String FORGET_PASSWORD_URI =
@@ -151,6 +152,7 @@ class AppConstants {
       '/api/v3/seller/get-earning-statitics?type=';
   static const String BUSINESS_ANALYTICS =
       '/api/v3/seller/order-statistics?statistics_type=';
+  static const String HOME_SCREEN = '/api/v3/seller/order-statistics';
   static const String PRODUCT_DETAILS = '/api/v3/seller/products/details/';
   static const String DELIVERY_MAN_ORDER_CHANGE_LOG =
       '/api/v3/seller/delivery-man/order-status-history/';
@@ -170,6 +172,10 @@ class AppConstants {
   static const String VACATION = '/api/v3/seller/vacation-add';
   static const String DYNAMIC_WITHDRAW_METHOD =
       '/api/v3/seller/withdraw-method-list';
+  static const String GetOrderStatisticsModel =
+      '/api/v3/seller/order-statistics-limit?';
+  static const String GET_ORDERS_DEPEND_ON_STATUS =
+      ' /api/v3/seller/products/list?type=';
 
   static const String PENDING = 'pending';
   static const String CONFIRMED = 'confirmed';

@@ -13,15 +13,16 @@ class ShippingMainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CustomAppBar(title: getTranslated('shipping_method', context),),
-        body: Consumer<ShippingProvider>(
-          builder: (context, shippingProvider,_) {
-            return shippingProvider.selectedShippingTypeIndex == 0?
-            CategoryWiseShippingScreen():
-            shippingProvider.selectedShippingTypeIndex == 1?
-            OrderWiseShippingScreen():
-            ProductWiseShipping();
-          }
-        ));
+        appBar: CustomAppBar(
+          title: getTranslated('shipping_method', context),
+        ),
+        body:
+            Consumer<ShippingProvider>(builder: (context, shippingProvider, _) {
+          return shippingProvider.selectedShippingTypeIndex == 0
+              ? CategoryWiseShippingScreen()
+              : shippingProvider.selectedShippingTypeIndex == 1
+                  ? OrderWiseShippingScreen()
+                  : ProductWiseShipping();
+        }));
   }
 }

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:bed3avendor/localization/language_constrants.dart';
@@ -16,36 +15,55 @@ class BankInfoView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title:getTranslated('bank_info', context), isBackButtonExist: true,),
-        body: Consumer<BankInfoProvider>(
-          builder: (context, bankProvider, child) {
-            String name = bankProvider.bankInfo!.holderName?? '';
-            String bank = bankProvider.bankInfo!.bankName?? '';
-            String branch = bankProvider.bankInfo!.branch?? '';
-            String accountNo = bankProvider.bankInfo!.accountNo?? '';
-            return Column(
-              children: [
-                GestureDetector(
-                  onTap: ()=>Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => BankEditingScreen(sellerModel: bankProvider.bankInfo))),
-                  child: Padding(
-                    padding:  EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT),
-                    child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                      Text(getTranslated('edit_info', context)!, style: robotoMedium.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE,
-                          color: Provider.of<ThemeProvider>(context, listen: false).darkTheme?
-                          Theme.of(context).hintColor: Theme.of(context).primaryColor)),
-                      Icon(Icons.edit, color: Provider.of<ThemeProvider>(context, listen: false).darkTheme?
-                      Theme.of(context).hintColor: Theme.of(context).primaryColor)
-                    ],),
+        appBar: CustomAppBar(
+          title: getTranslated('bank_info', context),
+          isBackButtonExist: true,
+        ),
+        body:
+            Consumer<BankInfoProvider>(builder: (context, bankProvider, child) {
+          String name = bankProvider.bankInfo!.holderName ?? '';
+          String bank = bankProvider.bankInfo!.bankName ?? '';
+          String branch = bankProvider.bankInfo!.branch ?? '';
+          String accountNo = bankProvider.bankInfo!.accountNo ?? '';
+          return Column(
+            children: [
+              GestureDetector(
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) => BankEditingScreen(
+                            sellerModel: bankProvider.bankInfo))),
+                child: Padding(
+                  padding: EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(getTranslated('edit_info', context) ?? '',
+                          style: robotoMedium.copyWith(
+                              fontSize: Dimensions.FONT_SIZE_LARGE,
+                              color: Provider.of<ThemeProvider>(context,
+                                          listen: false)
+                                      .darkTheme
+                                  ? Theme.of(context).hintColor
+                                  : Theme.of(context).primaryColor)),
+                      Icon(Icons.edit,
+                          color:
+                              Provider.of<ThemeProvider>(context, listen: false)
+                                      .darkTheme
+                                  ? Theme.of(context).hintColor
+                                  : Theme.of(context).primaryColor)
+                    ],
                   ),
                 ),
-                BankInfoWidget(name: name,bank: bank,branch: branch,accountNo: accountNo,),
-
-              ],
-            );
-          }
-        ));
+              ),
+              BankInfoWidget(
+                name: name,
+                bank: bank,
+                branch: branch,
+                accountNo: accountNo,
+              ),
+            ],
+          );
+        }));
   }
 }
-
-

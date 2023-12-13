@@ -20,26 +20,24 @@ class ProfileProvider with ChangeNotifier {
   SellerModel? _userInfoModel;
   SellerModel? get userInfoModel => _userInfoModel;
   int? _userId;
-  int? get userId =>_userId;
+  int? get userId => _userId;
   String? _profileImage;
-  String? get profileImage =>_profileImage;
+  String? get profileImage => _profileImage;
   bool _isDeleting = false;
   bool get isDeleting => _isDeleting;
   bool _isLoading = false;
   bool get isLoading => _isLoading;
-
 
   WithdrawModel? withdrawModel;
   List<WithdrawModel> methodList = [];
   int? methodSelectedIndex = 0;
   List<int?> methodsIds = [];
 
-
-
   Future<ResponseModel> getSellerInfo(BuildContext context) async {
     ResponseModel _responseModel;
     ApiResponse apiResponse = await profileRepo!.getSellerInfo();
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
       _userInfoModel = SellerModel.fromJson(apiResponse.response!.data);
       _userId = _userInfoModel!.id;
       _profileImage = _userInfoModel!.image;
@@ -59,16 +57,14 @@ class ProfileProvider with ChangeNotifier {
     return _responseModel;
   }
 
-
-
-
-
-  Future<ResponseModel> updateUserInfo(SellerModel updateUserModel, SellerBody seller, File? file, String token, String password) async {
+  Future<ResponseModel> updateUserInfo(SellerModel updateUserModel,
+      SellerBody seller, File? file, String token, String password) async {
     _isLoading = true;
     notifyListeners();
 
     ResponseModel responseModel;
-    http.StreamedResponse response = await profileRepo!.updateProfile(updateUserModel, seller, file, token, password);
+    http.StreamedResponse response = await profileRepo!
+        .updateProfile(updateUserModel, seller, file, token, password);
     _isLoading = false;
     if (response.statusCode == 200) {
       String message = 'Success';
@@ -77,57 +73,57 @@ class ProfileProvider with ChangeNotifier {
       print(message);
     } else {
       print('${response.statusCode} ${response.reasonPhrase}');
-      responseModel = ResponseModel(false, '${response.statusCode} ${response.reasonPhrase}');
+      responseModel = ResponseModel(
+          false, '${response.statusCode} ${response.reasonPhrase}');
     }
     notifyListeners();
     return responseModel;
   }
 
-
   List<String> inputValueList = [];
   bool validityCheck = false;
 
-  void checkValidity(){
-    for(int i= 0; i< inputValueList.length; i++){
-      if(inputValueList[i].isEmpty){
+  void checkValidity() {
+    for (int i = 0; i < inputValueList.length; i++) {
+      if (inputValueList[i].isEmpty) {
         inputValueList.clear();
         validityCheck = true;
         notifyListeners();
       }
     }
-
   }
 
-
-  Future<ApiResponse> updateBalance(String balance, BuildContext context) async {
+  Future<ApiResponse> updateBalance(
+      String balance, BuildContext context) async {
     _isLoading = true;
     notifyListeners();
 
-    for(TextEditingController textEditingController in inputFieldControllerList) {
+    for (TextEditingController textEditingController
+        in inputFieldControllerList) {
       inputValueList.add(textEditingController.text.trim());
-
     }
-    ApiResponse apiResponse = await profileRepo!.withdrawBalance(keyList, inputValueList, methodList[methodSelectedIndex!].id, balance);
-    print('$balance/${keyList.toString()}/${inputValueList.toString()}/${methodList[methodSelectedIndex!].id}');
+    ApiResponse apiResponse = await profileRepo!.withdrawBalance(
+        keyList, inputValueList, methodList[methodSelectedIndex!].id, balance);
+    print(
+        '$balance/${keyList.toString()}/${inputValueList.toString()}/${methodList[methodSelectedIndex!].id}');
 
-      if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
-        Navigator.pop(context);
-        inputValueList.clear();
-        inputFieldControllerList.clear();
-        getSellerInfo(context);
-        _isLoading = false;
-        showCustomSnackBar(getTranslated('withdraw_request_sent_successfully', context), context, isToaster: true, isError: false);
-      }
-      else {
-        _isLoading = false;
-      }
-
-
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
+      Navigator.pop(context);
+      inputValueList.clear();
+      inputFieldControllerList.clear();
+      getSellerInfo(context);
+      _isLoading = false;
+      showCustomSnackBar(
+          getTranslated('withdraw_request_sent_successfully', context), context,
+          isToaster: true, isError: false);
+    } else {
+      _isLoading = false;
+    }
 
     notifyListeners();
     return apiResponse;
   }
-
 
   Future<ApiResponse> deleteCustomerAccount(BuildContext context) async {
     _isDeleting = true;
@@ -136,9 +132,8 @@ class ProfileProvider with ChangeNotifier {
     if (apiResponse.response!.statusCode == 200) {
       _isLoading = false;
       Map map = apiResponse.response!.data;
-      String? message = map ['message'];
+      String? message = map['message'];
       showCustomSnackBar(message, context, isToaster: true, isError: false);
-
     } else {
       _isLoading = false;
       ApiChecker.checkApi(context, apiResponse);
@@ -147,60 +142,60 @@ class ProfileProvider with ChangeNotifier {
     return apiResponse;
   }
 
-
-
-
   void setTitle(int index, String title) {
     inputFieldControllerList[index].text = title;
   }
 
-
   List<TextEditingController> inputFieldControllerList = [];
-  void getInputFieldList(){
+  void getInputFieldList() {
     inputFieldControllerList = [];
-    for(int i= 0; i< methodList[methodSelectedIndex!].methodFields!.length; i++){
-        inputFieldControllerList.add(TextEditingController());
+    for (int i = 0;
+        i < methodList[methodSelectedIndex!].methodFields!.length;
+        i++) {
+      inputFieldControllerList.add(TextEditingController());
     }
   }
 
-  List <String?> keyList = [];
+  List<String?> keyList = [];
 
-
-  void setMethodTypeIndex(int? index, {bool notify = true}){
+  void setMethodTypeIndex(int? index,
+      {bool notify = true, BuildContext? context}) {
     methodSelectedIndex = index;
     keyList = [];
-    if(methodList.isNotEmpty){
-      for(int i= 0; i< methodList[methodSelectedIndex!].methodFields!.length; i++){
-        keyList.add(methodList[methodSelectedIndex!].methodFields![i].inputName);
-
+    if (methodList.isNotEmpty) {
+      for (int i = 0;
+          i < methodList[methodSelectedIndex!].methodFields!.length;
+          i++) {
+        keyList
+            .add(methodList[methodSelectedIndex!].methodFields![i].inputName);
       }
       getInputFieldList();
+    } else {
+      Navigator.pop(context!);
+      Fluttertoast.showToast(msg: 'لا يوحد طرق دفع حالياً');
     }
 
-
-    if(notify){
+    if (notify) {
       notifyListeners();
     }
-
   }
 
-
-  Future<void> getWithdrawMethods(BuildContext context) async{
+  Future<void> getWithdrawMethods(BuildContext context) async {
     methodList = [];
     methodsIds = [];
     ApiResponse response = await profileRepo!.getDynamicWithDrawMethod();
-      if(response.response!.statusCode == 200) {
-        response.response!.data.forEach((method) => methodList.add(WithdrawModel.fromJson(method)));
-        methodSelectedIndex = 0;
-        getInputFieldList();
-        for(int index = 0; index < methodList.length; index++) {
-          methodsIds.add(methodList[index].id);
-        }
-      }else{
-        ApiChecker.checkApi(context, response);
+    if (response.response!.statusCode == 200) {
+      response.response!.data
+          .forEach((method) => methodList.add(WithdrawModel.fromJson(method)));
+      methodSelectedIndex = 0;
+      getInputFieldList();
+      for (int index = 0; index < methodList.length; index++) {
+        methodsIds.add(methodList[index].id);
       }
+    } else {
+      ApiChecker.checkApi(context, response);
+    }
 
     notifyListeners();
   }
-
 }

@@ -180,7 +180,7 @@ class ConfigModel {
     }
     _termsConditions = json['terms_&_conditions'];
     _refundPolicy = json['refund_policy'] != null
-        ? new RefundPolicy.fromJson(json['refund_policy'])
+        ? RefundPolicy.fromJson(json['refund_policy'])
         : null;
     _returnPolicy = json['return_policy'] != null
         ? new RefundPolicy.fromJson(json['return_policy'])

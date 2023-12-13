@@ -71,15 +71,23 @@ class MenuBottomSheet extends StatelessWidget {
         CustomBottomSheet(
             image: Images.return_policy,
             title: getTranslated('return_policy', context),
-            onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (_) => HtmlViewScreen(
-                        title: getTranslated('return_policy', context),
-                        url: Provider.of<SplashProvider>(context, listen: false)
-                            .configModel!
-                            .returnPolicy!
-                            .content)))),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (_) => HtmlViewScreen(
+                          title: getTranslated('return_policy', context),
+                          url: Provider.of<SplashProvider>(context,
+                                  listen: false)
+                              .configModel!
+                              .returnPolicy!
+                              .content)));
+
+              print(Provider.of<SplashProvider>(context, listen: false)
+                  .configModel!
+                  .returnPolicy!
+                  .content);
+            }),
       if (Provider.of<SplashProvider>(context, listen: false)
               .configModel!
               .posActive ==
