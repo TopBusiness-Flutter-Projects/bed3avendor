@@ -8,6 +8,7 @@ import 'package:bed3avendor/helper/api_checker.dart';
 import 'package:bed3avendor/localization/language_constrants.dart';
 import 'package:bed3avendor/utill/app_constants.dart';
 import 'package:bed3avendor/view/base/custom_snackbar.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class SearchProvider extends ChangeNotifier {
   final RefundRepo? refundRepo;
@@ -127,8 +128,8 @@ class SearchProvider extends ChangeNotifier {
   }
 
   //getOrderDependOnStatus
-  List<MainOrderStatus>? _mainOrderStatus;
-  List<MainOrderStatus>? get mainOrderStatus => _mainOrderStatus;
+  List<MainOrderStatus> _mainOrderStatus = [];
+  List<MainOrderStatus> get mainOrderStatus => _mainOrderStatus;
 
   Future<void> getOrderDependOnStatus(BuildContext context) async {
     ApiResponse apiResponse = await refundRepo!.getOrderDependOnStatus(
@@ -139,10 +140,51 @@ class SearchProvider extends ChangeNotifier {
                 : 'offer');
     if (apiResponse.response != null &&
         apiResponse.response!.statusCode == 200) {
-      print('00000000000000000' + apiResponse.response!.data);
-      _mainOrderStatus = apiResponse.response!.data.map((e) {
-        return MainOrderStatus.fromJson(e);
-      });
+      print('00000000000000000' + apiResponse.response!.data.toString());
+      _mainOrderStatus = List<MainOrderStatus>.from(
+        apiResponse.response!.data.map((e) => MainOrderStatus.fromJson(e)),
+      );
+
+      ////
+    } else {
+      ApiChecker.checkApi(context, apiResponse);
+    }
+    notifyListeners();
+  }
+
+  Future<void> updateproductDetails(
+    BuildContext context, {
+    required int id,
+    required int price,
+    required int stock,
+    required int minQty,
+  }) async {
+    ApiResponse apiResponse = await refundRepo!.updateproductDetails(
+        id: id, minQty: minQty, price: price, stock: stock);
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
+      print('updateproductDetails :: 000 :: ' +
+          apiResponse.response!.data.toString());
+      // _mainOrderStatus = List<MainOrderStatus>.from(
+      //   apiResponse.response!.data.map((e) => MainOrderStatus.fromJson(e)),
+      // );
+
+      ////
+    } else {
+      ApiChecker.checkApi(context, apiResponse);
+    }
+    notifyListeners();
+  }
+  //udateOrderStatus
+
+  Future<void> updateOrderStatus(BuildContext context,
+      {required int id}) async {
+    ApiResponse apiResponse = await refundRepo!.updateOrderStatus(id: id);
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
+      print(
+          '0 :: updateOrderStatu :: 0' + apiResponse.response!.data.toString());
+      Fluttertoast.showToast(msg: apiResponse.response!.data['msg'].toString());
       ////
     } else {
       ApiChecker.checkApi(context, apiResponse);

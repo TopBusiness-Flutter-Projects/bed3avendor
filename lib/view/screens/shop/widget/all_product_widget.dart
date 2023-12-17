@@ -25,23 +25,22 @@ class ProductView extends StatefulWidget {
 }
 
 class _ProductViewState extends State<ProductView> {
-
   ScrollController scrollController = ScrollController();
   String message = "";
   bool activated = false;
   bool endScroll = false;
 
   _scrollListener() {
-    if (scrollController.offset >= scrollController.position.maxScrollExtent && !scrollController.position.outOfRange) {
+    if (scrollController.offset >= scrollController.position.maxScrollExtent &&
+        !scrollController.position.outOfRange) {
       setState(() {
         endScroll = true;
         message = "bottom";
         print('============$message=========');
       });
-    }else{
+    } else {
       endScroll = false;
     }
-
   }
 
   @override
@@ -51,84 +50,165 @@ class _ProductViewState extends State<ProductView> {
     super.dispose();
   }
 
-
   @override
   void initState() {
     scrollController = ScrollController();
     scrollController.addListener(_scrollListener);
     Provider.of<ProductProvider>(context, listen: false).initSellerProductList(
-        Provider.of<ProfileProvider>(context, listen: false).userId.toString(), 1,context,
-        Provider.of<LocalizationProvider>(context, listen: false).locale.languageCode == 'US'?'en':
-        Provider.of<LocalizationProvider>(context, listen: false).locale.countryCode!.toLowerCase(),'');
+        Provider.of<ProfileProvider>(context, listen: false).userId.toString(),
+        1,
+        context,
+        Provider.of<LocalizationProvider>(context, listen: false)
+                    .locale
+                    .languageCode ==
+                'US'
+            ? 'en'
+            : Provider.of<LocalizationProvider>(context, listen: false)
+                .locale
+                .countryCode!
+                .toLowerCase(),
+        '');
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    String userId = Provider.of<ProfileProvider>(context, listen: false).userId.toString();
-
+    String userId =
+        Provider.of<ProfileProvider>(context, listen: false).userId.toString();
 
     return RefreshIndicator(
-      onRefresh: () async{
-        Provider.of<ProductProvider>(context, listen: false).initSellerProductList(
-            Provider.of<ProfileProvider>(context, listen: false).userId.toString(), 1,context,
-            Provider.of<LocalizationProvider>(context, listen: false).locale.languageCode == 'US'?'en':
-            Provider.of<LocalizationProvider>(context, listen: false).locale.countryCode!.toLowerCase(),'');
+      onRefresh: () async {
+        Provider.of<ProductProvider>(context, listen: false)
+            .initSellerProductList(
+                Provider.of<ProfileProvider>(context, listen: false)
+                    .userId
+                    .toString(),
+                1,
+                context,
+                Provider.of<LocalizationProvider>(context, listen: false)
+                            .locale
+                            .languageCode ==
+                        'US'
+                    ? 'en'
+                    : Provider.of<LocalizationProvider>(context, listen: false)
+                        .locale
+                        .countryCode!
+                        .toLowerCase(),
+                '');
       },
       child: Consumer<ProductProvider>(
         builder: (context, prodProvider, child) {
           List<Product>? productList;
           productList = prodProvider.sellerProductModel?.products;
 
-          return Container(height: MediaQuery.of(context).size.height,
+          return Container(
+            height: MediaQuery.of(context).size.height,
             child: Stack(
               children: [
-                productList != null ? productList.isNotEmpty?
-                NotificationListener<ScrollNotification>(
-                  onNotification: (scrollNotification) {
-
-                    return false;
-                  },
-                  child: SingleChildScrollView(
-                    controller: scrollController,
-                    child: PaginatedListView(
-                      reverse: false,
-                      scrollController: scrollController,
-                      totalSize: prodProvider.sellerProductModel?.totalSize,
-                      offset: prodProvider.sellerProductModel != null ? int.parse(prodProvider.sellerProductModel!.offset.toString()) : null,
-                      onPaginate: (int? offset) async {
-                        print('==========offset========>$offset');
-                        await prodProvider.initSellerProductList(userId,offset!, context,'en','', reload: false);
-                      },
-
-                      itemView: ListView.builder(
-                        itemCount: productList.length,
-                        padding: EdgeInsets.all(0),
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemBuilder: (BuildContext context, int index) {
-                          return ShopProductWidget(productModel: productList![index],);
+                productList != null
+                    ? productList.isNotEmpty
+                        ? NotificationListener<ScrollNotification>(
+                            onNotification: (scrollNotification) {
+                              return false;
+                            },
+                            child: SingleChildScrollView(
+                              controller: scrollController,
+                              child: PaginatedListView(
+                                reverse: false,
+                                scrollController: scrollController,
+                                totalSize:
+                                    prodProvider.sellerProductModel?.totalSize,
+                                offset: prodProvider.sellerProductModel != null
+                                    ? int.parse(prodProvider
+                                        .sellerProductModel!.offset
+                                        .toString())
+                                    : null,
+                                onPaginate: (int? offset) async {
+                                  print('==========offset========>$offset');
+                                  await prodProvider.initSellerProductList(
+                                      userId, offset!, context, 'en', '',
+                                      reload: false);
+                                },
+                                itemView: ListView.builder(
+                                  itemCount: productList.length,
+                                  padding: EdgeInsets.all(0),
+                                  physics: NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return ShopProductWidget(
+                                      productModel: productList![index],
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
+                          )
+                        : NoDataScreen()
+                    : OrderShimmer(),
+                if (!endScroll)
+                  Positioned(
+                    bottom: 20,
+                    right: Provider.of<LocalizationProvider>(context,
+                                listen: false)
+                            .isLtr
+                        ? 20
+                        : null,
+                    left: Provider.of<LocalizationProvider>(context,
+                                listen: false)
+                            .isLtr
+                        ? null
+                        : 20,
+                    child: Align(
+                      alignment: Alignment.bottomRight,
+                      child: ScrollingFabAnimated(
+                        width: 150,
+                        color: Theme.of(context).cardColor,
+                        icon: SizedBox(
+                            width: Dimensions.ICON_SIZE_EXTRA_LARGE,
+                            child: Image.asset(Images.add_icon)),
+                        text: Text(
+                          getTranslated('add_new', context)!,
+                          style: robotoRegular.copyWith(),
+                        ),
+                        onPress: () {
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (_) => AddProductScreen()));
                         },
+                        animateIcon: true,
+                        inverted: false,
+                        scrollController: scrollController,
+                        radius: 10.0,
                       ),
                     ),
                   ),
-                ):NoDataScreen():OrderShimmer(),
-
-
-                if(!endScroll)
-                Positioned(
-                  bottom: 20,
-                  right: Provider.of<LocalizationProvider>(context, listen: false).isLtr ? 20: null,
-                  left: Provider.of<LocalizationProvider>(context, listen: false).isLtr ? null: 20,
-                  child: Align(
-                    alignment: Alignment.bottomRight,
+                if (!endScroll)
+                  Positioned(
+                    bottom: 100,
+                    right: Provider.of<LocalizationProvider>(context,
+                                listen: false)
+                            .isLtr
+                        ? 22
+                        : null,
+                    left: Provider.of<LocalizationProvider>(context,
+                                listen: false)
+                            .isLtr
+                        ? null
+                        : 22,
                     child: ScrollingFabAnimated(
-                      width: 150,
+                      width: 200,
                       color: Theme.of(context).cardColor,
-                      icon: SizedBox(width: Dimensions.ICON_SIZE_EXTRA_LARGE,child: Image.asset(Images.add_icon)),
-                      text: Text(getTranslated('add_new', context)!, style: robotoRegular.copyWith(),),
-                      onPress: (){
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => AddProductScreen()));
+                      icon: SizedBox(
+                          width: Dimensions.ICON_SIZE_EXTRA_LARGE,
+                          child: Image.asset(Images.limited_stock_icon)),
+                      text: Text(
+                        getTranslated('limited_stocks', context)!,
+                        style: robotoRegular.copyWith(),
+                      ),
+                      onPress: () {
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            builder: (_) => StockOutProductScreen()));
                       },
                       animateIcon: true,
                       inverted: false,
@@ -136,26 +216,6 @@ class _ProductViewState extends State<ProductView> {
                       radius: 10.0,
                     ),
                   ),
-                ),
-                if(!endScroll)
-                Positioned(
-                  bottom: 100,
-                  right: Provider.of<LocalizationProvider>(context, listen: false).isLtr ? 22: null,
-                  left: Provider.of<LocalizationProvider>(context, listen: false).isLtr ? null: 22,
-                  child: ScrollingFabAnimated(
-                    width: 200,
-                    color: Theme.of(context).cardColor,
-                    icon: SizedBox(width: Dimensions.ICON_SIZE_EXTRA_LARGE,child: Image.asset(Images.limited_stock_icon)),
-                    text: Text(getTranslated('limited_stocks', context)!, style: robotoRegular.copyWith(),),
-                    onPress: (){
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => StockOutProductScreen( )));
-                    },
-                    animateIcon: true,
-                    inverted: false,
-                    scrollController: scrollController,
-                    radius: 10.0,
-                  ),
-                ),
               ],
             ),
           );
@@ -164,4 +224,3 @@ class _ProductViewState extends State<ProductView> {
     );
   }
 }
-
