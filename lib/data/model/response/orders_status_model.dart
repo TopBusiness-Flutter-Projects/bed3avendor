@@ -1,59 +1,59 @@
 class MainOrderStatus {
-  final int? id;
-  final String? addedBy;
-  final int? userId;
-  final String? name;
-  final String? slug;
-  final String? productType;
-  final String? categoryIds;
-  final int? brandId;
-  final String? taxModel;
-  final String? unit;
-  final int? minQty;
-  final int? refundable;
-  final dynamic digitalProductType;
-  final dynamic digitalFileReady;
-  final String? images;
-  final String? thumbnail;
-  final dynamic featured;
-  final dynamic flashDeal;
-  final String? videoProvider;
-  final dynamic videoUrl;
-  final String? colors;
-  final int? variantProduct;
-  final String? attributes;
-  final String? choiceOptions;
-  final String? variation;
-  final int? published;
-  final int? unitPrice;
-  final int? purchasePrice;
-  final int? tax;
-  final String? taxType;
-  final int? discount;
-  final String? discountType;
-  final int? currentStock;
-  final int? minimumOrderQty;
-  final dynamic details;
-  final int? freeShipping;
-  final dynamic attachment;
-  final DateTime? createdAt;
-  final DateTime? updatedAt;
-  final int? status;
-  final String? colorImage;
-  final int? featuredStatus;
-  final dynamic metaTitle;
-  final dynamic metaDescription;
-  final String? metaImage;
-  final int? requestStatus;
-  final dynamic deniedNote;
-  final int? shippingCost;
-  final int? multiplyQty;
-  final dynamic tempShippingCost;
-  final dynamic isShippingCostUpdated;
-  final String? code;
-  final int? reviewsCount;
-  final List<dynamic>? translations;
-  final List<dynamic>? reviews;
+  int? id;
+  String? addedBy;
+  int? userId;
+  String? name;
+  String? slug;
+  String? productType;
+  dynamic categoryIds;
+  dynamic brandId;
+  String? taxModel;
+  String? unit;
+  int? minQty;
+  int? refundable;
+  dynamic digitalProductType;
+  dynamic digitalFileReady;
+  String? images;
+  String? thumbnail;
+  dynamic featured;
+  dynamic flashDeal;
+  String? videoProvider;
+  dynamic videoUrl;
+  String? colors;
+  int? variantProduct;
+  String? attributes;
+  String? choiceOptions;
+  String? variation;
+  int? published;
+  int? unitPrice;
+  int? purchasePrice;
+  int? tax;
+  String? taxType;
+  int? discount;
+  String? discountType;
+  int? currentStock;
+  int? minimumOrderQty;
+  String? details;
+  int? freeShipping;
+  dynamic attachment;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  int? status;
+  String? colorImage;
+  int? featuredStatus;
+  String? metaTitle;
+  String? metaDescription;
+  String? metaImage;
+  int? requestStatus;
+  dynamic deniedNote;
+  int? shippingCost;
+  int? multiplyQty;
+  dynamic tempShippingCost;
+  dynamic isShippingCostUpdated;
+  String? code;
+  int? reviewsCount;
+  List<dynamic>? translations;
+  List<dynamic>? reviews;
 
   MainOrderStatus({
     this.id,
@@ -177,7 +177,8 @@ class MainOrderStatus {
             : List<dynamic>.from(json["translations"]!.map((x) => x)),
         reviews: json["reviews"] == null
             ? []
-            : List<dynamic>.from(json["reviews"]!.map((x) => x)),
+            : List<Review>.from(
+                json["reviews"]!.map((x) => Review.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -237,7 +238,72 @@ class MainOrderStatus {
         "translations": translations == null
             ? []
             : List<dynamic>.from(translations!.map((x) => x)),
-        "reviews":
-            reviews == null ? [] : List<dynamic>.from(reviews!.map((x) => x)),
+        "reviews": reviews == null
+            ? []
+            : List<dynamic>.from(reviews!.map((x) => x.toJson())),
+      };
+}
+
+class Review {
+  int? id;
+  int? productId;
+  int? customerId;
+  dynamic deliveryManId;
+  dynamic orderId;
+  String? comment;
+  String? attachment;
+  int? rating;
+  int? status;
+  int? isSaved;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+
+  Review({
+    this.id,
+    this.productId,
+    this.customerId,
+    this.deliveryManId,
+    this.orderId,
+    this.comment,
+    this.attachment,
+    this.rating,
+    this.status,
+    this.isSaved,
+    this.createdAt,
+    this.updatedAt,
+  });
+
+  factory Review.fromJson(Map<String, dynamic> json) => Review(
+        id: json["id"],
+        productId: json["product_id"],
+        customerId: json["customer_id"],
+        deliveryManId: json["delivery_man_id"],
+        orderId: json["order_id"],
+        comment: json["comment"],
+        attachment: json["attachment"],
+        rating: json["rating"],
+        status: json["status"],
+        isSaved: json["is_saved"],
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "product_id": productId,
+        "customer_id": customerId,
+        "delivery_man_id": deliveryManId,
+        "order_id": orderId,
+        "comment": comment,
+        "attachment": attachment,
+        "rating": rating,
+        "status": status,
+        "is_saved": isSaved,
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
       };
 }

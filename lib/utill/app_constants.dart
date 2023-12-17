@@ -175,8 +175,12 @@ class AppConstants {
   static const String GetOrderStatisticsModel =
       '/api/v3/seller/order-statistics-limit?';
   static const String GET_ORDERS_DEPEND_ON_STATUS =
-      ' /api/v3/seller/products/list?type=';
-
+      '/api/v3/seller/products/list?type=';
+  static const String UPDATE_ORDERS_STATUS =
+      '/api/v3/seller/products/update-product-publish';
+  static const String UPDATE_ORDERS_PRICE_COUNT =
+      '/api/v3/seller/products/update-product';
+//
   static const String PENDING = 'pending';
   static const String CONFIRMED = 'confirmed';
   static const String PROCESSING = 'processing';

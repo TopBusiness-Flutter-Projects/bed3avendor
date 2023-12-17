@@ -1,7 +1,6 @@
 import 'package:bed3avendor/view/screens/searchproduct/widget/edit_product.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../data/model/response/refund_model.dart';
 import '../../../localization/language_constrants.dart';
 import '../../../provider/search_product_provider.dart';
 import '../../../utill/color_resources.dart';
@@ -16,7 +15,6 @@ import 'widget/custombutton.dart';
 
 class SearchProducts extends StatefulWidget {
   const SearchProducts({super.key});
-
   @override
   State<SearchProducts> createState() => _SearchProductsState();
 }
@@ -24,7 +22,8 @@ class SearchProducts extends StatefulWidget {
 class _SearchProductsState extends State<SearchProducts> {
   @override
   void initState() {
-    Provider.of<SearchProvider>(context).getOrderDependOnStatus(context);
+    Provider.of<SearchProvider>(context, listen: false)
+        .getOrderDependOnStatus(context);
     super.initState();
   }
 
@@ -35,8 +34,9 @@ class _SearchProductsState extends State<SearchProducts> {
           title: getTranslated('products', context), isBackButtonExist: false),
       body: RefreshIndicator(
         onRefresh: () async {
-          // Provider.of<DeliveryManProvider>(context, listen: false).deliveryManListURI(context, 1,'');
-          //   return true;
+          Provider.of<SearchProvider>(context, listen: false)
+              .getOrderDependOnStatus(context);
+          // return true;
         },
         child: Column(
           children: [
@@ -93,7 +93,7 @@ class _SearchProductsState extends State<SearchProducts> {
                 Consumer<SearchProvider>(builder: (context, order, child) {
               return ListView.builder(
                 physics: const BouncingScrollPhysics(),
-                itemCount: order.mainOrderStatus?.length ?? 0,
+                itemCount: order.mainOrderStatus.length,
                 shrinkWrap: true,
                 padding: EdgeInsets.all(0),
                 itemBuilder: (context, index) {
@@ -121,7 +121,7 @@ class _SearchProductsState extends State<SearchProducts> {
                                           Dimensions.PRODUCT_IMAGE_SIZE_ITEM,
                                       child: CustomImage(
                                           image: order
-                                              .mainOrderStatus![index].images!),
+                                              .mainOrderStatus[index].images!),
                                     ),
                                   ),
                                   SizedBox(
@@ -132,8 +132,7 @@ class _SearchProductsState extends State<SearchProducts> {
                                       child: Column(
                                         children: [
                                           Text(
-                                            order.mainOrderStatus![index]
-                                                    .name ??
+                                            order.mainOrderStatus[index].name ??
                                                 '',
                                             style: robotoMedium.copyWith(
                                                 fontSize: Dimensions
@@ -154,12 +153,11 @@ class _SearchProductsState extends State<SearchProducts> {
                                                         .nevDefaultColor),
                                               ),
                                               Text(
-                                                order.mainOrderStatus?[index]
-                                                        .currentStock
-                                                        .toString() ??
-                                                    '',
-                                                style: robotoMedium.copyWith(),
-                                              ),
+                                                  order.mainOrderStatus[index]
+                                                      .currentStock
+                                                      .toString(),
+                                                  style:
+                                                      robotoMedium.copyWith()),
                                             ],
                                           )
                                         ],
@@ -180,7 +178,7 @@ class _SearchProductsState extends State<SearchProducts> {
                                           backgroundColor: ColorResources.GREEN,
                                         ),
                                         Text(
-                                          'السعر ${order.mainOrderStatus![index].unitPrice.toString()} ج.م',
+                                          'السعر ${order.mainOrderStatus[index].unitPrice.toString()} ج.م',
                                           style: robotoMedium.copyWith(),
                                         ),
                                       ],
@@ -196,7 +194,7 @@ class _SearchProductsState extends State<SearchProducts> {
                                 child: Row(
                                   children: [
                                     Text(
-                                      order.mainOrderStatus![index].published
+                                      order.mainOrderStatus[index].published
                                                   .toString() ==
                                               "0"
                                           ? "معلق"
@@ -204,8 +202,32 @@ class _SearchProductsState extends State<SearchProducts> {
                                       style: robotoMedium.copyWith(),
                                     ),
                                     Switch(
-                                      value: true,
-                                      onChanged: (value) {},
+                                      value: order.mainOrderStatus[index]
+                                                  .published
+                                                  .toString() ==
+                                              "0"
+                                          ? false
+                                          : true,
+                                      onChanged: (value) {
+                                        /// method >> :: change status
+                                        order.updateOrderStatus(context,
+                                            id: order
+                                                .mainOrderStatus[index].id!);
+                                        if (order.mainOrderStatus[index]
+                                                .published
+                                                .toString() ==
+                                            "0") {
+                                          setState(() {
+                                            order.mainOrderStatus[index]
+                                                .published = 1;
+                                          });
+                                        } else {
+                                          setState(() {
+                                            order.mainOrderStatus[index]
+                                                .published = 0;
+                                          });
+                                        }
+                                      },
                                     ),
                                     Container(
                                       width: MediaQuery.of(context).size.width /
@@ -250,8 +272,10 @@ class _SearchProductsState extends State<SearchProducts> {
                                             context: context,
                                             isScrollControlled: true,
                                             backgroundColor: Colors.transparent,
-                                            builder: (con) =>
-                                                EditProductScreen());
+                                            builder: (con) => EditProductScreen(
+                                                  mainOrder: order
+                                                      .mainOrderStatus[index],
+                                                ));
                                       },
                                       child: Container(
                                         width:
@@ -270,14 +294,13 @@ class _SearchProductsState extends State<SearchProducts> {
                                               children: [
                                                 Icon(Icons.edit,
                                                     color: Colors.white),
-                                                SizedBox(
-                                                  width: 20,
-                                                ),
+                                                SizedBox(width: 20),
                                                 Text(
-                                                  '${getTranslated('edit', context)}',
-                                                  style: robotoMedium.copyWith(
-                                                      color: Colors.white),
-                                                )
+                                                    '${getTranslated('edit', context) ?? ''}',
+                                                    style:
+                                                        robotoMedium.copyWith(
+                                                            color:
+                                                                Colors.white))
                                               ],
                                             ),
                                           ),

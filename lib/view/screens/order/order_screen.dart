@@ -110,7 +110,7 @@ class _OrderScreenState extends State<OrderScreen> {
                                               width: 60,
                                               height: 60,
                                               image:
-                                                  '${Provider.of<SplashProvider>(context, listen: false).baseUrls!.sellerImageUrl}/${Provider.of<ProfileProvider>(context, listen: false).userInfoModel!.image}',
+                                                  '${Provider.of<SplashProvider>(context, listen: false).baseUrls!.sellerImageUrl}/${Provider.of<ProfileProvider>(context, listen: false).userInfoModel?.image ?? ''}',
                                               fit: BoxFit.cover,
                                             ),
                                           ),

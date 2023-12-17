@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:bed3avendor/data/datasource/remote/dio/dio_client.dart';
 import 'package:bed3avendor/data/datasource/remote/exception/api_error_handler.dart';
 import 'package:bed3avendor/data/model/response/base/api_response.dart';
@@ -77,4 +76,34 @@ class RefundRepo {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
     }
   }
+
+  Future<ApiResponse> updateOrderStatus({required int id}) async {
+    try {
+      final response = await dioClient!.post(
+        AppConstants.UPDATE_ORDERS_STATUS,
+        data: {"id": id},
+      );
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
+
+  Future<ApiResponse> updateproductDetails({
+    required int id,
+    required int price,
+    required int stock,
+    required int minQty,
+  }) async {
+    try {
+      final response = await dioClient!.post(
+        AppConstants.UPDATE_ORDERS_PRICE_COUNT,
+        data: {"id": id, "price": price, "stock": stock, "min_qty": minQty},
+      );
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
+  //  static const String UPDATE_ORDERS_PRICE_COUNT =
 }
