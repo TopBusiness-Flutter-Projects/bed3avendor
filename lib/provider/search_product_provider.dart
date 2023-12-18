@@ -13,7 +13,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 class SearchProvider extends ChangeNotifier {
   final RefundRepo? refundRepo;
   SearchProvider({required this.refundRepo});
-
+  TextEditingController searchController = TextEditingController();
   List<RefundModel>? _refundList;
   List<RefundModel>? get refundList =>
       _refundList != null ? _refundList : _refundList;
@@ -190,5 +190,24 @@ class SearchProvider extends ChangeNotifier {
       ApiChecker.checkApi(context, apiResponse);
     }
     notifyListeners();
+  }
+
+  searchForOrders({required String search, required BuildContext context}) {
+    refundRepo!
+        .getOrderDependOnStatus(
+            status: refundTypeIndex == 0
+                ? 'available'
+                : refundTypeIndex == 1
+                    ? 'not_available'
+                    : 'offer')
+        .then((value) {
+      _mainOrderStatus = List<MainOrderStatus>.from(
+        value.response!.data
+            .where((order) => order['name'].toString().contains(search))
+            .map((e) => MainOrderStatus.fromJson(e)),
+      );
+    });
+
+    ///
   }
 }
