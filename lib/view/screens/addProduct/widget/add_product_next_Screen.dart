@@ -208,7 +208,7 @@ class _AddProductNextScreenState extends State<AddProductNextScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          resProvider.productTypeIndex == 0
+                          /*       resProvider.productTypeIndex == 0
                               ? Container(
                                   child: Column(
                                   children: [
@@ -398,8 +398,11 @@ class _AddProductNextScreenState extends State<AddProductNextScreen> {
                                                               child) {
                                                         return Text(
                                                           resProvider
-                                                              .attributeList![0]
-                                                              .variants[index]!,
+                                                                      .attributeList![
+                                                                          0]
+                                                                      .variants[
+                                                                  index] ??
+                                                              '',
                                                           style: robotoRegular.copyWith(
                                                               color: ColorResources
                                                                   .titleColor(
@@ -447,7 +450,7 @@ class _AddProductNextScreenState extends State<AddProductNextScreen> {
                                   ],
                                 ))
                               : SizedBox(),
-
+*/
                           SizedBox(
                               height: resProvider.productTypeIndex == 0
                                   ? 0
@@ -498,7 +501,7 @@ class _AddProductNextScreenState extends State<AddProductNextScreen> {
                             isAmount: true,
                             hintText: 'Ex: \$120',
                           ),
-                          SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
+                          /*SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
 
                           Row(children: [
                             Expanded(
@@ -570,7 +573,7 @@ class _AddProductNextScreenState extends State<AddProductNextScreen> {
                               ],
                             )),
                           ]),
-
+*/
                           SizedBox(height: Dimensions.PADDING_SIZE_LARGE),
 
                           Row(children: [

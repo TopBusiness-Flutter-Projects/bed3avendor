@@ -395,7 +395,7 @@ class _AddProductSeoScreenState extends State<AddProductSeoScreen> {
                                 };
                               },
                             ),
-                            Row(
+                            /*    Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Padding(
@@ -460,7 +460,7 @@ class _AddProductSeoScreenState extends State<AddProductSeoScreen> {
                               focusNode: _youtubeLinkNode,
                               textInputAction: TextInputAction.done,
                               hintText: 'https://www.youtube.com/embed/HHE7',
-                            ),
+                            ),*/
                             SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
                             Text(getTranslated('meta_image', context)!,
                                 style: robotoRegular.copyWith(
@@ -1098,11 +1098,13 @@ class _AddProductSeoScreenState extends State<AddProductSeoScreen> {
                             i++) {
                           _addProduct!.languageList!.insert(
                               i,
-                              Provider.of<SplashProvider>(context,
-                                      listen: false)
-                                  .configModel!
-                                  .languageList![i]
-                                  .code);
+                              i != 0
+                                  ? 'ar'
+                                  : Provider.of<SplashProvider>(context,
+                                          listen: false)
+                                      .configModel!
+                                      .languageList![i]
+                                      .code);
                         }
                       }
 
