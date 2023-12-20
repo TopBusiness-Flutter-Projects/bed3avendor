@@ -65,13 +65,7 @@ class _AddProductScreenState extends State<AddProductScreen>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(
-        length: Provider.of<SplashProvider>(context, listen: false)
-            .configModel!
-            .languageList!
-            .length,
-        initialIndex: 0,
-        vsync: this);
+    _tabController = TabController(length: 1, initialIndex: 0, vsync: this);
 
     _tabController?.addListener(() {
       print('my index is' + _tabController!.index.toString());
@@ -490,17 +484,20 @@ class _AddProductScreenState extends State<AddProductScreen>
                         }
                       }
 
-                      if (_haveBlankTitle) {
-                        showCustomSnackBar(
-                            getTranslated('please_input_all_title', context) ??
-                                '',
-                            context);
-                      } else if (_haveBlankDes) {
-                        showCustomSnackBar(
-                            getTranslated('please_input_all_des', context) ??
-                                '',
-                            context);
-                      } else if ((resProvider.productTypeIndex == 1 &&
+                      // if (_haveBlankTitle) {
+                      //   showCustomSnackBar(
+                      //       getTranslated('please_input_all_title', context) ??
+                      //           '',
+                      //       context);
+                      // } else
+                      //  if (_haveBlankDes) {
+                      //   showCustomSnackBar(
+                      //       getTranslated('please_input_all_des', context) ??
+                      //           '',
+                      //       context);
+                      // } else
+
+                      if ((resProvider.productTypeIndex == 1 &&
                               resProvider.digitalProductTypeIndex == 1 &&
                               resProvider.selectedFileForImport == null) &&
                           widget.product == null) {
@@ -618,7 +615,7 @@ class _AddProductScreenState extends State<AddProductScreen>
   List<Widget> _generateTabChildren() {
     List<Widget> _tabs = [
       Text('تفاصيل المنتج', style: robotoBold.copyWith()),
-      Text('العنوان', style: robotoBold.copyWith()),
+      // Text('العنوان', style: robotoBold.copyWith()),
     ];
     // for (int index = 0;
     //     index <
@@ -640,13 +637,7 @@ class _AddProductScreenState extends State<AddProductScreen>
 
   List<Widget> _generateTabPage(SellerProvider resProvider) {
     List<Widget> _tabView = [];
-    for (int index = 0;
-        index <
-            Provider.of<SplashProvider>(context, listen: false)
-                .configModel!
-                .languageList!
-                .length;
-        index++) {
+    for (int index = 0; index < 1; index++) {
       _tabView.add(
           TitleAndDescriptionWidget(resProvider: resProvider, index: index));
     }

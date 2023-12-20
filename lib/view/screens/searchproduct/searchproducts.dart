@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../localization/language_constrants.dart';
 import '../../../provider/search_product_provider.dart';
+import '../../../provider/splash_provider.dart';
 import '../../../utill/color_resources.dart';
 import '../../../utill/dimensions.dart';
 import '../../../utill/images.dart';
@@ -128,12 +129,12 @@ class _SearchProductsState extends State<SearchProducts> {
                                       Radius.circular(
                                           Dimensions.PADDING_SIZE_SMALL)),
                                   child: Container(
-                                    width: Dimensions.PRODUCT_IMAGE_SIZE_ITEM,
-                                    height: Dimensions.PRODUCT_IMAGE_SIZE_ITEM,
-                                    child: CustomImage(
-                                        image: order
-                                            .mainOrderStatus[index].images!),
-                                  ),
+                                      width: Dimensions.PRODUCT_IMAGE_SIZE_ITEM,
+                                      height:
+                                          Dimensions.PRODUCT_IMAGE_SIZE_ITEM,
+                                      child: CustomImage(
+                                          image:
+                                              "${Provider.of<SplashProvider>(context, listen: false).baseUrls!.productThumbnailUrl}/${order.mainOrderStatus[index].thumbnail!}")),
                                 ),
                                 SizedBox(
                                   width: Dimensions.PADDING_SIZE_DEFAULT,

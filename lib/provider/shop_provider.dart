@@ -119,11 +119,11 @@ class SellerProvider extends ChangeNotifier {
   String? get digitalProductFileName => _digitalProductFileName;
 
   void setTitle(int index, String title) {
-    _titleControllerList[index].text = title;
+    _titleControllerList[0].text = title;
   }
 
   void setDescription(int index, String description) {
-    _descriptionControllerList[index].text = description;
+    _descriptionControllerList[0].text = description;
   }
 
   getTitleAndDescriptionList(

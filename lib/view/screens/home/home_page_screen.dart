@@ -309,7 +309,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                     width: Dimensions
                                                         .PADDING_SIZE_LARGE,
                                                   ),
-                                                  Column(
+                                               Column(
                                                     crossAxisAlignment:
                                                         CrossAxisAlignment
                                                             .start,
