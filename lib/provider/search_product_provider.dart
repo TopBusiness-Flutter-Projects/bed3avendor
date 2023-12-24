@@ -34,7 +34,7 @@ class SearchProvider extends ChangeNotifier {
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
-  int _refundTypeIndex = 0;
+  int _refundTypeIndex = 1;
   int get refundTypeIndex => _refundTypeIndex;
 
   List<String> _refundStatusList = [];
@@ -175,7 +175,18 @@ class SearchProvider extends ChangeNotifier {
     }
     notifyListeners();
   }
+
   //udateOrderStatus
+  ///add
+  Future<void> addProductToSeller(BuildContext context,
+      {required String id}) async {
+    await refundRepo!.addProductToSeller(id: id).then((value) {
+      getOrderDependOnStatus(context);
+      Fluttertoast.showToast(msg: value.toString());
+    });
+
+    notifyListeners();
+  }
 
   Future<void> updateOrderStatus(BuildContext context,
       {required int id}) async {

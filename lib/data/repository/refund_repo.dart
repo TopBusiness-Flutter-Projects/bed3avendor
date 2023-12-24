@@ -4,6 +4,8 @@ import 'package:bed3avendor/data/datasource/remote/exception/api_error_handler.d
 import 'package:bed3avendor/data/model/response/base/api_response.dart';
 import 'package:bed3avendor/utill/app_constants.dart';
 
+import '../model/response/add_new_productmodel.dart';
+
 class RefundRepo {
   final DioClient? dioClient;
   RefundRepo({required this.dioClient});
@@ -74,6 +76,18 @@ class RefundRepo {
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
+
+//api/v3/seller/products/copy
+
+  Future<String> addProductToSeller({required String id}) async {
+    try {
+      final response = await dioClient!
+          .post(AppConstants.ADD_PRODUCT_TO_SELLER, data: {"id": id});
+      return response.data['msg'].toString();
+    } catch (e) {
+      return e.toString();
     }
   }
 

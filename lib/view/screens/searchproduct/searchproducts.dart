@@ -1,3 +1,4 @@
+import 'package:bed3avendor/utill/app_constants.dart';
 import 'package:bed3avendor/view/screens/searchproduct/widget/edit_product.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -68,6 +69,7 @@ class _SearchProductsState extends State<SearchProducts> {
                       order.searchForOrders(search: value, context: context);
                     }
                   }); //  Provider.of<DeliveryManProvider>(context, listen: false).deliveryManListURI(context, 1, value);
+                  //
                 },
                 isFilter: false,
               ),
@@ -83,13 +85,13 @@ class _SearchProductsState extends State<SearchProducts> {
                   scrollDirection: Axis.horizontal,
                   children: [
                     ProductTypeButton(
-                        text: getTranslated('available', context),
-                        index: 0,
+                        text: getTranslated('notavailable', context),
+                        index: 1,
                         refundList: []),
                     SizedBox(width: 5),
                     ProductTypeButton(
-                        text: getTranslated('notavailable', context),
-                        index: 1,
+                        text: getTranslated('available', context),
+                        index: 0,
                         refundList: []),
                     SizedBox(width: 5),
                     ProductTypeButton(
@@ -200,122 +202,173 @@ class _SearchProductsState extends State<SearchProducts> {
                               height: Dimensions.PADDING_SIZE_LARGE,
                             ),
                             Container(
-                              height: 50,
+                              height: MediaQuery.of(context).size.width / 10,
                               child: Row(
                                 children: [
-                                  Text(
-                                    order.mainOrderStatus[index].published
-                                                .toString() ==
-                                            "0"
-                                        ? "معلق"
-                                        : 'منشور',
-                                    style: robotoMedium.copyWith(),
-                                  ),
-                                  Switch(
-                                    value: order.mainOrderStatus[index]
-                                                .published
-                                                .toString() ==
-                                            "0"
-                                        ? false
-                                        : true,
-                                    onChanged: (value) {
-                                      /// method >> :: change status
-                                      order.updateOrderStatus(context,
-                                          id: order.mainOrderStatus[index].id!);
-                                      if (order.mainOrderStatus[index].published
-                                              .toString() ==
-                                          "0") {
-                                        setState(() {
-                                          order.mainOrderStatus[index]
-                                              .published = 1;
-                                        });
-                                      } else {
-                                        setState(() {
-                                          order.mainOrderStatus[index]
-                                              .published = 0;
-                                        });
-                                      }
-                                    },
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      ////////
-                                    },
-                                    child: Container(
-                                      width: MediaQuery.of(context).size.width /
-                                          3.5,
-                                      decoration: BoxDecoration(
-                                          color: Theme.of(context)
-                                              .primaryColor
-                                              .withOpacity(.06),
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(Dimensions
-                                                  .PADDING_SIZE_SMALL))),
-                                      child: Center(
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Row(
-                                            children: [
-                                              Icon(
-                                                Icons.local_offer,
+                                  (order.refundTypeIndex == 2 ||
+                                          order.refundTypeIndex == 1)
+                                      ? Container(height: 0)
+                                      : Text(
+                                          order.mainOrderStatus[index].published
+                                                      .toString() ==
+                                                  "0"
+                                              ? "معلق"
+                                              : 'منشور',
+                                          style: robotoMedium.copyWith(),
+                                        ),
+                                  order.refundTypeIndex == 0
+                                      ? Switch(
+                                          value: order.mainOrderStatus[index]
+                                                      .published
+                                                      .toString() ==
+                                                  "0"
+                                              ? false
+                                              : true,
+                                          onChanged: (value) {
+                                            /// method >> :: change status
+                                            order.updateOrderStatus(context,
+                                                id: order.mainOrderStatus[index]
+                                                    .id!);
+                                            if (order.mainOrderStatus[index]
+                                                    .published
+                                                    .toString() ==
+                                                "0") {
+                                              setState(() {
+                                                order.mainOrderStatus[index]
+                                                    .published = 1;
+                                              });
+                                            } else {
+                                              setState(() {
+                                                order.mainOrderStatus[index]
+                                                    .published = 0;
+                                              });
+                                            }
+                                          },
+                                        )
+                                      : order.refundTypeIndex == 1
+                                          ? InkWell(
+                                              onTap: () {
+                                                order.addProductToSeller(
+                                                    context,
+                                                    id: order
+                                                        .mainOrderStatus[index]
+                                                        .id
+                                                        .toString());
+                                              },
+                                              child: Container(
+                                                  padding: EdgeInsets.all(5),
+                                                  decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              1000),
+                                                      color: Colors.blue),
+                                                  child: Icon(Icons.add,
+                                                      color: ColorResources
+                                                          .WHITE)),
+                                            )
+                                          : Container(height: 0),
+                                  order.refundTypeIndex == 1
+                                      ? Container(
+                                          height: 0,
+                                        )
+                                      : InkWell(
+                                          onTap: () {
+                                            ////////
+                                          },
+                                          child: Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                3.5,
+                                            decoration: BoxDecoration(
                                                 color: Theme.of(context)
-                                                    .primaryColor,
+                                                    .primaryColor
+                                                    .withOpacity(.06),
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(Dimensions
+                                                        .PADDING_SIZE_SMALL))),
+                                            child: Center(
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Row(
+                                                  children: [
+                                                    Icon(
+                                                      Icons.local_offer,
+                                                      color: Theme.of(context)
+                                                          .primaryColor,
+                                                    ),
+                                                    SizedBox(
+                                                      width: Dimensions
+                                                          .PADDING_SIZE,
+                                                    ),
+                                                    Text(
+                                                      'اضف عرض',
+                                                      style:
+                                                          robotoMedium.copyWith(
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .primaryColor),
+                                                    )
+                                                  ],
+                                                ),
                                               ),
-                                              SizedBox(
-                                                width: Dimensions.PADDING_SIZE,
-                                              ),
-                                              Text(
-                                                'اضف عرض',
-                                                style: robotoMedium.copyWith(
-                                                    color: Theme.of(context)
-                                                        .primaryColor),
-                                              )
-                                            ],
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ),
-                                  ),
                                   SizedBox(
                                     width: Dimensions.PADDING_SIZE_LARGE,
                                   ),
-                                  InkWell(
-                                    onTap: () {
-                                      showModalBottomSheet(
-                                          context: context,
-                                          isScrollControlled: true,
-                                          backgroundColor: Colors.transparent,
-                                          builder: (con) => EditProductScreen(
-                                                mainOrder: order
-                                                    .mainOrderStatus[index],
-                                              ));
-                                    },
-                                    child: Container(
-                                      width: MediaQuery.of(context).size.width /
-                                          3.5,
-                                      decoration: BoxDecoration(
-                                          color: Theme.of(context).primaryColor,
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(Dimensions
-                                                  .PADDING_SIZE_SMALL))),
-                                      child: Center(
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Row(
-                                            children: [
-                                              Icon(Icons.edit,
-                                                  color: Colors.white),
-                                              SizedBox(width: 20),
-                                              Text(
-                                                  '${getTranslated('edit', context) ?? ''}',
-                                                  style: robotoMedium.copyWith(
-                                                      color: Colors.white))
-                                            ],
+                                  order.refundTypeIndex == 1
+                                      ? Container(
+                                          height: 0,
+                                        )
+                                      : InkWell(
+                                          onTap: () {
+                                            showModalBottomSheet(
+                                                context: context,
+                                                isScrollControlled: true,
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                builder: (con) =>
+                                                    EditProductScreen(
+                                                      mainOrder:
+                                                          order.mainOrderStatus[
+                                                              index],
+                                                    ));
+                                          },
+                                          child: Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                3.5,
+                                            decoration: BoxDecoration(
+                                                color: Theme.of(context)
+                                                    .primaryColor,
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(Dimensions
+                                                        .PADDING_SIZE_SMALL))),
+                                            child: Center(
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Row(
+                                                  children: [
+                                                    Icon(Icons.edit,
+                                                        color: Colors.white),
+                                                    SizedBox(width: 20),
+                                                    Text(
+                                                        '${getTranslated('edit', context) ?? ''}',
+                                                        style: robotoMedium
+                                                            .copyWith(
+                                                                color: Colors
+                                                                    .white))
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
                                           ),
-                                        ),
-                                      ),
-                                    ),
-                                  )
+                                        )
                                 ],
                               ),
                             )

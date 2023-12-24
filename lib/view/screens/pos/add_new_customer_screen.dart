@@ -218,16 +218,19 @@ class _AddNewCustomerScreenState extends State<AddNewCustomerScreen> {
                             showCustomSnackBar(
                                 getTranslated('email_is_required', context),
                                 context);
-                          } else if (email.isEmpty) {
-                            showCustomSnackBar(
-                                getTranslated(
-                                    'email_name_is_required', context),
-                                context);
-                          } else if (EmailChecker.isNotValid(email)) {
-                            showCustomSnackBar(
-                                getTranslated('email_is_ot_valid', context),
-                                context);
-                          } else if (phone.isEmpty) {
+                          }
+                          // else if (email.isEmpty) {
+                          //   showCustomSnackBar(
+                          //       getTranslated(
+                          //           'email_name_is_required', context),
+                          //       context);
+                          // }
+                          // else if (EmailChecker.isNotValid(email)) {
+                          //   showCustomSnackBar(
+                          //       getTranslated('email_is_ot_valid', context),
+                          //       context);
+                          // }
+                          else if (phone.isEmpty) {
                             showCustomSnackBar(
                                 getTranslated('phone_is_required', context),
                                 context);

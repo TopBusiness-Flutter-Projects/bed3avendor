@@ -2,7 +2,6 @@ import 'package:bed3avendor/provider/search_product_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:bed3avendor/data/model/response/product_model.dart';
 import 'package:bed3avendor/provider/bank_info_provider.dart';
 import 'package:bed3avendor/provider/delivery_man_provider.dart';
 import 'package:bed3avendor/provider/order_provider.dart';
@@ -14,28 +13,18 @@ import 'package:bed3avendor/utill/color_resources.dart';
 import 'package:bed3avendor/utill/dimensions.dart';
 import 'package:bed3avendor/utill/images.dart';
 import 'package:bed3avendor/view/base/custom_loader.dart';
-import 'package:bed3avendor/view/screens/home/widget/chart_widget.dart';
-import 'package:bed3avendor/view/screens/home/widget/completed_order_widget.dart';
 import 'package:bed3avendor/view/screens/home/widget/on_going_order_widget.dart';
-import 'package:bed3avendor/view/screens/home/widget/stock_out_product_widget.dart';
-import 'package:bed3avendor/view/screens/product/most_popular_product.dart';
-import 'package:bed3avendor/view/screens/product/top_selling_product.dart';
-import 'package:bed3avendor/view/screens/top_delivery_man/top_delivery_man_view.dart';
-
 import '../../../utill/styles.dart';
 
 class HomePageScreen extends StatefulWidget {
   final Function? callback;
-
   const HomePageScreen({Key? key, this.callback}) : super(key: key);
-
   @override
   State<HomePageScreen> createState() => _HomePageScreenState();
 }
 
 class _HomePageScreenState extends State<HomePageScreen> {
   final ScrollController _scrollController = ScrollController();
-
   Future<void> _loadData(BuildContext context, bool reload) async {
     Provider.of<ProfileProvider>(context, listen: false).getSellerInfo(context);
     Provider.of<BankInfoProvider>(context, listen: false).getBankInfo(context);
@@ -77,7 +66,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
   DateTime selectedDateStart = DateTime.now();
   DateTime selectedDateEnd = DateTime.now();
-
   Future<void> _selectDateStart(BuildContext context,
       {bool isEnd = false}) async {
     final DateTime? picked = await showDatePicker(
@@ -309,7 +297,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                                     width: Dimensions
                                                         .PADDING_SIZE_LARGE,
                                                   ),
-                                               Column(
+                                                  Column(
                                                     crossAxisAlignment:
                                                         CrossAxisAlignment
                                                             .start,

@@ -2,7 +2,7 @@ import 'package:bed3avendor/data/model/response/language_model.dart';
 import 'package:bed3avendor/utill/images.dart';
 
 class AppConstants {
-  static const String APP_NAME = 'بضاعه بائع';
+  static const String APP_NAME = "بضاعة مورد";
   static const String APP_VERSION = '13.1';
   static const String COMPANY_NAME = 'Bed3a';
   static const String BASE_URL = 'https://bedah.topbusiness.io';
@@ -176,6 +176,7 @@ class AppConstants {
       '/api/v3/seller/order-statistics-limit?';
   static const String GET_ORDERS_DEPEND_ON_STATUS =
       '/api/v3/seller/products/list?type=';
+  static const String ADD_PRODUCT_TO_SELLER = '/api/v3/seller/products/copy';
   static const String UPDATE_ORDERS_STATUS =
       '/api/v3/seller/products/update-product-publish';
   static const String UPDATE_ORDERS_PRICE_COUNT =
