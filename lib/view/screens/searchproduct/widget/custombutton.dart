@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../../../../data/model/response/refund_model.dart';
 import '../../../../provider/search_product_provider.dart';
 import '../../../../utill/color_resources.dart';
@@ -33,7 +32,7 @@ class ProductTypeButton extends StatelessWidget {
               borderRadius:
                   BorderRadius.circular(Dimensions.PADDING_SIZE_SMALL),
             ),
-            child: Text(text!,
+            child: Text(text ?? '',
                 style: refund.refundTypeIndex == index
                     ? titilliumBold.copyWith(
                         color: refund.refundTypeIndex == index

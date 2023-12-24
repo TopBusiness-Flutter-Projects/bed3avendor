@@ -139,18 +139,22 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                                     getTranslated(
                                         'last_name_is_required', context),
                                     context);
-                              } else if (authProvider.emailController.text
-                                  .trim()
-                                  .isEmpty) {
-                                showCustomSnackBar(
-                                    getTranslated('email_is_required', context),
-                                    context);
-                              } else if (EmailChecker.isNotValid(
-                                  authProvider.emailController.text.trim())) {
-                                showCustomSnackBar(
-                                    getTranslated('email_is_ot_valid', context),
-                                    context);
-                              } else if (authProvider.phoneController.text
+                              }
+                              //  else if (authProvider.emailController.text
+                              //     .trim()
+                              //     .isEmpty) {
+                              //   showCustomSnackBar(
+                              //       getTranslated('email_is_required', context),
+                              //       context);
+                              // }
+                              //
+                              // else if (EmailChecker.isNotValid(
+                              //     authProvider.emailController.text.trim())) {
+                              //   showCustomSnackBar(
+                              //       getTranslated('email_is_ot_valid', context),
+                              //       context);
+                              // }
+                              else if (authProvider.phoneController.text
                                   .trim()
                                   .isEmpty) {
                                 showCustomSnackBar(
@@ -239,7 +243,8 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                                   onTap: !authProvider.isTermsAndCondition!
                                       ? null
                                       : () {
-                                          if (authProvider.firstNameController.text
+                                          if (authProvider
+                                              .firstNameController.text
                                               .trim()
                                               .isEmpty) {
                                             showCustomSnackBar(
@@ -247,7 +252,8 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                                                     'first_name_is_required',
                                                     context),
                                                 context);
-                                          } else if (authProvider.lastNameController.text
+                                          } else if (authProvider
+                                              .lastNameController.text
                                               .trim()
                                               .isEmpty) {
                                             showCustomSnackBar(
@@ -255,23 +261,27 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                                                     'last_name_is_required',
                                                     context),
                                                 context);
-                                          } else if (authProvider.emailController.text
-                                              .trim()
-                                              .isEmpty) {
-                                            showCustomSnackBar(
-                                                getTranslated(
-                                                    'email_is_required',
-                                                    context),
-                                                context);
-                                          } else if (EmailChecker.isNotValid(
-                                              authProvider.emailController.text
-                                                  .trim())) {
-                                            showCustomSnackBar(
-                                                getTranslated(
-                                                    'email_is_ot_valid',
-                                                    context),
-                                                context);
-                                          } else if (authProvider.phoneController.text
+                                          }
+                                          //  else if (authProvider.emailController.text
+                                          //     .trim()
+                                          //     .isEmpty) {
+                                          //   showCustomSnackBar(
+                                          //       getTranslated(
+                                          //           'email_is_required',
+                                          //           context),
+                                          //       context);
+                                          // }
+                                          // else if (EmailChecker.isNotValid(
+                                          //     authProvider.emailController.text
+                                          //         .trim())) {
+                                          //   showCustomSnackBar(
+                                          //       getTranslated(
+                                          //           'email_is_ot_valid',
+                                          //           context),
+                                          //       context);
+                                          // }
+                                          else if (authProvider
+                                              .phoneController.text
                                               .trim()
                                               .isEmpty) {
                                             showCustomSnackBar(
@@ -279,14 +289,18 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                                                     'phone_is_required',
                                                     context),
                                                 context);
-                                          } else if (authProvider.phoneController.text.trim().length <
+                                          } else if (authProvider
+                                                  .phoneController.text
+                                                  .trim()
+                                                  .length <
                                               8) {
                                             showCustomSnackBar(
                                                 getTranslated(
                                                     'phone_number_is_not_valid',
                                                     context),
                                                 context);
-                                          } else if (authProvider.passwordController.text
+                                          } else if (authProvider
+                                              .passwordController.text
                                               .trim()
                                               .isEmpty) {
                                             showCustomSnackBar(
@@ -313,7 +327,9 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                                                     'confirm_password_is_required',
                                                     context),
                                                 context);
-                                          } else if (authProvider.passwordController.text.trim() !=
+                                          } else if (authProvider
+                                                  .passwordController.text
+                                                  .trim() !=
                                               authProvider
                                                   .confirmPasswordController
                                                   .text
@@ -341,13 +357,15 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                                                     'shop_address_is_required',
                                                     context),
                                                 context);
-                                          } else if (authProvider.shopLogo == null) {
+                                          } else if (authProvider.shopLogo ==
+                                              null) {
                                             showCustomSnackBar(
                                                 getTranslated(
                                                     'shop_logo_is_required',
                                                     context),
                                                 context);
-                                          } else if (authProvider.shopBanner == null) {
+                                          } else if (authProvider.shopBanner ==
+                                              null) {
                                             showCustomSnackBar(
                                                 getTranslated(
                                                     'shop_banner_is_required',
@@ -390,6 +408,13 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                                                     context: context,
                                                     builder: (_) =>
                                                         RegisterSuccessfulWidget());
+                                              } else if (value
+                                                      .response!.statusCode ==
+                                                  403) {
+                                                showCustomSnackBar(
+                                                    value.response!
+                                                        .statusMessage,
+                                                    context);
                                               }
                                             });
                                           }
