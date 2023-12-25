@@ -140,7 +140,6 @@ class SearchProvider extends ChangeNotifier {
                 : 'offer');
     if (apiResponse.response != null &&
         apiResponse.response!.statusCode == 200) {
-      print('00000000000000000' + apiResponse.response!.data.toString());
       _mainOrderStatus = List<MainOrderStatus>.from(
         apiResponse.response!.data.map((e) => MainOrderStatus.fromJson(e)),
       );
@@ -165,10 +164,6 @@ class SearchProvider extends ChangeNotifier {
         apiResponse.response!.statusCode == 200) {
       print('updateproductDetails :: 000 :: ' +
           apiResponse.response!.data.toString());
-      // _mainOrderStatus = List<MainOrderStatus>.from(
-      //   apiResponse.response!.data.map((e) => MainOrderStatus.fromJson(e)),
-      // );
-
       ////
     } else {
       ApiChecker.checkApi(context, apiResponse);
@@ -193,8 +188,6 @@ class SearchProvider extends ChangeNotifier {
     ApiResponse apiResponse = await refundRepo!.updateOrderStatus(id: id);
     if (apiResponse.response != null &&
         apiResponse.response!.statusCode == 200) {
-      print(
-          '0 :: updateOrderStatu :: 0' + apiResponse.response!.data.toString());
       Fluttertoast.showToast(msg: apiResponse.response!.data['msg'].toString());
       ////
     } else {
@@ -203,6 +196,37 @@ class SearchProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> updateOfferOfProduct(
+      {required int id,
+      required String discountType,
+      required String discount,
+      required BuildContext context}) async {
+    ApiResponse apiResponse = await refundRepo!.updateProductDiscount(
+        id: id, discount: int.parse(discount), discountType: discountType);
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
+      Fluttertoast.showToast(msg: apiResponse.response!.data['msg'].toString());
+      ////
+    } else {
+      ApiChecker.checkApi(context, apiResponse);
+    }
+    getOrderDependOnStatus(context);
+    discountController.clear();
+    notifyListeners();
+  }
+
+  ///delete
+  Future<void> deleteProductFromSeller(
+      {required String id, required BuildContext context}) async {
+    refundRepo!.deleteProductFromSeller(id: id).then((value) {
+      Fluttertoast.showToast(msg: value);
+    });
+
+    getOrderDependOnStatus(context);
+    notifyListeners();
+  }
+
+//////////////////
   searchForOrders({required String search, required BuildContext context}) {
     refundRepo!
         .getOrderDependOnStatus(
@@ -221,4 +245,8 @@ class SearchProvider extends ChangeNotifier {
 
     ///
   }
+
+  final List<String> items = ['percent ', 'flat'];
+  String? discountType = 'percent';
+  TextEditingController discountController = TextEditingController();
 }
