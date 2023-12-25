@@ -182,6 +182,11 @@ class AppConstants {
   static const String UPDATE_ORDERS_PRICE_COUNT =
       '/api/v3/seller/products/update-product';
 //
+  static const String UPDATE_ORDERS_DISCOUNT_COUNT =
+      '/api/v3/seller/products/add-discount';
+  //api/v3/seller/products/delete/
+  static const String DELETE_ORDERS_DISCOUNT_COUNT =
+      '/api/v3/seller/products/delete/';
   static const String PENDING = 'pending';
   static const String CONFIRMED = 'confirmed';
   static const String PROCESSING = 'processing';

@@ -13,6 +13,7 @@ import '../../base/custom_app_bar.dart';
 import '../../base/custom_button.dart';
 import '../../base/custom_image.dart';
 import '../../base/custom_search_field.dart';
+import 'widget/addoffer.dart';
 import 'widget/custombutton.dart';
 
 class SearchProducts extends StatefulWidget {
@@ -205,8 +206,7 @@ class _SearchProductsState extends State<SearchProducts> {
                               height: MediaQuery.of(context).size.width / 10,
                               child: Row(
                                 children: [
-                                  (order.refundTypeIndex == 2 ||
-                                          order.refundTypeIndex == 1)
+                                  (order.refundTypeIndex == 1)
                                       ? Container(height: 0)
                                       : Text(
                                           order.mainOrderStatus[index].published
@@ -216,7 +216,8 @@ class _SearchProductsState extends State<SearchProducts> {
                                               : 'منشور',
                                           style: robotoMedium.copyWith(),
                                         ),
-                                  order.refundTypeIndex == 0
+                                  (order.refundTypeIndex == 0 ||
+                                          order.refundTypeIndex == 2)
                                       ? Switch(
                                           value: order.mainOrderStatus[index]
                                                       .published
@@ -273,6 +274,22 @@ class _SearchProductsState extends State<SearchProducts> {
                                         )
                                       : InkWell(
                                           onTap: () {
+                                            showModalBottomSheet(
+                                                context: context,
+                                                isScrollControlled: true,
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                builder: (con) =>
+                                                    AddofferForProductScreen(
+                                                        title: order
+                                                                .mainOrderStatus[
+                                                                    index]
+                                                                .name ??
+                                                            '',
+                                                        id: order
+                                                            .mainOrderStatus[
+                                                                index]
+                                                            .id!));
                                             ////////
                                           },
                                           child: Container(
@@ -341,32 +358,76 @@ class _SearchProductsState extends State<SearchProducts> {
                                             width: MediaQuery.of(context)
                                                     .size
                                                     .width /
-                                                3.5,
+                                                8,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                8,
                                             decoration: BoxDecoration(
-                                                color: Theme.of(context)
-                                                    .primaryColor,
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(Dimensions
-                                                        .PADDING_SIZE_SMALL))),
-                                            child: Center(
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Row(
-                                                  children: [
-                                                    Icon(Icons.edit,
-                                                        color: Colors.white),
-                                                    SizedBox(width: 20),
-                                                    Text(
-                                                        '${getTranslated('edit', context) ?? ''}',
-                                                        style: robotoMedium
-                                                            .copyWith(
-                                                                color: Colors
-                                                                    .white))
-                                                  ],
-                                                ),
-                                              ),
+                                              shape: BoxShape.circle,
+                                              color: Theme.of(context)
+                                                  .primaryColor,
                                             ),
+
+                                            child: Icon(Icons.edit,
+                                                color: Colors.white),
+                                            // child: Center(
+                                            //   child: Padding(
+                                            //     padding:
+                                            //         const EdgeInsets.all(8.0),
+                                            //     child: Row(
+                                            //       children: [
+                                            //         // SizedBox(width: 20),
+                                            //         // Text(
+                                            //         //     '${getTranslated('edit', context) ?? ''}',
+                                            //         //     style: robotoMedium
+                                            //         //         .copyWith(
+                                            //         //             color: Colors
+                                            //         //                 .white))
+                                            //       ],
+                                            //     ),
+                                            //   ),
+                                            // ),
+                                          ),
+                                        ),
+                                  order.refundTypeIndex == 1
+                                      ? Container(
+                                          height: 0,
+                                        )
+                                      : InkWell(
+                                          onTap: () {
+                                            order.deleteProductFromSeller(
+                                                id: order
+                                                    .mainOrderStatus[index].id
+                                                    .toString(),
+                                                context: context);
+                                            // delete Product
+                                            // showModalBottomSheet(
+                                            //     context: context,
+                                            //     isScrollControlled: true,
+                                            //     backgroundColor:
+                                            //         Colors.transparent,
+                                            //     builder: (con) =>
+                                            //         EditProductScreen(
+                                            //           mainOrder:
+                                            //               order.mainOrderStatus[
+                                            //                   index],
+                                            //         ));
+                                          },
+                                          child: Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                8,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                8,
+                                            decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                color: Colors.red),
+                                            child: Icon(Icons.delete,
+                                                color: Colors.white),
                                           ),
                                         )
                                 ],

@@ -119,5 +119,34 @@ class RefundRepo {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
     }
   }
-  //  static const String UPDATE_ORDERS_PRICE_COUNT =
+  //  api/v3/seller/products/add-discount
+
+  Future<ApiResponse> updateProductDiscount({
+    required int id,
+    required String discountType,
+    required int discount,
+  }) async {
+    try {
+      final response = await dioClient!.post(
+        AppConstants.UPDATE_ORDERS_DISCOUNT_COUNT,
+        data: {"id": id, "discount_type": discountType, "discount": discount},
+      );
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
+
+  //deleteProductFromSeller
+  Future<String> deleteProductFromSeller({
+    required String id,
+  }) async {
+    try {
+      final response = await dioClient!
+          .delete(AppConstants.DELETE_ORDERS_DISCOUNT_COUNT + id);
+      return response.data['message'];
+    } catch (e) {
+      return e.toString();
+    }
+  }
 }

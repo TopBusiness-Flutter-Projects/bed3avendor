@@ -8,7 +8,6 @@ import '../../../../provider/search_product_provider.dart';
 import '../../../../utill/color_resources.dart';
 import '../../../../utill/dimensions.dart';
 import '../../../../utill/styles.dart';
-import '../searchproducts.dart';
 
 class EditProductScreen extends StatefulWidget {
   EditProductScreen({super.key, required this.mainOrder});
@@ -42,7 +41,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                     children: [
                       Spacer(),
                       Text(
-                        'كيس موتزريلا 180 جرام',
+                        widget.mainOrder.name ?? '',
                         style: robotoMedium.copyWith(
                             fontSize: Dimensions.PADDING_SIZE_MEDIUM,
                             color: Colors.white),
@@ -72,7 +71,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                       child: InkWell(
                         onTap: () {
                           if (widget.mainOrder.purchasePrice != null &&
-                              widget.mainOrder.purchasePrice! > 0) {
+                              widget.mainOrder.purchasePrice! >= 0) {
                             widget.mainOrder.purchasePrice =
                                 widget.mainOrder.purchasePrice! + 1;
                           } else {
@@ -141,7 +140,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                     InkWell(
                       onTap: () {
                         if (widget.mainOrder.currentStock != null &&
-                            widget.mainOrder.currentStock! > 0) {
+                            widget.mainOrder.currentStock! >= 0) {
                           widget.mainOrder.currentStock =
                               widget.mainOrder.currentStock! + 1;
                         } else {
