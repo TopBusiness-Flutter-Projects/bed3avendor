@@ -63,7 +63,12 @@ class OrderRepo {
     try {
       List<String> addressTypeList = [];
       if (type == 'inhouse_shipping') {
-        addressTypeList = ['pending', 'confirmed', 'processing'];
+        addressTypeList = [
+          'pending',
+          'confirmed',
+          'processing',
+          'cancelled',
+        ];
       } else {
         addressTypeList = [
           'pending',

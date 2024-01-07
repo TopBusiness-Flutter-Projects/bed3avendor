@@ -149,4 +149,17 @@ class RefundRepo {
       return e.toString();
     }
   }
+
+  //deleteOfferFromSeller
+  Future<String> deleteOfferFromSeller({required String id}) async {
+    try {
+      final response = await dioClient!.post(
+        AppConstants.DELETE_OFFER_FROM_ORDER,
+        data: FormData.fromMap({"id": id}),
+      );
+      return response.data['msg'];
+    } catch (e) {
+      return e.toString();
+    }
+  }
 }

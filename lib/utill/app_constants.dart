@@ -187,6 +187,8 @@ class AppConstants {
   //api/v3/seller/products/delete/
   static const String DELETE_ORDERS_DISCOUNT_COUNT =
       '/api/v3/seller/products/delete/';
+  static const String DELETE_OFFER_FROM_ORDER =
+      '/api/v3/seller/products/remove-discount';
   static const String PENDING = 'pending';
   static const String CONFIRMED = 'confirmed';
   static const String PROCESSING = 'processing';

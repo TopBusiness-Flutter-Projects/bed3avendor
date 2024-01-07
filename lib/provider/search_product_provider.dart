@@ -226,6 +226,16 @@ class SearchProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+//delete offer
+  Future<void> deleteOfferFromSeller(
+      {required String id, required BuildContext context}) async {
+    refundRepo!.deleteOfferFromSeller(id: id).then((value) {
+      Fluttertoast.showToast(msg: value);
+    });
+    getOrderDependOnStatus(context);
+    notifyListeners();
+  }
+
 //////////////////
   searchForOrders({required String search, required BuildContext context}) {
     refundRepo!

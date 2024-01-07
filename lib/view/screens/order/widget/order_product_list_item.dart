@@ -2,7 +2,9 @@ import 'dart:io';
 import 'dart:isolate';
 import 'dart:ui';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:provider/provider.dart';
 import 'package:bed3avendor/data/model/response/order_details_model.dart';
@@ -155,14 +157,14 @@ class _OrderedProductListItemState extends State<OrderedProductListItem> {
                             ),
                           ],
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 5.0),
-                          child: Text(
-                            '[${getTranslated('tax', context)} ${widget.orderDetailsModel!.productDetails!.taxModel}(${widget.orderDetailsModel!.tax})]',
-                            style: robotoRegular.copyWith(
-                                fontSize: Dimensions.FONT_SIZE_SMALL),
-                          ),
-                        ),
+                        // Padding(
+                        //   padding: const EdgeInsets.symmetric(vertical: 5.0),
+                        //   child: Text(
+                        //     '[${getTranslated('tax', context)} ${widget.orderDetailsModel!.productDetails!.taxModel}(${widget.orderDetailsModel!.tax})]',
+                        //     style: robotoRegular.copyWith(
+                        //         fontSize: Dimensions.FONT_SIZE_SMALL),
+                        //   ),
+                        // ),
                         SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                         (widget.orderDetailsModel!.variant != null &&
                                 widget.orderDetailsModel!.variant!.isNotEmpty)
@@ -188,6 +190,34 @@ class _OrderedProductListItemState extends State<OrderedProductListItem> {
                                         ColorResources.getTextColor(context))),
                           ],
                         ),
+                        Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 5.0),
+                            child: Text(
+                              '${widget.orderDetailsModel!.userInformation!.fName} ${widget.orderDetailsModel!.userInformation!.lName}',
+                              style: robotoRegular.copyWith(
+                                  fontSize: Dimensions.FONT_SIZE_SMALL),
+                            )),
+                        Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 5.0),
+                            child: Row(
+                              children: [
+                                InkWell(
+                                    onTap: () async {
+                                      await Clipboard.setData(ClipboardData(
+                                          text: widget.orderDetailsModel!
+                                                  .userInformation!.phone ??
+                                              '012'));
+                                    },
+                                    child: Icon(Icons.copy)),
+                                Flexible(
+                                  child: Text(
+                                    '${widget.orderDetailsModel!.userInformation!.phone ?? ''}',
+                                    style: robotoRegular.copyWith(
+                                        fontSize: Dimensions.FONT_SIZE_SMALL),
+                                  ),
+                                ),
+                              ],
+                            )),
                       ],
                     ),
                   ),

@@ -19,28 +19,29 @@ class OrderDetailsModel {
   String? _variation;
   String? _discountType;
   Shipping? _shipping;
-
+  Customer? _userInformation;
   OrderDetailsModel(
       {int? id,
-        int? orderId,
-        int? productId,
-        int? sellerId,
-        String? digitalFileAfterSell,
-        ProductDetails? productDetails,
-        int? qty,
-        double? price,
-        double? tax,
-        String? taxModel,
-        double? discount,
-        String? deliveryStatus,
-        String? paymentStatus,
-        String? createdAt,
-        String? updatedAt,
-        int? shippingMethodId,
-        String? variant,
-        String? variation,
-        String? discountType,
-        Shipping? shipping}) {
+      int? orderId,
+      int? productId,
+      int? sellerId,
+      String? digitalFileAfterSell,
+      ProductDetails? productDetails,
+      int? qty,
+      double? price,
+      double? tax,
+      String? taxModel,
+      double? discount,
+      String? deliveryStatus,
+      String? paymentStatus,
+      String? createdAt,
+      String? updatedAt,
+      int? shippingMethodId,
+      String? variant,
+      String? variation,
+      String? discountType,
+      Shipping? shipping,
+      Customer? userInformation}) {
     this._id = id;
     this._orderId = orderId;
     this._productId = productId;
@@ -50,6 +51,7 @@ class OrderDetailsModel {
     this._qty = qty;
     this._price = price;
     this._tax = tax;
+    this._userInformation = userInformation;
     this._taxModel = taxModel;
     this._discount = discount;
     this._deliveryStatus = deliveryStatus;
@@ -71,17 +73,19 @@ class OrderDetailsModel {
   set orderId(int? orderId) => _orderId = orderId;
   int? get productId => _productId;
   int? get sellerId => _sellerId;
-  String? get digitalFileAfterSell  => _digitalFileAfterSell;
+  String? get digitalFileAfterSell => _digitalFileAfterSell;
   ProductDetails? get productDetails => _productDetails;
   int? get qty => _qty;
   double? get price => _price;
   double? get tax => _tax;
   String? get taxModel => _taxModel;
   double? get discount => _discount;
+  Customer? get userInformation => _userInformation;
   // ignore: unnecessary_getters_setters
   String? get deliveryStatus => _deliveryStatus;
   // ignore: unnecessary_getters_setters
-  set deliveryStatus(String? deliveryStatus) => _deliveryStatus = deliveryStatus;
+  set deliveryStatus(String? deliveryStatus) =>
+      _deliveryStatus = deliveryStatus;
   String? get paymentStatus => _paymentStatus;
   String? get createdAt => _createdAt;
   String? get updatedAt => _updatedAt;
@@ -101,10 +105,9 @@ class OrderDetailsModel {
         ? new ProductDetails.fromJson(json['product_details'])
         : null;
     _qty = json['qty'];
-    if(json['price']!=null){
+    if (json['price'] != null) {
       _price = json['price'].toDouble();
     }
-
     _tax = json['tax'].toDouble();
     _taxModel = json['tax_model'];
     _discount = json['discount'].toDouble();
@@ -119,6 +122,9 @@ class OrderDetailsModel {
     _shipping = json['shipping'] != null
         ? new Shipping.fromJson(json['shipping'])
         : null;
+    _userInformation = json["order"] == null
+        ? null
+        : Customer.fromJson(json["order"]['customer']);
   }
 
   Map<String, dynamic> toJson() {
@@ -147,6 +153,8 @@ class OrderDetailsModel {
     if (this._shipping != null) {
       data['shipping'] = this._shipping!.toJson();
     }
+    data['customer'] = this._userInformation;
+
     return data;
   }
 }
@@ -181,36 +189,36 @@ class ProductDetails {
   String? _digitalProductType;
   String? _digitalFileReady;
 
-  ProductDetails(
-      {int? id,
-        String? addedBy,
-        int? userId,
-        String? name,
-        String? productType,
-        List<CategoryIds>? categoryIds,
-        int? brandId,
-        String? unit,
-        int? minQty,
-        List<String>? images,
-        String? thumbnail,
-        List<Colores>? colors,
-        List<String>? attributes,
-        List<ChoiceOptions>? choiceOptions,
-        List<Variation>? variation,
-        double? unitPrice,
-        double? purchasePrice,
-        double? tax,
-        String? taxModel,
-        String? taxType,
-        double? discount,
-        String? discountType,
-        int? currentStock,
-        String? details,
-        String? createdAt,
-        String? updatedAt,
-        String? digitalProductType,
-        String? digitalFileReady,
-      }) {
+  ProductDetails({
+    int? id,
+    String? addedBy,
+    int? userId,
+    String? name,
+    String? productType,
+    List<CategoryIds>? categoryIds,
+    int? brandId,
+    String? unit,
+    int? minQty,
+    List<String>? images,
+    String? thumbnail,
+    List<Colores>? colors,
+    List<String>? attributes,
+    List<ChoiceOptions>? choiceOptions,
+    List<Variation>? variation,
+    double? unitPrice,
+    double? purchasePrice,
+    double? tax,
+    String? taxModel,
+    String? taxType,
+    double? discount,
+    String? discountType,
+    int? currentStock,
+    String? details,
+    String? createdAt,
+    String? updatedAt,
+    String? digitalProductType,
+    String? digitalFileReady,
+  }) {
     this._id = id;
     this._addedBy = addedBy;
     this._userId = userId;
@@ -321,10 +329,10 @@ class ProductDetails {
     _freeShipping = json['free_shipping'];
     _createdAt = json['created_at'];
     _updatedAt = json['updated_at'];
-    if(json['digital_product_type']!=null){
+    if (json['digital_product_type'] != null) {
       _digitalProductType = json['digital_product_type'];
     }
-    if(json['digital_file_ready']!=null){
+    if (json['digital_file_ready'] != null) {
       _digitalFileReady = json['digital_file_ready'];
     }
   }
@@ -500,14 +508,14 @@ class Shipping {
 
   Shipping(
       {int? id,
-        int? creatorId,
-        String? creatorType,
-        String? title,
-        int? cost,
-        String? duration,
-        int? status,
-        String? createdAt,
-        String? updatedAt}) {
+      int? creatorId,
+      String? creatorType,
+      String? title,
+      int? cost,
+      String? duration,
+      int? status,
+      String? createdAt,
+      String? updatedAt}) {
     this._id = id;
     this._creatorId = creatorId;
     this._creatorType = creatorType;
@@ -554,4 +562,132 @@ class Shipping {
     data['updated_at'] = this._updatedAt;
     return data;
   }
+}
+
+class Customer {
+  int? id;
+  dynamic name;
+  String? fName;
+  String? lName;
+  String? phone;
+  String? image;
+  dynamic email;
+  dynamic emailVerifiedAt;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  dynamic streetAddress;
+  dynamic country;
+  dynamic city;
+  dynamic zip;
+  dynamic houseNo;
+  dynamic apartmentNo;
+  String? cmFirebaseToken;
+  int? isActive;
+  dynamic paymentCardLastFour;
+  dynamic paymentCardBrand;
+  dynamic paymentCardFawryToken;
+  dynamic loginMedium;
+  dynamic socialId;
+  int? isPhoneVerified;
+  String? temporaryToken;
+  int? isEmailVerified;
+  dynamic walletBalance;
+  dynamic loyaltyPoint;
+
+  Customer({
+    this.id,
+    this.name,
+    this.fName,
+    this.lName,
+    this.phone,
+    this.image,
+    this.email,
+    this.emailVerifiedAt,
+    this.createdAt,
+    this.updatedAt,
+    this.streetAddress,
+    this.country,
+    this.city,
+    this.zip,
+    this.houseNo,
+    this.apartmentNo,
+    this.cmFirebaseToken,
+    this.isActive,
+    this.paymentCardLastFour,
+    this.paymentCardBrand,
+    this.paymentCardFawryToken,
+    this.loginMedium,
+    this.socialId,
+    this.isPhoneVerified,
+    this.temporaryToken,
+    this.isEmailVerified,
+    this.walletBalance,
+    this.loyaltyPoint,
+  });
+
+  factory Customer.fromJson(Map<String, dynamic> json) => Customer(
+        id: json["id"],
+        name: json["name"],
+        fName: json["f_name"],
+        lName: json["l_name"],
+        phone: json["phone"],
+        image: json["image"],
+        email: json["email"],
+        emailVerifiedAt: json["email_verified_at"],
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
+        streetAddress: json["street_address"],
+        country: json["country"],
+        city: json["city"],
+        zip: json["zip"],
+        houseNo: json["house_no"],
+        apartmentNo: json["apartment_no"],
+        cmFirebaseToken: json["cm_firebase_token"],
+        isActive: json["is_active"],
+        paymentCardLastFour: json["payment_card_last_four"],
+        paymentCardBrand: json["payment_card_brand"],
+        paymentCardFawryToken: json["payment_card_fawry_token"],
+        loginMedium: json["login_medium"],
+        socialId: json["social_id"],
+        isPhoneVerified: json["is_phone_verified"],
+        temporaryToken: json["temporary_token"],
+        isEmailVerified: json["is_email_verified"],
+        walletBalance: json["wallet_balance"],
+        loyaltyPoint: json["loyalty_point"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "f_name": fName,
+        "l_name": lName,
+        "phone": phone,
+        "image": image,
+        "email": email,
+        "email_verified_at": emailVerifiedAt,
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
+        "street_address": streetAddress,
+        "country": country,
+        "city": city,
+        "zip": zip,
+        "house_no": houseNo,
+        "apartment_no": apartmentNo,
+        "cm_firebase_token": cmFirebaseToken,
+        "is_active": isActive,
+        "payment_card_last_four": paymentCardLastFour,
+        "payment_card_brand": paymentCardBrand,
+        "payment_card_fawry_token": paymentCardFawryToken,
+        "login_medium": loginMedium,
+        "social_id": socialId,
+        "is_phone_verified": isPhoneVerified,
+        "temporary_token": temporaryToken,
+        "is_email_verified": isEmailVerified,
+        "wallet_balance": walletBalance,
+        "loyalty_point": loyaltyPoint,
+      };
 }
