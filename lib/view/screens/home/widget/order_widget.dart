@@ -253,8 +253,14 @@ class OrderWidget extends StatelessWidget {
                                                 builder:
                                                     (BuildContext context) {
                                                   return CustomBottomSheet(
+                                                      seller: orderModel
+                                                              .orderReason
+                                                              ?.reason ??
+                                                          'seller',
                                                       cancelReason: orderModel
-                                                          .orderReason);
+                                                              .orderReason
+                                                              ?.reason ??
+                                                          '');
                                                 },
                                               );
                                       },
@@ -283,7 +289,8 @@ class OrderWidget extends StatelessWidget {
 
 class CustomBottomSheet extends StatefulWidget {
   String? cancelReason;
-  CustomBottomSheet({required this.cancelReason});
+  String? seller;
+  CustomBottomSheet({required this.cancelReason, required this.seller});
   @override
   _CustomBottomSheetState createState() => _CustomBottomSheetState();
 }
@@ -297,13 +304,23 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
           titleAlignment: ListTileTitleAlignment.center,
           title: Container(
               width: double.infinity,
-              child: Text('سبب للرفض',
+              child: Text('سبب الرفض',
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                   ))),
-          subtitle: Text(widget.cancelReason ?? '',
-              style: TextStyle(color: Colors.white)),
+          subtitle: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Flexible(
+                child: Text(widget.cancelReason ?? '',
+                    style: TextStyle(color: Colors.white)),
+              ),
+              Text(
+                  'تم الرفض من قبل ${widget.seller == 'seller' ? 'التاجر' : "العميل"}',
+                  style: TextStyle(color: Colors.white, fontSize: 12)),
+            ],
+          ),
         ));
   }
 }

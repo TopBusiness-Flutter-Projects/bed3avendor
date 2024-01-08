@@ -44,7 +44,7 @@ class Order {
   String? _transactionRef;
   double? _orderAmount;
   int? _qty;
-  String? _orderReason;
+  OrderReason? _orderReason;
   int? _shippingAddress;
   String? _shippingAddressData;
   int? _billingAddress;
@@ -77,7 +77,7 @@ class Order {
     String? paymentMethod,
     String? transactionRef,
     int? qty,
-    String? orderReason,
+    OrderReason? orderReason,
     double? orderAmount,
     int? shippingAddress,
     String? shippingAddressData,
@@ -166,7 +166,7 @@ class Order {
   String? get transactionRef => _transactionRef;
   double? get orderAmount => _orderAmount;
   double? get shippingCost => _shippingCost;
-  String? get orderReason => _orderReason;
+  OrderReason? get orderReason => _orderReason;
   int? get shippingAddress => _shippingAddress;
   String? get shippingAddressData => _shippingAddressData;
   int? get billingAddress => _billingAddress;
@@ -197,7 +197,9 @@ class Order {
     _orderStatus = json['order_status'];
     _paymentMethod = json['payment_method'];
     _transactionRef = json['transaction_ref'];
-    _orderReason = json['order_reason'];
+    _orderReason = json['order_reason'] == null
+        ? null
+        : OrderReason.fromJson(json['order_reason']);
     if (json['order_amount'] != null) {
       try {
         _orderAmount = json['order_amount'].toDouble();
@@ -609,4 +611,28 @@ class Shipping {
     data['updated_at'] = this._updatedAt;
     return data;
   }
+}
+
+class OrderReason {
+  int? userId;
+  String? type;
+  String? reason;
+
+  OrderReason({
+    this.userId,
+    this.type,
+    this.reason,
+  });
+
+  factory OrderReason.fromJson(Map<String, dynamic> json) => OrderReason(
+        userId: json["user_id"],
+        type: json["type"],
+        reason: json["reason"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "user_id": userId,
+        "type": type,
+        "reason": reason,
+      };
 }
