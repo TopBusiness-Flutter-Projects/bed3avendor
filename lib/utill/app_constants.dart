@@ -20,6 +20,9 @@ class AppConstants {
   static const String ORDER_DETAILS = '/api/v3/seller/orders/';
   static const String UPDATE_ORDER_STATUS =
       '/api/v3/seller/orders/order-detail-status/';
+
+  static const String REASON_CANCEL_ORDER =
+      '/api/v3/seller/orders/order-reason';
   static const String BALANCE_WITHDRAW = '/api/v3/seller/balance-withdraw';
   static const String CANCEL_BALANCE_REQUEST =
       '/api/v3/seller/close-withdraw-request';
@@ -187,6 +190,8 @@ class AppConstants {
   //api/v3/seller/products/delete/
   static const String DELETE_ORDERS_DISCOUNT_COUNT =
       '/api/v3/seller/products/delete/';
+  static const String DELETE_OFFER_FROM_ORDER =
+      '/api/v3/seller/products/remove-discount';
   static const String PENDING = 'pending';
   static const String CONFIRMED = 'confirmed';
   static const String PROCESSING = 'processing';

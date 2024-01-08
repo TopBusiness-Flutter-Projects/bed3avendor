@@ -70,8 +70,8 @@ class _SignInWidgetState extends State<SignInWidget> {
                         bottom: Dimensions.PADDING_SIZE_SMALL),
                     child: CustomTextField(
                       border: true,
-                      prefixIconImage: Images.email_icon,
-                      hintText: getTranslated('enter_email_address', context),
+                      prefixIconImage: Images.shop_phone,
+                      hintText: getTranslated('phone_number', context),
                       focusNode: _emailFocus,
                       nextNode: _passwordFocus,
                       textInputType: TextInputType.emailAddress,

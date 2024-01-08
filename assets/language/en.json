@@ -105,6 +105,7 @@
   "delivered": "Delivered",
   "return": "Return",
   "failed": "Failed to Delivery",
+  "failled":"failed",
   "price": "Price",
   "name": "Name",
   "city": "City",
@@ -140,7 +141,7 @@
   "orders": "Orders",
   "confirmed": "Confirmed",
   "out_for_delivery": "Out For Delivery",
-  "cancelled": "Cancelled",
+  "cancelled": "Canceled",
   "your_earnings": "Your Earnings",
   "commission_given": "Commission Given",
   "wallet": "Wallet",
@@ -704,6 +705,7 @@
   "product_add_failed": "Product add failed",
   "reports": "Reports",
   "offers": "Offers",
+  
   "notavailable": "Not Available",
   "confirm": "Confirm"
 }

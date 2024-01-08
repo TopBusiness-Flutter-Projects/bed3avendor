@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:bed3avendor/data/model/response/base/api_response.dart';
 import 'package:bed3avendor/data/model/response/business_analytics_filter_data.dart';
@@ -85,6 +86,23 @@ class OrderProvider extends ChangeNotifier {
     return apiResponse;
   }
 
+  Future<String> updateReasonOfCancelOrder(
+      int? id, String? reason, BuildContext context) async {
+    _isLoading = true;
+    notifyListeners();
+    String apiResponse;
+    apiResponse = await orderRepo!.updateReasonOfCancelOrder(id, reason);
+    if (apiResponse == "تم حفظ السبب بنجاح") {
+      getOrderList(context, 1, 'all');
+      _isLoading = false;
+      showCustomSnackBar(apiResponse, context, isToaster: true, isError: false);
+    } else {
+      _isLoading = false;
+    }
+    notifyListeners();
+    return apiResponse;
+  }
+
   Future<void> getOrderList(BuildContext? context, int offset, String status,
       {bool reload = true}) async {
     if (reload) {
@@ -104,7 +122,6 @@ class OrderProvider extends ChangeNotifier {
         _orderModel!.orders!
             .addAll(OrderModel.fromJson(apiResponse.response!.data).orders!);
       }
-
       for (Order order in _orderModel!.orders!) {
         _paymentStatus = order.paymentStatus;
       }
@@ -124,33 +141,50 @@ class OrderProvider extends ChangeNotifier {
       {bool notify = true, ScrollController? scrollController, String? title}) {
     _orderTypeIndex = index;
     if (_orderTypeIndex == 0) {
-      _orderType = 'all';
-      getOrderList(context, 1, 'all');
-    } else if (_orderTypeIndex == 1) {
       _orderType = 'pending';
       getOrderList(context, 1, 'pending');
-    } else if (_orderTypeIndex == 2) {
+    } else if (_orderTypeIndex == 1) {
       _orderType = 'processing';
       getOrderList(context, 1, 'processing');
+    } else if (_orderTypeIndex == 2) {
+      _orderType = 'out_for_delivery';
+      getOrderList(context, 1, 'out_for_delivery');
     } else if (_orderTypeIndex == 3) {
       _orderType = 'delivered';
       getOrderList(context, 1, 'delivered');
     } else if (_orderTypeIndex == 4) {
-      _orderType = 'return';
-      getOrderList(context, 1, 'return');
-    } else if (_orderTypeIndex == 5) {
-      _orderType = 'failed';
-      getOrderList(context, 1, 'failed');
-    } else if (_orderTypeIndex == 6) {
-      _orderType = 'cancelled';
-      getOrderList(context, 1, 'cancelled');
-    } else if (_orderTypeIndex == 7) {
-      _orderType = 'confirmed';
-      getOrderList(context, 1, 'confirmed');
-    } else if (_orderTypeIndex == 8) {
-      _orderType = 'out_for_delivery';
-      getOrderList(context, 1, 'out_for_delivery');
+      _orderType = 'canceled';
+      getOrderList(context, 1, 'canceled');
     }
+    // if (_orderTypeIndex == 0) {
+    //   _orderType = 'all';
+    //   getOrderList(context, 1, 'all');
+    // } else if (_orderTypeIndex == 1) {
+    //   _orderType = 'pending';
+    //   getOrderList(context, 1, 'pending');
+    // } else if (_orderTypeIndex == 2) {
+    //   _orderType = 'processing';
+    //   getOrderList(context, 1, 'processing');
+    // } else if (_orderTypeIndex == 3) {
+    //   _orderType = 'delivered';
+    //   getOrderList(context, 1, 'delivered');
+    // } else if (_orderTypeIndex == 4) {
+    //   _orderType = 'return';
+    //   getOrderList(context, 1, 'return');
+    // } else if (_orderTypeIndex == 5) {
+    //   _orderType = 'failed';
+    //   getOrderList(context, 1, 'failed');
+    // } else if (_orderTypeIndex == 6) {
+    //   _orderType = 'cancelled';
+    //   getOrderList(context, 1, 'cancelled');
+    // } else if (_orderTypeIndex == 7) {
+    //   _orderType = 'confirmed';
+    //   getOrderList(context, 1, 'confirmed');
+    // } else if (_orderTypeIndex == 8) {
+    //   _orderType = 'out_for_delivery';
+    //   getOrderList(context, 1, 'out_for_delivery');
+    // }
+
     if (notify) {
       notifyListeners();
     }

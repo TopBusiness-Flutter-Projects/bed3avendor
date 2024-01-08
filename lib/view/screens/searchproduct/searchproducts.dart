@@ -192,8 +192,23 @@ class _SearchProductsState extends State<SearchProducts> {
                                         backgroundColor: ColorResources.GREEN,
                                       ),
                                       Text(
-                                          'السعر ${order.mainOrderStatus[index].purchasePrice.toString()} ج.م',
-                                          style: robotoMedium.copyWith())
+                                          'السعر ${order.mainOrderStatus[index].purchasePrice!.toStringAsFixed(2)} ج.م',
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              decoration:
+                                                  order.refundTypeIndex == 2
+                                                      ? TextDecoration
+                                                          .lineThrough
+                                                      : TextDecoration.none,
+                                              decorationColor:
+                                                  order.refundTypeIndex == 2
+                                                      ? Colors.red
+                                                      : Colors.white)),
+                                      order.refundTypeIndex == 2
+                                          ? Text(
+                                              ' الخصم ${(order.mainOrderStatus[index].purchasePrice! - (order.mainOrderStatus[index].purchasePrice! * order.mainOrderStatus[index].discount! / 100)).toStringAsFixed(2)}ج.م',
+                                              style: TextStyle(fontSize: 12))
+                                          : Container(height: 0, width: 0),
                                     ],
                                   ),
                                 )
@@ -247,8 +262,16 @@ class _SearchProductsState extends State<SearchProducts> {
                                           },
                                         )
                                       : order.refundTypeIndex == 1
-                                          ? InkWell(
-                                              onTap: () {
+                                          ? TextButton(
+                                              style: ButtonStyle(
+                                                backgroundColor:
+                                                    MaterialStateProperty.all<
+                                                            Color>(
+                                                        ColorResources
+                                                            .getPrimary(
+                                                                context)),
+                                              ),
+                                              onPressed: () {
                                                 order.addProductToSeller(
                                                     context,
                                                     id: order
@@ -257,77 +280,77 @@ class _SearchProductsState extends State<SearchProducts> {
                                                         .toString());
                                               },
                                               child: Container(
-                                                  padding: EdgeInsets.all(5),
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              1000),
-                                                      color: Colors.blue),
-                                                  child: Icon(Icons.add,
-                                                      color: ColorResources
-                                                          .WHITE)),
+                                                  alignment: Alignment.center,
+                                                  child: Text(
+                                                    'أضف',
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  )),
                                             )
                                           : Container(height: 0),
-                                  order.refundTypeIndex == 1
-                                      ? Container(
-                                          height: 0,
-                                        )
-                                      : InkWell(
-                                          onTap: () {
-                                            showModalBottomSheet(
-                                                context: context,
-                                                isScrollControlled: true,
-                                                backgroundColor:
-                                                    Colors.transparent,
-                                                builder: (con) =>
-                                                    AddofferForProductScreen(
-                                                        title: order
-                                                                .mainOrderStatus[
-                                                                    index]
-                                                                .name ??
-                                                            '',
-                                                        id: order
-                                                            .mainOrderStatus[
-                                                                index]
-                                                            .id!));
-                                            ////////
-                                          },
-                                          child: Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                3.5,
-                                            decoration: BoxDecoration(
-                                                color: Theme.of(context)
-                                                    .primaryColor
-                                                    .withOpacity(.06),
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(Dimensions
-                                                        .PADDING_SIZE_SMALL))),
-                                            child: Center(
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Row(
-                                                  children: [
-                                                    Icon(
-                                                      Icons.local_offer,
-                                                      color: Theme.of(context)
-                                                          .primaryColor,
-                                                    ),
-                                                    SizedBox(
-                                                      width: Dimensions
-                                                          .PADDING_SIZE,
-                                                    ),
-                                                    Text(
-                                                      'اضف عرض',
-                                                      style:
-                                                          robotoMedium.copyWith(
-                                                              color: Theme.of(
-                                                                      context)
-                                                                  .primaryColor),
-                                                    )
-                                                  ],
+                                  (order.refundTypeIndex == 1 ||
+                                          order.refundTypeIndex == 2)
+                                      ? Flexible(
+                                          fit: FlexFit.tight,
+                                          child: Container(width: 0))
+                                      : Flexible(
+                                          child: InkWell(
+                                            onTap: () {
+                                              showModalBottomSheet(
+                                                  context: context,
+                                                  isScrollControlled: true,
+                                                  backgroundColor:
+                                                      Colors.transparent,
+                                                  builder: (con) =>
+                                                      AddofferForProductScreen(
+                                                          title: order
+                                                                  .mainOrderStatus[
+                                                                      index]
+                                                                  .name ??
+                                                              '',
+                                                          id: order
+                                                              .mainOrderStatus[
+                                                                  index]
+                                                              .id!));
+                                              ////////
+                                            },
+                                            child: Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  3.5,
+                                              decoration: BoxDecoration(
+                                                  color: Theme.of(context)
+                                                      .primaryColor
+                                                      .withOpacity(.06),
+                                                  borderRadius: BorderRadius.all(
+                                                      Radius.circular(Dimensions
+                                                          .PADDING_SIZE_SMALL))),
+                                              child: Center(
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Row(
+                                                    children: [
+                                                      Icon(
+                                                        Icons.local_offer,
+                                                        color: Theme.of(context)
+                                                            .primaryColor,
+                                                      ),
+                                                      SizedBox(
+                                                        width: Dimensions
+                                                            .PADDING_SIZE,
+                                                      ),
+                                                      Text(
+                                                        'اضف عرض',
+                                                        style: robotoMedium
+                                                            .copyWith(
+                                                                color: Theme.of(
+                                                                        context)
+                                                                    .primaryColor),
+                                                      )
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
                                             ),
@@ -340,8 +363,15 @@ class _SearchProductsState extends State<SearchProducts> {
                                       ? Container(
                                           height: 0,
                                         )
-                                      : InkWell(
-                                          onTap: () {
+                                      : TextButton(
+                                          style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty.all<
+                                                        Color>(
+                                                    ColorResources.getPrimary(
+                                                        context)),
+                                          ),
+                                          onPressed: () {
                                             showModalBottomSheet(
                                                 context: context,
                                                 isScrollControlled: true,
@@ -359,18 +389,21 @@ class _SearchProductsState extends State<SearchProducts> {
                                                     .size
                                                     .width /
                                                 8,
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                8,
+                                            // height: MediaQuery.of(context)
+                                            //         .size
+                                            //         .width /
+                                            //     8,
                                             decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: Theme.of(context)
-                                                  .primaryColor,
-                                            ),
+                                                // shape: BoxShape.circle,
+                                                color: Theme.of(context)
+                                                    .primaryColor,
+                                                borderRadius:
+                                                    BorderRadius.circular(22)),
+                                            alignment: Alignment.center,
 
-                                            child: Icon(Icons.edit,
-                                                color: Colors.white),
+                                            child: Text('تعديل',
+                                                style: TextStyle(
+                                                    color: Colors.white)),
                                             // child: Center(
                                             //   child: Padding(
                                             //     padding:
@@ -390,46 +423,42 @@ class _SearchProductsState extends State<SearchProducts> {
                                             // ),
                                           ),
                                         ),
+                                  SizedBox(width: 5),
                                   order.refundTypeIndex == 1
                                       ? Container(
                                           height: 0,
+                                          width: 0,
                                         )
-                                      : InkWell(
-                                          onTap: () {
-                                            order.deleteProductFromSeller(
-                                                id: order
-                                                    .mainOrderStatus[index].id
-                                                    .toString(),
-                                                context: context);
-                                            // delete Product
-                                            // showModalBottomSheet(
-                                            //     context: context,
-                                            //     isScrollControlled: true,
-                                            //     backgroundColor:
-                                            //         Colors.transparent,
-                                            //     builder: (con) =>
-                                            //         EditProductScreen(
-                                            //           mainOrder:
-                                            //               order.mainOrderStatus[
-                                            //                   index],
-                                            //         ));
+                                      : TextButton(
+                                          style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty.all<
+                                                        Color>(
+                                                    ColorResources.getPrimary(
+                                                        context)),
+                                          ),
+                                          onPressed: () {
+                                            order.refundTypeIndex == 2
+                                                ? order.deleteOfferFromSeller(
+                                                    id: order
+                                                        .mainOrderStatus[index]
+                                                        .id
+                                                        .toString(),
+                                                    context: context)
+                                                : order.deleteProductFromSeller(
+                                                    id: order
+                                                        .mainOrderStatus[index]
+                                                        .id
+                                                        .toString(),
+                                                    context: context);
                                           },
                                           child: Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                8,
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                8,
-                                            decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                color: Colors.red),
-                                            child: Icon(Icons.delete,
-                                                color: Colors.white),
+                                            alignment: Alignment.center,
+                                            child: Text('حذف',
+                                                style: TextStyle(
+                                                    color: Colors.white)),
                                           ),
-                                        )
+                                        ),
                                 ],
                               ),
                             )

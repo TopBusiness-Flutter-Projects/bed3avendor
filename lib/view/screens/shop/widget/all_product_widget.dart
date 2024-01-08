@@ -100,7 +100,6 @@ class _ProductViewState extends State<ProductView> {
         builder: (context, prodProvider, child) {
           List<Product>? productList;
           productList = prodProvider.sellerProductModel?.products;
-
           return Container(
             height: MediaQuery.of(context).size.height,
             child: Stack(
