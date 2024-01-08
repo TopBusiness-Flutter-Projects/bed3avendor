@@ -51,357 +51,373 @@ class _OrderScreenState extends State<OrderScreen> {
               ? Center(
                   child: CircularProgressIndicator(),
                 )
-              : ListView(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 0, vertical: Dimensions.PADDING_SIZE_SMALL),
-                  shrinkWrap: true,
-                  physics: const BouncingScrollPhysics(),
-                  children: [
-                    Container(
-                        height: MediaQuery.of(context).size.width / 2,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                            color: ColorResources.COLOR_BLUE,
-                            borderRadius: BorderRadius.only(
-                                bottomRight: Radius.circular(22),
-                                bottomLeft: Radius.circular(22))),
-                        child: Stack(
-                          children: [
-                            Container(
-                              width: MediaQuery.of(context).size.width / 2,
-                              height: MediaQuery.of(context).size.height,
-                              child: CustomPaint(
-                                painter: SplashPainter(),
+              : RefreshIndicator(
+                  onRefresh: () {
+                    Provider.of<OrderProvider>(context, listen: false)
+                        .getHomeScreenData(context);
+                    return Future(() => false);
+                  },
+                  child: ListView(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 0, vertical: Dimensions.PADDING_SIZE_SMALL),
+                    shrinkWrap: true,
+                    physics: const BouncingScrollPhysics(),
+                    children: [
+                      Container(
+                          height: MediaQuery.of(context).size.width / 2,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                              color: ColorResources.COLOR_BLUE,
+                              borderRadius: BorderRadius.only(
+                                  bottomRight: Radius.circular(22),
+                                  bottomLeft: Radius.circular(22))),
+                          child: Stack(
+                            children: [
+                              Container(
+                                width: MediaQuery.of(context).size.width / 2,
+                                height: MediaQuery.of(context).size.height,
+                                child: CustomPaint(
+                                  painter: SplashPainter(),
+                                ),
                               ),
-                            ),
-                            Column(
-                              children: [
-                                Container(
-                                  margin: const EdgeInsets.symmetric(
-                                      horizontal: 8.0, vertical: 16),
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                        margin: const EdgeInsets.fromLTRB(
-                                            Dimensions.PADDING_SIZE_SMALL,
-                                            0,
-                                            Dimensions.PADDING_SIZE_SMALL,
-                                            0),
-                                        child: Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              8,
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              8,
-                                          decoration: BoxDecoration(
-                                            color: Theme.of(context)
-                                                .highlightColor,
-                                            border: Border.all(
-                                                color: Colors.white, width: 3),
-                                            shape: BoxShape.circle,
-                                          ),
-                                          child: ClipRRect(
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(50)),
-                                            child: CustomImage(
-                                              width: 60,
-                                              height: 60,
-                                              image:
-                                                  '${Provider.of<SplashProvider>(context, listen: false).baseUrls!.sellerImageUrl}/${Provider.of<ProfileProvider>(context, listen: false).userInfoModel?.image ?? ''}',
-                                              fit: BoxFit.cover,
+                              Column(
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 8.0, vertical: 16),
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          margin: const EdgeInsets.fromLTRB(
+                                              Dimensions.PADDING_SIZE_SMALL,
+                                              0,
+                                              Dimensions.PADDING_SIZE_SMALL,
+                                              0),
+                                          child: Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                8,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                8,
+                                            decoration: BoxDecoration(
+                                              color: Theme.of(context)
+                                                  .highlightColor,
+                                              border: Border.all(
+                                                  color: Colors.white,
+                                                  width: 3),
+                                              shape: BoxShape.circle,
+                                            ),
+                                            child: ClipRRect(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(50)),
+                                              child: CustomImage(
+                                                width: 60,
+                                                height: 60,
+                                                image:
+                                                    '${Provider.of<SplashProvider>(context, listen: false).baseUrls!.sellerImageUrl}/${Provider.of<ProfileProvider>(context, listen: false).userInfoModel?.image ?? ''}',
+                                                fit: BoxFit.cover,
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                      Spacer(),
-                                      Column(
-                                        children: [
-                                          Text(
-                                              '${order.homeScreenModel!.wallet.toString()}ج',
-                                              style: TextStyle(
-                                                  color: ColorResources.WHITE,
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.bold)),
-                                          Text('الرصيد',
-                                              style: TextStyle(
-                                                  color: ColorResources.WHITE,
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.w600))
-                                        ],
-                                      )
-                                    ],
+                                        Spacer(),
+                                        Column(
+                                          children: [
+                                            Text(
+                                                '${order.homeScreenModel!.wallet.toString()}ج',
+                                                style: TextStyle(
+                                                    color: ColorResources.WHITE,
+                                                    fontSize: 18,
+                                                    fontWeight:
+                                                        FontWeight.bold)),
+                                            Text('الرصيد',
+                                                style: TextStyle(
+                                                    color: ColorResources.WHITE,
+                                                    fontSize: 18,
+                                                    fontWeight:
+                                                        FontWeight.w600))
+                                          ],
+                                        )
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                Container(
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Container(
-                                          alignment: Alignment.center,
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              4.5,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              4.5,
-                                          decoration: BoxDecoration(
-                                              color:
-                                                  ColorResources.COLUMBIA_BLUE,
-                                              borderRadius:
-                                                  BorderRadius.circular(5),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                    offset: Offset(2, 3),
-                                                    color: Colors.black12)
-                                              ]),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                  '${order.homeScreenModel!.totalPrice.toString()}ج',
-                                                  style: TextStyle(
-                                                      color:
-                                                          ColorResources.WHITE,
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.bold)),
-                                              Text('إجمالي الفواتير',
-                                                  style: TextStyle(
-                                                      color:
-                                                          ColorResources.WHITE,
-                                                      fontSize: 11,
-                                                      fontWeight:
-                                                          FontWeight.w500))
-                                            ],
-                                          )),
-                                      Container(
-                                          alignment: Alignment.center,
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              4.5,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              4.5,
-                                          decoration: BoxDecoration(
-                                              color:
-                                                  ColorResources.COLUMBIA_BLUE,
-                                              boxShadow: [
-                                                BoxShadow(
-                                                    offset: Offset(2, 3),
-                                                    color: Colors.black12)
-                                              ]),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                  '${order.homeScreenModel!.pendingPrice.toString()}ج',
-                                                  style: TextStyle(
-                                                      color:
-                                                          ColorResources.WHITE,
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.bold)),
-                                              Text('قيمة الفواتير المعلقه',
-                                                  maxLines: 1,
-                                                  style: TextStyle(
-                                                      color:
-                                                          ColorResources.WHITE,
-                                                      fontSize: 11,
-                                                      fontWeight:
-                                                          FontWeight.w500))
-                                            ],
-                                          )),
-                                      Container(
-                                          alignment: Alignment.center,
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              4.5,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              4.5,
-                                          decoration: BoxDecoration(
-                                              color:
-                                                  ColorResources.COLUMBIA_BLUE,
-                                              boxShadow: [
-                                                BoxShadow(
-                                                    offset: Offset(2, 3),
-                                                    color: Colors.black12)
-                                              ]),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                  '${order.homeScreenModel!.deliveredPrice.toString()}ج',
-                                                  style: TextStyle(
-                                                      color:
-                                                          ColorResources.WHITE,
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.bold)),
-                                              Text('تم التوصيل',
-                                                  style: TextStyle(
-                                                      color:
-                                                          ColorResources.WHITE,
-                                                      fontSize: 11,
-                                                      fontWeight:
-                                                          FontWeight.w500))
-                                            ],
-                                          )),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                          ],
-                        )),
-                    Container(
-                      // height: 50,
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'حالة الطلب',
-                        style: TextStyle(
-                            color: ColorResources.PRIMARY_MATERIAL,
-                            fontSize: 22),
+                                  Container(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Container(
+                                            alignment: Alignment.center,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                4.5,
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                4.5,
+                                            decoration: BoxDecoration(
+                                                color: ColorResources
+                                                    .COLUMBIA_BLUE,
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                      offset: Offset(2, 3),
+                                                      color: Colors.black12)
+                                                ]),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                    '${order.homeScreenModel!.totalPrice.toString()}ج',
+                                                    style: TextStyle(
+                                                        color: ColorResources
+                                                            .WHITE,
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                                Text('إجمالي الفواتير',
+                                                    style: TextStyle(
+                                                        color: ColorResources
+                                                            .WHITE,
+                                                        fontSize: 11,
+                                                        fontWeight:
+                                                            FontWeight.w500))
+                                              ],
+                                            )),
+                                        Container(
+                                            alignment: Alignment.center,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                4.5,
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                4.5,
+                                            decoration: BoxDecoration(
+                                                color: ColorResources
+                                                    .COLUMBIA_BLUE,
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                      offset: Offset(2, 3),
+                                                      color: Colors.black12)
+                                                ]),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                    '${order.homeScreenModel!.pendingPrice.toString()}ج',
+                                                    style: TextStyle(
+                                                        color: ColorResources
+                                                            .WHITE,
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                                Text('قيمة الفواتير المعلقه',
+                                                    maxLines: 1,
+                                                    style: TextStyle(
+                                                        color: ColorResources
+                                                            .WHITE,
+                                                        fontSize: 11,
+                                                        fontWeight:
+                                                            FontWeight.w500))
+                                              ],
+                                            )),
+                                        Container(
+                                            alignment: Alignment.center,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                4.5,
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                4.5,
+                                            decoration: BoxDecoration(
+                                                color: ColorResources
+                                                    .COLUMBIA_BLUE,
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                      offset: Offset(2, 3),
+                                                      color: Colors.black12)
+                                                ]),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                    '${order.homeScreenModel!.deliveredPrice.toString()}ج',
+                                                    style: TextStyle(
+                                                        color: ColorResources
+                                                            .WHITE,
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                                Text('تم التوصيل',
+                                                    style: TextStyle(
+                                                        color: ColorResources
+                                                            .WHITE,
+                                                        fontSize: 11,
+                                                        fontWeight:
+                                                            FontWeight.w500))
+                                              ],
+                                            )),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ],
+                          )),
+                      Container(
+                        // height: 50,
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'حالة الطلب',
+                          style: TextStyle(
+                              color: ColorResources.PRIMARY_MATERIAL,
+                              fontSize: 22),
+                        ),
                       ),
-                    ),
-                    NewOrderWidget(
-                        backColor: Color(0xffd0dff6),
-                        index: 0,
-                        scrollController: scrollController,
-                        imageName: 'assets/image/037-waiting.png',
-                        title: getTranslated('pending', context) ?? '',
-                        num: order.homeScreenModel!.pending.toString()),
-                    // OrderTypeButton(text: getTranslated('all', context), index: 0, ),
-                    // SizedBox(width: 5),
-                    // OrderTypeButton(
-                    //     order: order,
-                    //     orderList: orderList,
-                    //     orderModel: order.orderModel,
-                    //     scrollController: scrollController,
-                    //     text: getTranslated('pending', context),
-                    //     index: 0),
-                    SizedBox(height: 5),
-                    NewOrderWidget(
-                        backColor: Color(0xfff2e4b7),
-                        scrollController: scrollController,
-                        index: 1,
-                        imageName: 'assets/image/051-shopping-list-1.png',
-                        title: getTranslated('processing', context) ?? '',
-                        num: order.homeScreenModel!.processing.toString()),
-                    // OrderTypeButton(
-                    //     order: order,
-                    //     orderList: orderList,
-                    //     orderModel: order.orderModel,
-                    //     scrollController: scrollController,
-                    //     text: getTranslated('processing', context),
-                    //     index: 1),
-                    SizedBox(height: 5),
-                    NewOrderWidget(
-                        index: 2,
-                        backColor: Color(0xffc6f3de),
-                        scrollController: scrollController,
-                        imageName: 'assets/image/039-delivery-boy.png',
-                        title: getTranslated('in_way', context) ?? '',
-                        num: order.homeScreenModel!.outForDelivery.toString()),
-                    // OrderTypeButton(
-                    //     order: order,
-                    //     orderList: orderList,
-                    //     orderModel: order.orderModel,
-                    //     scrollController: scrollController,
-                    //     text: getTranslated('in_way', context),
-                    //     index: 2),
-                    SizedBox(height: 5),
-                    NewOrderWidget(
-                        backColor: Color(0xff13ea60),
-                        index: 3,
-                        scrollController: scrollController,
-                        imageName: 'assets/image/040-received.png',
-                        title: getTranslated('delivered', context) ?? '',
-                        num: order.homeScreenModel!.delivered.toString()),
-                    // OrderTypeButton(
-                    //     order: order,
-                    //     orderList: orderList,
-                    //     orderModel: order.orderModel,
-                    //     scrollController: scrollController,
-                    //     text: getTranslated('delivered', context),
-                    //     index: 3),
-                    SizedBox(height: 5),
-                    NewOrderWidget(
-                        index: 4,
-                        backColor: Color(0xffbbbbbb),
-                        scrollController: scrollController,
-                        imageName: 'assets/image/041-cancel.png',
-                        title: getTranslated('cancelled', context) ?? '',
-                        num: order.homeScreenModel!.canceled.toString()),
-                    // OrderTypeButton(
-                    //     order: order,
-                    //     orderList: orderList,
-                    //     orderModel: order.orderModel,
-                    //     scrollController: scrollController,
-                    //     text: getTranslated('cancelled', context),
-                    //     index: 4),
-                    SizedBox(height: 5),
+                      NewOrderWidget(
+                          backColor: Color(0xffd0dff6),
+                          index: 0,
+                          scrollController: scrollController,
+                          imageName: 'assets/image/037-waiting.png',
+                          title: getTranslated('pending', context) ?? '',
+                          num:
+                              order.homeScreenModel?.pending.toString() ?? '0'),
+                      // OrderTypeButton(text: getTranslated('all', context), index: 0, ),
+                      // SizedBox(width: 5),
+                      // OrderTypeButton(
+                      //     order: order,
+                      //     orderList: orderList,
+                      //     orderModel: order.orderModel,
+                      //     scrollController: scrollController,
+                      //     text: getTranslated('pending', context),
+                      //     index: 0),
+                      SizedBox(height: 5),
+                      NewOrderWidget(
+                          backColor: Color(0xfff2e4b7),
+                          scrollController: scrollController,
+                          index: 1,
+                          imageName: 'assets/image/051-shopping-list-1.png',
+                          title: getTranslated('processing', context) ?? '',
+                          num: order.homeScreenModel?.processing.toString() ??
+                              '0'),
+                      // OrderTypeButton(
+                      //     order: order,
+                      //     orderList: orderList,
+                      //     orderModel: order.orderModel,
+                      //     scrollController: scrollController,
+                      //     text: getTranslated('processing', context),
+                      //     index: 1),
+                      SizedBox(height: 5),
+                      NewOrderWidget(
+                          index: 2,
+                          backColor: Color(0xffc6f3de),
+                          scrollController: scrollController,
+                          imageName: 'assets/image/039-delivery-boy.png',
+                          title: getTranslated('in_way', context) ?? '',
+                          num: order.homeScreenModel?.outForDelivery
+                                  .toString() ??
+                              '0'),
+                      // OrderTypeButton(
+                      //     order: order,
+                      //     orderList: orderList,
+                      //     orderModel: order.orderModel,
+                      //     scrollController: scrollController,
+                      //     text: getTranslated('in_way', context),
+                      //     index: 2),
+                      SizedBox(height: 5),
+                      NewOrderWidget(
+                          backColor: Color(0xff13ea60),
+                          index: 3,
+                          scrollController: scrollController,
+                          imageName: 'assets/image/040-received.png',
+                          title: getTranslated('delivered', context) ?? '',
+                          num: order.homeScreenModel?.delivered.toString() ??
+                              '0'),
+                      // OrderTypeButton(
+                      //     order: order,
+                      //     orderList: orderList,
+                      //     orderModel: order.orderModel,
+                      //     scrollController: scrollController,
+                      //     text: getTranslated('delivered', context),
+                      //     index: 3),
+                      SizedBox(height: 5),
+                      NewOrderWidget(
+                          index: 4,
+                          backColor: Color(0xffbbbbbb),
+                          scrollController: scrollController,
+                          imageName: 'assets/image/041-cancel.png',
+                          title: getTranslated('failled', context) ?? '',
+                          num: order.homeScreenModel?.canceled.toString() ??
+                              '0'),
+                      // OrderTypeButton(
+                      //     order: order,
+                      //     orderList: orderList,
+                      //     orderModel: order.orderModel,
+                      //     scrollController: scrollController,
+                      //     text: getTranslated('cancelled', context),
+                      //     index: 4),
+                      SizedBox(height: 5),
 
-                    //<<!todo>>>//data
-                    // order.orderModel != null
-                    //     ? orderList!.length > 0
-                    //         ? Expanded(
-                    //             child: RefreshIndicator(
-                    //               onRefresh: () async {
-                    //                 await order.getOrderList(
-                    //                     context, 1, order.orderType);
-                    //               },
-                    //               child: SingleChildScrollView(
-                    //                 controller: scrollController,
-                    //                 child: PaginatedListView(
-                    //                   reverse: false,
-                    //                   scrollController: scrollController,
-                    //                   totalSize: order.orderModel?.totalSize,
-                    //                   offset: order.orderModel != null
-                    //                       ? int.parse(
-                    //                           order.orderModel!.offset.toString())
-                    //                       : null,
-                    //                   onPaginate: (int? offset) async {
-                    //                     await order.getOrderList(
-                    //                         context, offset!, order.orderType,
-                    //                         reload: false);
-                    //                   },
-                    //                   itemView: ListView.builder(
-                    //                     itemCount: orderList.length,
-                    //                     padding: EdgeInsets.all(0),
-                    //                     physics: NeverScrollableScrollPhysics(),
-                    //                     shrinkWrap: true,
-                    //                     itemBuilder:
-                    //                         (BuildContext context, int index) {
-                    //                       return OrderWidget(
-                    //                         orderModel: orderList![index],
-                    //                         index: index,
-                    //                       );
-                    //                     },
-                    //                   ),
-                    //                 ),
-                    //               ),
-                    //             ),
-                    //           )
-                    //         : Expanded(
-                    //             child: NoDataScreen(
-                    //             title: 'no_order_found',
-                    //           ))
-                    //     : Expanded(child: OrderShimmer()),
-                  ],
+                      //<<!todo>>>//data
+                      // order.orderModel != null
+                      //     ? orderList!.length > 0
+                      //         ? Expanded(
+                      //             child: RefreshIndicator(
+                      //               onRefresh: () async {
+                      //                 await order.getOrderList(
+                      //                     context, 1, order.orderType);
+                      //               },
+                      //               child: SingleChildScrollView(
+                      //                 controller: scrollController,
+                      //                 child: PaginatedListView(
+                      //                   reverse: false,
+                      //                   scrollController: scrollController,
+                      //                   totalSize: order.orderModel?.totalSize,
+                      //                   offset: order.orderModel != null
+                      //                       ? int.parse(
+                      //                           order.orderModel!.offset.toString())
+                      //                       : null,
+                      //                   onPaginate: (int? offset) async {
+                      //                     await order.getOrderList(
+                      //                         context, offset!, order.orderType,
+                      //                         reload: false);
+                      //                   },
+                      //                   itemView: ListView.builder(
+                      //                     itemCount: orderList.length,
+                      //                     padding: EdgeInsets.all(0),
+                      //                     physics: NeverScrollableScrollPhysics(),
+                      //                     shrinkWrap: true,
+                      //                     itemBuilder:
+                      //                         (BuildContext context, int index) {
+                      //                       return OrderWidget(
+                      //                         orderModel: orderList![index],
+                      //                         index: index,
+                      //                       );
+                      //                     },
+                      //                   ),
+                      //                 ),
+                      //               ),
+                      //             ),
+                      //           )
+                      //         : Expanded(
+                      //             child: NoDataScreen(
+                      //             title: 'no_order_found',
+                      //           ))
+                      //     : Expanded(child: OrderShimmer()),
+                    ],
+                  ),
                 );
         },
       ),
@@ -565,6 +581,8 @@ class NewOrderWidget extends StatelessWidget {
         Provider.of<OrderProvider>(context, listen: false).setIndex(
             context, index,
             scrollController: scrollController, title: title);
+        Provider.of<OrderProvider>(context, listen: false)
+            .getHomeScreenData(context);
       },
       child: Container(
           margin: EdgeInsets.symmetric(horizontal: 12),

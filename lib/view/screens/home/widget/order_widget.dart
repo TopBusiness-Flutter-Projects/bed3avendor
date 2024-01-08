@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:bed3avendor/data/model/response/order_model.dart';
 import 'package:bed3avendor/helper/date_converter.dart';
@@ -67,24 +69,23 @@ class OrderWidget extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Expanded(
-                            child: Container(
-                              padding: const EdgeInsets.all(8.0),
-                              decoration: BoxDecoration(
-                                  color: Theme.of(context)
-                                      .primaryColor
-                                      .withOpacity(.05),
-                                  borderRadius: BorderRadius.circular(
-                                      Dimensions.PADDING_SIZE_EXTRA_SMALL)),
-                              child: Center(
-                                child: Text(
-                                  'اسم العميل',
-                                  style: robotoMedium.copyWith(
-                                      color: Theme.of(context).primaryColor,
-                                      fontSize: Dimensions.FONT_SIZE_LARGE),
-                                ),
-                              ),
-                            ),
-                          ),
+                              child: Container(
+                                  padding: const EdgeInsets.all(8.0),
+                                  decoration: BoxDecoration(
+                                      color: Theme.of(context)
+                                          .primaryColor
+                                          .withOpacity(.05),
+                                      borderRadius: BorderRadius.circular(
+                                          Dimensions.PADDING_SIZE_EXTRA_SMALL)),
+                                  child: Center(
+                                      child: Text(
+                                          '${orderModel.customer?.fName ?? ''} ${orderModel.customer?.lName ?? ''}',
+                                          style: robotoMedium.copyWith(
+                                              overflow: TextOverflow.fade,
+                                              color: Theme.of(context)
+                                                  .primaryColor,
+                                              fontSize: Dimensions
+                                                  .FONT_SIZE_LARGE))))),
                           Container(
                             padding: const EdgeInsets.all(8.0),
                             // decoration: BoxDecoration(
@@ -155,7 +156,8 @@ class OrderWidget extends StatelessWidget {
                                                 fontSize: Dimensions
                                                     .FONT_SIZE_DEFAULT))
                                         : SizedBox(),
-                                    Text('المنطقة : شبين الكوم',
+                                    Text(
+                                        'المنطقة : ${orderModel.customer?.city ?? ''}',
                                         maxLines: 1,
                                         style: robotoRegular.copyWith(
                                             color: Theme.of(context).hintColor,
@@ -189,11 +191,10 @@ class OrderWidget extends StatelessWidget {
                               Column(
                                 children: [
                                   Text(
-                                      "الاصناف : " +
-                                          orderModel.orderAmount.toString(),
+                                      "الاصناف : " + '${orderModel.qty ?? ''} ',
                                       style: robotoRegular.copyWith(
                                           color: Theme.of(context).hintColor)),
-                                  Text('3500 ج.م',
+                                  Text('${orderModel.orderAmount} ج.م',
                                       style: robotoRegular.copyWith(
                                           color: Theme.of(context).hintColor)),
                                 ],
@@ -204,53 +205,65 @@ class OrderWidget extends StatelessWidget {
                           // SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
 
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    height: Dimensions.ICON_SIZE_SMALL,
-                                    width: Dimensions.ICON_SIZE_SMALL,
-                                    child: Image.asset(orderModel.orderStatus ==
-                                            'pending'
-                                        ? Images.order_pending_icon
-                                        : orderModel.orderStatus ==
-                                                'out_for_delivery'
-                                            ? Images.out_icon
+                              Container(
+                                height: Dimensions.ICON_SIZE_SMALL,
+                                width: Dimensions.ICON_SIZE_SMALL,
+                                child: Image.asset(orderModel.orderStatus ==
+                                        'pending'
+                                    ? Images.order_pending_icon
+                                    : orderModel.orderStatus ==
+                                            'out_for_delivery'
+                                        ? Images.out_icon
+                                        : orderModel.orderStatus == 'returned'
+                                            ? Images.return_icon
                                             : orderModel.orderStatus ==
-                                                    'returned'
-                                                ? Images.return_icon
-                                                : orderModel.orderStatus ==
-                                                        'delivered'
-                                                    ? Images.delivered_icon
-                                                    : Images.confirm_purchase),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                        getTranslated(
-                                            orderModel.orderStatus, context)!,
-                                        style: robotoRegular.copyWith(
-                                            color: ColorResources.getPrimary(
-                                                context))),
-                                  ),
-                                ],
+                                                    'delivered'
+                                                ? Images.delivered_icon
+                                                : Images.confirm_purchase),
                               ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                    getTranslated(
+                                            orderModel.orderStatus, context) ??
+                                        '',
+                                    style: robotoRegular.copyWith(
+                                        color: ColorResources.getPrimary(
+                                            context))),
+                              ),
+                              Spacer(),
+                              orderModel.orderStatus == 'canceled'
+                                  ? IconButton(
+                                      onPressed: () {
+                                        orderModel.orderReason == null
+                                            ? Fluttertoast.showToast(
+                                                msg: 'لايوجد سبب للرفض')
+                                            : showModalBottomSheet(
+                                                context: context,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.vertical(
+                                                          top: Radius.circular(
+                                                              20.0)),
+                                                ),
+                                                backgroundColor: Colors
+                                                    .blueAccent, // Change the background color
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return CustomBottomSheet(
+                                                      cancelReason: orderModel
+                                                          .orderReason);
+                                                },
+                                              );
 
-                              // Row(children: [
-                              //
-                              //
-                              //   Text(orderModel?.paymentMethod != null?getTranslated(orderModel.paymentMethod??'', context)!:'',
-                              //       style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT, color: Theme.of(context).hintColor)),
-                              //   SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
-                              //   Container(height: Dimensions.ICON_SIZE_DEFAULT, width: Dimensions.ICON_SIZE_DEFAULT,
-                              //
-                              //     child: Image.asset(orderModel.paymentMethod == 'cash_on_delivery'? Images.payment_icon:
-                              //     orderModel.paymentMethod == 'pay_by_wallet'? Images.pay_by_wallet_icon : Images.digital_payment_icon),),
-                              //
-                              // ],),
+                                        print(orderModel.orderReason);
+                                      },
+                                      icon: Image.asset(
+                                          'assets/image/cancel_order.png'),
+                                    )
+                                  : Container()
                             ],
                           ),
                         ],
@@ -265,5 +278,28 @@ class OrderWidget extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class CustomBottomSheet extends StatefulWidget {
+  String? cancelReason;
+  CustomBottomSheet({required this.cancelReason});
+  @override
+  _CustomBottomSheetState createState() => _CustomBottomSheetState();
+}
+
+class _CustomBottomSheetState extends State<CustomBottomSheet> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        padding: EdgeInsets.all(22),
+        child: ListTile(
+          titleAlignment: ListTileTitleAlignment.center,
+          title: Container(
+              width: double.infinity,
+              child: Text('سبب للرفض', style: TextStyle(color: Colors.white))),
+          subtitle: Text(widget.cancelReason ?? '',
+              style: TextStyle(color: Colors.white)),
+        ));
   }
 }

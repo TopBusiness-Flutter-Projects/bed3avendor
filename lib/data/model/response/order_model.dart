@@ -43,6 +43,8 @@ class Order {
   String? _paymentMethod;
   String? _transactionRef;
   double? _orderAmount;
+  int? _qty;
+  String? _orderReason;
   int? _shippingAddress;
   String? _shippingAddressData;
   int? _billingAddress;
@@ -74,6 +76,8 @@ class Order {
     String? orderStatus,
     String? paymentMethod,
     String? transactionRef,
+    int? qty,
+    String? orderReason,
     double? orderAmount,
     int? shippingAddress,
     String? shippingAddressData,
@@ -106,6 +110,8 @@ class Order {
     this._paymentMethod = paymentMethod;
     this._transactionRef = transactionRef;
     this._orderAmount = orderAmount;
+    this._qty = qty;
+    this._orderReason = orderReason;
     this._shippingAddress = shippingAddress;
     this._shippingAddressData = shippingAddressData;
     this._billingAddress = billingAddress;
@@ -146,6 +152,7 @@ class Order {
 
   // ignore: unnecessary_getters_setters
   int? get id => _id;
+  int? get qty => _qty;
   // ignore: unnecessary_getters_setters
   set id(int? id) => _id = id;
   int? get customerId => _customerId;
@@ -159,6 +166,7 @@ class Order {
   String? get transactionRef => _transactionRef;
   double? get orderAmount => _orderAmount;
   double? get shippingCost => _shippingCost;
+  String? get orderReason => _orderReason;
   int? get shippingAddress => _shippingAddress;
   String? get shippingAddressData => _shippingAddressData;
   int? get billingAddress => _billingAddress;
@@ -182,12 +190,14 @@ class Order {
 
   Order.fromJson(Map<String, dynamic> json) {
     _id = json['id'];
+    _qty = json['qty'];
     _customerId = json['customer_id'];
     _customerType = json['customer_type'];
     _paymentStatus = json['payment_status'];
     _orderStatus = json['order_status'];
     _paymentMethod = json['payment_method'];
     _transactionRef = json['transaction_ref'];
+    _orderReason = json['order_reason'];
     if (json['order_amount'] != null) {
       try {
         _orderAmount = json['order_amount'].toDouble();
@@ -266,11 +276,13 @@ class Order {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this._id;
     data['customer_id'] = this._customerId;
+    data['qty'] = this._qty;
     data['customer_type'] = this._customerType;
     data['payment_status'] = this._paymentStatus;
     data['order_status'] = this._orderStatus;
     data['payment_method'] = this._paymentMethod;
     data['transaction_ref'] = this._transactionRef;
+    data['order_reason'] = this._orderReason;
     data['order_amount'] = this._orderAmount;
     data['shipping_address'] = this._shippingAddress;
     data['shipping_address_data'] = this.shippingAddressData;

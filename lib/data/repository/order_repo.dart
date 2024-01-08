@@ -59,6 +59,20 @@ class OrderRepo {
     }
   }
 
+  Future<String> updateReasonOfCancelOrder(int? orderID, String? reason) async {
+    print(
+        'update order statusReasonOfCancel ====>${orderID.toString()} =======>${reason.toString()}');
+    try {
+      Response response = await dioClient!.post(
+        '${AppConstants.REASON_CANCEL_ORDER}',
+        data: {'type': 'seller', 'reason': reason, "id": orderID},
+      );
+      return response.data['message'];
+    } catch (e) {
+      return e.toString();
+    }
+  }
+
   Future<ApiResponse> getOrderStatusList(String type) async {
     try {
       List<String> addressTypeList = [];
@@ -67,7 +81,9 @@ class OrderRepo {
           'pending',
           'confirmed',
           'processing',
-          'cancelled',
+          'out_for_delivery',
+          'delivered',
+          'canceled',
         ];
       } else {
         addressTypeList = [
@@ -78,7 +94,7 @@ class OrderRepo {
           'delivered',
           'returned',
           'failed',
-          'cancelled',
+          'canceled',
         ];
       }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:bed3avendor/data/model/response/order_model.dart';
 import 'package:bed3avendor/localization/language_constrants.dart';
@@ -35,11 +36,14 @@ class _OrderSetupState extends State<OrderSetup> {
             widget.orderModel!.orderStatus == 'delivered' ||
             widget.orderModel!.orderStatus == 'returned' ||
             widget.orderModel!.orderStatus == 'failed' ||
-            widget.orderModel!.orderStatus == 'cancelled')) {
+            widget.orderModel!.orderStatus == 'canceled')) {
       inHouseShipping = true;
     } else {
       inHouseShipping = false;
     }
+
+    final formKey = GlobalKey<FormState>();
+    TextEditingController textEditingController = TextEditingController();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: CustomAppBar(
@@ -92,8 +96,93 @@ class _OrderSetupState extends State<OrderSetup> {
                           style: robotoRegular,
                           onChanged: (value) {
                             print('======Selected type==$value======');
-                            order.updateOrderStatus(
-                                widget.orderModel!.id, value, context);
+                            if (value == 'canceled') {
+                              // showDialog(
+                              //   context: context,
+                              //   builder: (context) {
+                              //     return Container(
+                              //       child: Form(
+                              //         key: formKey,
+                              // child: Column(
+                              //   children: [
+                              //     TextFormField(
+                              //       controller: textEditingController,
+                              //       validator: (value) {
+                              //         if (value!.isEmpty) {
+                              //           Fluttertoast.showToast(
+                              //               msg:
+                              //                   'من فضلك أدخب سبب الالغاء');
+                              //         }
+                              //         return null;
+                              //       },
+                              //     ),
+                              //     ElevatedButton(
+                              // onPressed: () {
+                              //   if (formKey.currentState!
+                              //       .validate()) {
+                              //     order
+                              //         .updateOrderStatus(
+                              //             widget.orderModel!.id,
+                              //             value,
+                              //             context)
+                              //         .then((value) {
+                              //       Provider.of<OrderProvider>(
+                              //               context,
+                              //               listen: false)
+                              //           .getHomeScreenData(
+                              //               context);
+                              //     });
+                              //   }
+                              // },
+                              //         child: Text('تاكيد'))
+                              //   ],
+                              //         ),
+                              //       ),
+                              //     );
+                              //   },
+                              // );
+
+                              showModalBottomSheet(
+                                context: context,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.vertical(
+                                      top: Radius.circular(20.0)),
+                                ),
+                                backgroundColor: Colors.white,
+                                builder: (BuildContext context) {
+                                  return CustomBottomSheet(formkey: formKey,
+                                      onPressed: () {
+                                    if (formKey.currentState!.validate()) {
+                                      order
+                                          .updateReasonOfCancelOrder(
+                                              widget.orderModel!.id,
+                                              textEditingController.text,
+                                              context)
+                                          .then((values) {
+                                        order
+                                            .updateOrderStatus(
+                                                widget.orderModel!.id,
+                                                value,
+                                                context)
+                                            .then((value) {
+                                          order.getHomeScreenData(context);
+                                          Navigator.pop(context);
+                                        });
+                                      });
+                                    }
+                                  }, textEditingController);
+                                },
+                              );
+                            } else {
+                              order
+                                  .updateOrderStatus(
+                                      widget.orderModel!.id, value, context)
+                                  .then((value) {
+                                Provider.of<OrderProvider>(context,
+                                        listen: false)
+                                    .getHomeScreenData(context);
+                              });
+                            }
                           },
                           items: order.orderStatusList
                               .map<DropdownMenuItem<String>>((String value) {
@@ -153,6 +242,72 @@ class _OrderSetupState extends State<OrderSetup> {
           }),
         ],
       ),
+    );
+  }
+}
+
+class CustomBottomSheet extends StatefulWidget {
+  TextEditingController? textController;
+  void Function()? onPressed;
+  final formkey;
+  CustomBottomSheet(this.textController,
+      {required this.onPressed, required this.formkey});
+  @override
+  _CustomBottomSheetState createState() => _CustomBottomSheetState();
+}
+
+class _CustomBottomSheetState extends State<CustomBottomSheet> {
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Container(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.bottom,
+          ),
+          child: Form(
+            key: widget.formkey,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: Icon(
+                          Icons.close,
+                          color: Colors.red,
+                        ))
+                  ],
+                ),
+                SizedBox(height: 20),
+                TextFormField(
+                  maxLines: 3,
+                  decoration:
+                      InputDecoration(hintText: ' اكتب سبب الغاء الطلب! '),
+                  controller: widget.textController,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      Fluttertoast.showToast(msg: 'من فضلك أدخب سبب الالغاء');
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(height: 5),
+                ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.blue)),
+                    onPressed: widget.onPressed,
+                    child: Text(
+                      'تاكيد',
+                      style: TextStyle(color: Colors.white),
+                    )),
+                SizedBox(height: 20),
+              ],
+            ),
+          )),
     );
   }
 }

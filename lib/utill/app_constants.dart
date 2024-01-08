@@ -20,6 +20,9 @@ class AppConstants {
   static const String ORDER_DETAILS = '/api/v3/seller/orders/';
   static const String UPDATE_ORDER_STATUS =
       '/api/v3/seller/orders/order-detail-status/';
+
+  static const String REASON_CANCEL_ORDER =
+      '/api/v3/seller/orders/order-reason';
   static const String BALANCE_WITHDRAW = '/api/v3/seller/balance-withdraw';
   static const String CANCEL_BALANCE_REQUEST =
       '/api/v3/seller/close-withdraw-request';

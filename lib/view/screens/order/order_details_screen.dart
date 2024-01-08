@@ -8,19 +8,12 @@ import 'package:bed3avendor/provider/order_provider.dart';
 import 'package:bed3avendor/provider/splash_provider.dart';
 import 'package:bed3avendor/utill/color_resources.dart';
 import 'package:bed3avendor/utill/dimensions.dart';
-import 'package:bed3avendor/utill/images.dart';
 import 'package:bed3avendor/utill/styles.dart';
-import 'package:bed3avendor/view/base/custom_app_bar.dart';
 import 'package:bed3avendor/view/base/custom_button.dart';
-import 'package:bed3avendor/view/base/custom_divider.dart';
 import 'package:bed3avendor/view/base/no_data_screen.dart';
-import 'package:bed3avendor/view/screens/order/widget/customer_contact_widget.dart';
-import 'package:bed3avendor/view/screens/order/widget/delivery_man_information.dart';
+
 import 'package:bed3avendor/view/screens/order/widget/order_product_list_item.dart';
 import 'package:bed3avendor/view/screens/order/widget/order_setup.dart';
-import 'package:bed3avendor/view/screens/order/widget/order_top_section.dart';
-import 'package:bed3avendor/view/screens/order/widget/shipping_and_biilling_widget.dart';
-import 'package:bed3avendor/view/screens/order/widget/third_party_delivery_info.dart';
 
 class OrderDetailsScreen extends StatefulWidget {
   final Order? orderModel;
