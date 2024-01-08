@@ -257,11 +257,11 @@ class OrderWidget extends StatelessWidget {
                                                           .orderReason);
                                                 },
                                               );
-
-                                        print(orderModel.orderReason);
                                       },
                                       icon: Image.asset(
-                                          'assets/image/cancel_order.png'),
+                                          'assets/image/cancel_order.png',
+                                          width: 25,
+                                          height: 25),
                                     )
                                   : Container()
                             ],
@@ -297,7 +297,11 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
           titleAlignment: ListTileTitleAlignment.center,
           title: Container(
               width: double.infinity,
-              child: Text('سبب للرفض', style: TextStyle(color: Colors.white))),
+              child: Text('سبب للرفض',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ))),
           subtitle: Text(widget.cancelReason ?? '',
               style: TextStyle(color: Colors.white)),
         ));
