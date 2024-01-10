@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:bed3avendor/data/model/response/order_model.dart';
@@ -157,12 +158,31 @@ class OrderWidget extends StatelessWidget {
                                                     .FONT_SIZE_DEFAULT))
                                         : SizedBox(),
                                     Text(
-                                        'المنطقة : ${orderModel.customer?.city ?? ''}',
+                                        orderModel.customer?.city == null
+                                            ? ''
+                                            : 'المنطقة : ${orderModel.customer?.city ?? ''}',
                                         maxLines: 1,
                                         style: robotoRegular.copyWith(
                                             color: Theme.of(context).hintColor,
                                             fontSize:
                                                 Dimensions.FONT_SIZE_DEFAULT)),
+                                    InkWell(
+                                      onTap: () async {
+                                        await Clipboard.setData(ClipboardData(
+                                            text: orderModel.customer?.phone ??
+                                                ''));
+                                      },
+                                      child: Text(
+                                          orderModel.customer?.phone == null
+                                              ? ''
+                                              : 'رقم الهاتف : ${orderModel.customer?.phone ?? ''}',
+                                          maxLines: 1,
+                                          style: robotoRegular.copyWith(
+                                              color:
+                                                  Theme.of(context).hintColor,
+                                              fontSize: Dimensions
+                                                  .FONT_SIZE_DEFAULT)),
+                                    ),
                                   ],
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.start,
