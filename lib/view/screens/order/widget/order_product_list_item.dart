@@ -193,7 +193,7 @@ class _OrderedProductListItemState extends State<OrderedProductListItem> {
                         Padding(
                             padding: const EdgeInsets.symmetric(vertical: 5.0),
                             child: Text(
-                              '${widget.orderDetailsModel!.userInformation!.fName} ${widget.orderDetailsModel!.userInformation!.lName}',
+                              ' اسم العميل : ${widget.orderDetailsModel!.userInformation!.fName} ${widget.orderDetailsModel!.userInformation!.lName}',
                               style: robotoRegular.copyWith(
                                   fontSize: Dimensions.FONT_SIZE_SMALL),
                             )),
@@ -201,6 +201,7 @@ class _OrderedProductListItemState extends State<OrderedProductListItem> {
                             padding: const EdgeInsets.symmetric(vertical: 5.0),
                             child: Row(
                               children: [
+                                Text('رقم الهاتف : '),
                                 InkWell(
                                     onTap: () async {
                                       await Clipboard.setData(ClipboardData(
