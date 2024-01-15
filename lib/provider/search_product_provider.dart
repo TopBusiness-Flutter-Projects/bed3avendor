@@ -220,9 +220,9 @@ class SearchProvider extends ChangeNotifier {
       {required String id, required BuildContext context}) async {
     refundRepo!.deleteProductFromSeller(id: id).then((value) {
       Fluttertoast.showToast(msg: value);
+      getOrderDependOnStatus(context);
     });
 
-    getOrderDependOnStatus(context);
     notifyListeners();
   }
 
@@ -231,8 +231,9 @@ class SearchProvider extends ChangeNotifier {
       {required String id, required BuildContext context}) async {
     refundRepo!.deleteOfferFromSeller(id: id).then((value) {
       Fluttertoast.showToast(msg: value);
+      getOrderDependOnStatus(context);
     });
-    getOrderDependOnStatus(context);
+
     notifyListeners();
   }
 
