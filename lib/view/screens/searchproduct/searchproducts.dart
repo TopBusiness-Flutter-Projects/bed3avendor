@@ -234,6 +234,16 @@ class _SearchProductsState extends State<SearchProducts> {
                                   (order.refundTypeIndex == 0 ||
                                           order.refundTypeIndex == 2)
                                       ? Switch(
+                                          trackOutlineWidth:
+                                              MaterialStatePropertyAll(0),
+                                          inactiveThumbColor:
+                                              ColorResources.getPrimary(
+                                                  context),
+                                          inactiveTrackColor:
+                                              ColorResources.getGrey(context),
+                                          activeColor:
+                                              ColorResources.getPrimary(
+                                                  context),
                                           value: order.mainOrderStatus[index]
                                                       .published
                                                       .toString() ==
@@ -292,8 +302,9 @@ class _SearchProductsState extends State<SearchProducts> {
                                           order.refundTypeIndex == 2)
                                       ? Flexible(
                                           fit: FlexFit.tight,
-                                          child: Container(width: 0))
+                                          child: Container())
                                       : Flexible(
+                                          fit: FlexFit.tight,
                                           child: InkWell(
                                             onTap: () {
                                               showModalBottomSheet(
@@ -356,9 +367,6 @@ class _SearchProductsState extends State<SearchProducts> {
                                             ),
                                           ),
                                         ),
-                                  SizedBox(
-                                    width: Dimensions.PADDING_SIZE_LARGE,
-                                  ),
                                   order.refundTypeIndex == 1
                                       ? Container(
                                           height: 0,
