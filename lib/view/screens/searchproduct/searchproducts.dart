@@ -1,5 +1,5 @@
-import 'package:bed3avendor/utill/app_constants.dart';
 import 'package:bed3avendor/view/screens/searchproduct/widget/edit_product.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../localization/language_constrants.dart';
@@ -29,6 +29,13 @@ class _SearchProductsState extends State<SearchProducts> {
         .getOrderDependOnStatus(context);
     super.initState();
   }
+
+  final List<String> items = [
+    'الكل',
+    'معلق',
+    'منشور',
+  ];
+  String? selectedValue = 'الكل';
 
   @override
   Widget build(BuildContext context) {
@@ -104,6 +111,63 @@ class _SearchProductsState extends State<SearchProducts> {
                 ),
               ),
             ),
+
+            order.refundTypeIndex == 0
+                ? Center(
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton2<String>(
+                        isExpanded: true,
+                        hint: Text(
+                          'اختر الحاله',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Theme.of(context).hintColor,
+                          ),
+                        ),
+                        items: items
+                            .map((String item) => DropdownMenuItem<String>(
+                                  value: item,
+                                  child: Text(
+                                    item,
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ))
+                            .toList(),
+                        value: selectedValue,
+                        onChanged: (String? value) {
+                          setState(() {
+                            selectedValue = value;
+                            //! set list be only published or uns
+                            if (selectedValue != 'الكل') {
+                              if (value == 'معلق') {
+                                order.setIndex(0, context, status: 0);
+                              } else {
+                                order.setIndex(0, context, status: 1);
+                                order.mainOrderStatus = order.mainOrderStatus
+                                    .where((element) => element.status == 1)
+                                    .toList();
+                              }
+                            } else {
+                              Provider.of<SearchProvider>(context,
+                                      listen: false)
+                                  .setIndex(0, context);
+                            }
+                          });
+                        },
+                        buttonStyleData: const ButtonStyleData(
+                          padding: EdgeInsets.symmetric(horizontal: 16),
+                          height: 40,
+                          width: 140,
+                        ),
+                        menuItemStyleData: const MenuItemStyleData(
+                          height: 40,
+                        ),
+                      ),
+                    ),
+                  )
+                : Container(),
             // DeliveryManListView(),
             SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
             Flexible(

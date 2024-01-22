@@ -116,9 +116,9 @@ class SearchProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setIndex(int index, BuildContext context) {
+  void setIndex(int index, BuildContext context, {int status = -1}) {
     _refundTypeIndex = index;
-    getOrderDependOnStatus(context);
+    getOrderDependOnStatus(context, status: status);
     notifyListeners();
   }
 
@@ -131,7 +131,12 @@ class SearchProvider extends ChangeNotifier {
   List<MainOrderStatus> _mainOrderStatus = [];
   List<MainOrderStatus> get mainOrderStatus => _mainOrderStatus;
 
-  Future<void> getOrderDependOnStatus(BuildContext context) async {
+  set mainOrderStatus(List<MainOrderStatus> value) {
+    _mainOrderStatus = value;
+  }
+
+  Future<void> getOrderDependOnStatus(BuildContext context,
+      {int status = -1}) async {
     ApiResponse apiResponse = await refundRepo!.getOrderDependOnStatus(
         status: refundTypeIndex == 0
             ? 'available'
@@ -140,9 +145,16 @@ class SearchProvider extends ChangeNotifier {
                 : 'offer');
     if (apiResponse.response != null &&
         apiResponse.response!.statusCode == 200) {
-      _mainOrderStatus = List<MainOrderStatus>.from(
-        apiResponse.response!.data.map((e) => MainOrderStatus.fromJson(e)),
-      );
+      if (status == -1) {
+        _mainOrderStatus = List<MainOrderStatus>.from(
+          apiResponse.response!.data.map((e) => MainOrderStatus.fromJson(e)),
+        );
+      } else {
+        _mainOrderStatus = List<MainOrderStatus>.from(apiResponse.response!.data
+                .map((e) => MainOrderStatus.fromJson(e)))
+            .where((element) => element.status == status)
+            .toList();
+      }
 
       ////
     } else {
