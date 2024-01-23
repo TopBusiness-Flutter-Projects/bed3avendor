@@ -10,6 +10,8 @@ class MainOrderStatus {
   String? taxModel;
   String? unit;
   int? minQty;
+  int? maxQty;
+
   int? refundable;
   dynamic digitalProductType;
   dynamic digitalFileReady;
@@ -67,6 +69,7 @@ class MainOrderStatus {
     this.taxModel,
     this.unit,
     this.minQty,
+    this.maxQty,
     this.refundable,
     this.digitalProductType,
     this.digitalFileReady,
@@ -126,6 +129,7 @@ class MainOrderStatus {
         taxModel: json["tax_model"],
         unit: json["unit"],
         minQty: json["min_qty"],
+        maxQty: json["max_qty"],
         refundable: json["refundable"],
         digitalProductType: json["digital_product_type"],
         digitalFileReady: json["digital_file_ready"],
@@ -193,6 +197,7 @@ class MainOrderStatus {
         "tax_model": taxModel,
         "unit": unit,
         "min_qty": minQty,
+        "max_qty": maxQty,
         "refundable": refundable,
         "digital_product_type": digitalProductType,
         "digital_file_ready": digitalFileReady,
