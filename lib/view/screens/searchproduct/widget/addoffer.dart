@@ -1,20 +1,22 @@
 import 'package:bed3avendor/localization/language_constrants.dart';
 import 'package:bed3avendor/view/base/custom_button.dart';
 import 'package:bed3avendor/view/base/textfeild/custom_text_feild.dart';
+import 'package:bed3avendor/view/screens/searchproduct/widget/pickdate.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
+import '../../../../data/model/response/orders_status_model.dart';
 import '../../../../provider/search_product_provider.dart';
 import '../../../../utill/color_resources.dart';
 import '../../../../utill/dimensions.dart';
 import '../../../../utill/styles.dart';
 
 class AddofferForProductScreen extends StatefulWidget {
-  AddofferForProductScreen({super.key, required this.id, required this.title});
+  AddofferForProductScreen({super.key, required this.id, required this.model});
   int id;
-  String title;
+  MainOrderStatus model;
   @override
   State<AddofferForProductScreen> createState() =>
       _AddofferForProductScreenState();
@@ -41,7 +43,11 @@ class _AddofferForProductScreenState extends State<AddofferForProductScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 GestureDetector(
-                  onTap: () => Navigator.pop(context),
+                  onTap: () {
+                    order.selectedDate = null;
+                    order.discountController.clear();
+                    Navigator.pop(context);
+                  },
                   child: Container(
                     height: 50,
                     color: Theme.of(context).primaryColor,
@@ -49,7 +55,7 @@ class _AddofferForProductScreenState extends State<AddofferForProductScreen> {
                       children: [
                         Spacer(),
                         Text(
-                          widget.title,
+                          widget.model.name ?? "",
                           style: robotoMedium.copyWith(
                               fontSize: Dimensions.PADDING_SIZE_MEDIUM,
                               color: Colors.white),
@@ -79,7 +85,7 @@ class _AddofferForProductScreenState extends State<AddofferForProductScreen> {
                           child: DropdownButton2<String>(
                         isExpanded: true,
                         hint: Text(
-                          order.discountType ?? 'percent',
+                          order.discountType== 'flat' ?"قيمة" : "نسبةمئوية",
                           style: TextStyle(
                             fontSize: 14,
                             color: Theme.of(context).hintColor,
@@ -89,7 +95,7 @@ class _AddofferForProductScreenState extends State<AddofferForProductScreen> {
                             .map((String item) => DropdownMenuItem<String>(
                                   value: item,
                                   child: Text(
-                                    item,
+                                    item == 'flat' ?"قيمة" : "نسبةمئوية",
                                     style: const TextStyle(
                                       fontSize: 14,
                                     ),
@@ -134,6 +140,30 @@ class _AddofferForProductScreenState extends State<AddofferForProductScreen> {
                   ),
                 ),
                 SizedBox(height: Dimensions.PADDING_SIZE_LARGE),
+
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 50),
+                  child: Text('السعر :  ${widget.model.unitPrice.toString()}',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                      )),
+                ),
+                order.discountController.text.isEmpty
+                    ? Container()
+                    : Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 50),
+                        child: Text(
+                            'السعر بعد الخصم :  ${  order.discountType== 'flat'?(widget.model.unitPrice! -double.parse(order.discountController.text)) : (widget.model.unitPrice! - (widget.model.unitPrice! * double.parse(order.discountController.text) / 100))}',
+                            
+                            style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                            )),
+                      ),
+                SizedBox(height: 15),
+                //!
+                DatePicker(),
+                SizedBox(height: 15),
+
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 50),
                   child: CustomButton(
@@ -145,6 +175,7 @@ class _AddofferForProductScreenState extends State<AddofferForProductScreen> {
                             context: context,
                             discount: order.discountController.text,
                             discountType: order.discountType ?? 'percent');
+
                         Navigator.pop(context);
                       }
                     },

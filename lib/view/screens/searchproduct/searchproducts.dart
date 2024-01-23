@@ -23,6 +23,7 @@ class SearchProducts extends StatefulWidget {
 }
 
 class _SearchProductsState extends State<SearchProducts> {
+
   @override
   void initState() {
     Provider.of<SearchProvider>(context, listen: false)
@@ -378,11 +379,10 @@ class _SearchProductsState extends State<SearchProducts> {
                                                       Colors.transparent,
                                                   builder: (con) =>
                                                       AddofferForProductScreen(
-                                                          title: order
+                                                          model: order
                                                                   .mainOrderStatus[
                                                                       index]
-                                                                  .name ??
-                                                              '',
+,
                                                           id: order
                                                               .mainOrderStatus[
                                                                   index]

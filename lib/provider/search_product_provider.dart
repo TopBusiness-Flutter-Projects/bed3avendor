@@ -224,6 +224,7 @@ class SearchProvider extends ChangeNotifier {
     }
     getOrderDependOnStatus(context);
     discountController.clear();
+    selectedDate = null;
     notifyListeners();
   }
 
@@ -272,4 +273,30 @@ class SearchProvider extends ChangeNotifier {
   final List<String> items = ['percent ', 'flat'];
   String? discountType = 'percent';
   TextEditingController discountController = TextEditingController();
+
+  DateTime? selectedDate;
+
+  //Method for showing the date picker
+  pickDateDialog(BuildContext context) {
+    showDatePicker(
+            context: context,
+            initialDate: DateTime.now(),
+            //which date will display when user open the picker
+            firstDate: DateTime(1950),
+            //what will be the previous supported year in picker
+            lastDate: DateTime
+                .now()) //what will be the up to supported date in picker
+        .then((pickedDate) {
+      //then usually do the future job
+      if (pickedDate == null) {
+        //if user tap cancel then this function will stop
+        return;
+      }
+
+      //for rebuilding the ui
+      selectedDate = pickedDate;
+      notifyListeners();
+    });
+
+  }
 }
