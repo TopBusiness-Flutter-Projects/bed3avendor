@@ -23,7 +23,6 @@ class SearchProducts extends StatefulWidget {
 }
 
 class _SearchProductsState extends State<SearchProducts> {
-
   @override
   void initState() {
     Provider.of<SearchProvider>(context, listen: false)
@@ -257,7 +256,7 @@ class _SearchProductsState extends State<SearchProducts> {
                                         backgroundColor: ColorResources.GREEN,
                                       ),
                                       Text(
-                                          'السعر ${order.mainOrderStatus[index].purchasePrice!.toStringAsFixed(2)} ج.م',
+                                          'السعر ${order.mainOrderStatus[index].unitPrice!.toStringAsFixed(2)} ج.م',
                                           style: TextStyle(
                                               fontSize: 12,
                                               decoration:
@@ -271,7 +270,7 @@ class _SearchProductsState extends State<SearchProducts> {
                                                       : Colors.white)),
                                       order.refundTypeIndex == 2
                                           ? Text(
-                                              ' الخصم ${(order.mainOrderStatus[index].purchasePrice! - (order.mainOrderStatus[index].purchasePrice! * order.mainOrderStatus[index].discount! / 100)).toStringAsFixed(2)}ج.م',
+                                              ' الخصم ${(order.mainOrderStatus[index].unitPrice! - (order.mainOrderStatus[index].unitPrice! * order.mainOrderStatus[index].discount! / 100)).toStringAsFixed(2)}ج.م',
                                               style: TextStyle(fontSize: 12))
                                           : Container(height: 0, width: 0),
                                     ],
@@ -381,8 +380,7 @@ class _SearchProductsState extends State<SearchProducts> {
                                                       AddofferForProductScreen(
                                                           model: order
                                                                   .mainOrderStatus[
-                                                                      index]
-,
+                                                              index],
                                                           id: order
                                                               .mainOrderStatus[
                                                                   index]

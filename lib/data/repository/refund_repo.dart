@@ -108,11 +108,18 @@ class RefundRepo {
     required int price,
     required int stock,
     required int minQty,
+    required int maxQty,
   }) async {
     try {
       final response = await dioClient!.post(
         AppConstants.UPDATE_ORDERS_PRICE_COUNT,
-        data: {"id": id, "price": price, "stock": stock, "min_qty": minQty},
+        data: {
+          "id": id,
+          "price": price,
+          "stock": stock,
+          "min_qty": minQty,
+          "max_qty": maxQty
+        },
       );
       return ApiResponse.withSuccess(response);
     } catch (e) {
@@ -125,11 +132,17 @@ class RefundRepo {
     required int id,
     required String discountType,
     required int discount,
+   required String  expireDate
+
   }) async {
     try {
+
+      print('expireDate $expireDate');
       final response = await dioClient!.post(
         AppConstants.UPDATE_ORDERS_DISCOUNT_COUNT,
-        data: {"id": id, "discount_type": discountType, "discount": discount},
+        data: {"id": id, "discount_type": discountType, "discount": discount,
+        "discount_dl":expireDate
+        },
       );
       return ApiResponse.withSuccess(response);
     } catch (e) {

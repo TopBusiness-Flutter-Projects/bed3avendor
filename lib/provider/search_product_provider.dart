@@ -9,6 +9,7 @@ import 'package:bed3avendor/localization/language_constrants.dart';
 import 'package:bed3avendor/utill/app_constants.dart';
 import 'package:bed3avendor/view/base/custom_snackbar.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl/intl.dart';
 
 class SearchProvider extends ChangeNotifier {
   final RefundRepo? refundRepo;
@@ -169,9 +170,10 @@ class SearchProvider extends ChangeNotifier {
     required int price,
     required int stock,
     required int minQty,
+    required int maxQty,
   }) async {
     ApiResponse apiResponse = await refundRepo!.updateproductDetails(
-        id: id, minQty: minQty, price: price, stock: stock);
+        maxQty: maxQty, id: id, minQty: minQty, price: price, stock: stock);
     if (apiResponse.response != null &&
         apiResponse.response!.statusCode == 200) {
       print('updateproductDetails :: 000 :: ' +
@@ -214,7 +216,11 @@ class SearchProvider extends ChangeNotifier {
       required String discount,
       required BuildContext context}) async {
     ApiResponse apiResponse = await refundRepo!.updateProductDiscount(
-        id: id, discount: int.parse(discount), discountType: discountType);
+        expireDate:
+            DateFormat('yyyy-MM-dd').format(selectedDate ?? DateTime.now()),
+        id: id,
+        discount: int.parse(discount),
+        discountType: discountType);
     if (apiResponse.response != null &&
         apiResponse.response!.statusCode == 200) {
       Fluttertoast.showToast(msg: apiResponse.response!.data['msg'].toString());
@@ -284,8 +290,8 @@ class SearchProvider extends ChangeNotifier {
             //which date will display when user open the picker
             firstDate: DateTime(1950),
             //what will be the previous supported year in picker
-            lastDate: DateTime
-                .now()) //what will be the up to supported date in picker
+            lastDate: DateTime(
+                3950)) //what will be the up to supported date in picker
         .then((pickedDate) {
       //then usually do the future job
       if (pickedDate == null) {
@@ -297,6 +303,5 @@ class SearchProvider extends ChangeNotifier {
       selectedDate = pickedDate;
       notifyListeners();
     });
-
   }
 }
