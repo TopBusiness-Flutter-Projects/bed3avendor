@@ -128,20 +128,20 @@ class RefundRepo {
   }
   //  api/v3/seller/products/add-discount
 
-  Future<ApiResponse> updateProductDiscount({
-    required int id,
-    required String discountType,
-    required int discount,
-   required String  expireDate
-
-  }) async {
+  Future<ApiResponse> updateProductDiscount(
+      {required int id,
+      required String discountType,
+      required int discount,
+      required String expireDate}) async {
     try {
-
       print('expireDate $expireDate');
       final response = await dioClient!.post(
         AppConstants.UPDATE_ORDERS_DISCOUNT_COUNT,
-        data: {"id": id, "discount_type": discountType, "discount": discount,
-        "discount_dl":expireDate
+        data: {
+          "id": id,
+          "discount_type": discountType,
+          "discount": discount,
+          "discount_dl": expireDate
         },
       );
       return ApiResponse.withSuccess(response);
