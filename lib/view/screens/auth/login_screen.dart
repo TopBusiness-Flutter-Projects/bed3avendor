@@ -125,7 +125,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                             getTranslated('remember_me', context)!,
                             style: Theme.of(context)
                                 .textTheme
-                                .headline2!
+                                .displayMedium!
                                 .copyWith(
                                     fontSize: Dimensions.FONT_SIZE_DEFAULT,
                                     color:
