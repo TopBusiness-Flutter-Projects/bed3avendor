@@ -15,34 +15,34 @@ class SellerModel {
   String? accountNo;
   String? holderName;
   String? authToken;
-  double? salesCommissionPercentage;
   String? gst;
+  double? salesCommissionPercentage;
   int? productCount;
   int? ordersCount;
   Wallet? wallet;
 
   SellerModel(
       {this.id,
-        this.fName,
-        this.lName,
-        this.phone,
-        this.image,
-        this.email,
-        this.password,
-        this.status,
-        this.rememberToken,
-        this.createdAt,
-        this.updatedAt,
-        this.bankName,
-        this.branch,
-        this.accountNo,
-        this.holderName,
-        this.authToken,
-        this.salesCommissionPercentage,
-        this.gst,
-        this.productCount,
-        this.ordersCount,
-        this.wallet});
+      this.fName,
+      this.lName,
+      this.phone,
+      this.image,
+      this.email,
+      this.password,
+      this.status,
+      this.rememberToken,
+      this.createdAt,
+      this.updatedAt,
+      this.bankName,
+      this.branch,
+      this.accountNo,
+      this.holderName,
+      this.authToken,
+      this.salesCommissionPercentage,
+      this.gst,
+      this.productCount,
+      this.ordersCount,
+      this.wallet});
 
   SellerModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -61,22 +61,22 @@ class SellerModel {
     accountNo = json['account_no'];
     holderName = json['holder_name'];
     authToken = json['auth_token'];
-    if(json['sales_commission_percentage']!=null){
-      try{
-        salesCommissionPercentage = (json['sales_commission_percentage']).toDouble();
-      }catch(e){
-        salesCommissionPercentage = double.parse(json['sales_commission_percentage'].toString());
+    if (json['sales_commission_percentage'] != null) {
+      try {
+        salesCommissionPercentage =
+            (json['sales_commission_percentage']).toDouble();
+      } catch (e) {
+        salesCommissionPercentage =
+            double.parse(json['sales_commission_percentage'].toString());
       }
-
-
     }
-    if(json['gst']!=null){
+    if (json['gst'] != null) {
       gst = json['gst'];
     }
     productCount = json['product_count'];
     ordersCount = json['orders_count'];
     wallet =
-    json['wallet'] != null ? new Wallet.fromJson(json['wallet']) : null;
+        json['wallet'] != null ? new Wallet.fromJson(json['wallet']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -122,15 +122,15 @@ class Wallet {
 
   Wallet(
       {this.id,
-        this.totalEarning,
-        this.withdrawn,
-        this.createdAt,
-        this.updatedAt,
-        this.commissionGiven,
-        this.pendingWithdraw,
-        this.deliveryChargeEarned,
-        this.collectedCash,
-        this.totalTaxCollected});
+      this.totalEarning,
+      this.withdrawn,
+      this.createdAt,
+      this.updatedAt,
+      this.commissionGiven,
+      this.pendingWithdraw,
+      this.deliveryChargeEarned,
+      this.collectedCash,
+      this.totalTaxCollected});
 
   Wallet.fromJson(Map<String, dynamic> json) {
     id = json['id'];

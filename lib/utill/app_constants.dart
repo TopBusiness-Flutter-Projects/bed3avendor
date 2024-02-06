@@ -20,6 +20,7 @@ class AppConstants {
   static const String ORDER_DETAILS = '/api/v3/seller/orders/';
   static const String UPDATE_ORDER_STATUS =
       '/api/v3/seller/orders/order-detail-status/';
+  static const String GET_CITIES = '/api/v1/cities';
 
   static const String REASON_CANCEL_ORDER =
       '/api/v3/seller/orders/order-reason';

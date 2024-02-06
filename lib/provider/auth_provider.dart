@@ -9,9 +9,13 @@ import 'package:bed3avendor/helper/api_checker.dart';
 import 'package:bed3avendor/localization/language_constrants.dart';
 import 'package:bed3avendor/view/base/custom_snackbar.dart';
 
+import '../data/model/response/citiesmodel.dart';
+
 class AuthProvider with ChangeNotifier {
   final AuthRepo? authRepo;
-  AuthProvider({required this.authRepo});
+  AuthProvider({required this.authRepo}) {
+    getCitiesList();
+  }
   bool _isLoading = false;
   bool get isLoading => _isLoading;
   String _loginErrorMessage = '';
@@ -292,10 +296,25 @@ class AuthProvider with ChangeNotifier {
     return response;
   }
 
-  String? _countryDialCode = '+880';
+  String? _countryDialCode = '+20';
   String? get countryDialCode => _countryDialCode;
 
   void setCountryDialCode(String? setValue) {
     _countryDialCode = setValue;
   }
+
+  List<CitiesModel> cities = [];
+//!
+
+  Future<void> getCitiesList() async {
+    cities = [];
+    ApiResponse apiResponse = await authRepo!.getCities();
+    apiResponse.response!.data
+        .forEach((cityModel) => cities.add(CitiesModel.fromJson(cityModel)));
+
+    print('.....${cities.length}');
+    notifyListeners();
+  }
+
+  CitiesModel? selectedValue;
 }

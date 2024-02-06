@@ -19,31 +19,37 @@ class AuthRepo {
 
   Future<ApiResponse> login({String? emailAddress, String? password}) async {
     try {
-      Response response = await dioClient!.post(AppConstants.LOGIN_URI,
+      Response response = await dioClient!.post(
+        AppConstants.LOGIN_URI,
         data: {"email": emailAddress, "password": password},
       );
-      return ApiResponse.withSuccess(response);
-    } catch (e) {
-     return ApiResponse.withError(ApiErrorHandler.getMessage(e));
-    }
-  }
-
-
-  Future<ApiResponse> forgetPassword(String identity) async {
-    try {
-      Response response = await dioClient!.post(AppConstants.FORGET_PASSWORD_URI, data: {"identity": identity});
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
     }
   }
 
-  Future<ApiResponse> resetPassword(String identity, String otp ,String password, String confirmPassword) async {
+  Future<ApiResponse> forgetPassword(String identity) async {
     try {
-      Response response = await dioClient!.post(
-          AppConstants.RESET_PASSWORD_URI, data: {"_method" : "put",
-        "identity": identity.trim(), "otp": otp,
-        "password": password, "confirm_password":confirmPassword});
+      Response response = await dioClient!
+          .post(AppConstants.FORGET_PASSWORD_URI, data: {"identity": identity});
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
+
+  Future<ApiResponse> resetPassword(String identity, String otp,
+      String password, String confirmPassword) async {
+    try {
+      Response response =
+          await dioClient!.post(AppConstants.RESET_PASSWORD_URI, data: {
+        "_method": "put",
+        "identity": identity.trim(),
+        "otp": otp,
+        "password": password,
+        "confirm_password": confirmPassword
+      });
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
@@ -52,14 +58,13 @@ class AuthRepo {
 
   Future<ApiResponse> verifyOtp(String identity, String otp) async {
     try {
-      Response response = await dioClient!.post(
-          AppConstants.VERIFY_OTP_URI, data: {"identity": identity.trim(), "otp": otp});
+      Response response = await dioClient!.post(AppConstants.VERIFY_OTP_URI,
+          data: {"identity": identity.trim(), "otp": otp});
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
     }
   }
-
 
   Future<ApiResponse> updateToken() async {
     try {
@@ -77,14 +82,14 @@ class AuthRepo {
 
   Future<String?> _getDeviceToken() async {
     String? _deviceToken;
-    if(Platform.isIOS) {
+    if (Platform.isIOS) {
       _deviceToken = await FirebaseMessaging.instance.getAPNSToken();
-    }else {
+    } else {
       _deviceToken = await FirebaseMessaging.instance.getToken();
     }
 
     if (_deviceToken != null) {
-      print('--------Device Token---------- '+_deviceToken);
+      print('--------Device Token---------- ' + _deviceToken);
     }
     return _deviceToken;
   }
@@ -92,7 +97,10 @@ class AuthRepo {
   // for  user token
   Future<void> saveUserToken(String token) async {
     dioClient!.token = token;
-    dioClient!.dio!.options.headers = {'Content-Type': 'application/json; charset=UTF-8', 'Authorization': 'Bearer $token'};
+    dioClient!.dio!.options.headers = {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Authorization': 'Bearer $token'
+    };
 
     try {
       await sharedPreferences!.setString(AppConstants.TOKEN, token);
@@ -138,19 +146,29 @@ class AuthRepo {
     return await sharedPreferences!.remove(AppConstants.USER_EMAIL);
   }
 
-  Future<ApiResponse> registration(XFile? profileImage, XFile? shopLogo, XFile? shopBanner, RegisterModel registerModel) async {
-    http.MultipartRequest request = http.MultipartRequest('POST', Uri.parse('${AppConstants.BASE_URL}${AppConstants.REGISTRATION}'));
-    if(profileImage != null) {
+  Future<ApiResponse> registration(XFile? profileImage, XFile? shopLogo,
+      XFile? shopBanner, RegisterModel registerModel) async {
+    http.MultipartRequest request = http.MultipartRequest('POST',
+        Uri.parse('${AppConstants.BASE_URL}${AppConstants.REGISTRATION}'));
+    if (profileImage != null) {
       Uint8List _list = await profileImage.readAsBytes();
-      var part = http.MultipartFile('image', profileImage.readAsBytes().asStream(), _list.length, filename: basename(profileImage.path));
+      var part = http.MultipartFile(
+          'image', profileImage.readAsBytes().asStream(), _list.length,
+          filename: basename(profileImage.path));
       request.files.add(part);
-    } if(shopLogo != null) {
+    }
+    if (shopLogo != null) {
       Uint8List _list = await shopLogo.readAsBytes();
-      var part = http.MultipartFile('logo', shopLogo.readAsBytes().asStream(), _list.length, filename: basename(shopLogo.path));
+      var part = http.MultipartFile(
+          'logo', shopLogo.readAsBytes().asStream(), _list.length,
+          filename: basename(shopLogo.path));
       request.files.add(part);
-    } if(shopBanner != null) {
+    }
+    if (shopBanner != null) {
       Uint8List _list = await shopBanner.readAsBytes();
-      var part = http.MultipartFile('banner', shopBanner.readAsBytes().asStream(), _list.length, filename: basename(shopBanner.path));
+      var part = http.MultipartFile(
+          'banner', shopBanner.readAsBytes().asStream(), _list.length,
+          filename: basename(shopBanner.path));
       request.files.add(part);
     }
 
@@ -164,21 +182,34 @@ class AuthRepo {
       'confirm_password': registerModel.confirmPassword!,
       'shop_name': registerModel.shopName!,
       'shop_address': registerModel.shopAddress!,
+      "city_id": registerModel.cityId.toString()
     });
 
     request.fields.addAll(_fields);
-    print('=====> ${request.url.path}\n'+request.fields.toString());
+    print('=====> ${request.url.path}\n' + request.fields.toString());
 
     http.StreamedResponse response = await request.send();
     var res = await http.Response.fromStream(response);
     print('=====Response body is here==>${res.body}');
 
     try {
-      return ApiResponse.withSuccess(Response(statusCode: response.statusCode, requestOptions: RequestOptions(path: ''), statusMessage: response.reasonPhrase, data: res.body));
+      return ApiResponse.withSuccess(Response(
+          statusCode: response.statusCode,
+          requestOptions: RequestOptions(path: ''),
+          statusMessage: response.reasonPhrase,
+          data: res.body));
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
-
     }
   }
 
+  Future<ApiResponse> getCities() async {
+//
+    try {
+      final response = await dioClient!.get(AppConstants.GET_CITIES);
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
 }
