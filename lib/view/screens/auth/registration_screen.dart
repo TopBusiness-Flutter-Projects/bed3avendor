@@ -201,6 +201,12 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                                     getTranslated(
                                         'password_is_mismatch', context),
                                     context);
+                              } else if (authProvider.selectedValue == null) {
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(SnackBar(
+                                  content: Text('اختر المدينه'),
+                                  backgroundColor: Colors.red,
+                                ));
                               } else if (authProvider.sellerProfileImage ==
                                   null) {
                                 showCustomSnackBar(
@@ -385,6 +391,8 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                                                 email: authProvider
                                                     .emailController.text
                                                     .trim(),
+                                                cityId: authProvider
+                                                    .selectedValue!.id,
                                                 password: authProvider
                                                     .passwordController.text
                                                     .trim(),

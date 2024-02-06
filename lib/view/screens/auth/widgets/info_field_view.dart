@@ -15,6 +15,8 @@ import 'package:bed3avendor/view/base/textfeild/custom_text_feild.dart';
 import 'package:bed3avendor/view/screens/forgetPassword/widget/code_picker_widget.dart';
 import 'package:bed3avendor/view/screens/more/html_view_screen.dart';
 
+import '../../bank_info/widget/dropdowncities.dart';
+
 class InfoFieldVIew extends StatefulWidget {
   final bool isShopInfo;
   const InfoFieldVIew({Key? key, this.isShopInfo = false}) : super(key: key);
@@ -254,6 +256,8 @@ class _InfoFieldVIewState extends State<InfoFieldVIew> {
                           controller: authProvider.shopAddressController,
                           textInputAction: TextInputAction.done,
                         )),
+                    SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
+                    DropDownCities(items: authProvider.cities),
                     SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT),
                     Padding(
                       padding: EdgeInsets.only(

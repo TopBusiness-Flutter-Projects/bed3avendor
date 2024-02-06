@@ -26,7 +26,7 @@ class MenuBottomSheet extends StatelessWidget {
       CustomBottomSheet(
           image:
               '${Provider.of<SplashProvider>(context, listen: false).baseUrls!.sellerImageUrl}/'
-              '${Provider.of<ProfileProvider>(context, listen: false).userInfoModel!.image ?? ''}',
+              '${Provider.of<ProfileProvider>(context, listen: false).userInfoModel?.image ?? ''}',
           isProfile: true,
           title: getTranslated('profile', context),
           onTap: () => Navigator.push(
