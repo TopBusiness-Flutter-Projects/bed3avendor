@@ -126,7 +126,32 @@ class RefundRepo {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
     }
   }
+
   //  api/v3/seller/products/add-discount
+  Future<ApiResponse> addSellerLimit({
+    required int price,
+    required int maxQty,
+  }) async {
+    try {
+      final response = await dioClient!.post(
+        AppConstants.ADD_SELLER_LIMIT,
+        data: {"limit_price": price, "limit_product": maxQty},
+      );
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
+
+  //pi/v3/seller/seller-update-limits
+  Future<ApiResponse> getSellerLimit() async {
+    try {
+      final response = await dioClient!.post(AppConstants.GET_SELLER_LIMIT);
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
 
   Future<ApiResponse> updateProductDiscount(
       {required int id,

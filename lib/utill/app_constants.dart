@@ -184,7 +184,10 @@ class AppConstants {
       '/api/v3/seller/products/update-product-publish';
   static const String UPDATE_ORDERS_PRICE_COUNT =
       '/api/v3/seller/products/update-product';
-//
+  static const String ADD_SELLER_LIMIT = '/api/v3/seller/seller-update-limits';
+//pi/v3/seller/seller-update-limits
+  static const String GET_SELLER_LIMIT = '/api/v3/seller/seller-get-limits';
+
   static const String UPDATE_ORDERS_DISCOUNT_COUNT =
       '/api/v3/seller/products/add-discount';
   //api/v3/seller/products/delete/

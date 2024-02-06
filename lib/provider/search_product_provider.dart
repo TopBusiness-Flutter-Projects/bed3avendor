@@ -185,7 +185,75 @@ class SearchProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  //udateOrderStatus
+  //addSellerLimit
+
+  Future<void> addSellerLimit(BuildContext context) async {
+    ApiResponse apiResponse = await refundRepo!
+        .addSellerLimit(maxQty: maxQtyOfSeller, price: maxPriceOfSeller);
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
+      print('updateproductDetails :: 000 :: ' +
+          apiResponse.response!.data.toString());
+      getSellerLimit(context);
+      ////
+    } else {
+      ApiChecker.checkApi(context, apiResponse);
+    }
+    notifyListeners();
+  }
+
+  changeLimitPrice({bool isAdd = true}) {
+    if (isAdd) {
+      if (maxPriceOfSeller >= 1) {
+        maxPriceOfSeller += 1;
+      } else {
+        maxPriceOfSeller = 1;
+      }
+    } else {
+      if (maxPriceOfSeller > 1) {
+        maxPriceOfSeller = maxPriceOfSeller - 1;
+      } else {
+        maxPriceOfSeller = 1;
+      }
+    }
+    notifyListeners();
+  }
+
+  changeLimitQty({bool isAdd = true}) {
+    if (isAdd) {
+      if (maxQtyOfSeller > 0) {
+        maxQtyOfSeller = maxQtyOfSeller + 1;
+      } else {
+        maxQtyOfSeller = 1;
+      }
+    } else {
+      if (maxQtyOfSeller > 1) {
+        maxQtyOfSeller = maxQtyOfSeller - 1;
+      } else {
+        maxQtyOfSeller = 1;
+      }
+    }
+    notifyListeners();
+  }
+
+  Future<void> getSellerLimit(BuildContext context) async {
+    ApiResponse apiResponse = await refundRepo!.getSellerLimit();
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
+      print('updateproductDetails :: 000 :: ' +
+          apiResponse.response!.data.toString());
+      maxPriceOfSeller = apiResponse.response!.data['limit_price'];
+      maxQtyOfSeller = apiResponse.response!.data['limit_product'];
+      print(
+          'limit_product $maxQtyOfSeller  : : limit_product  $maxPriceOfSeller');
+
+      ////
+    } else {
+      ApiChecker.checkApi(context, apiResponse);
+    }
+    notifyListeners();
+  }
+
   ///add
   Future<void> addProductToSeller(BuildContext context,
       {required String id}) async {
@@ -304,4 +372,7 @@ class SearchProvider extends ChangeNotifier {
       notifyListeners();
     });
   }
+
+  int maxQtyOfSeller = 5;
+  int maxPriceOfSeller = 1000;
 }
