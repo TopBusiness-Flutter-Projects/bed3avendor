@@ -275,8 +275,8 @@ class SearchProvider extends ChangeNotifier {
     ///
   }
 
-  final List<String> items = ['percent ', 'flat'];
-  String? discountType = 'percent';
+  final List<String> items = ['flat ', 'flat'];
+  String? discountType = 'flat';
   TextEditingController discountController = TextEditingController();
 
   DateTime? selectedDate;

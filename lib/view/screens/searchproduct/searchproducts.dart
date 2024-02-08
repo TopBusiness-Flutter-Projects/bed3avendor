@@ -207,7 +207,7 @@ class _SearchProductsState extends State<SearchProducts> {
                                   width: Dimensions.PADDING_SIZE_DEFAULT,
                                 ),
                                 Expanded(
-                                    flex: 2,
+                                    flex: 5,
                                     child: Column(
                                       children: [
                                         Text(
@@ -245,8 +245,10 @@ class _SearchProductsState extends State<SearchProducts> {
                                           CrossAxisAlignment.start,
                                     )),
                                 Expanded(
-                                  flex: 1,
+                                  flex: 3,
                                   child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       CustomButton(
                                         btnTxt:
@@ -256,7 +258,7 @@ class _SearchProductsState extends State<SearchProducts> {
                                         backgroundColor: ColorResources.GREEN,
                                       ),
                                       Text(
-                                          'السعر ${order.mainOrderStatus[index].unitPrice!.toStringAsFixed(2)} ج.م',
+                                          'السعر ${order.mainOrderStatus[index].unitPrice!.toStringAsFixed(2)}ج.م',
                                           style: TextStyle(
                                               fontSize: 12,
                                               decoration:
@@ -270,7 +272,7 @@ class _SearchProductsState extends State<SearchProducts> {
                                                       : Colors.white)),
                                       order.refundTypeIndex == 2
                                           ? Text(
-                                              ' الخصم ${(order.mainOrderStatus[index].unitPrice! - (order.mainOrderStatus[index].unitPrice! * order.mainOrderStatus[index].discount! / 100)).toStringAsFixed(2)}ج.م',
+                                              'السعر بعد الخصم ${(order.mainOrderStatus[index].unitPrice! - order.mainOrderStatus[index].discount!).toStringAsFixed(2)}ج.م',
                                               style: TextStyle(fontSize: 12))
                                           : Container(height: 0, width: 0),
                                     ],

@@ -71,59 +71,59 @@ class _AddofferForProductScreenState extends State<AddofferForProductScreen> {
                   ),
                 ),
                 SizedBox(height: Dimensions.PADDING_SIZE_LARGE),
+                // Padding(
+                //   padding: const EdgeInsets.symmetric(horizontal: 50),
+                //   child: Text('نوع الخصم (نسبه / قيمه)',
+                //       style: titilliumRegular.copyWith(
+                //           color: ColorResources.getTextColor(context))),
+                // ),
+                // Padding(
+                //   padding: const EdgeInsets.symmetric(horizontal: 45),
+                //   child: Row(
+                //     children: [
+                //       DropdownButtonHideUnderline(
+                //           child: DropdownButton2<String>(
+                //         isExpanded: true,
+                //         hint: Text(
+                //           order.discountType == 'flat' ? "قيمة" : "نسبةمئوية",
+                //           style: TextStyle(
+                //             fontSize: 14,
+                //             color: Theme.of(context).hintColor,
+                //           ),
+                //         ),
+                //         items: order.items
+                //             .map((String item) => DropdownMenuItem<String>(
+                //                   value: item,
+                //                   child: Text(
+                //                     item == 'flat' ? "قيمة" : "نسبةمئوية",
+                //                     style: const TextStyle(
+                //                       fontSize: 14,
+                //                     ),
+                //                   ),
+                //                 ))
+                //             .toList(),
+                //         // value: order.discountType,
+                //         onChanged: (String? value) {
+                //           setState(() {
+                //             order.discountType = value;
+                //           });
+                //         },
+                //         buttonStyleData: const ButtonStyleData(
+                //           padding: EdgeInsets.symmetric(horizontal: 16),
+                //           height: 40,
+                //           width: 140,
+                //         ),
+                //         menuItemStyleData: const MenuItemStyleData(
+                //           height: 40,
+                //         ),
+                //       )),
+                //     ],
+                //   ),
+                // ),
+                // SizedBox(height: Dimensions.PADDING_SIZE_LARGE),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 50),
-                  child: Text('نوع الخصم (نسبه / قيمه)',
-                      style: titilliumRegular.copyWith(
-                          color: ColorResources.getTextColor(context))),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 45),
-                  child: Row(
-                    children: [
-                      DropdownButtonHideUnderline(
-                          child: DropdownButton2<String>(
-                        isExpanded: true,
-                        hint: Text(
-                          order.discountType== 'flat' ?"قيمة" : "نسبةمئوية",
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Theme.of(context).hintColor,
-                          ),
-                        ),
-                        items: order.items
-                            .map((String item) => DropdownMenuItem<String>(
-                                  value: item,
-                                  child: Text(
-                                    item == 'flat' ?"قيمة" : "نسبةمئوية",
-                                    style: const TextStyle(
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                ))
-                            .toList(),
-                        // value: order.discountType,
-                        onChanged: (String? value) {
-                          setState(() {
-                            order.discountType = value;
-                          });
-                        },
-                        buttonStyleData: const ButtonStyleData(
-                          padding: EdgeInsets.symmetric(horizontal: 16),
-                          height: 40,
-                          width: 140,
-                        ),
-                        menuItemStyleData: const MenuItemStyleData(
-                          height: 40,
-                        ),
-                      )),
-                    ],
-                  ),
-                ),
-                SizedBox(height: Dimensions.PADDING_SIZE_LARGE),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 50),
-                  child: Text('قيمة العرض',
+                  child: Text('قيمة الخصم',
                       style: titilliumRegular.copyWith(
                           color: ColorResources.getTextColor(context))),
                 ),
@@ -133,14 +133,13 @@ class _AddofferForProductScreenState extends State<AddofferForProductScreen> {
                     border: true,
                     controller: order.discountController,
                     textInputType: TextInputType.number,
-                    hintText: 'ادخل العرض',
+                    hintText: 'ادخل قيمة الخصم',
                     isValidator: true,
-                    validatorMessage: 'من فضلك أدخل قيمة العرض',
+                    validatorMessage: 'من فضلك أدخل  قيمة الخصم',
                     variant: true,
                   ),
                 ),
                 SizedBox(height: Dimensions.PADDING_SIZE_LARGE),
-
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 50),
                   child: Text('السعر :  ${widget.model.unitPrice.toString()}',
@@ -153,8 +152,7 @@ class _AddofferForProductScreenState extends State<AddofferForProductScreen> {
                     : Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 50),
                         child: Text(
-                            'السعر بعد الخصم :  ${  order.discountType== 'flat'?(widget.model.unitPrice! -double.parse(order.discountController.text)) : (widget.model.unitPrice! - (widget.model.unitPrice! * double.parse(order.discountController.text) / 100))}',
-                            
+                            'السعر بعد الخصم :  ${order.discountType == 'flat' ? (widget.model.unitPrice! - double.parse(order.discountController.text)) : (widget.model.unitPrice! - (widget.model.unitPrice! * double.parse(order.discountController.text) / 100))}',
                             style: TextStyle(
                               fontWeight: FontWeight.w700,
                             )),
@@ -174,7 +172,7 @@ class _AddofferForProductScreenState extends State<AddofferForProductScreen> {
                             id: widget.id,
                             context: context,
                             discount: order.discountController.text,
-                            discountType: order.discountType ?? 'percent');
+                            discountType: 'flat');
 
                         Navigator.pop(context);
                       }
