@@ -27,6 +27,7 @@ class _SearchProductsState extends State<SearchProducts> {
   void initState() {
     Provider.of<SearchProvider>(context, listen: false)
         .getOrderDependOnStatus(context);
+
     super.initState();
   }
 
@@ -101,6 +102,7 @@ class _SearchProductsState extends State<SearchProducts> {
                         text: getTranslated('available', context),
                         index: 0,
                         refundList: []),
+                    ProductTypeButton(text: 'معلق', index: 3, refundList: []),
                     SizedBox(width: 5),
                     ProductTypeButton(
                         text: getTranslated('offers', context),
@@ -112,62 +114,62 @@ class _SearchProductsState extends State<SearchProducts> {
               ),
             ),
 
-            order.refundTypeIndex == 0
-                ? Center(
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton2<String>(
-                        isExpanded: true,
-                        hint: Text(
-                          'اختر الحاله',
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Theme.of(context).hintColor,
-                          ),
-                        ),
-                        items: items
-                            .map((String item) => DropdownMenuItem<String>(
-                                  value: item,
-                                  child: Text(
-                                    item,
-                                    style: const TextStyle(
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                ))
-                            .toList(),
-                        value: selectedValue,
-                        onChanged: (String? value) {
-                          setState(() {
-                            selectedValue = value;
-                            //! set list be only published or uns
-                            if (selectedValue != 'الكل') {
-                              if (value == 'معلق') {
-                                order.setIndex(0, context, status: 0);
-                              } else {
-                                order.setIndex(0, context, status: 1);
-                                order.mainOrderStatus = order.mainOrderStatus
-                                    .where((element) => element.status == 1)
-                                    .toList();
-                              }
-                            } else {
-                              Provider.of<SearchProvider>(context,
-                                      listen: false)
-                                  .setIndex(0, context);
-                            }
-                          });
-                        },
-                        buttonStyleData: const ButtonStyleData(
-                          padding: EdgeInsets.symmetric(horizontal: 16),
-                          height: 40,
-                          width: 140,
-                        ),
-                        menuItemStyleData: const MenuItemStyleData(
-                          height: 40,
-                        ),
-                      ),
-                    ),
-                  )
-                : Container(),
+            // (order.refundTypeIndex == 0 || order.refundTypeIndex == 3)
+            //     ? Center(
+            //         child: DropdownButtonHideUnderline(
+            //           child: DropdownButton2<String>(
+            //             isExpanded: true,
+            //             hint: Text(
+            //               'اختر الحاله',
+            //               style: TextStyle(
+            //                 fontSize: 14,
+            //                 color: Theme.of(context).hintColor,
+            //               ),
+            //             ),
+            //             items: items
+            //                 .map((String item) => DropdownMenuItem<String>(
+            //                       value: item,
+            //                       child: Text(
+            //                         item,
+            //                         style: const TextStyle(
+            //                           fontSize: 14,
+            //                         ),
+            //                       ),
+            //                     ))
+            //                 .toList(),
+            //             value: selectedValue,
+            //             onChanged: (String? value) {
+            //               setState(() {
+            //                 selectedValue = value;
+            //                 //! set list be only published or uns
+            //                 if (selectedValue != 'الكل') {
+            //                   if (value == 'معلق') {
+            //                     order.setIndex(0, context, status: 0);
+            //                   } else {
+            //                     order.setIndex(0, context, status: 1);
+            //                     order.mainOrderStatus = order.mainOrderStatus
+            //                         .where((element) => element.status == 1)
+            //                         .toList();
+            //                   }
+            //                 } else {
+            //                   Provider.of<SearchProvider>(context,
+            //                           listen: false)
+            //                       .setIndex(0, context);
+            //                 }
+            //               });
+            //             },
+            //             buttonStyleData: const ButtonStyleData(
+            //               padding: EdgeInsets.symmetric(horizontal: 16),
+            //               height: 40,
+            //               width: 140,
+            //             ),
+            //             menuItemStyleData: const MenuItemStyleData(
+            //               height: 40,
+            //             ),
+            //           ),
+            //         ),
+            //       )
+            //     : Container(),
             // DeliveryManListView(),
             SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
             Flexible(
@@ -298,6 +300,7 @@ class _SearchProductsState extends State<SearchProducts> {
                                           style: robotoMedium.copyWith(),
                                         ),
                                   (order.refundTypeIndex == 0 ||
+                                          order.refundTypeIndex == 3 ||
                                           order.refundTypeIndex == 2)
                                       ? Switch(
                                           trackOutlineWidth:
@@ -335,6 +338,8 @@ class _SearchProductsState extends State<SearchProducts> {
                                                     .published = 0;
                                               });
                                             }
+                                            // order.getOrderDependOnStatus(
+                                            //     context);
                                           },
                                         )
                                       : order.refundTypeIndex == 1

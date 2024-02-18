@@ -28,7 +28,7 @@ class DeliveryManInfo extends StatefulWidget {
 }
 
 class _DeliveryManInfoState extends State<DeliveryManInfo> {
-  String? _countryDialCode = "+880";
+  String? _countryDialCode = "+20";
 
   @override
   void initState() {

@@ -15,8 +15,10 @@ class ProductTypeButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Provider.of<SearchProvider>(context, listen: false)
-          .setIndex(index, context),
+      onTap: () {
+        Provider.of<SearchProvider>(context, listen: false)
+            .setIndex(index, context);
+      },
       child: Consumer<SearchProvider>(
         builder: (context, refund, child) {
           return Container(

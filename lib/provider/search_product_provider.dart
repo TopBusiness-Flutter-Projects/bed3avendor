@@ -143,7 +143,9 @@ class SearchProvider extends ChangeNotifier {
             ? 'available'
             : refundTypeIndex == 1
                 ? 'not_available'
-                : 'offer');
+                : refundTypeIndex == 3
+                    ? 'pending'
+                    : 'offer');
     if (apiResponse.response != null &&
         apiResponse.response!.statusCode == 200) {
       if (status == -1) {
@@ -206,6 +208,8 @@ class SearchProvider extends ChangeNotifier {
     } else {
       ApiChecker.checkApi(context, apiResponse);
     }
+    getOrderDependOnStatus(context);
+
     notifyListeners();
   }
 
@@ -263,7 +267,9 @@ class SearchProvider extends ChangeNotifier {
                 ? 'available'
                 : refundTypeIndex == 1
                     ? 'not_available'
-                    : 'offer')
+                    : refundTypeIndex == 2
+                        ? "pending"
+                        : 'offer')
         .then((value) {
       _mainOrderStatus = List<MainOrderStatus>.from(
         value.response!.data
