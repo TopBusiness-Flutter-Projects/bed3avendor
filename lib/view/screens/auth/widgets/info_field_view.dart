@@ -26,7 +26,7 @@ class InfoFieldVIew extends StatefulWidget {
 }
 
 class _InfoFieldVIewState extends State<InfoFieldVIew> {
-  String? _countryDialCode = "+880";
+  String? _countryDialCode = "+20";
   String currency = '', country = '', selectedTimeZone = '';
   @override
   void initState() {
@@ -45,74 +45,90 @@ class _InfoFieldVIewState extends State<InfoFieldVIew> {
               Container(
                   child: Column(
                 children: [
+                  // Padding(
+                  //   padding: const EdgeInsets.symmetric(
+                  //       vertical: Dimensions.PADDING_SIZE_SMALL),
+                  //   child: Align(
+                  //       alignment: Alignment.center,
+                  //       child: DottedBorder(
+                  //         color: Theme.of(context).hintColor,
+                  //         dashPattern: [10, 5],
+                  //         borderType: BorderType.RRect,
+                  //         radius: const Radius.circular(
+                  //             Dimensions.PADDING_SIZE_SMALL),
+                  //         child: Stack(children: [
+                  //           ClipRRect(
+                  //             borderRadius: BorderRadius.circular(
+                  //                 Dimensions.PADDING_SIZE_SMALL),
+                  //             child: authProvider.sellerProfileImage != null
+                  //                 ? Image.file(
+                  //                     File(authProvider
+                  //                         .sellerProfileImage!.path),
+                  //                     width: 150,
+                  //                     height: 150,
+                  //                     fit: BoxFit.cover,
+                  //                   )
+                  //                 : Container(
+                  //                     height: 150,
+                  //                     width: 150,
+                  //                     child: Image.asset(
+                  //                         Images.camera_placeholder,
+                  //                         scale: 3),
+                  //                   ),
+                  //           ),
+                  //           Positioned(
+                  //             bottom: 0,
+                  //             right: 0,
+                  //             top: 0,
+                  //             left: 0,
+                  //             child: InkWell(
+                  //               onTap: () =>
+                  //                   authProvider.pickImage(true, false, false),
+                  //               child: Container(
+                  //                 decoration: BoxDecoration(
+                  //                   color: Theme.of(context)
+                  //                       .hintColor
+                  //                       .withOpacity(.08),
+                  //                   borderRadius: BorderRadius.circular(
+                  //                       Dimensions.PADDING_SIZE_SMALL),
+                  //                 ),
+                  //               ),
+                  //             ),
+                  //           ),
+                  //         ]),
+                  //       )),
+                  // ),
+                  // Padding(
+                  //   padding: const EdgeInsets.only(
+                  //       top: Dimensions.PADDING_SIZE_MEDIUM,
+                  //       bottom: Dimensions.PADDING_SIZE_EXTRA_LARGE),
+                  //   child: Row(
+                  //     mainAxisAlignment: MainAxisAlignment.center,
+                  //     children: [
+                  //       Text(getTranslated('profile_image', context)!,
+                  //           style: robotoRegular),
+                  //       SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL),
+                  //       Text(
+                  //         '(1:1)',
+                  //         style: robotoRegular.copyWith(
+                  //             color: Theme.of(context).colorScheme.error),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
+
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: Dimensions.PADDING_SIZE_SMALL),
-                    child: Align(
-                        alignment: Alignment.center,
-                        child: DottedBorder(
-                          color: Theme.of(context).hintColor,
-                          dashPattern: [10, 5],
-                          borderType: BorderType.RRect,
-                          radius: const Radius.circular(
-                              Dimensions.PADDING_SIZE_SMALL),
-                          child: Stack(children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(
-                                  Dimensions.PADDING_SIZE_SMALL),
-                              child: authProvider.sellerProfileImage != null
-                                  ? Image.file(
-                                      File(authProvider
-                                          .sellerProfileImage!.path),
-                                      width: 150,
-                                      height: 150,
-                                      fit: BoxFit.cover,
-                                    )
-                                  : Container(
-                                      height: 150,
-                                      width: 150,
-                                      child: Image.asset(
-                                          Images.camera_placeholder,
-                                          scale: 3),
-                                    ),
-                            ),
-                            Positioned(
-                              bottom: 0,
-                              right: 0,
-                              top: 0,
-                              left: 0,
-                              child: InkWell(
-                                onTap: () =>
-                                    authProvider.pickImage(true, false, false),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Theme.of(context)
-                                        .hintColor
-                                        .withOpacity(.08),
-                                    borderRadius: BorderRadius.circular(
-                                        Dimensions.PADDING_SIZE_SMALL),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ]),
-                        )),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        top: Dimensions.PADDING_SIZE_MEDIUM,
-                        bottom: Dimensions.PADDING_SIZE_EXTRA_LARGE),
+                    padding: const EdgeInsets.all(
+                        Dimensions.PADDING_SIZE_EXTRA_LARGE),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text(getTranslated('profile_image', context)!,
-                            style: robotoRegular),
-                        SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                        Text(
-                          '(1:1)',
-                          style: robotoRegular.copyWith(
-                              color: Theme.of(context).errorColor),
-                        ),
+                        Text('قم بإنشاء حسابك الان',
+                            style: TextStyle(
+                              color: Colors.blue,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            )),
                       ],
                     ),
                   ),
@@ -182,7 +198,7 @@ class _InfoFieldVIewState extends State<InfoFieldVIew> {
                       ),
                       Expanded(
                           child: CustomTextField(
-                        hintText: getTranslated('ENTER_MOBILE_NUMBER', context),
+                        hintText: 'رقم الهاتف',
                         controller: authProvider.phoneController,
                         focusNode: authProvider.phoneNode,
                         nextNode: authProvider.passwordNode,
@@ -340,90 +356,90 @@ class _InfoFieldVIewState extends State<InfoFieldVIew> {
                       ),
                     ),
                     SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: Dimensions.PADDING_SIZE_LARGE,
-                          right: Dimensions.PADDING_SIZE_LARGE,
-                          bottom: Dimensions.PADDING_SIZE_DEFAULT),
-                      child: Row(
-                        children: [
-                          Text(
-                              '${getTranslated('business_or_shop_banner', context)}',
-                              style: robotoRegular.copyWith(
-                                  fontSize: Dimensions.FONT_SIZE_DEFAULT)),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                    Align(
-                        alignment: Alignment.center,
-                        child: DottedBorder(
-                          dashPattern: [10, 5],
-                          color: Theme.of(context).hintColor,
-                          borderType: BorderType.RRect,
-                          radius: const Radius.circular(
-                              Dimensions.PADDING_SIZE_SMALL),
-                          child: Stack(children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(
-                                  Dimensions.PADDING_SIZE_SMALL),
-                              child: authProvider.shopBanner != null
-                                  ? Image.file(
-                                      File(authProvider.shopBanner!.path),
-                                      width: MediaQuery.of(context).size.width -
-                                          40,
-                                      height: 120,
-                                      fit: BoxFit.cover,
-                                    )
-                                  : Container(
-                                      height: 120,
-                                      width: MediaQuery.of(context).size.width -
-                                          40,
-                                      child: Image.asset(
-                                        Images.camera_placeholder,
-                                        scale: 3,
-                                      ),
-                                    ),
-                            ),
-                            Positioned(
-                              bottom: 0,
-                              right: 0,
-                              top: 0,
-                              left: 0,
-                              child: InkWell(
-                                onTap: () =>
-                                    authProvider.pickImage(false, false, false),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Theme.of(context)
-                                        .hintColor
-                                        .withOpacity(0.08),
-                                    borderRadius: BorderRadius.circular(
-                                        Dimensions.PADDING_SIZE_SMALL),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ]),
-                        )),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          top: Dimensions.PADDING_SIZE_SMALL,
-                          bottom: Dimensions.PADDING_SIZE_DEFAULT),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(getTranslated('image_size', context) ?? '',
-                              style: robotoRegular),
-                          SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                          Text(
-                            '(4:1)',
-                            style: robotoRegular.copyWith(
-                                color: Theme.of(context).errorColor),
-                          ),
-                        ],
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: EdgeInsets.only(
+                    //       left: Dimensions.PADDING_SIZE_LARGE,
+                    //       right: Dimensions.PADDING_SIZE_LARGE,
+                    //       bottom: Dimensions.PADDING_SIZE_DEFAULT),
+                    //   child: Row(
+                    //     children: [
+                    //       Text(
+                    //           '${getTranslated('business_or_shop_banner', context)}',
+                    //           style: robotoRegular.copyWith(
+                    //               fontSize: Dimensions.FONT_SIZE_DEFAULT)),
+                    //     ],
+                    //   ),
+                    // ),
+                    // SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
+                    // Align(
+                    //     alignment: Alignment.center,
+                    //     child: DottedBorder(
+                    //       dashPattern: [10, 5],
+                    //       color: Theme.of(context).hintColor,
+                    //       borderType: BorderType.RRect,
+                    //       radius: const Radius.circular(
+                    //           Dimensions.PADDING_SIZE_SMALL),
+                    //       child: Stack(children: [
+                    //         ClipRRect(
+                    //           borderRadius: BorderRadius.circular(
+                    //               Dimensions.PADDING_SIZE_SMALL),
+                    //           child: authProvider.shopBanner != null
+                    //               ? Image.file(
+                    //                   File(authProvider.shopBanner!.path),
+                    //                   width: MediaQuery.of(context).size.width -
+                    //                       40,
+                    //                   height: 120,
+                    //                   fit: BoxFit.cover,
+                    //                 )
+                    //               : Container(
+                    //                   height: 120,
+                    //                   width: MediaQuery.of(context).size.width -
+                    //                       40,
+                    //                   child: Image.asset(
+                    //                     Images.camera_placeholder,
+                    //                     scale: 3,
+                    //                   ),
+                    //                 ),
+                    //         ),
+                    //         Positioned(
+                    //           bottom: 0,
+                    //           right: 0,
+                    //           top: 0,
+                    //           left: 0,
+                    //           child: InkWell(
+                    //             onTap: () =>
+                    //                 authProvider.pickImage(false, false, false),
+                    //             child: Container(
+                    //               decoration: BoxDecoration(
+                    //                 color: Theme.of(context)
+                    //                     .hintColor
+                    //                     .withOpacity(0.08),
+                    //                 borderRadius: BorderRadius.circular(
+                    //                     Dimensions.PADDING_SIZE_SMALL),
+                    //               ),
+                    //             ),
+                    //           ),
+                    //         ),
+                    //       ]),
+                    //     )),
+                    // Padding(
+                    //   padding: const EdgeInsets.only(
+                    //       top: Dimensions.PADDING_SIZE_SMALL,
+                    //       bottom: Dimensions.PADDING_SIZE_DEFAULT),
+                    //   child: Row(
+                    //     mainAxisAlignment: MainAxisAlignment.center,
+                    //     children: [
+                    //       Text(getTranslated('image_size', context) ?? '',
+                    //           style: robotoRegular),
+                    //       SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL),
+                    //       Text(
+                    //         '(4:1)',
+                    //         style: robotoRegular.copyWith(
+                    //             color: Theme.of(context).errorColor),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
                     Container(
                       margin:
                           EdgeInsets.only(right: Dimensions.PADDING_SIZE_SMALL),

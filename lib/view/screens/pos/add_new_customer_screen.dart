@@ -37,7 +37,7 @@ class _AddNewCustomerScreenState extends State<AddNewCustomerScreen> {
   FocusNode _cityNode = FocusNode();
   FocusNode _zipCodeNode = FocusNode();
   FocusNode _addressNode = FocusNode();
-  String? _countryDialCode = "+880";
+  String? _countryDialCode = "+20";
   @override
   void initState() {
     // TODO: implement initState
@@ -118,7 +118,7 @@ class _AddNewCustomerScreenState extends State<AddNewCustomerScreen> {
                   ),
                   Expanded(
                       child: CustomTextField(
-                    hintText: getTranslated('ENTER_MOBILE_NUMBER', context),
+                    hintText: 'رقم الهاتف',
                     controller: _phone,
                     focusNode: _phoneNode,
                     nextNode: _countryNode,
