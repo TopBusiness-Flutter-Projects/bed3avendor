@@ -1,4 +1,4 @@
-package com.topbusiness.bed3avendor
+package com.topbusiness.bedaa
 
 import io.flutter.embedding.android.FlutterActivity
 

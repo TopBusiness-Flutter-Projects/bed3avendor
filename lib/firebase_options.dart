@@ -50,20 +50,19 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBQWxp5tu1ddq-TMJwuVCe-PYRayJecbvI',
-    appId: '1:625094720482:android:0f45ba56cca56f62fcd7bb',
-    messagingSenderId: '625094720482',
-    projectId: 'bed3a-b919a',
-    storageBucket: 'bed3a-b919a.appspot.com',
+    apiKey: 'AIzaSyBVUyLYT-ADg_BLCiLGxcU2VBxHRNOzul4',
+    appId: '1:758589996529:android:b03f25c6ef93299b4f9850',
+    messagingSenderId: '758589996529',
+    projectId: 'beda3a-ed62f',
+    storageBucket: 'beda3a-ed62f.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBrD9YcGdCimMJmYHyQdovLTdt6F9RS3oo',
-    appId: '1:625094720482:ios:e4de541f2c0c5b44fcd7bb',
-    messagingSenderId: '625094720482',
-    projectId: 'bed3a-b919a',
-    storageBucket: 'bed3a-b919a.appspot.com',
-    iosClientId: '625094720482-o2lbnvsuqdkf5ma1kh7ntv55ju2idr0i.apps.googleusercontent.com',
-    iosBundleId: 'com.topbusiness.bed3avendor',
+    apiKey: 'AIzaSyC7B56McshT_KSB5uLJSPZkVW8Z5CA7Q9I',
+    appId: '1:758589996529:ios:380f495b923466334f9850',
+    messagingSenderId: '758589996529',
+    projectId: 'beda3a-ed62f',
+    storageBucket: 'beda3a-ed62f.appspot.com',
+    iosBundleId: 'com.topbusiness.bedaa',
   );
 }
